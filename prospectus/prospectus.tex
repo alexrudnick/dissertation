@@ -3,7 +3,7 @@
 \usepackage{latexsym}
 \usepackage{url}
 
-\title{what have we got to prove?}
+\title{research prospectus: cross-language WSD for hybrid machine translation}
 \author{Alex Rudnick \\
 	    Indiana University, School of Informatics and Computing \\
 	    {\tt alexr@indiana.edu}}
@@ -21,6 +21,59 @@ Now we can do the next-best thing: cross-language word-sense disambiguation.
 RTFM: \cite{big} \cite{small}
 
 Also \url{http://hackmode.org/wiki/WhatHaveWeGotToProve}
+
+what is the research I want to do in the near future?
+
+Many words translate ambiguously across languages, and the correct translation
+of a given word in the input language typically depends on the context, both
+sentence-wide context, document-wide context, and perhaps eventually, on rich
+world knowledge.
+
+Lexical selection is the task of selecting the correct words for the 
+
+statistical translation systems often do not use WSD techniques to address the
+lexical selection process explicitly, instead making use of language models
+trained on the target-language to constrain word choices to ...
+
+
+\section{Using multiple sources of information for cross-language word-sense
+disambiguation}
+well, we've shown that we can do CL-WSD with graphical models in some sense,
+making use of information from multiple parallel corpora...
+
+We have more ideas for improving that approach, though...
+
+
+\section{Modeling lexical selection as a sequence tagging problem}
+what we want to show with the HMM stuff is that we can do lexical selection
+with a very simple model; this will probably not be as good as the richer model
+described in the previous section
+
+- but it's really cheap to bring up an all-words system with just HMMs.
+
+- in the future we can expand on the sequence-tagging approach by using CRFs or
+  maybe MEMMs (we'll try both, and if there are some other good sequence
+  tagging approaches we haven't considered, we'll try those toooo!)
+
+\section{Lexical decisions constrain syntactic decisions in L3}
+In L3, we are not only 
+
+\section{Making use of increasingly large training sets}
+
+We want to apply these techniques to the concrete problem of translating from
+Spanish to Guarani, an indigenous language of South America. Guarani is
+disadvantaged in a socio-economic sense, but is broadly spoken in Paraguay. The
+majority of Paraguayans are bilingual with Spanish and Guarani, often using a
+combination of the two called Jopar{\'a}.
+
+The goal for hybrid rule-based and statistical translation systems, such as L3,
+is to make use of the available linguistic knowledge about the source and
+target language, in the form of translation rules, but also to make use of any
+available training text, either monolingual or bilingual, improving with the
+increased corpora size.
+
+Thus we are developing a TAHEKAMI, a platform for helping language teachers and
+activists translate text into their preferred language...
 
 \section*{Acknowledgments}
 
