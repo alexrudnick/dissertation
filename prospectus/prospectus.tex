@@ -1,7 +1,9 @@
 \documentclass{article}
-\usepackage{fullpage}
+%% \usepackage{fullpage}
 \usepackage{latexsym}
+\usepackage{naaclhlt2013}
 \usepackage{url}
+% \pagenumbering{gobble}
 
 \title{Cross-lingual Word Sense Disambiguation for Low-Resource Hybrid Machine
 Translation}
@@ -14,12 +16,12 @@ Translation}
 \maketitle
 
 \section{Overview}
-Here I describe my work, both underway and planned, on cross-lingual word sense
-disambiguation and its practical application to a hybrid rule-based/statistical
-machine translation system for the Spanish-Guarani language pair, the
-co-official languages of Paraguay.  So far, we have been using evidence from
-multilingual sources and sequence-labeling approaches to address lexical
-ambiguity in translation. In future work, I plan to collect more useful
+Here I describe work, both underway and planned, on cross-lingual word sense
+disambiguation (CL-WSD) and its practical application to a hybrid
+rule-based/statistical machine translation system for the Spanish-Guarani
+language pair, the co-official languages of Paraguay. So far, we have used
+evidence from multilingual sources and sequence-labeling approaches to address
+lexical ambiguity in translation. In future work, I plan to collect more useful
 bilingual data for our chosen language pair through crowdsourcing, and to
 integrate the disambiguation system into our rule-based translation engine,
 producing a hybrid rule-based/statistical translation system.
@@ -34,44 +36,39 @@ natural-sounding output text.
 
 Writing lexical selection rules by hand is tedious and error-prone; even if
 informants familiar with both languages are available, they may not be able to
-enumerate the contexts under which they would choose one translation
-alternative over another. Thus we would like to learn from corpora when
-possible. However, for most language pairs, large sentence-aligned bitext
-corpora are not easily available, so part of the work of creating and deploying
-a practical machine translation system will involve collecting more training
-data.
+enumerate the contexts under which they would choose one alternative over
+another. Thus we would like to learn from corpora when possible. However, for
+most language pairs, large sentence-aligned bitext corpora are not available,
+so part of the work of creating and deploying a practical machine translation
+system trained on corpus data will involve collecting a larger corpus.
 
 We want to show that cross-lingual word sense disambiguation techniques are a
 feasible and practical means for lexical selection in a low-resource machine
-translation setting, and demonstrate this in practice by translating into
-Guarani. The major
-contributions of this work will be:
-\begin{itemize}
-\item new approaches for lexical selection
-\item website where language learners and activists can help build large
-bilingual corpora
-\item a suite of reusable open-source software
-\item to our knowledge, the first deployed MT system for the Spanish-Guarani
-language pair.
-\begin{itemize}
+translation setting, and to demonstrate this in practice by translating from
+Spanish to Guarani. The major contributions of this work will be: (a) new
+approaches for CL-WSD and its integration into an RBMT system; (b) a website
+where language learners and activists can help build large bilingual corpora;
+(c) a suite of reusable open-source software; and (d) to our knowledge, the
+first deployed MT system for the Spanish-Guarani language pair.
 
-\section{Using multiple sources of information for cross-language word-sense
-disambiguation}
+\section{Using multilingual evidence}
+We have been investigating how to use multiple bitext corpora for a CL-WSD
+task, allowing us to leverage bitext corpora for language pairs other than the
+one for which we are currently doing translation.
 
-In part of our work, we have 
+This was largely informed by the work of Lefever and Hoste
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}, although their approach requires
+an entire machine translation system to perform CL-WSD -- whereas we consider
+CL-WSD to be a subproblem of MT. Thus we would like to perform CL-WSD without
+depending on a complete machine translation system.
 
-Following the work of Lefever and Hoste
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, we wanted to make use of multiple
-bitext corpora for the CL-WSD task
+Earlier this year, we developed three CL-WSD systems for a SemEval shared task
+\cite{rudnick-liu-gasser:2013:SemEval-2013}, showing how to do exactly this,
+using classifier stacking and graphical models. This work, as per the shared
+task \cite{task10}, did translation from English to other European languages,
+and we have yet to adapt it translating into Guarani.
 
-
-well, we've shown that we can do CL-WSD with graphical models in some sense,
-making use of information from multiple parallel corpora...
-
-We have more ideas for improving that approach, though...
-\cite{rudnick-liu-gasser:2013:SemEval-2013}
-
-\section{Modeling lexical selection as a sequence tagging problem}
+\section{Lexical selection as a sequence labeling problem}
 In \cite{rudnick-gasser:2013:HyTra-2013} ...
 
 We have recently started investigating the use of sequence-labeling models for
@@ -87,12 +84,13 @@ especially as we vary the amounts of available training data and the feature
 sets available to the classifiers. More sophisticated sequence models, such as
 Conditional Random Fields, may be useful in this task as well.
 
-\section{Integrating CL-WSD in Rule-Based Machine Translation Systems}
-In L3, we are not only 
+\section{Integrating CL-WSD in Rule-Based Machine Translation}
+We are currently working with L3, a rule-based machine translation system based
+on constraint solving and synchronous dependency grammars, developed by Michael
+Gasser \cite{gasser:sxdg} \cite{gasser:aflat2012}.
 
-\cite{gasser:sxdg}
-
-\cite{gasser:aflat2012}
+However, it currently needs a good way to make decisions about the best way to
+translate 
 
 \section{Acquiring and using larger bitext corpora}
 We want to apply these techniques to the concrete problem of translating from
@@ -128,7 +126,7 @@ activists translate text into their preferred language...
 %% received enough attention to warrant shared tasks at recent SemEval workshops;
 %% the most recent running of the task is described in \cite{task10}.
 
-\bibliographystyle{plain}
+\bibliographystyle{naaclhlt2013.bst}
 \bibliography{prospectus.bib}{}
 
 \end{document}
