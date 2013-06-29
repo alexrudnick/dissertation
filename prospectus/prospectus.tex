@@ -3,7 +3,7 @@
 \usepackage{latexsym}
 \usepackage{naaclhlt2013}
 \usepackage{url}
-% \pagenumbering{gobble}
+%% \pagenumbering{gobble}
 
 \title{Cross-lingual Word Sense Disambiguation for Low-Resource Hybrid Machine
 Translation}
@@ -19,12 +19,13 @@ Translation}
 Here I describe work, both underway and planned, on cross-lingual word sense
 disambiguation (CL-WSD) and its practical application to a hybrid
 rule-based/statistical machine translation system for the Spanish-Guarani
-language pair, the co-official languages of Paraguay. So far, we have used
-evidence from multilingual sources and sequence-labeling approaches to address
-lexical ambiguity in translation. In future work, I plan to collect more useful
-bilingual data for our chosen language pair through crowdsourcing, and to
-integrate the disambiguation system into our rule-based translation engine,
-producing a hybrid rule-based/statistical translation system.
+language pair, the co-official languages of Paraguay.  So far, we have
+developed some novel approaches to CL-WSD, using evidence from multilingual
+sources and applying sequence labeling techniques to the problem.  In future
+work, I plan to collect more useful bilingual data for our chosen language pair
+through crowdsourcing, and to integrate the disambiguation system into our
+rule-based translation engine, producing a hybrid rule-based/statistical
+translation system, largely for use by Guarani language activists in Paraguay.
 
 Lexical ambiguity presents a serious challenge for rule-based machine
 translation (RBMT) systems, since many words have several possible translations
@@ -52,45 +53,58 @@ where language learners and activists can help build large bilingual corpora;
 first deployed MT system for the Spanish-Guarani language pair.
 
 \section{Using multilingual evidence}
-We have been investigating how to use multiple bitext corpora for a CL-WSD
-task, allowing us to leverage bitext corpora for language pairs other than the
-one for which we are currently doing translation.
+Work is underway on how to use multiple bitext corpora for a CL-WSD task,
+allowing us to leverage bitext corpora for language pairs other than the one
+for which we are currently doing translation.
 
 This was largely informed by the work of Lefever and Hoste
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, although their approach requires
-an entire machine translation system to perform CL-WSD -- whereas we consider
+an entire machine translation system to perform CL-WSD, whereas we consider
 CL-WSD to be a subproblem of MT. Thus we would like to perform CL-WSD without
 depending on a complete machine translation system.
 
 Earlier this year, we developed three CL-WSD systems for a SemEval shared task
-\cite{rudnick-liu-gasser:2013:SemEval-2013}, showing how to do exactly this,
-using classifier stacking and graphical models. This work, as per the shared
-task \cite{task10}, did translation from English to other European languages,
-and we have yet to adapt it translating into Guarani.
+\cite{rudnick-liu-gasser:2013:SemEval-2013}, using classifier stacking and
+graphical models. In this work, as per the shared task \cite{task10}, we
+translate from English to other European languages; it remains to be adapted to
+translating into Guarani.
 
 \section{Lexical selection as a sequence labeling problem}
-In \cite{rudnick-gasser:2013:HyTra-2013} ...
-
-We have recently started investigating the use of sequence-labeling models for
-lexical selection. The intuition here is that machine translation implies an
+We have also started investigating the use of sequence-labeling models for
+lexical selection, and will describe our initial experiments at the HyTra
+workshop in August \cite{rudnick-gasser:2013:HyTra-2013}. The intuition behind
+the sequence-labeling approach is that machine translation implies an
 ``all-words" WSD task, in that we need to choose a translation for every word
 or phrase in the source sentence, and that the sequence of translations should
 make sense when taken together.
 
 So far, we have used a combination of Hidden Markov Models and Maximum Entropy
-Markov Models to do lexical selection in a both English-Spanish and
-Spanish-Guarani translation tasks. This will need to be investigated further,
-especially as we vary the amounts of available training data and the feature
-sets available to the classifiers. More sophisticated sequence models, such as
-Conditional Random Fields, may be useful in this task as well.
+Markov Models for CL-WSD in both English-Spanish and Spanish-Guarani
+translation tasks. This will need to be investigated further, especially as we
+vary the amounts of available training data and the feature sets available to
+the classifiers. More sophisticated sequence models, such as Conditional Random
+Fields, may be useful in this task as well.
 
-\section{Integrating CL-WSD in Rule-Based Machine Translation}
+\section{CL-WSD for Hybrid Machine Translation}
 We are currently working with L3, a rule-based machine translation system based
-on constraint solving and synchronous dependency grammars, developed by Michael
-Gasser \cite{gasser:sxdg} \cite{gasser:aflat2012}.
+on synchronous dependency grammars and constraint solving, developed by Michael
+Gasser and described in  \cite{gasser:sxdg} and \cite{gasser:aflat2012}. L3
+makes use of linguistic knowledge about the source and target languages, and
+can also include abstract semantic representations as an intermediate stage in
+translation. It also has integrated morphological analysis and generation, for
+use in translating morphologically rich languages, such as Guarani.
 
-However, it currently needs a good way to make decisions about the best way to
-translate 
+However, L3 is currently entirely rule-based, and it needs a better way to
+select among the possible translations of an input sentence. It faces
+syntactic and lexical ambiguity both in its analysis of the input sentence and
+in deciding how to construct an output sentence. As such, it needs an
+appropriate way to hone in on the most promising translations first; a good
+lexical selection module would help constrain its other choices, guiding it
+towards sensible translations faster.
+
+We plan to integrate our CL-WSD systems into L3 and possibly into other
+rule-based MT systems, as a lexical selection module, allowing them to leverage
+any available bitext corpora to produce better translations.
 
 \section{Acquiring and using larger bitext corpora}
 We want to apply these techniques to the concrete problem of translating from
@@ -107,6 +121,8 @@ increased corpora size.
 
 Thus we are developing a TAHEKAMI, a platform for helping language teachers and
 activists translate text into their preferred language...
+
+\section{Conclusions}
 
 %% Framing the resolution of lexical ambiguities in machine translation as an
 %% explicit classification task has a long history; practical work in integrating
@@ -127,6 +143,7 @@ activists translate text into their preferred language...
 %% the most recent running of the task is described in \cite{task10}.
 
 \bibliographystyle{naaclhlt2013.bst}
+%% \bibliographystyle{plain}
 \bibliography{prospectus.bib}{}
 
 \end{document}
