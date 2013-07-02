@@ -16,12 +16,6 @@ Translation}
 \begin{document}
 \maketitle
 
-%% notes from Mike
-%% First, a dissertation is usually thought of as answering a series of
-%% research questions, and these would normally appear at the beginning of the
-%% prospectus (and at the beginning of the proposal). So try to frame the
-%% problem that way.
-
 %% Second, the prospectus is about the PhD dissertation as a body of work, so I
 %% wouldn't distinguish between what you've done and future work, instead just
 %% describe it in the present (for example, "this dissertation seeks to 
@@ -33,43 +27,57 @@ Translation}
 %% practical outcomes:..."
 
 \section{Overview}
-In this dissertation, I will investigate methods for cross-lingual word sense
-disambiguation (CL-WSD) and its practical application to hybrid
-rule-based/statistical machine translation for an under-resourced language.
-Particularly, I will focus on Spanish and Guarani, the co-official languages of
-Paraguay, as a language pair. 
-I will describe novel approaches to CL-WSD, including using evidence from
-multilingual sources and sequence labeling techniques. I will also investigate
-the collection of larger bilingual corpus crowdsourcing and the integration of
-the disambiguation techniques into a rule-based translation engine, producing a
-hybrid rule-based/statistical translation system.
+
+%% notes from Mike
+%% First, a dissertation is usually thought of as answering a series of
+%% research questions, and these would normally appear at the beginning of the
+%% prospectus (and at the beginning of the proposal). So try to frame the
+%% problem that way.
+
+%% just to think about it: what are the questions we're answering?
+%% - How can we bring up a hybrid MT system for relatively low resource MT?
+%% - How can we use CL-WSD techniques to build effective hybrid MT?
+%% - How can we collect bigger corpora?
+In this dissertation, we will investigate how one can build a hybrid machine
+translation (HMT) system for a language with relatively modest resources.
+Particularly, we will look into techniques for cross-lingual word sense
+disambiguation (CL-WSD) and their application to lexical selection in MT.
+Finally, we will develop approaches for collecting larger corpora for
+disadvantaged languages through crowdsourcing.
 
 Lexical ambiguity presents a serious challenge for rule-based machine
-translation (RBMT) systems, since many words have several possible translations
-in the target language. Moreover, many translations of a given word may
-be syntactically valid in context, and the alternatives may have significantly
+translation (RBMT) systems, since many words have multiple possible
+translations in the target language. Moreover, several translations of a given
+word may be syntactically valid in context, and still have significantly
 different meanings. Even when choosing among near-synonyms, we would like to
 respect the selectional preferences of the target language so as to produce
 natural-sounding output text.
 
-Writing lexical selection rules by hand is tedious and error-prone; even if
-informants familiar with both languages are available, they may not be able to
+Writing lexical selection rules by hand is tedious and error-prone; bilingual
+informants, if available, may not be able to
 enumerate the contexts under which they would choose one alternative over
 another. Thus we would like to learn from corpora when possible. However, for
-most language pairs, large sentence-aligned bitext corpora are not available,
-so creating and deploying a translation system based on machine learning 
-techniques will require collecting a larger corpus.
+most language pairs, suitably large sentence-aligned bitext corpora are not
+available, so creating and deploying a translation system based on machine
+learning techniques will require collecting a larger corpus.
 
-I want to show that cross-lingual word sense disambiguation techniques are a
-feasible and practical means for lexical selection in a low-resource machine
-translation setting, and to demonstrate this in practice by translating from
-Spanish to Guarani. The major contributions of this work will be: new
-approaches for CL-WSD and its integration into an RBMT system, and to our
-knowledge, the first deployed MT system for the Spanish-Guarani language pair.
-In addition, on a practical level, during this work we will develop a suite of
-reusable open-source software, a website where language learners and activists
-can help build large bilingual corpora, and a freely available corpus of
-Spanish-Guarani bitext.
+In this work I will focus on Spanish and Guarani, the co-official languages of
+Paraguay.
+I will describe novel approaches to CL-WSD, including using evidence from
+multilingual sources and sequence labeling techniques. I will also investigate
+the collection of a larger bilingual corpus through crowdsourcing and the
+integration of the disambiguation techniques into a rule-based translation
+engine, producing a hybrid rule-based/statistical translation system.
+
+Here we want to show that cross-lingual word sense disambiguation is a feasible
+and practical means for lexical selection in a low-resource machine translation
+setting, and to demonstrate this in practice by translating from Spanish to
+Guarani. The major contributions of this work will be new approaches for CL-WSD
+and its integration into an RBMT system and, to our knowledge, the first
+deployed MT system for the Spanish-Guarani language pair.  Additionally, on a
+practical level, in this work we will develop a suite of reusable open-source
+software, a website where language learners and activists can help build large
+bilingual corpora, and a freely available corpus of Spanish-Guarani bitext.
 
 \section{Using multilingual evidence}
 One of the techniques for CL-WSD that we will investigate is the use of
