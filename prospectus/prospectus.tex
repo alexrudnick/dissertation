@@ -44,7 +44,7 @@ I propose that cross-lingual word sense disambiguation (CL-WSD) is a
 feasible and practical means for lexical selection in this setting, and work to
 demonstrate this in practice by using it to construct a HMT system for
 translating between Spanish and Guarani, the co-official languages of Paraguay.
-Along the way, I will develop new CL-WSD techniques, including the use of
+Along the way, I will develop new CL-WSD approaches, including the use of
 multilingual evidence instead of a single bitext corpus and sequence-labeling
 techniques, and also crowdsourcing approaches for collecting larger corpora for
 disadvantaged languages.
@@ -52,7 +52,7 @@ disadvantaged languages.
 Lexical ambiguity presents a serious challenge for rule-based machine
 translation (RBMT) systems, since many words have multiple possible
 translations in the target language. Moreover, several translations of a given
-word may be syntactically valid in context, and still have significantly
+word may all be syntactically valid in context, but have significantly
 different meanings. Even when choosing among near-synonyms, we would like to
 respect the selectional preferences of the target language so as to produce
 natural-sounding output text.
@@ -92,12 +92,12 @@ CL-WSD to be a subproblem of MT. Thus we would like to perform CL-WSD without
 depending on too much additional software infrastructure.
 
 We will develop this technique in a number of variations, including the use of
-classifier stacking and graphical models that frame the CL-WSD problem as one
-of jointly selecting translations into several languages.  Earlier this year,
+classifier stacking and graphical models that frame CL-WSD as the problem
+of jointly selecting translations into several languages. Earlier this year,
 we developed initial versions of this kind of CL-WSD system
-\cite{rudnick-liu-gasser:2013:SemEval-2013} to produce some of the best results
-in a SemEval shared task on CL-WSD \cite{task10}, in which we translated
-polysemous nouns from English into other European languages.
+\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the best
+results in a SemEval shared task on CL-WSD \cite{task10},
+translating polysemous nouns from English into other European languages.
 
 \section{Lexical selection as a sequence labeling problem}
 We will also investigate the use of sequence-labeling models for
@@ -106,9 +106,9 @@ machine translation implies an ``all-words" WSD task, in that we need to choose
 a translation for every word or phrase in the source sentence, and that the
 sequence of translations chosen should make sense when taken together.
 
-Promising candidates for formalisms in this line of work include Maximum
-Entropy Markov Models (MEMMs), which can be combined in a straightforward way
-with the simpler Hidden Markov Models (HMMs). This combination allows for
+One promising formalism for this line of work is the Maximum
+Entropy Markov Model (MEMM), which can be combined in a straightforward way
+with the simpler Hidden Markov Model (HMM). This combination allows for
 efficient inference and the ability to trade more computational resources for
 richer modeling. More sophisticated sequence models, such as Conditional Random
 Fields, may be useful in this task as well.
@@ -118,14 +118,14 @@ both English-Spanish and Spanish-Guarani translation tasks at the HyTra
 workshop in August \cite{rudnick-gasser:2013:HyTra-2013}.
 
 \section{CL-WSD for Hybrid Machine Translation}
-%TODO future tense
-We will integrate our CL-WSD systems with L3 and possibly into other
-rule-based MT systems, allowing them to leverage any available bitext corpora
-to produce better translations as larger training corpora become available.
-L3 is an RBMT system based on synchronous dependency grammars and constraint
-solving, developed by Michael Gasser \shortcite{gasser:sxdg,gasser:aflat2012}.
-It depends on linguistic knowledge about the source and target languages and
-can include abstract semantic representations as an intermediate stage in
+We will integrate our CL-WSD systems with RBMT systems, allowing them
+to be trained on any available bitext and produce better translations as larger
+corpora become available.
+We will initially work with L3, an RBMT system based on synchronous dependency
+grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012},
+although for comparison we will investigate other RBMT systems as well. L3
+depends on linguistic knowledge about the source and target languages and can
+include abstract semantic representations as an intermediate stage in
 processing. It also has integrated morphological analysis and generation for
 use in translating morphologically rich languages, such as Guarani.
 
@@ -148,7 +148,7 @@ collaboratively produce translations between Spanish and Guarani, and a
 repository of Guarani and bilingual documents, so that good educational
 materials are available for readers. This will also generate an
 increasingly large bitext corpus for use in training translation systems. The
-initial designs of this site were done as an HCI masters project by Alberto
+initial designs for the site were done as a master's project in HCI by Alberto
 Samaniego, who will soon return to his native Paraguay.
 
 We have made contact with a number of collaborators in Paraguay, including
