@@ -47,9 +47,9 @@ Translation}
 In this dissertation, I will investigate how one can build a hybrid machine
 translation (HMT) system for a language pair with relatively modest resources.
 I propose that cross-lingual word sense disambiguation (CL-WSD) is a
-feasible and practical means for lexical selection in this setting, and work to
-demonstrate this in practice by using it to construct a HMT system for
-translating between Spanish and Guarani, the co-official languages of Paraguay.
+feasible and practical means for lexical selection in this setting, and will work to
+demonstrate this by using it to construct a HMT system for
+Spanish and Guarani, the co-official languages of Paraguay.
 Along the way, I will develop new CL-WSD approaches, including the use of
 multilingual evidence and sequence-labeling techniques, and also crowdsourcing
 approaches for collecting larger corpora for disadvantaged languages.
@@ -127,20 +127,18 @@ We will integrate our CL-WSD systems with RBMT systems, allowing them
 to be trained on any available bitext and produce better translations as larger
 corpora become available.
 We will initially work with L3, an RBMT system based on synchronous dependency
-grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012},
-although for comparison we will investigate other RBMT systems as well. L3
+grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012};
+for comparison we will investigate other RBMT systems as well. L3
 depends on linguistic knowledge about the source and target languages and can
 include abstract semantic representations as an intermediate stage in
-processing. It also has integrated morphological analysis and generation for
+processing. It also integrates morphological analysis and generation for
 use in translating morphologically rich languages, such as Guarani.
 
 However, L3 is currently entirely rule-based and it needs a better way to rank
 the possible translations of an input sentence. It faces syntactic and lexical
 ambiguity both in its analysis of the input sentence and in the construction of
-an output sentence. As such, it needs an appropriate way to hone in on the most
-promising translations first; a good lexical selection module would help
-constrain its other choices, guiding it towards high-quality translations
-faster.
+an output sentence.  A good lexical selection module would constrain its other
+choices, yielding higher-quality translations first.
 
 \section{Acquiring and using larger bitext corpora}
 Guarani is unique among indigenous American languages in that a substantial
@@ -148,13 +146,14 @@ number of non-indigenous people speak it. It is spoken by the majority of
 Paraguayans, who are likely to be bilingual with Spanish. In practice, many
 Paraguayans use a combination of Guarani and Spanish called \emph{Jopar{\'a}}.
 
-We plan to build a website where language activists, educators and learners can
-collaboratively produce translations between Spanish and Guarani, and a
-repository of Guarani and bilingual documents, so that good educational
-materials are available for readers. This will also generate an
-increasingly large bitext corpus for use in training translation systems. The
-initial designs for the site were done as a master's project in HCI by Alberto
-Samaniego, who will soon return to his native Paraguay.
+To gather a larger Spanish-Guarani bitext corpus, we plan to build a website
+where Guarani speakers and learners can collaboratively produce translations
+and an online repository of Guarani and bilingual documents.  Here we will need
+to develop approaches for determining which examples from the crowdsourced data
+are the most reliable and the most useful for training; this may correlate
+with quality judgements from the human volunteers, although it is an open
+question. Initial designs for the site were done as a master's project in HCI
+by Alberto Samaniego, who will soon return to his native Paraguay.
 
 We have made contact with a number of collaborators in Paraguay, including
 language activists and educators from the \emph{Ateneo de la Lengua y Cultura
