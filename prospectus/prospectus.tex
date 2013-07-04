@@ -16,34 +16,20 @@ Translation}
 \begin{document}
 \maketitle
 
-%% Second, the prospectus is about the PhD dissertation as a body of work, so I
-%% wouldn't distinguish between what you've done and future work, instead just
-%% describe it in the present (for example, "this dissertation seeks to 
-%% demonstrate that...") or the future ("this research will integrate...").
-
-%% Third, "contribution" is normally thought of as research contribution, so I
-%% wouldn't include the website or the software in "contributions". I'd add
-%% something like "in addition, the research is expected to have several
-%% practical outcomes:..."
-
-%% Sandra says:
-%% About the website/ data collection: I would not pitch that so much as
-%% community effort, but a research question along the lines of "Can we extend
-%% the required resources by crowd sourced data? Is the data of high enough
-%% quality? Can we develop methods to eliminate low quality data points?"
-
 \section{Overview}
-
-%% notes from Mike
-%% First, a dissertation is usually thought of as answering a series of
-%% research questions, and these would normally appear at the beginning of the
-%% prospectus (and at the beginning of the proposal). So try to frame the
-%% problem that way.
-
 %% just to think about it: what are the questions we're answering?
 %% - How can we bring up a hybrid MT system for relatively low resource MT?
 %% - How can we use CL-WSD techniques to build effective hybrid MT?
 %% - How can we collect bigger corpora?
+
+% It looks better, Alex. I'd still modify the paragraph about "contributions"
+% a bit. Remember for the Graduate School, this means *research*
+% contributions. I'd move "the first MT system for Spanish-Guarani" to the
+% "practical level" in the next sentence since a new MT language pair can't
+% be seen as a research contribution. And I'd add to the contributions
+% something about using crowdsourcing to extend the available bilingual data,
+% as suggested by Sandra. That *is* research.
+
 In this dissertation, I will investigate how one can build a hybrid machine
 translation (HMT) system for a language pair with relatively modest resources.
 I propose that cross-lingual word sense disambiguation (CL-WSD) is a
@@ -70,21 +56,13 @@ sentence-aligned bitext corpora are not available, so creating and deploying a
 translation system based on machine learning techniques will require collecting
 a larger corpus.
 
-%% In this work I will focus on Spanish and Guarani, the co-official languages
-%% of Paraguay.
-%% I will describe novel approaches to CL-WSD, including using evidence from
-%% multilingual sources and sequence labeling techniques. I will also
-%% investigate the collection of a larger bilingual corpus through
-%% crowdsourcing and the integration of the disambiguation techniques into a
-%% rule-based translation engine, producing a hybrid rule-based/statistical
-%% translation system.
-
-The major contributions of this work will be new approaches for CL-WSD
-and its integration into an RBMT system and, to our knowledge, the first
-deployed MT system for the Spanish-Guarani language pair. Additionally, on a
-practical level, we will develop a suite of reusable open-source
-software, a website where language learners and activists can help build large
-bilingual corpora, and a freely available corpus of Spanish-Guarani bitext.
+The major contributions of this work will be new approaches for CL-WSD, the
+integration of CL-WSD into an RBMT system, and crowdsourcing bilingual data
+collection to a relatively small though engaged population.
+Additionally, on a practical level we will develop: a suite of reusable
+open-source software; a practical MT system for the Spanish-Guarani language
+pair; a website where language learners and activists can help build large
+bilingual corpora; and a freely available corpus of Spanish-Guarani bitext.
 
 \section{Using multilingual evidence}
 One of the techniques for CL-WSD that we will investigate is the use of
@@ -140,7 +118,7 @@ ambiguity both in its analysis of the input sentence and in the construction of
 an output sentence.  A good lexical selection module would constrain its other
 choices, yielding higher-quality translations first.
 
-\section{Acquiring and using larger bitext corpora}
+\section{Acquiring larger bitext corpora}
 Guarani is unique among indigenous American languages in that a substantial
 number of non-indigenous people speak it. It is spoken by the majority of
 Paraguayans, who are likely to be bilingual with Spanish. In practice, many
@@ -171,6 +149,13 @@ result, we will deploy an MT system for the co-official languages of Paraguay
 and help Guarani speakers develop a repository of educational materials for
 their language.
 
+\bibliographystyle{naaclhlt2013.bst}
+%% \bibliographystyle{plain}
+\bibliography{prospectus.bib}{}
+
+\end{document}
+
+%% extra text.
 %% Framing the resolution of lexical ambiguities in machine translation as an
 %% explicit classification task has a long history; practical work in integrating
 %% WSD with statistical machine translation dates back to early SMT work at IBM
@@ -189,8 +174,34 @@ their language.
 %% received enough attention to warrant shared tasks at recent SemEval workshops;
 %% the most recent running of the task is described in \cite{task10}.
 
-\bibliographystyle{naaclhlt2013.bst}
-%% \bibliographystyle{plain}
-\bibliography{prospectus.bib}{}
+%% In this work I will focus on Spanish and Guarani, the co-official languages
+%% of Paraguay.
+%% I will describe novel approaches to CL-WSD, including using evidence from
+%% multilingual sources and sequence labeling techniques. I will also
+%% investigate the collection of a larger bilingual corpus through
+%% crowdsourcing and the integration of the disambiguation techniques into a
+%% rule-based translation engine, producing a hybrid rule-based/statistical
+%% translation system.
 
-\end{document}
+%% notes from Mike
+%% First, a dissertation is usually thought of as answering a series of
+%% research questions, and these would normally appear at the beginning of the
+%% prospectus (and at the beginning of the proposal). So try to frame the
+%% problem that way.
+
+%% Second, the prospectus is about the PhD dissertation as a body of work, so I
+%% wouldn't distinguish between what you've done and future work, instead just
+%% describe it in the present (for example, "this dissertation seeks to 
+%% demonstrate that...") or the future ("this research will integrate...").
+
+%% Third, "contribution" is normally thought of as research contribution, so I
+%% wouldn't include the website or the software in "contributions". I'd add
+%% something like "in addition, the research is expected to have several
+%% practical outcomes:..."
+
+%% Sandra says:
+%% About the website/ data collection: I would not pitch that so much as
+%% community effort, but a research question along the lines of "Can we extend
+%% the required resources by crowd sourced data? Is the data of high enough
+%% quality? Can we develop methods to eliminate low quality data points?"
+
