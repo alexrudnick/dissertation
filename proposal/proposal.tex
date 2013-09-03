@@ -1,34 +1,34 @@
-\documentclass{article}
-\usepackage{fullpage}
+\documentclass{clv2}
+%%\documentclass[fullname]{article}
+%%\usepackage{fullpage}
 \usepackage{latexsym}
 \usepackage{url}
 \usepackage[utf8]{inputenc}
-%% \pagenumbering{gobble}
+
+%% kill the footer and the trimmarks
+\renewcommand{\footmark}{}
+\renewcommand{\trimmarks}{}
+
+\runningauthor{Rudnick}
+\runningtitle{Thesis Proposal}
+%% HAXXX.
+\jname{Rudnick}
+\jinfo{Thesis Proposal}
 
 \title{Cross-lingual Word Sense Disambiguation for Low-Resource Hybrid Machine
-Translation
-  \\ \vspace{2 mm}
-  {\Large \textsc{Thesis Proposal}}
+Translation \\
+{\large \textsc{Thesis Proposal}}
 }
-\author{Alex Rudnick \\
-	    Indiana University, School of Informatics and Computing \\
-	    {\tt alexr@indiana.edu}}
-\date{}
+
+\author{Alex Rudnick}
+\affil{Indiana University \\
+       School of Informatics and Computing \\
+       \texttt{alexr@indiana.edu}}
 
 \begin{document}
 \maketitle
 
 \section{Overview}
-%% just to think about it: what are the questions we're answering?
-%% - How can we use CL-WSD techniques to build effective hybrid MT?
-%% - How can we bring up a hybrid MT system for relatively low resource MT?
-%% - How can we collect bigger corpora?
-
-\subsection{Questions to address}
-
-\subsection{Thesis statement}
-
-
 In this dissertation, I will investigate techniques for building a hybrid
 machine translation (HMT) system for a language pair with relatively modest
 resources.
@@ -67,6 +67,23 @@ Additionally, on a practical level we will develop: a suite of reusable
 open-source software; a practical MT system for the Spanish-Guarani language
 pair; a website where language learners and activists can help build large
 bilingual corpora; and a freely available corpus of Spanish-Guarani bitext.
+
+
+\subsection{Thesis statement}
+Cross-lingual word sense disambiguation techniques with sequence models are a
+feasible and practical means for lexical selection in a variety of machine
+translation settings.
+
+\subsection{Questions to address}
+In this dissertation, I will investigate techniques for building a hybrid
+machine translation (HMT) system for a language pair with relatively modest
+resources.
+
+\begin{itemize}
+\item How can we use CL-WSD techniques to build effective hybrid MT?
+\item How can we bring up a hybrid MT system for relatively low resource MT?
+\item How can we collect bigger corpora?
+\end{itemize}
 
 
 \section{Techniques for CL-WSD}
@@ -155,6 +172,10 @@ there should be a related work section.
 \cite{carpuat2008evaluation}
 \cite{carpuat-wu:2007:EMNLP-CoNLL2007}
 
+
+\cite{ambati_naacl}
+\cite{ambati_act}
+
 \begin{itemize}
   \item Carpuat and Wu
   \item Francis Tyers \cite{tyers-fst}
@@ -213,7 +234,7 @@ translation engine, producing a hybrid rule-based/statistical translation
 system.
 
 \nocite{*}
-\bibliographystyle{plain}
+\bibliographystyle{fullname.bst}
 \bibliography{proposal.bib}{}
 
 \end{document}
