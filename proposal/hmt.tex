@@ -1,0 +1,18 @@
+\section{CL-WSD for Hybrid Machine Translation}
+We will integrate our CL-WSD systems with RBMT systems, allowing them
+to be trained on any available bitext and produce better translations as larger
+corpora become available.
+We will initially work with L3, an RBMT system based on synchronous dependency
+grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012};
+for comparison we will investigate other RBMT systems as well. L3
+depends on linguistic knowledge about the source and target languages and can
+include abstract semantic representations as an intermediate stage in
+processing. It also integrates morphological analysis and generation for
+use in translating morphologically rich languages, such as Guarani.
+
+However, L3 is currently entirely rule-based and it needs a better way to rank
+the possible translations of an input sentence. It faces syntactic and lexical
+ambiguity both in its analysis of the input sentence and in the construction of
+an output sentence.  A good lexical selection module would constrain its other
+choices, yielding higher-quality translations first.
+

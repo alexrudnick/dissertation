@@ -1,6 +1,4 @@
 \documentclass{clv2}
-%%\documentclass[fullname]{article}
-%%\usepackage{fullpage}
 \usepackage{latexsym}
 \usepackage{url}
 \usepackage[utf8]{inputenc}
@@ -8,10 +6,8 @@
 %% kill the footer and the trimmarks
 \renewcommand{\footmark}{}
 \renewcommand{\trimmarks}{}
-
 \runningauthor{Rudnick}
 \runningtitle{Thesis Proposal}
-%% HAXXX.
 \jname{Rudnick}
 \jinfo{Thesis Proposal}
 
@@ -28,214 +24,15 @@ Translation \\
 \begin{document}
 \maketitle
 
-\section{Overview}
-In this dissertation, I will investigate techniques for building a hybrid
-machine translation (HMT) system for a language pair with relatively modest
-resources.
-I propose that cross-lingual word sense disambiguation (CL-WSD) is a feasible
-and practical means for lexical selection in this setting, and will work to
-demonstrate this by using it to construct a HMT system for Spanish and Guarani,
-the co-official languages of Paraguay.
-Along the way, I will develop new CL-WSD approaches, including the use of
-multilingual evidence and sequence-labeling techniques, and also crowdsourcing
-approaches for collecting larger corpora for disadvantaged languages.
+\input{overview.tex}
+\input{clwsd.tex}
+\input{hmt.tex}
+\input{crowdsourcing.tex}
+\input{relatedwork.tex}
+\input{researchplan.tex}
+\input{statuscontributions.tex}
 
-Lexical ambiguity presents a serious challenge for rule-based machine
-translation (RBMT) systems, since many words will have multiple possible
-translations in the target language. Moreover, several translations of a given
-word may all be syntactically valid in context, but have significantly
-different meanings. Even when choosing among near-synonyms, we would like to
-respect the selectional preferences of the target language so as to produce
-natural-sounding output text.
-
-Writing lexical selection rules by hand is tedious and error-prone; bilingual
-informants, if available, may not be able to enumerate the contexts in which
-they would choose one alternative over another. Thus we would like to learn
-from corpora when possible. However, for most language pairs, suitably large
-sentence-aligned bitext corpora are not available, so creating and deploying a
-translation system based on machine learning techniques will require collecting
-a larger corpus.
-
-%% write something here about how we can probably use similar techniques to get
-%% morphology right. This is going to take some literature review probably.
-%% How do people currently address morphology generation in SMT systems?
-
-The major contributions of this work will be new approaches for: CL-WSD,
-integrating CL-WSD into RBMT systems, and crowdsourcing bilingual data
-collection to a relatively small though engaged population.
-Additionally, on a practical level we will develop: a suite of reusable
-open-source software; a practical MT system for the Spanish-Guarani language
-pair; a website where language learners and activists can help build large
-bilingual corpora; and a freely available corpus of Spanish-Guarani bitext.
-
-
-\subsection{Thesis statement}
-Cross-lingual word sense disambiguation techniques with sequence models are a
-feasible and practical means for lexical selection in a variety of machine
-translation settings.
-
-\subsection{Questions to address}
-In this dissertation, I will investigate techniques for building a hybrid
-machine translation (HMT) system for a language pair with relatively modest
-resources.
-
-\begin{itemize}
-\item How can we use CL-WSD techniques to build effective hybrid MT?
-\item How can we bring up a hybrid MT system for relatively low resource MT?
-\item How can we collect bigger corpora?
-\end{itemize}
-
-
-\section{Techniques for CL-WSD}
-
-\subsection{Using multilingual evidence}
-One of the techniques for CL-WSD that we will investigate is the use of
-multiple bitext corpora, so that the software can make use of information from
-available bitext from several different language pairs. This approach is
-informed by the work of Lefever and Hoste
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, although their technique requires
-an entire machine translation system to perform CL-WSD, whereas we consider
-CL-WSD to be a subproblem of MT. Thus we would like to perform CL-WSD without
-depending on too much additional software infrastructure.
-
-We will develop this technique in a number of variations, including the use of
-classifier stacking and graphical models that frame CL-WSD as the problem
-of jointly selecting translations into several languages. Earlier this year,
-we developed initial versions of this kind of CL-WSD system
-\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the best
-results in a SemEval shared task on CL-WSD \cite{task10},
-translating polysemous nouns from English into other European languages.
-
-\subsection{Lexical selection as a sequence labeling problem}
-We will also investigate the use of sequence-labeling models for
-lexical selection.  The intuition behind the sequence-labeling approach is that
-machine translation implies an ``all-words" WSD task, in that we need to choose
-a translation for every word or phrase in the source sentence, and that the
-sequence of translations chosen should make sense when taken together.
-
-One promising formalism for this line of work is the Maximum
-Entropy Markov Model (MEMM), which can be combined in a straightforward way
-with the simpler Hidden Markov Model (HMM). This combination allows for
-efficient inference and the ability to trade more computational resources for
-richer modeling. More sophisticated sequence models, such as Conditional Random
-Fields, may be useful in this task as well.
-
-We will describe our initial experiments in applying these methods to CL-WSD in
-both English-Spanish and Spanish-Guarani translation tasks at the HyTra
-workshop in August \cite{rudnick-gasser:2013:HyTra-2013}.
-
-\section{Applying similar techniques for morphology prediction}
-
-\section{CL-WSD for Hybrid Machine Translation}
-We will integrate our CL-WSD systems with RBMT systems, allowing them
-to be trained on any available bitext and produce better translations as larger
-corpora become available.
-We will initially work with L3, an RBMT system based on synchronous dependency
-grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012};
-for comparison we will investigate other RBMT systems as well. L3
-depends on linguistic knowledge about the source and target languages and can
-include abstract semantic representations as an intermediate stage in
-processing. It also integrates morphological analysis and generation for
-use in translating morphologically rich languages, such as Guarani.
-
-However, L3 is currently entirely rule-based and it needs a better way to rank
-the possible translations of an input sentence. It faces syntactic and lexical
-ambiguity both in its analysis of the input sentence and in the construction of
-an output sentence.  A good lexical selection module would constrain its other
-choices, yielding higher-quality translations first.
-
-\section{Acquiring larger bitext corpora}
-Guarani is unique among indigenous American languages in that a substantial
-number of non-indigenous people speak it. It is spoken by the majority of
-Paraguayans, who are likely to be bilingual with Spanish. In practice, many
-Paraguayans use a combination of Guarani and Spanish called \emph{Jopar{\'a}}.
-
-To gather a larger Spanish-Guarani bitext corpus, we plan to build a website
-where Guarani speakers and learners can collaboratively produce translations
-and an online repository of Guarani and bilingual documents.  Here we will need
-to develop approaches for determining which examples from the crowdsourced data
-are the most reliable and the most useful for training; this may correlate
-with quality judgements from the human volunteers, although it is an open
-question. Initial designs for the site were done as a master's project in HCI
-by Alberto Samaniego, who will soon return to his native Paraguay.
-
-We have made contact with a number of collaborators in Paraguay, including
-language activists and educators from the \emph{Ateneo de la Lengua y Cultura
-Guaraní} and the \emph{Fundación Yvy Marãe'{\~y}}, schools that offer training
-for Guarani-language translators. We have also started discussing development
-plans with several local software developers interested in building open source
-software.
-
-\section{Related Work}
-there should be a related work section.
-
-\cite{carpuat2008evaluation}
-\cite{carpuat-wu:2007:EMNLP-CoNLL2007}
-
-
-\cite{ambati_naacl}
-\cite{ambati_act}
-
-\begin{itemize}
-  \item Carpuat and Wu
-  \item Francis Tyers \cite{tyers-fst}
-  \item Vamshi Ambati for the crowdsourcing (who else)?
-  \item maybe some stuff about SAMT?
-  \item Quechua verb disambiguation?
-\end{itemize}
-
-\section{Research Plan}
-there should be a research plan section probably.
-
-\begin{itemize}
-  \item bring up the websites -- first cut in October
-  \item bring up the SAMT-style system
-  \item collect lots of data
-  \item build disambiguation system, apply it to squoia and terere at the very least
-  \item disambiguate morphology too
-  \item write it all up
-  \item graduate
-\end{itemize}
-
-\section{Conclusions}
-In this dissertation, I will investigate practical, relatively inexpensive ways
-to build hybrid machine translation systems through the application of CL-WSD
-techniques and by engaging with a disadvantaged language's activist community
-to effectively crowdsource the construction of larger bitext corpora. As a
-result, we will deploy an MT system for the co-official languages of Paraguay
-and help Guarani speakers develop a repository of educational materials for
-their language.
-
-\section{Extra Text}
-Framing the resolution of lexical ambiguities in machine translation as an
-explicit classification task has a long history; practical work in integrating
-WSD with statistical machine translation dates back to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
-Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, the fifth section
-of which outlines the modern conception of word sense disambiguation.  More
-recently, Carpuat and Wu have shown how to use word-sense disambiguation
-techniques to improve modern phrase-based SMT systems \cite{carpuatpsd}, even
-though most SMT systems do not use an explicit WSD module \cite{wsdchap3}, as
-the language model and phrase tables of these systems mitigate lexical
-ambiguities somewhat.
-
-Treating lexical selection as a word-sense disambiguation problem in which the
-sense inventory for each source-language word is its set of possible
-translations is often called cross-lingual WSD (CL-WSD). This framing has
-received enough attention to warrant shared tasks at recent SemEval workshops;
-the most recent running of the task is described in \cite{task10}.
-
-In this work I will focus on Spanish and Guarani, the co-official languages of
-Paraguay.  I will describe novel approaches to CL-WSD, including using evidence
-from multilingual sources and sequence labeling techniques. I will also
-investigate the collection of a larger bilingual corpus through crowdsourcing
-and the integration of the disambiguation techniques into a rule-based
-translation engine, producing a hybrid rule-based/statistical translation
-system.
-
-\nocite{*}
 \bibliographystyle{fullname.bst}
 \bibliography{proposal.bib}{}
-
 \end{document}
 

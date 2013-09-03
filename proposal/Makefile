@@ -1,6 +1,6 @@
 NAME=proposal
 
-$(NAME).pdf: $(NAME).tex $(NAME).bib
+$(NAME).pdf: *.tex $(NAME).bib
 	pdflatex $(NAME)
 	bibtex $(NAME)
 	pdflatex $(NAME)

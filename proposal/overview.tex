@@ -1,0 +1,65 @@
+\section{Overview}
+In this dissertation, I will investigate techniques for building a hybrid
+machine translation (HMT) system for a language pair with relatively modest
+resources.
+I propose that cross-lingual word sense disambiguation (CL-WSD) is a feasible
+and practical means for lexical selection in this setting, and will work to
+demonstrate this by using it to construct a HMT system for Spanish and Guarani,
+the co-official languages of Paraguay.
+Along the way, I will develop new CL-WSD approaches, including the use of
+multilingual evidence and sequence-labeling techniques, and also crowdsourcing
+approaches for collecting larger corpora for disadvantaged languages.
+
+Lexical ambiguity presents a serious challenge for rule-based machine
+translation (RBMT) systems, since many words will have multiple possible
+translations in the target language. Moreover, several translations of a given
+word may all be syntactically valid in context, but have significantly
+different meanings. Even when choosing among near-synonyms, we would like to
+respect the selectional preferences of the target language so as to produce
+natural-sounding output text.
+
+Writing lexical selection rules by hand is tedious and error-prone; bilingual
+informants, if available, may not be able to enumerate the contexts in which
+they would choose one alternative over another. Thus we would like to learn
+from corpora when possible. However, for most language pairs, suitably large
+sentence-aligned bitext corpora are not available, so creating and deploying a
+translation system based on machine learning techniques will require collecting
+a larger corpus.
+
+%% write something here about how we can probably use similar techniques to get
+%% morphology right. This is going to take some literature review probably.
+%% How do people currently address morphology generation in SMT systems?
+
+The major contributions of this work will be new approaches for: CL-WSD,
+integrating CL-WSD into RBMT systems, and crowdsourcing bilingual data
+collection to a relatively small though engaged population.
+Additionally, on a practical level we will develop: a suite of reusable
+open-source software; a practical MT system for the Spanish-Guarani language
+pair; a website where language learners and activists can help build large
+bilingual corpora; and a freely available corpus of Spanish-Guarani bitext.
+
+In this work I will focus on Spanish and Guarani, the co-official languages of
+Paraguay.  I will describe novel approaches to CL-WSD, including using evidence
+from multilingual sources and sequence labeling techniques.
+I will also investigate the collection of a larger bilingual corpus through
+crowdsourcing and the integration of the disambiguation techniques into a
+rule-based translation engine, producing a hybrid rule-based/statistical
+translation system.
+
+In this dissertation, I will investigate techniques for building a hybrid
+machine translation (HMT) system for a language pair with relatively modest
+resources.
+
+\subsection{Thesis statement}
+Cross-lingual word sense disambiguation techniques with sequence models are a
+feasible and practical means for lexical selection in a variety of machine
+translation settings.
+
+\subsection{Questions to address}
+\begin{enumerate}
+\item How can we use CL-WSD techniques to build effective hybrid MT?
+\item How can we bring up a hybrid MT system for relatively low resource MT?
+\item How can we collect bigger corpora?
+\end{enumerate}
+
+
