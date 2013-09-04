@@ -2,26 +2,25 @@
 
 \subsection{Cross-lingual word sense disambiguation}
 
-Framing the resolution of lexical ambiguities in machine translation as an
-explicit classification task has a long history; practical work in integrating
-WSD with statistical machine translation dates back to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
-Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which outlines the
-modern conception of word sense disambiguation.
-
-More recently, Carpuat and Wu have shown how to use word-sense disambiguation
-techniques to improve modern phrase-based SMT systems \cite{carpuatpsd}, even
-though most SMT systems do not use an explicit WSD module \cite{wsdchap3}, as
-the language model and phrase tables of these systems mitigate lexical
-ambiguities somewhat.
-
 Treating lexical selection as a word-sense disambiguation problem in which the
 sense inventory for each source-language word is its set of possible
 translations is often called cross-lingual WSD (CL-WSD). This framing has
 received enough attention to warrant shared tasks at recent SemEval workshops;
 the most recent running of the task is described in \cite{task10}.
 
-\subsection{lexical selection}
+CL-WSD in translation has a long history; practical work in integrating
+WSD with statistical machine translation dates back to early SMT work at IBM
+\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
+Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which outlines the
+modern conception of word sense disambiguation.
+
+More recently, Carpuat and Wu have shown how to use word-sense disambiguation
+techniques to improve modern phrase-based SMT systems \cite{carpuatpsd}.
+
+Despite this, most SMT systems do not use an explicit WSD module
+\cite{wsdchap3}, as the language model and phrase tables of these systems
+mitigate lexical ambiguities somewhat and 
+
 
 
 \cite{carpuat2008evaluation}
@@ -57,46 +56,25 @@ In the cross-language word-sense disambiguation (CL-WSD) task, given an
 instance of an ambiguous word used in a context, we want to predict the
 appropriate translation into some target language. This setting for WSD has an
 immediate application in machine translation, since many words have multiple
-possible translations. Framing the resolution of lexical ambiguities as an
-explicit classification task has a long history, and was considered in early
-SMT work at IBM \cite{Brown91word-sensedisambiguation}. More recently, Carpuat
-and Wu have shown how to use CL-WSD techniques to improve modern phrase-based
-SMT systems \cite{carpuatpsd}, even though the language model and phrase-tables
-of these systems mitigate the problem of lexical ambiguities somewhat.
+possible translations.
 
-In the SemEval-2013 CL-WSD shared task \cite{task10}, entrants are asked to
-build a system that can provide translations for twenty ambiguous English
-nouns, given appropriate contexts -- here the particular usage of the ambiguous
-noun is called the \emph{target} word. The five target languages of the shared
-task are Spanish, Dutch, German, Italian and French. In the evaluation, for
-each of the twenty ambiguous nouns, systems are to provide translations for
-the target word in each of fifty sentences or short passages. The translations
-of each English word may be single words or short phrases in the target
-language, but in either case, they should be lemmatized.
 
 Following the work of Lefever and Hoste
 \shortcite{lefever-hoste-decock:2011:ACL-HLT2011}, we wanted to make use of
-multiple bitext corpora for the CL-WSD task. ParaSense, the system of Lefever
+multiple bitext corpora for the CL-WSD task.
+
+ParaSense, the system of Lefever
 and Hoste, takes into account evidence from all of the available parallel
 corpora. Let $S$ be the set of five target languages and $t$ be the particular
 target language of interest at the moment; ParaSense creates bag-of-words
 features from the translations of the target sentence into the languages $S -
-\lbrace{t \rbrace}$. Given corpora that are parallel over many languages, this
-is straightforward at training time. However, at testing time it requires a
-complete MT system for each of the four other languages, which is
-computationally prohibitive. Thus in our work, we learn from several parallel
-corpora but require neither a locally running MT system nor access to an online
-translation API.
+\lbrace{t \rbrace}$.
+Given corpora that are parallel over many languages, this is straightforward at
+training time. However, at testing time it requires a complete MT system for
+each of the four other languages, which is computationally prohibitive. Thus in
+our work, we learn from several parallel corpora but require neither a locally
+running MT system nor access to an online translation API.
 
-At the time of the evaluation, our simplest system had the top results in the
-shared task for the out-of-five evaluation for three languages (Spanish,
-German, and Italian).  However, after the evaluation deadline, we fixed a
-simple bug in our MRF code, and the MRF system then achieved even better
-results for the \emph{oof} evaluation. For the \emph{best} evaluation, our two
-more sophisticated systems posted better results than the L1 version. All of
-our systems beat the ``most-frequent sense" baseline in every case.
-
-%%/text from the semeval paper
 
 
 \subsection{translation into morphologically rich languages}
@@ -121,12 +99,26 @@ Who's doing transfer rules that are hand-written?
 
 \subsection{Creating corpora through crowdsourcing}
 
-\begin{itemize}
-  \item Vamshi Ambati for the crowdsourcing (who else)?
-\end{itemize}
+There has been some work on creating corpora for statistical machine
+translation through crowdsourcing.
 
+Vamshi Ambati's dissertation work focuses on using crowdsourcing and active
+learning to produce a corpus for English-Spanish SMT. His system has a notion
+of which words and phrases it would like to learn about -- n-grams that are
+common in a development set but have little support in the training set -- and
+then automatically creates Mechanical Turk tasks to elicit translations
+containing translations of these n-grams.
+
+This work makes use of the relatively large population of Internet users (and
+thus MTurk users) familiar with both English and Spanish.
 
 \cite{ambati_naacl}
 
 \cite{ambati_act}
+
+
+Large parallel corpora have also been created by that Johns Hopkins group
+with the Indian languages
+\cite{post-callisonburch-osborne:2012:WMT}
+
 
