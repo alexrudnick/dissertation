@@ -17,8 +17,29 @@ ambiguity both in its analysis of the input sentence and in the construction of
 an output sentence.  A good lexical selection module would constrain its other
 choices, yielding higher-quality translations first.
 
-Talk about Terere.
+
+\subsection{CL-WSD for RBMT}
 
 Add some stuff about Squoia.
 
+
+\subsection{CL-WSD in a SMT setting}
+Since we hope that our ideas about lexical selection will make sense in several
+different contexts, we will also develop a new machine translation system out
+of stock SMT components, particularly relying on the
+cdec\footnote{\url{http://cdec-decoder.org}} decoder \cite{Dyer_etal_2010}.
+
+This new system is called
+Tereré\footnote{\url{http://github.com/alexrudnick/terere}}. Tereré will make
+use of modern SMT techniques ...
+
+XXX: be able to explain the difference between SAMT and Stat-XFER.
+
+Talk about hand-written and automatically extracted rules.
+
+How are we going to extract the rules? Probably with Thrax. Alternatively with
+Dekai's new thing, once he releases it. It actually doesn't really matter what
+we use to extract them.
+
 Talk about prediction for morphology.
+\cite{toutanova-suzuki-ruopp:2008:ACLMain}
