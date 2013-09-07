@@ -1807,45 +1807,46 @@
   \global\let\do\noexpand
   \ignorespaces}
 %
-\def\enddocument{%
-   \ifx\@biography\@empty\else{\par\ifbrief\vskip10pt\fi\biofont\noindent\@biography\par}\fi
-   \@enddocumenthook
-   \@checkend{document}%
-   \immediate\closeout\@mainqry
-   %\ifquery
-   %   \process@queries\clearpage
-   %\else
-      \ifodd\c@page\clearpage\thispagestyle{empty}\null\clearpage\else\clearpage\fi
-   %\fi
-%   \ifquery\clearpage\else\ifodd\c@page\clearpage\thispagestyle{empty}\null\clearpage\else\clearpage\fi\fi
-   \begingroup
-     \if@filesw
-       \immediate\write\@mainaux{\string\questionmark{}}%
-       \immediate\closeout\@mainaux
-       \let\@setckpt\@gobbletwo
-       \let\@newl@bel\@testdef
-       \@tempswafalse
-       \makeatletter \input\jobname.aux
-     \fi
-     \@dofilelist
-     \ifdim \font@submax >\fontsubfuzz\relax
-       \@font@warning{Size substitutions with differences\MessageBreak
-                  up to \font@submax\space have occured.\@gobbletwo}%
-     \fi
-     \@defaultsubs
-     \@refundefined
-     \if@filesw
-       \ifx \@multiplelabels \relax
-         \if@tempswa
-           \@latex@warning@no@line{Label(s) may have changed.
-               Rerun to get cross-references right}%
-         \fi
-       \else
-         \@multiplelabels
-       \fi
-     \fi
-   \endgroup
-   \deadcycles\z@\@@end}
+%% alexr added %% and no space to these lines.
+%%\def\enddocument{%
+%%   \ifx\@biography\@empty\else{\par\ifbrief\vskip10pt\fi\biofont\noindent\@biography\par}\fi
+%%   \@enddocumenthook
+%%   \@checkend{document}%
+%%   \immediate\closeout\@mainqry
+%%   %\ifquery
+%%   %   \process@queries\clearpage
+%%   %\else
+%%      \ifodd\c@page\clearpage\thispagestyle{empty}\null\clearpage\else\clearpage\fi
+%%   %\fi
+%%%   \ifquery\clearpage\else\ifodd\c@page\clearpage\thispagestyle{empty}\null\clearpage\else\clearpage\fi\fi
+%%   \begingroup
+%%     \if@filesw
+%%       \immediate\write\@mainaux{\string\questionmark{}}%
+%%       \immediate\closeout\@mainaux
+%%       \let\@setckpt\@gobbletwo
+%%       \let\@newl@bel\@testdef
+%%       \@tempswafalse
+%%       \makeatletter \input\jobname.aux
+%%     \fi
+%%     \@dofilelist
+%%     \ifdim \font@submax >\fontsubfuzz\relax
+%%       \@font@warning{Size substitutions with differences\MessageBreak
+%%                  up to \font@submax\space have occured.\@gobbletwo}%
+%%     \fi
+%%     \@defaultsubs
+%%     \@refundefined
+%%     \if@filesw
+%%       \ifx \@multiplelabels \relax
+%%         \if@tempswa
+%%           \@latex@warning@no@line{Label(s) may have changed.
+%%               Rerun to get cross-references right}%
+%%         \fi
+%%       \else
+%%         \@multiplelabels
+%%       \fi
+%%     \fi
+%%   \endgroup
+%%   \deadcycles\z@\@@end}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Trimmarks  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
