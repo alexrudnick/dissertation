@@ -1,23 +1,49 @@
 \section{Acquiring larger bitext corpora}
-To gather a larger Spanish-Guarani bitext corpus, we plan to build a website
-where Guarani speakers and learners can collaboratively produce translations
-and an online repository of Guarani and bilingual documents.  Here we will need
-to develop approaches for determining which examples from the crowdsourced data
-are the most reliable and the most useful for training; this may correlate
-with quality judgements from the human volunteers, although it is an open
-question. Initial designs for the site were done as a master's project in HCI
-by Alberto Samaniego, who will soon return to his native Paraguay.
+To gather a larger training corpus, both of Spanish-Guarani bitext and
+monolingual Guarani text, we plan to build two websites. One website will be a
+collaborative online space for building translations of documents, primarily
+from Spanish to Guarani, although the other direction will be useful as well.
+The second website will be a repository of Guarani and bilingual documents,
+complete with a search engine and the ability to upload new documents.
+Initial designs for both of these sites were done as a master's project in HCI
+by Alberto Samaniego\footnote{\url{http://albsama.com}}, who will hopefully
+continue collaborating on this project from his native Paraguay.
 
 \subsection{Collecting Guarani Documents}
-``Tahekami", which in Guarani means \emph{let's search together}.
+The first website we will develop is called ``Tahekami", which means
+\emph{let's search together} in Guarani. It will be a repository of Guarani and
+bilingual documents, complete with the ability to upload new documents,
+browseable tags, and a search feature that takes into account the morphological
+richness of Guarani.
 
-An initial version of this site is already well underway; we have built a
-repository of Guarani documents, complete with the ability to upload new
-documents, a search engine, and ...
+An initial version of this site is already well underway \footnote{It is being
+developed at \url{http://github.com/hltdi/gn-documents}}. We have a working
+search engine based on the Whoosh library
+\footnote{\url{https://bitbucket.org/mchaput/whoosh/wiki/Home}} and some sample
+documents -- twelve masters theses from the \emph{Ateneo}.  We will need to
+develop policies for which documents are permissible for distribution through
+this site and work on integrating morphological analysis into the search
+engine. Currently, new documents must be approved by an administrator before
+being added to the index.
 
--- they must be approved by an administrator before being added to
-the 
 
 \subsection{Collecting Translations}
+The second website will be used by Guarani speakers and learners to
+collaboratively produce translations of relevant documents. Initially, it will
+be seeded with documents from the Spanish and Guarani Wikipedias, although
+other documents will be added by Guarani-language educators and perhaps also
+pulled from Tahekami. Translations may be assigned as homework.
 
-In the long run, the latter 
+We may eventually collect enough bitext with this website such that it makes
+sense to develop approaches for determining which sentences are the most
+reliable and the most useful for training; this may correlate with quality
+judgements from the human volunteers.
+Investigating this relationship would make a good research question.
+
+In the medium-term, this website will get an integrated ability to search
+translation memory and automatic suggestions from a machine translation system.
+However, these features are outside the scope of this dissertation.
+
+\footnote{Features described in a presentation in Spanish here:
+\url{http://www.cs.indiana.edu/~gasser/Taller2013/} . English-language similar
+presentation: \url{http://tinyurl.com/alexr-clingding-guarani} }
