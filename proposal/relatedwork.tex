@@ -1,63 +1,42 @@
 \section{Related Work}
 
 \subsection{Cross-lingual word sense disambiguation}
-
 Treating lexical selection as a word-sense disambiguation problem in which the
 sense inventory for each source-language word is its set of possible
-translations is often called cross-lingual WSD (CL-WSD). This framing has
-received enough attention to warrant shared tasks at recent SemEval workshops;
-the most recent running of the task is described in \cite{task10}.
+translations is often called cross-lingual WSD (CL-WSD).
 
-CL-WSD in translation has a long history; practical work in integrating
+In a cross-language word-sense disambiguation (CL-WSD) task, given an
+instance of an ambiguous word used in a context, we want to predict the
+appropriate translation of that word into the target language. This setting for
+WSD has an immediate application in machine translation, since many words have
+multiple possible translations.
+
+There have been shared tasks on CL-WSD at recent SemEval workshops; the most
+recent running of the task is described in \cite{task10}.
+
+WSD in translation has a long history; practical work in integrating
 WSD with statistical machine translation dates back to early SMT work at IBM
 \cite{Brown91word-sensedisambiguation}, but the problem itself was described in
 Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which outlines the
 modern conception of word sense disambiguation.
 
-More recently, Carpuat and Wu have shown how to use word-sense disambiguation
-techniques to improve modern phrase-based SMT systems \cite{carpuatpsd}.
-
 Despite this, most SMT systems do not use an explicit WSD module
 \cite{wsdchap3}, as the language model and phrase tables of these systems
-mitigate lexical ambiguities somewhat and 
+mitigate lexical ambiguities somewhat.
 
 
 
+However, recently Carpuat and Wu have shown how to use word-sense
+disambiguation techniques to improve modern phrase-based SMT systems
+\cite{carpuatpsd}.
 \cite{carpuat2008evaluation}
-
 \cite{carpuat-wu:2007:EMNLP-CoNLL2007}
 
-\begin{itemize}
-  \item Lefever and Hoste
-  \item Carpuat and Wu
-  \item Francis Tyers \cite{tyers-fst}
-  \item Quechua verb disambiguation?
-\end{itemize}
-
-
-The Apertium team has a particular practical interest in improving lexical
-selection in RBMT; they recently have been developing
-a new system, described in \cite{tyers-fst}, that learns finite-state
-transducers for lexical selection from the available parallel corpora. It is
-intended to be both very fast, for use in practical translation systems, and
-to produce lexical selection rules that are understandable and modifiable by
-humans.
 
 Outside of the CL-WSD setting, there has been work on framing all-words WSD as
 a sequence labeling problem. Particularly, Molina \textit{et al.}
 \shortcite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
 WSD in a monolingual setting.
-
-%% /text from the HyTra paper
-
-
-%% text from the semeval paper
-In the cross-language word-sense disambiguation (CL-WSD) task, given an
-instance of an ambiguous word used in a context, we want to predict the
-appropriate translation into some target language. This setting for WSD has an
-immediate application in machine translation, since many words have multiple
-possible translations.
-
 
 Following the work of Lefever and Hoste
 \shortcite{lefever-hoste-decock:2011:ACL-HLT2011}, we wanted to make use of
@@ -86,14 +65,19 @@ how do people do this usually?
 HMT for low-resource languages...
 
 %% text from the HyTra paper
-To our knowledge, there has not been work specifically on sequence labeling
-applied to lexical selection for RBMT systems. However, 
-there has been work recently on using WSD techniques for translation into
-lower-resourced languages, such as the English-Slovene language pair, as in 
-\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+However, there has been work recently on using WSD techniques for translation
+into lower-resourced languages, such as the English-Slovene language pair, as
+in \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
+The Apertium team has a particular practical interest in improving lexical
+selection in RBMT; they recently have been developing
+a new system, described in \cite{tyers-fst}, that learns finite-state
+transducers for lexical selection from the available parallel corpora. It is
+intended to be both very fast, for use in practical translation systems, and
+to produce lexical selection rules that are understandable and modifiable by
+humans.
 
-Put in some stuff about SAMT.
+Put in some stuff about SAMT and Stat-XFER.
 
 Who's doing transfer rules that are hand-written?
 
@@ -116,9 +100,9 @@ thus MTurk users) familiar with both English and Spanish.
 
 \cite{ambati_act}
 
-
 Large parallel corpora have also been created by that Johns Hopkins group
 with the Indian languages
 \cite{post-callisonburch-osborne:2012:WMT}
 
-
+Tatoeba is a really good website where they're collecting lots of text.
+\url{http://tatoeba.org/eng/}.
