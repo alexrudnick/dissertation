@@ -1,9 +1,8 @@
 \section{Techniques for CL-WSD}
 
 %% XXX: this sentence needs some help
-In the course of this dissertation, we will develop and extend at least two
-general approaches for CL-WSD: the use of multilingual evidence where
-available and sequence labeling.
+We will develop and extend at least two broad approaches for CL-WSD: the use
+of multilingual evidence where available and sequence labeling.
 
 Both of these techniques have been prototyped and presented at workshops, but
 they will be refined significantly.
@@ -18,32 +17,34 @@ an entire machine translation system to perform CL-WSD, which is somewhat
 unwieldy when we want to use CL-WSD as a subcomponent of a machine translation
 system.
 
-Earlier this year, we developed prototype versions of this kind of CL-WSD system
-\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the best
-results in a SemEval shared task on CL-WSD \cite{task10}, translating
-polysemous nouns from English into other European languages. In our SemEval
-paper, we presented three variations on CL-WSD systems: a straightforward
-classification approach, a classifier stacking approach, and a graphical model
-system based on loopy belief propagation on a Markov random field.
+Earlier this year, we developed a prototype version of this kind of CL-WSD
+system \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the
+best results in a SemEval shared task on CL-WSD \cite{task10}, in which we
+translated polysemous nouns from English into other European languages. In our
+SemEval paper, we presented three variations on CL-WSD systems: a
+straightforward classification approach, a classifier stacking approach, and a
+graphical model system based on loopy belief propagation on a Markov random
+field.
 
-The simplest system, based on a maximum entropy classifier, simply extracted
-features from a window around the 
+The simplest system presented in that work, based on a maximum entropy
+classifier, simply extracted features from a window around the English noun to
+be translated and used these to make a prediction. The same system could also
+return a probability distribution over target-language words or phrases. This
+simple system was used as a subcomponent in the two more sophisticated systems.
 
-%% write about the stacking approach
-The classifier stacking approach
 
-%% write about the graphical model approach
+The classifier stacking approach ...
+
+
 In the graphical model approach, we treat the problem of 
 
 
-We will develop this technique in a number of variations, including the use of
-classifier stacking and graphical models that frame CL-WSD as the problem
-of jointly selecting translations into several languages.
-
-
-
-
 \subsection{Lexical selection as a sequence labeling problem}
+
+We have also developed a prototype
+CL-WSD in both English-Spanish and Spanish-Guarani translation tasks at the
+HyTra workshop in August \cite{rudnick-gasser:2013:HyTra-2013}.
+
 We will also investigate the use of sequence-labeling models for
 lexical selection.  The intuition behind the sequence-labeling approach is that
 machine translation implies an ``all-words" WSD task, in that we need to choose
@@ -57,8 +58,5 @@ efficient inference and the ability to trade more computational resources for
 richer modeling. More sophisticated sequence models, such as Conditional Random
 Fields, may be useful in this task as well.
 
-We will describe our initial experiments in applying these methods to CL-WSD in
-both English-Spanish and Spanish-Guarani translation tasks at the HyTra
-workshop in August \cite{rudnick-gasser:2013:HyTra-2013}.
 
 \subsection{Applying similar techniques for morphology prediction}
