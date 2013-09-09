@@ -1,34 +1,8 @@
 \section{CL-WSD for Hybrid Machine Translation}
-We will integrate our CL-WSD systems with RBMT systems, allowing them
-to be trained on any available bitext and produce better translations as larger
-corpora become available.
 
-We will initially work with L3, an RBMT system based on synchronous dependency
-grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012};
-for comparison we will investigate other RBMT systems as well. L3
-depends on linguistic knowledge about the source and target languages and can
-include abstract semantic representations as an intermediate stage in
-processing. It also integrates morphological analysis and generation for
-use in translating morphologically rich languages, such as Guarani.
+(this all needs lots of work)
 
-However, L3 is currently entirely rule-based and it needs a better way to rank
-the possible translations of an input sentence. It faces syntactic and lexical
-ambiguity both in its analysis of the input sentence and in the construction of
-an output sentence.  A good lexical selection module would constrain its other
-choices, yielding higher-quality translations first.
-
-\subsection{CL-WSD for RBMT}
-We plan to be able to integrate CL-WSD techniques into two different RBMT
-systems, including L3 \cite{gasser:sxdg} and Squoia.
-
-Also possible is Apertium...
-
-TODO Add some stuff about Squoia and how we're going to integrate with it.
-\cite{riosgonzales-gohring:2013:HyTra}
-
-\footnote{\url{https://code.google.com/p/squoia/}}
-
-\subsection{CL-WSD in a SMT setting}
+\subsection{Terere}
 Since we hope that our ideas about lexical selection will make sense in several
 different contexts, we will also develop a new machine translation system out
 of stock SMT components, particularly relying on the
@@ -51,3 +25,36 @@ Talk about prediction for morphology.
 
 TODO Talk about the other prediction approaches for morphology, like factored
 models. Are there others?
+
+this needs to get much more clear.
+
+We will integrate our CL-WSD systems with RBMT systems, allowing them to be
+trained on any available bitext and produce better translations as larger
+corpora become available.
+
+%% XXX: still true?
+We will initially work with L3, an RBMT system based on synchronous dependency
+grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012};
+for comparison we will investigate other RBMT systems as well.
+L3 depends on linguistic knowledge about the source and target languages and
+can include abstract semantic representations as an intermediate stage in
+processing. It also integrates morphological analysis and generation for use in
+translating morphologically rich languages, such as Guarani.
+
+However, L3 is currently entirely rule-based and it needs a better way to rank
+the possible translations of an input sentence. It faces syntactic and lexical
+ambiguity both in its analysis of the input sentence and in the construction of
+an output sentence.  A good lexical selection module would constrain its other
+choices, yielding higher-quality translations first.
+
+\subsection{CL-WSD for RBMT}
+We plan to be able to integrate CL-WSD techniques into two different RBMT
+systems, including L3 \cite{gasser:sxdg} and Squoia.
+
+Also possible is Apertium...
+
+TODO Add some stuff about Squoia and how we're going to integrate with it.
+\cite{riosgonzales-gohring:2013:HyTra}
+
+\footnote{\url{https://code.google.com/p/squoia/}}
+

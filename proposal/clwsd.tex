@@ -1,22 +1,47 @@
 \section{Techniques for CL-WSD}
 
+%% XXX: this sentence needs some help
+In the course of this dissertation, we will develop and extend at least two
+general approaches for CL-WSD: the use of multilingual evidence where
+available and sequence labeling.
+
+Both of these techniques have been prototyped and presented at workshops, but
+they will be refined significantly.
+
 \subsection{Using multilingual evidence}
 One of the techniques for CL-WSD that we will investigate is the use of
 multiple bitext corpora, so that the software can make use of information from
-available bitext from several different language pairs. This approach is
-informed by the work of Lefever and Hoste
+available bitext from several different language pairs.
+This approach is informed by the work of Lefever and Hoste
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, although their technique requires
-an entire machine translation system to perform CL-WSD, whereas we consider
-CL-WSD to be a subproblem of MT. Thus we would like to perform CL-WSD without
-depending on too much additional software infrastructure.
+an entire machine translation system to perform CL-WSD, which is somewhat
+unwieldy when we want to use CL-WSD as a subcomponent of a machine translation
+system.
+
+Earlier this year, we developed prototype versions of this kind of CL-WSD system
+\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the best
+results in a SemEval shared task on CL-WSD \cite{task10}, translating
+polysemous nouns from English into other European languages. In our SemEval
+paper, we presented three variations on CL-WSD systems: a straightforward
+classification approach, a classifier stacking approach, and a graphical model
+system based on loopy belief propagation on a Markov random field.
+
+The simplest system, based on a maximum entropy classifier, simply extracted
+features from a window around the 
+
+%% write about the stacking approach
+The classifier stacking approach
+
+%% write about the graphical model approach
+In the graphical model approach, we treat the problem of 
+
 
 We will develop this technique in a number of variations, including the use of
 classifier stacking and graphical models that frame CL-WSD as the problem
-of jointly selecting translations into several languages. Earlier this year,
-we developed initial versions of this kind of CL-WSD system
-\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the best
-results in a SemEval shared task on CL-WSD \cite{task10},
-translating polysemous nouns from English into other European languages.
+of jointly selecting translations into several languages.
+
+
+
 
 \subsection{Lexical selection as a sequence labeling problem}
 We will also investigate the use of sequence-labeling models for
