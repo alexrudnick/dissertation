@@ -3,18 +3,20 @@ To gather a larger training corpus, both of Spanish-Guarani bitext and
 monolingual Guarani text, we plan to build two websites. One website will be a
 collaborative online space for building translations of documents, primarily
 from Spanish to Guarani, although the other direction will be useful as well.
-The second website will be a repository of Guarani and bilingual documents,
+The second will be a repository of Guarani and bilingual documents,
 complete with a search engine and the ability to upload new documents.
 Initial designs for both of these sites were done as a master's project in HCI
 by Alberto Samaniego\footnote{\url{http://albsama.com}}, who will hopefully
-continue collaborating on this project from his native Paraguay.
+continue collaborating on this project from his native Paraguay. We also hope
+to enlist other collaborators, definitely from Paraguay and perhaps from
+Indiana and the broader open-source world as well.
 
 \subsection{Collecting Guarani Documents}
 The first website we will develop is called ``Tahekami", which means
-\emph{let's search together} in Guarani. It will be a repository of Guarani and
-bilingual documents, complete with the ability to upload new documents,
-browseable tags, and a search feature that takes into account the morphological
-richness of Guarani.
+\emph{let's search together} in Guarani.
+On Tahekami, users will be able to search for documents
+using a search feature that takes into account the morphological richness of
+Guarani, browse by tag, and upload new documents.
 
 An initial version of this site is already well underway \footnote{It is being
 developed at \url{http://github.com/hltdi/gn-documents}}. We have a working
@@ -26,13 +28,29 @@ this site and work on integrating morphological analysis into the search
 engine. Currently, new documents must be approved by an administrator before
 being added to the index.
 
-
 \subsection{Collecting Translations}
-The second website will be used by Guarani speakers and learners to
-collaboratively produce translations of relevant documents. Initially, it will
-be seeded with documents from the Spanish and Guarani Wikipedias, although
-other documents will be added by Guarani-language educators and perhaps also
-pulled from Tahekami. Translations may be assigned as homework.
+The second website will be used by Guarani speakers and learners to produce
+translations of relevant documents from Spanish to Guarani or vice-versa.
+It will be something like a bilingual wiki, although the interface will
+encourage users to edit sentences individually. The software will have found
+the sentence boundaries in the initial source-language documents and allow
+users to contribute translations of each sentence in turn, while showing the
+complete document context.
+As a result of this, not only will will we be able to collect bitext training
+data, but also useful translations of documents will be produced.
+
+Initially, this site will be seeded with documents from the Spanish and Guarani
+Wikipedias. Successful translations of the Spanish-language articles could be
+fed back into the Guarani Wikipedia.  Other documents will be added by
+Guarani-language educators and perhaps also pulled from Tahekami. Translations
+may be assigned as homework by Guarani-language teachers.
+
+The website will keep track of translations contributed by individual users;
+there may be game-like features and community voting, where large number of
+translations, or particularly good ones, are recognized, perhaps with virtual
+prizes and badges. Ideally, I will not spend much time on these particular
+features; if we can attract open-source contributors, hopefully they will have
+an interest in building it.
 
 We may eventually collect enough bitext with this website such that it makes
 sense to develop approaches for determining which sentences are the most
@@ -41,9 +59,10 @@ judgements from the human volunteers.
 Investigating this relationship would make a good research question.
 
 In the medium-term, this website will get an integrated ability to search
-translation memory and automatic suggestions from a machine translation system.
-However, these features are outside the scope of this dissertation.
-
-\footnote{Features described in a presentation in Spanish here:
-\url{http://www.cs.indiana.edu/~gasser/Taller2013/} . English-language similar
+a translation memory and automatic suggestions from a machine translation
+system\footnote{Features described in a presentation in Spanish here:
+\url{http://www.cs.indiana.edu/~gasser/Taller2013/} ; English-language similar
 presentation: \url{http://tinyurl.com/alexr-clingding-guarani} }
+. While these features will be both useful and present a number of
+interesting research questions, they are outside the scope of this
+dissertation.
