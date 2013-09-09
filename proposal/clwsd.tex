@@ -6,48 +6,44 @@ of multilingual evidence where available and sequence labeling.
 
 Both of these techniques have been prototyped and presented at workshops, but
 they will be refined significantly and integrated into a more general tool for
-use with MT systems.
+use in practice with MT systems.
 
 \subsection{Using multilingual evidence}
-In many cases, multiple bitext corpora in different language pairs will be
-available.
-We would like to be able to make use of evidence from an
+For many languages, we have multiple bitext corpora, where each corpus covers a
+different language pair. There are, for example, many bitext corpora available
+for English and other languages, or for Spanish and other languages.
+We would like to be able to make use of evidence from all of these corpora when
+translating into any particular target language, if possible.
+Each corpus may contain useful examples of a given source-language word,
+and senses of that word may be lexicalized in varying, non-overlapping ways in
+the different target languages.
+We would want a CL-WSD system to be able to pick up on the relationships
+between senses of a given word -- two target languages may happen to surface
+the same sense distinctions, perhaps due to being related languages, or simply
+by coincidence. Alternatively, a combination of translations into several
+languages may provide evidence for a certain lexical choice in the target
+language.
 
-multiple bitext corpora that involve the source language, we could use this
-evidence...
-
-Both different usage examples of a given source-language word will be present,
-and different senses of that source-language word may be lexicalized in
-non-overlapping ways. We would want a classifier to be able to pick up on which
-senses in a 
-
-We could also imagine using a sense-annotated corpus to train a ``monolingual"
-WSD system, and use this as a 
+XXX some good examples would be good XXX
 
 \begin{figure}
   \includegraphics[width=12cm]{hutchins-leg-etc.png}
   \caption{Overlap of words related to ``leg"; relationships between English
-  and French words.}
+  and French words. Translation is pretty complicated.}
   \label{fig:leg}
 \end{figure}
-(diagram from Jurafsky and Martin first edition, apparently due to Hutchins et
-al (XXX fix citation))
+(Figure 21.2 from Jurafsky and Martin first edition, apparently due to Hutchins
+et al (XXX fix citation))
 
+We could also imagine using a sense-annotated corpus to train a ``monolingual"
+WSD system, and use this as a 
 ... basically ensemble methods for WSD.
-
-
-
-
-
-so that the software can make use of information from
-available bitext from several different language pairs.
 
 This approach is informed by the work of Lefever and Hoste
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, although their technique requires
 an entire machine translation system to perform CL-WSD, which is somewhat
 unwieldy when we want to use CL-WSD as a subcomponent of a machine translation
 system.
-
 
 Earlier this year, we developed a prototype version of this kind of CL-WSD
 system \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the
@@ -66,6 +62,11 @@ simple system was used as a subcomponent in the two more sophisticated systems.
 
 
 The classifier stacking approach ...
+for each available bitext corpus, for each source-language word that we want to
+model, we train a classifier to predict translations from the source language
+into the other language of the bitext.
+Then we can include the output of that classifier as a feature when training
+our classifier for the desired target language.
 
 
 In the graphical model approach, we treat the problem of 
