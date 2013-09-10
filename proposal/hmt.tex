@@ -2,11 +2,32 @@
 
 (this all needs lots of work)
 
+In order to develop our ideas about CL-WSD for lexical selection, we will apply
+them to a number of different hybrid and RBMT systems with different designs,
+including, at least: a classic transfer-based system and a hybrid SCFG-based
+system that makes use of both bilingual transfer rules and a monolingual
+language model. As a stretch goal, we would also like to integrate with L3
+\cite{gasser:sxdg} and Apertium \cite{Forcada_theapertium}.
+
+We plan to be able to integrate CL-WSD techniques into two different RBMT
+systems, including L3 and Squoia.
+
+TODO Add some stuff about Squoia and how we're going to integrate with it.
+\cite{riosgonzales-gohring:2013:HyTra}
+
+\footnote{\url{https://code.google.com/p/squoia/}}
+
+
+
 \subsection{Terere}
+
 Since we hope that our ideas about lexical selection will make sense in several
 different contexts, we will also develop a new machine translation system out
 of stock SMT components, particularly relying on the
 cdec\footnote{\url{http://cdec-decoder.org}} decoder \cite{Dyer_etal_2010}.
+
+
+\cite{hutchins1992introduction}
 
 This new system is called
 Tereré\footnote{\url{http://github.com/alexrudnick/terere}}. Tereré will make
@@ -47,14 +68,4 @@ ambiguity both in its analysis of the input sentence and in the construction of
 an output sentence.  A good lexical selection module would constrain its other
 choices, yielding higher-quality translations first.
 
-\subsection{CL-WSD for RBMT}
-We plan to be able to integrate CL-WSD techniques into two different RBMT
-systems, including L3 \cite{gasser:sxdg} and Squoia.
-
-Also possible is Apertium...
-
-TODO Add some stuff about Squoia and how we're going to integrate with it.
-\cite{riosgonzales-gohring:2013:HyTra}
-
-\footnote{\url{https://code.google.com/p/squoia/}}
 
