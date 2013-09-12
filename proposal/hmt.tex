@@ -1,36 +1,23 @@
 \section{CL-WSD for Hybrid Machine Translation}
-
-(this all needs lots of work)
-
 In order to develop our ideas about CL-WSD for lexical selection, we will apply
 them to a number of different hybrid and RBMT systems with different designs,
-including, at least: a classic transfer-based system and a hybrid SCFG-based
-system that makes use of both bilingual transfer rules and a monolingual
-language model. As a stretch goal, we would also like to integrate with L3
-\cite{gasser:sxdg} and Apertium \cite{Forcada_theapertium}.
+including, at least: a hybrid SCFG-based system that makes use of both
+bilingual transfer rules and a monolingual language model, and a classic
+transfer-based system based on Matxin \cite{matxin_2005}. Time permitting, we
+would also like to integrate into L3 \cite{gasser:sxdg}, Apertium
+\cite{Forcada_theapertium}.
 
-We plan to be able to integrate CL-WSD techniques into two different RBMT
-systems, including L3 and Squoia.
-
-TODO Add some stuff about Squoia and how we're going to integrate with it.
-\cite{riosgonzales-gohring:2013:HyTra}
-
-\footnote{\url{https://code.google.com/p/squoia/}}
-
-
-
-\subsection{Terere}
-
-Since we hope that our ideas about lexical selection will make sense in several
-different contexts, we will also develop a new machine translation system out
-of stock SMT components, particularly relying on the
-cdec\footnote{\url{http://cdec-decoder.org}} decoder \cite{Dyer_etal_2010}.
-
-
+(why did we want to cite Hutchins? ...)
 \cite{hutchins1992introduction}
 
+\subsection{Tereré}
+Since we hope that our ideas about lexical selection will make sense in several
+different contexts, we will develop a new machine translation system out of
+stock SMT components, particularly relying on the cdec
+\footnote{\url{http://cdec-decoder.org}} decoder \cite{Dyer_etal_2010}.
+
 This new system is called
-Tereré\footnote{\url{http://github.com/alexrudnick/terere}}. Tereré will make
+Tereré \footnote{\url{http://github.com/alexrudnick/terere}}. Tereré will make
 use of modern SMT techniques ...
 
 XXX: be able to explain the difference between SAMT and Stat-XFER.
@@ -53,19 +40,28 @@ We will integrate our CL-WSD systems with RBMT systems, allowing them to be
 trained on any available bitext and produce better translations as larger
 corpora become available.
 
-%% XXX: still true?
-We will initially work with L3, an RBMT system based on synchronous dependency
-grammars and constraint solving \cite{gasser:sxdg,gasser:aflat2012};
-for comparison we will investigate other RBMT systems as well.
-L3 depends on linguistic knowledge about the source and target languages and
-can include abstract semantic representations as an intermediate stage in
-processing. It also integrates morphological analysis and generation for use in
+\subsection{SQUOIA}
+TODO Add some stuff about Squoia and how we're going to integrate with it.
+\cite{riosgonzales-gohring:2013:HyTra}
+\footnote{\url{https://code.google.com/p/squoia/}}
+
+\subsection{L3}
+L3 is an RBMT system based on synchronous dependency grammars and constraint
+solving \cite{gasser:sxdg,gasser:aflat2012}.
+It depends on linguistic knowledge about the source and target languages and
+can also include abstract semantic representations as an intermediate stage in
+processing. It integrates morphological analysis and generation for use in
 translating morphologically rich languages, such as Guarani.
+(The morphological analyzers and generators to be used in Tereré were
+originally developed for L3 by Michael Gasser.)
 
 However, L3 is currently entirely rule-based and it needs a better way to rank
-the possible translations of an input sentence. It faces syntactic and lexical
+the licensed translations of an input sentence. It faces syntactic and lexical
 ambiguity both in its analysis of the input sentence and in the construction of
-an output sentence.  A good lexical selection module would constrain its other
-choices, yielding higher-quality translations first.
+output sentences. Ideally, a good lexical selection module would constrain its
+other choices, yielding the higher-quality translations first.
 
+\subsection{Apertium}
+Apertium is another RBMT system based on shallow transfer.
 
+\cite{Forcada_theapertium}
