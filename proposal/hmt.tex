@@ -10,6 +10,13 @@ would also like to integrate into L3 \cite{gasser:sxdg}, Apertium
 (why did we want to cite Hutchins? ...)
 \cite{hutchins1992introduction}
 
+%% XXX needs some rewording
+While there is not much available bitext for training MT systems for most of
+the world's language pairs, once an RBMT or hybrid system is brought up, we
+would like to allow these systems to make use of any bitext that does become
+available, allowing them to, like SMT, produce better translations as larger
+corpora become available.
+
 \subsection{Tereré}
 Since we hope that our ideas about lexical selection will make sense in several
 different contexts, we will develop a new machine translation system out of
@@ -18,27 +25,32 @@ stock SMT components, particularly relying on the cdec
 
 This new system is called
 Tereré \footnote{\url{http://github.com/alexrudnick/terere}}. Tereré will make
-use of modern SMT techniques ...
+use of modern hybrid MT techniques. Our current plan is for it to be fairly
+similar to the Stat-XFER approach \cite{DBLP:conf/cicling/Lavie08} developed by
+researchers at CMU.
+Like Stat-XFER, Tereré will make use of bilingual transfer rules, a lexical
+transfer stage, and statistical decoding.
 
-XXX: be able to explain the difference between SAMT and Stat-XFER.
+%% XXX: be able to explain the difference between SAMT and Stat-XFER.
+While the initial transfer rules will likely be written by hand based the
+respective grammars of Spanish and Guarani, we may also include
+automatically-extracted rules, perhaps via Thrax \cite{weese-EtAl:2011:WMT} or
+a forthcoming tool for extracting Inversion Transduction Grammars, from a team
+at HKUST \cite{saers-addanki-wu:2013:HyTra}.
 
-Talk about hand-written and automatically extracted rules.
-
-How are we going to extract the rules? Probably with Thrax. Alternatively with
-Dekai's new thing, once he releases it. It actually doesn't really matter what
-we use to extract them.
-
-Talk about prediction for morphology.
-\cite{toutanova-suzuki-ruopp:2008:ACLMain}
+The initial plan for Tereré is to have it produce uninflected Guarani stems,
+which we will then take another pass through to inflect.
+Thus both the transfer rules and the language model will need to produced in
+terms of stemmed Guarani.
+Morphological features will then be produced with a sequence-labeling approach
+based on discriminative sequence labeling similar to the approached developed
+at MSR \cite{toutanova-suzuki-ruopp:2008:ACLMain}.
 
 TODO Talk about the other prediction approaches for morphology, like factored
 models. Are there others?
 
 this needs to get much more clear.
-
-We will integrate our CL-WSD systems with RBMT systems, allowing them to be
-trained on any available bitext and produce better translations as larger
-corpora become available.
+OK, so then we need to talk about how we're going to use CL-WSD too.
 
 \subsection{SQUOIA}
 TODO Add some stuff about Squoia and how we're going to integrate with it.

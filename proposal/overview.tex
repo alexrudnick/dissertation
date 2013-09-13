@@ -7,8 +7,8 @@ and practical means for lexical selection in this setting, and will work to
 demonstrate this by using it to construct a HMT system for Spanish and Guarani,
 the co-official languages of Paraguay.
 Along the way, I will develop new CL-WSD approaches, including the use of
-multilingual evidence and sequence-labeling techniques, and also crowdsourcing
-approaches for collecting larger corpora for disadvantaged languages.
+multilingual evidence and sequence-labeling techniques, and integrate our
+CL-WSD software into several different machine translation systems.
 
 Lexical ambiguity presents a serious challenge for rule-based machine
 translation (RBMT) systems, since many words will have multiple possible
@@ -24,7 +24,8 @@ they would choose one alternative over another. Thus we would like to learn
 from corpora when possible. However, for most language pairs, suitably large
 sentence-aligned bitext corpora are not available, so creating and deploying a
 translation system based on machine learning techniques will require collecting
-a larger corpus.
+a larger corpus. In order to support this work, we have ongoing collaborative
+projects for crowdsourcing the collection of larger bitexts.
 
 The major contributions of this work will be new approaches for: CL-WSD,
 integrating CL-WSD into RBMT systems, and crowdsourcing bilingual data
@@ -34,14 +35,13 @@ open-source software; a practical MT system for the Spanish-Guarani language
 pair; a website where language learners and activists can help build large
 bilingual corpora; and a freely available corpus of Spanish-Guarani bitext.
 
-In this work I will focus on Spanish and Guarani, the co-official languages of
-Paraguay. I will describe novel approaches to CL-WSD, including using evidence
-from multilingual sources and sequence labeling techniques.  I will also
-investigate the collection of a larger bilingual corpus through crowdsourcing
-and the integration of the disambiguation techniques into a rule-based
-translation engine, producing a hybrid rule-based/statistical translation
-system. Along the way, I will also work on integrating our CL-WSD techniques
-into other rule-based MT engines.
+%% In this work I will focus on Spanish and Guarani, the co-official languages of
+%% Paraguay. I will describe novel approaches to CL-WSD, including using evidence
+%% from multilingual sources and sequence labeling techniques. I will also
+%% investigate the collection of a larger bilingual corpus through crowdsourcing
+%% and the integration of the disambiguation techniques into a rule-based
+%% translation engine, producing a hybrid rule-based/statistical translation
+%% system.
 
 \subsection{Thesis statement}
 Cross-lingual word sense disambiguation (CL-WSD) is a feasible and practical
@@ -52,8 +52,7 @@ language pair with relatively modest resources.
 \begin{enumerate}
 \item What are effective ways to build a practical machine translation system
 for the Spanish-Guarani language pair?
-\item Which CL-WSD techniques are useful for our purposes?
+\item Which CL-WSD techniques are useful for this purpose?
 \item Which kinds of MT systems can benefit from CL-WSD?
-\item How can we collect bigger corpora to train our system?
+%% \item How can we collect bigger corpora to train our system?
 \end{enumerate}
-
