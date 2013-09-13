@@ -1,5 +1,22 @@
 \section{Techniques for CL-WSD}
 
+XXX some good examples would be good XXX
+
+(Figure 21.2 from Jurafsky and Martin first edition, apparently due to Hutchins
+et al (XXX fix citation))
+An illustrative example of the many-to-many relationship between words that are
+considered translations
+\cite[chap 21]{slp1}
+
+
+\begin{figure}
+  \includegraphics[width=12cm]{hutchins-leg-etc.png}
+  \caption{Overlap of words related to ``leg"; relationships between English
+  and French words. Translation is pretty complicated.}
+  \label{fig:leg}
+\end{figure}
+
+
 %% XXX: this sentence needs some help
 We will develop and extend at least two broad approaches for CL-WSD: the use
 of multilingual evidence where available and sequence labeling.
@@ -23,21 +40,6 @@ the same sense distinctions, perhaps due to being related languages, or simply
 by coincidence. Alternatively, a combination of translations into several
 languages may provide evidence for a certain lexical choice in the target
 language.
-
-XXX some good examples would be good XXX
-
-\begin{figure}
-  \includegraphics[width=12cm]{hutchins-leg-etc.png}
-  \caption{Overlap of words related to ``leg"; relationships between English
-  and French words. Translation is pretty complicated.}
-  \label{fig:leg}
-\end{figure}
-
-(Figure 21.2 from Jurafsky and Martin first edition, apparently due to Hutchins
-et al (XXX fix citation))
-An illustrative example of the many-to-many relationship between words that are
-considered translations
-\cite[chap 21]{slp1}
 
 We could also imagine using a sense-annotated corpus to train a ``monolingual"
 WSD system, and use this as a 
@@ -105,6 +107,23 @@ with this one.
 TODO look at the papers Nathan sent and be able to explain what other people
 are doing for hard sequence labeling problems. That might go in the related
 work section, or perhaps here.
+
+\subsection{CL-WSD system combination}
+
+Think about and expand the conversation I had with Markus.
+
+You could imagine different CL-WSD systems rating each option separately and
+then using MERT to get like an ensemble.
+The question we were trying to address is like:
+what if your n-gram model over labels for your source language has one idea
+(this is the next likely label), and your emission probabilities say something
+else (this is the label most likely to generate the observed input word)...
+well, we could imagine just making several different decisions and letting the
+decoder sort it out. We're doing that already actually, by including
+phrase-table probabilities and a language model.
+Are we just converging on the idea of a log-linear model again?
+But the point here is that we don't have to have just one CL-WSD system. We can
+have a bunch and let them fight it out. Hopefully this will help!
 
 \subsection{Applying similar techniques for morphology prediction}
 

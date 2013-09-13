@@ -57,6 +57,11 @@ Guarani.
 TODO Talk about the other prediction approaches for morphology, like factored
 models. Are there others?
 
+Markus also suggests that there will be some cases where we actually just
+*know* the right morphology, based on the syntax. Maybe in those cases we can
+output an appropriate token to flag to the morphology pass that we'll need to
+inflect the output word in a certain way.
+
 %% OK, so then we need to talk about how we're going to use CL-WSD too.
 %% XXX: needs expansion
 To integrate our CL-WSD system into Tereré, we will automatically produce a
