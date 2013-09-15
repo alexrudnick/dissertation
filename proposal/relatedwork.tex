@@ -1,41 +1,13 @@
 \section{Related Work}
 
 \subsection{Cross-lingual word sense disambiguation}
-Treating lexical selection as a word-sense disambiguation problem in which the
-sense inventory for each source-language word is its set of possible
-translations is often called cross-lingual WSD (CL-WSD).
 
-In a cross-language word-sense disambiguation (CL-WSD) task, given an
-instance of an ambiguous word used in a context, we want to predict the
-appropriate translation of that word into the target language. This setting for
-WSD has an immediate application in machine translation, since many words have
-multiple possible translations.
-
-There have been shared tasks on CL-WSD at recent SemEval workshops; the most
-recent running of the task is described in \cite{task10}.
-
-WSD in translation has a long history; practical work in integrating
-WSD with statistical machine translation dates back to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
-Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which outlines the
-modern conception of word sense disambiguation.
-
-Despite this, most SMT systems do not use an explicit WSD module
-\cite{wsdchap3}, as the language model and phrase tables of these systems
-mitigate lexical ambiguities somewhat.
-
-
-However, recently Carpuat and Wu have shown how to use word-sense
+While most SMT systems do not make use of an explicit WSD module,
+recently Carpuat and Wu have shown how to use word-sense
 disambiguation techniques to improve modern phrase-based SMT systems
 \cite{carpuatpsd}.
 \cite{carpuat2008evaluation}
 \cite{carpuat-wu:2007:EMNLP-CoNLL2007}
-
-
-Outside of the CL-WSD setting, there has been work on framing all-words WSD as
-a sequence labeling problem. Particularly, Molina \textit{et al.}
-\shortcite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
-WSD in a monolingual setting.
 
 Following the work of Lefever and Hoste
 \shortcite{lefever-hoste-decock:2011:ACL-HLT2011}, we wanted to make use of
@@ -52,6 +24,13 @@ training time. However, at testing time it requires a complete MT system for
 each of the four other languages, which is computationally prohibitive. Thus in
 our work, we learn from several parallel corpora but require neither a locally
 running MT system nor access to an online translation API.
+
+
+Outside of the CL-WSD setting, there has been work on framing all-words WSD as
+a sequence labeling problem. Particularly, Molina \textit{et al.}
+\shortcite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
+WSD in a monolingual setting.
+
 
 
 \subsection{translation into morphologically rich languages}

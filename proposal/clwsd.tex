@@ -1,4 +1,54 @@
-\section{Techniques for CL-WSD}
+\section{Cross-lingual Word Sense Disambiguation}
+
+Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling tokens
+in the context of an input sentence ... ; this has a clear application to
+machine translation, in that  ...
+
+Treating lexical selection as a word-sense disambiguation problem in which the
+sense inventory for each source-language word is its set of possible
+translations is often called cross-lingual WSD (CL-WSD).
+
+In a cross-language word-sense disambiguation (CL-WSD) task, given an
+instance of an ambiguous word used in a context, we want to predict the
+appropriate translation of that word into the target language. This setting for
+WSD has an immediate application in machine translation, since many words have
+multiple possible translations.
+
+There have been shared tasks on CL-WSD at recent SemEval workshops; the most
+recent running of the task is described in \cite{task10}.
+
+WSD in translation has a long history; practical work in integrating
+WSD with statistical machine translation dates back to early SMT work at IBM
+\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
+Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which outlines the
+modern conception of word sense disambiguation.
+
+Despite this, most SMT systems do not use an explicit WSD module
+\cite{wsdchap3}, as the language model and phrase tables of these systems
+mitigate lexical ambiguities somewhat.
+
+
+
+As Bar-Hillel wrote \cite{barhillel1960}:
+
+\begin{quote}
+... I know of no program that would enable a machine to come up with this
+unique rendering unless by a completely arbitrary and ad hoc procedure whose
+futility would show itself in the next example.
+\end{quote}
+
+Treating lexical selection as a word-sense disambiguation problem, in
+which the sense inventory for each source-language word is its set of possible
+translations, is often called cross-lingual WSD (CL-WSD).
+This framing has received enough attention to warrant shared tasks at recent
+SemEval workshops; the most recent running of the task is described in
+\cite{task10}.
+
+Intuitively, machine translation implies an ``all-words" WSD task: we need to
+choose a translation for every word or phrase in the source sentence, and the
+sequence of translations should make sense taken together.
+
+
 
 XXX some good examples would be good XXX
 
