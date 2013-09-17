@@ -1,17 +1,13 @@
 \section{Related Work}
 
-\subsection{Cross-lingual word sense disambiguation}
+\subsection{Cross-lingual Word Sense Disambiguation}
 
-While most SMT systems do not make use of an explicit WSD module,
-recently Carpuat and Wu have shown how to use word-sense
-disambiguation techniques to improve modern phrase-based SMT systems
-\cite{carpuatpsd}.
-\cite{carpuat2008evaluation}
-\cite{carpuat-wu:2007:EMNLP-CoNLL2007}
+While most SMT systems do not make use of an explicit WSD module, recently
+Carpuat and Wu have shown how to use word-sense disambiguation techniques to
+improve modern phrase-based SMT systems, in a normally 
 
-Following the work of Lefever and Hoste
-\shortcite{lefever-hoste-decock:2011:ACL-HLT2011}, we wanted to make use of
-multiple bitext corpora for the CL-WSD task.
+\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}
+
 
 ParaSense, the system of Lefever
 and Hoste, takes into account evidence from all of the available parallel
@@ -25,22 +21,28 @@ each of the four other languages, which is computationally prohibitive. Thus in
 our work, we learn from several parallel corpora but require neither a locally
 running MT system nor access to an online translation API.
 
+Following the work of Lefever and Hoste
+\shortcite{lefever-hoste-decock:2011:ACL-HLT2011}, we wanted to make use of
+multiple bitext corpora for the CL-WSD task.
 
-Outside of the CL-WSD setting, there has been work on framing all-words WSD as
-a sequence labeling problem. Particularly, Molina \textit{et al.}
-\shortcite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
-WSD in a monolingual setting.
+To our knowledge, there has not been other work on framing all-words WSD as a
+sequence labeling problem. However, in monolingual WSD, Molina \textit{et al.}
+\shortcite{DBLP:conf/iberamia/MolinaPS02}
+have made use of HMMs for WSD. 
 
 
+\subsection{Translation into Morphologically Rich Languages}
 
-\subsection{translation into morphologically rich languages}
+Chris Dyer's recent paper at EMNLP
+\cite{chahuneau:2013:emnlp}
 
 Talk about prediction for morphology.
 \cite{toutanova-suzuki-ruopp:2008:ACLMain}
 
 Also factored models...
+\cite{yeniterzi-oflazer:2010:ACL}
 
-\subsection{Hybrid machine translation}
+\subsection{Hybrid Machine Translation for Under-Resourced Languages}
 HMT for low-resource languages...
 
 %% text from the HyTra paper
@@ -59,6 +61,9 @@ humans.
 Put in some stuff about SAMT and Stat-XFER.
 
 Who's doing transfer rules that are hand-written?
+
+
+
 
 \subsection{Creating corpora through crowdsourcing}
 
@@ -113,8 +118,12 @@ be close to the right thing.
 OPUS, "the open parallel corpus".
 \url{http://opus.lingfil.uu.se/}
 
-\subsection{Online language tools for Guarani}
+\subsection{Online Language Tools for Guarani}
 
+While there are not currently many online language tools for the Guarani, there
+are a few ...
+
+Notably, there is 
 iGuarani
 \url{http://iguarani.com/}
 
