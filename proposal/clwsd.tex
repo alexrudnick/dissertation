@@ -1,35 +1,24 @@
 \section{Cross-lingual Word Sense Disambiguation}
 
-Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling tokens
-in the context of an input sentence ... ; this has a clear application to
-machine translation, in that  ...
-
-Treating lexical selection as a word-sense disambiguation problem in which the
-sense inventory for each source-language word is its set of possible
-translations is often called cross-lingual WSD (CL-WSD).
-
-In a cross-language word-sense disambiguation (CL-WSD) task, given an
-instance of an ambiguous word used in a context, we want to predict the
-appropriate translation of that word into the target language. This setting for
-WSD has an immediate application in machine translation, since many words have
-multiple possible translations.
-
-There have been shared tasks on CL-WSD at recent SemEval workshops; the most
-recent running of the task is described in \cite{task10}.
+Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling words
+or phrases in some input sentence with their contextually-appropriate
+translations into some target language.
+It is a variant of the more general WSD
+task, with the sense inventory for each word defined as its possible
+translations.
+This setting for WSD has an immediate application in machine translation, since
+many words have multiple possible translations.
 
 WSD in translation has a long history; practical work in integrating
 WSD with statistical machine translation dates back to early SMT work at IBM
 \cite{Brown91word-sensedisambiguation}, but the problem itself was described in
-Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which outlines the
+Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which describes a
 modern conception of word sense disambiguation.
 
-Despite this, most SMT systems do not use an explicit WSD module
-\cite{wsdchap3}, as the language model and phrase tables of these systems
-mitigate lexical ambiguities somewhat.
-
-
-
-As Bar-Hillel wrote \cite{barhillel1960}:
+In the early history of machine translation, researchers were very concerned
+with WSD; to some, it seemed an insurmountable problem. As Bar-Hillel wrote,
+concerning writing a program to translate sentences like \emph{The box was in
+the pen.} \cite{barhillel1960}:
 
 \begin{quote}
 ... I know of no program that would enable a machine to come up with this
@@ -37,9 +26,42 @@ unique rendering unless by a completely arbitrary and ad hoc procedure whose
 futility would show itself in the next example.
 \end{quote}
 
-Treating lexical selection as a word-sense disambiguation problem, in
-which the sense inventory for each source-language word is its set of possible
-translations, is often called cross-lingual WSD (CL-WSD).
+To produce a correct rendering of this sentence in Spanish, for example, the
+translation system must decide between translating ``pen" as \emph{corral} (an
+enclosure, like for an animal) or as \emph{pluma} (the instrument for writing).
+As of this writing, for this particular example, Google Translate picks the
+less-sensible ``in the writing implement" translation. One wonders how this
+could come about -- we would hope that the n-gram language model for Spanish
+would prefer sentences about things in enclosures than things in writing
+implements, but then the word \emph{en} is a translation of both the English
+``in" and ``on", and \emph{pluma} can also mean ``feather". This situation is
+fairly complex.
+
+\begin{figure}
+  \includegraphics[width=12cm]{box-in-pen.png}
+  \caption{Google Translate, September 17, 2013; interestingly, adding or
+  removing the final period in the English sentence causes a switch between the
+  ``pluma" and ``corral" renderings.}
+  \label{fig:box-in-pen}
+\end{figure}
+
+In general, there is a many-to-many relationship between words across language
+boundaries. Translation is not easy.
+%%% OK.
+
+\begin{figure}
+  \includegraphics[width=12cm]{hutchins-leg-etc.png}
+  \caption{Overlap of words related to ``leg"; relationships between English
+  and French words. Figure 21.2 from \protect\cite{slp1}; example originally
+  from \protect\cite[Chapter 6]{hutchins1992introduction}.}
+  \label{fig:leg}
+\end{figure}
+
+
+
+
+
+
 This framing has received enough attention to warrant shared tasks at recent
 SemEval workshops; the most recent running of the task is described in
 \cite{task10}.
@@ -50,24 +72,17 @@ sequence of translations should make sense taken together.
 
 
 
-XXX some good examples would be good XXX
-
-(Figure 21.2 from Jurafsky and Martin first edition, apparently due to Hutchins
-et al (XXX fix citation))
-An illustrative example of the many-to-many relationship between words that are
-considered translations
-\cite[chap 21]{slp1}
 
 
-\begin{figure}
-  \includegraphics[width=12cm]{hutchins-leg-etc.png}
-  \caption{Overlap of words related to ``leg"; relationships between English
-  and French words. Translation is pretty complicated.}
-  \label{fig:leg}
-\end{figure}
+Despite this, most SMT systems do not use an explicit WSD module
+\cite{wsdchap3}, as the language model and phrase tables of these systems
+mitigate lexical ambiguities somewhat.
 
 
-%% XXX: this sentence needs some help
+There have been shared tasks on CL-WSD at recent SemEval workshops; the most
+recent running of the task is described in \cite{task10}.
+
+
 We will develop and extend at least two broad approaches for CL-WSD: the use
 of multilingual evidence where available and sequence labeling.
 
