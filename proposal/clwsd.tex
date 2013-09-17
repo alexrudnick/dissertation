@@ -17,25 +17,26 @@ modern conception of word sense disambiguation.
 
 In the early history of machine translation, researchers were very concerned
 with WSD; to some, it seemed an insurmountable problem. As Bar-Hillel wrote,
-concerning writing a program to translate sentences like \emph{The box was in
-the pen.} \cite{barhillel1960}:
+discussing the possibility of writing a program to translate sentences with
+simple ambiguities like \emph{The box was in the pen.} \cite{barhillel1960}:
 
 \begin{quote}
 ... I know of no program that would enable a machine to come up with this
 unique rendering unless by a completely arbitrary and ad hoc procedure whose
-futility would show itself in the next example.
+futility would show itself ...
 \end{quote}
 
 To produce a correct rendering of this sentence in Spanish, for example, the
 translation system must decide between translating ``pen" as \emph{corral} (an
 enclosure, like for an animal) or as \emph{pluma} (the instrument for writing).
 As of this writing, for this particular example, Google Translate picks the
-less-sensible ``in the writing implement" translation. One wonders how this
-could come about -- we would hope that the n-gram language model for Spanish
-would prefer sentences about things in enclosures than things in writing
-implements, but then the word \emph{en} is a translation of both the English
-``in" and ``on", and \emph{pluma} can also mean ``feather". This situation is
-fairly complex.
+less-sensible ``in the writing implement" translation (see Figure
+\ref{fig:box-in-pen}).
+One wonders how this could come about -- we would hope that the n-gram language
+model for Spanish would prefer sentences about things in enclosures than things in writing implements.
+But the word \emph{en} can be a translation of either the English ``in" or
+``on", and \emph{pluma} can also mean ``feather".
+The situation is fairly complex.
 
 \begin{figure}
   \includegraphics[width=12cm]{box-in-pen.png}
@@ -46,8 +47,49 @@ fairly complex.
 \end{figure}
 
 In general, there is a many-to-many relationship between words across language
-boundaries. Translation is not easy.
-%%% OK.
+boundaries.
+This happens for a number of reasons: figurative or metaphorical uses may not
+translate directly,
+obligatory information in one language may be left unspecified in another,
+or the criteria for selecting a word may simply be differ.
+To give some familiar examples, a ``leg" of a trip in English is typically
+translated as \emph{etape} in French;
+translating ``brother" to Japanese requires specifying whether the brother is
+older (\emph{ani}) or younger (\emph{ot\=oto});
+a soap bubble or a ceramic plate can be destroyed with the same word in
+Chinese, whereas English speakers typically distinguish ``pop" and ``break"
+\cite{majid2007semantic}.
+
+Despite these difficulties, most statistical MT systems do not use an explicit
+WSD module \cite{wsdchap3}; the language model and phrase tables of these
+systems mitigate lexical ambiguities by encouraging words used collocationally
+to appear together in the output. Entire phrases\footnote{Not necessarily
+``phrases" in a syntactic sense, but subsequences of sentences} such as verbs
+with their common objects maybe learned and stored in the phrase table, and the
+language model will encourage common collocations as well. However
+longer-distance relationships can still cause strange translations in practice.
+
+
+%% OK
+
+
+This framing has received enough attention to warrant shared tasks at recent
+SemEval workshops; the most recent running of the task is described in
+\cite{task10}.
+There have been shared tasks on CL-WSD at recent SemEval workshops; the most
+recent running of the task is described in \cite{task10}.
+
+
+Intuitively, machine translation implies an ``all-words" WSD task: we need to
+choose a translation for every word or phrase in the source sentence, and the
+sequence of translations should make sense taken together.
+
+We will develop and extend at least two broad approaches for CL-WSD: the use
+of multilingual evidence where available and sequence labeling.
+
+Both of these techniques have been prototyped and presented at workshops, but
+they will be refined significantly and integrated into a more general tool for
+use in practice with MT systems.
 
 \begin{figure}
   \includegraphics[width=12cm]{hutchins-leg-etc.png}
@@ -57,38 +99,6 @@ boundaries. Translation is not easy.
   \label{fig:leg}
 \end{figure}
 
-
-
-
-
-
-This framing has received enough attention to warrant shared tasks at recent
-SemEval workshops; the most recent running of the task is described in
-\cite{task10}.
-
-Intuitively, machine translation implies an ``all-words" WSD task: we need to
-choose a translation for every word or phrase in the source sentence, and the
-sequence of translations should make sense taken together.
-
-
-
-
-
-Despite this, most SMT systems do not use an explicit WSD module
-\cite{wsdchap3}, as the language model and phrase tables of these systems
-mitigate lexical ambiguities somewhat.
-
-
-There have been shared tasks on CL-WSD at recent SemEval workshops; the most
-recent running of the task is described in \cite{task10}.
-
-
-We will develop and extend at least two broad approaches for CL-WSD: the use
-of multilingual evidence where available and sequence labeling.
-
-Both of these techniques have been prototyped and presented at workshops, but
-they will be refined significantly and integrated into a more general tool for
-use in practice with MT systems.
 
 \subsection{Using multilingual evidence}
 For many languages, we have multiple bitext corpora, where each corpus covers a
