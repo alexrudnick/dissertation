@@ -1,19 +1,19 @@
 \section{Cross-lingual Word Sense Disambiguation}
 
 Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling words
-or phrases in some input sentence with their contextually-appropriate
-translations into some target language.
-It is a variant of the more general WSD
-task, with the sense inventory for each word defined as its possible
+or phrases in some input text with their contextually-appropriate translations
+into some target language.
+It is a variant of the more general WSD task, with the sense inventory for each
+word defined as its possible translations.
+This setting for WSD has immediate applications in both machine translation and
+cross-language information retrieval, since many words have multiple possible
 translations.
-This setting for WSD has an immediate application in machine translation, since
-many words have multiple possible translations.
 
 WSD in translation has a long history; practical work in integrating
 WSD with statistical machine translation dates back to early SMT work at IBM
 \cite{Brown91word-sensedisambiguation}, but the problem itself was described in
-Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which describes a
-modern conception of word sense disambiguation.
+Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which describes an
+essentially modern conception of word sense disambiguation.
 
 In the early history of machine translation, researchers were very concerned
 with WSD; to some, it seemed an insurmountable problem. As Bar-Hillel wrote,
@@ -33,10 +33,12 @@ As of this writing, for this particular example, Google Translate picks the
 less-sensible ``in the writing implement" translation (see Figure
 \ref{fig:box-in-pen}).
 One wonders how this could come about -- we would hope that the n-gram language
-model for Spanish would prefer sentences about things in enclosures than things in writing implements.
+model for Spanish would prefer sentences about things in enclosures than things
+in writing implements.
 But the word \emph{en} can be a translation of either the English ``in" or
 ``on", and \emph{pluma} can also mean ``feather".
 The situation is fairly complex.
+
 
 \begin{figure}
   \includegraphics[width=12cm]{box-in-pen.png}
@@ -53,43 +55,57 @@ translate directly,
 obligatory information in one language may be left unspecified in another,
 or the criteria for selecting a word may simply be differ.
 To give some familiar examples, a ``leg" of a trip in English is typically
-translated as \emph{etape} in French;
+translated as \emph{etape} in French, which is unrelated to biological legs;
 translating ``brother" to Japanese requires specifying whether the brother is
 older (\emph{ani}) or younger (\emph{ot\=oto});
 a soap bubble or a ceramic plate can be destroyed with the same word in
-Chinese, whereas English speakers typically distinguish ``pop" and ``break"
-\cite{majid2007semantic}.
+Chinese, whereas English speakers typically distinguish between the verbs
+``pop" and ``break" \cite{majid2007semantic}.
 
 Despite these difficulties, most statistical MT systems do not use an explicit
 WSD module \cite{wsdchap3}; the language model and phrase tables of these
 systems mitigate lexical ambiguities by encouraging words used collocationally
 to appear together in the output. Entire phrases\footnote{Not necessarily
 ``phrases" in a syntactic sense, but subsequences of sentences} such as verbs
-with their common objects maybe learned and stored in the phrase table, and the
-language model will encourage common collocations as well. However
-longer-distance relationships can still cause strange translations in practice.
+with their common objects may be learned and stored in the phrase table, and
+the language model will encourage common collocations as well.
 
+To take a look at some apparently easier examples, let us also consider the
+following usages of \emph{letter}, from the test set of a recent SemEval shared
+task \cite{task10}, and how to translate them into Spanish.
 
-%% OK
+\enumsentence{
+But a quick look at today's \emph{letters} to the editor in the Times suggest
+that here at least is one department of the paper that could use a little more
+fact-checking. }
+\label{sent:carta}
+\enumsentence{
+All over the ice were little Cohens, little Levys, their names sewed in block
+\emph{letters} on the backs of their jerseys. }
+\label{sent:letra}
 
+We would want (\ref{sent:carta}) to be translated with the word \emph{carta},
+and (\ref{sent:letra}) to be translated with ``letra" or something similar.
+Google Translate (as of this writing) handles both of these sentences well,
+rendering the first with ``cartas" and the second with an even better choice,
+translating the phrase ``block letters" as \emph{mayúsculas}.
+However longer-distance relationships, search errors, or simple statistical
+accidents can still cause strange translations in practice.
 
-This framing has received enough attention to warrant shared tasks at recent
-SemEval workshops; the most recent running of the task is described in
-\cite{task10}.
-There have been shared tasks on CL-WSD at recent SemEval workshops; the most
-recent running of the task is described in \cite{task10}.
+Despite the great success of SMT systems without any explicit models for WSD,
+there has been recent interest in CL-WSD and its application to translation
+systems, sparking shared tasks at recent SemEval workshops
+\cite{lefever-hoste:2010:SemEval,task10} and a number of other projects
+described in some detail in \S\ref{sec:relatedwork}).
 
-
-Intuitively, machine translation implies an ``all-words" WSD task: we need to
-choose a translation for every word or phrase in the source sentence, and the
-sequence of translations should make sense taken together.
-
-We will develop and extend at least two broad approaches for CL-WSD: the use
-of multilingual evidence where available and sequence labeling.
-
+In this dissertation, we will describe in detail some new approaches for CL-WSD
+and how to integrate them into a practical machine translation system.
+We will develop and extend at least two broad approaches for CL-WSD: the use of
+multilingual evidence where available, and CL-WSD as a sequence labeling
+problem.
 Both of these techniques have been prototyped and presented at workshops, but
-they will be refined significantly and integrated into a more general tool for
-use in practice with MT systems.
+they will be refined significantly and packaged into more general tools for use
+in MT.  
 
 \begin{figure}
   \includegraphics[width=12cm]{hutchins-leg-etc.png}
@@ -99,38 +115,30 @@ use in practice with MT systems.
   \label{fig:leg}
 \end{figure}
 
-
 \subsection{Using multilingual evidence}
-For many languages, we have multiple bitext corpora, where each corpus covers a
-different language pair. There are, for example, many bitext corpora available
-for English and other languages, or for Spanish and other languages.
+For some languages, such as English, Spanish, and the other languages of the
+European Union, we have multiple bitext corpora available, covering several
+different language pairs with the same source language.
 We would like to be able to make use of evidence from all of these corpora when
 translating into any particular target language, if possible.
 Each corpus may contain useful examples of a given source-language word,
 and senses of that word may be lexicalized in varying, non-overlapping ways in
 the different target languages.
-We would want a CL-WSD system to be able to pick up on the relationships
-between senses of a given word -- two target languages may happen to surface
-the same sense distinctions, perhaps due to being related languages, or simply
+
+We want a CL-WSD system to be able to learn the relationships between the
+senses of a given source word that are lexicalized in varying ways in the
+various other languages. Two target languages may happen to surface the same
+sense distinctions, perhaps due to being related languages, or simply
 by coincidence. Alternatively, a combination of translations into several
 languages may provide evidence for a certain lexical choice in the target
-language.
-
-We could also imagine using a sense-annotated corpus to train a ``monolingual"
-WSD system, and use this as a 
-... basically ensemble methods for WSD.
-
-This approach is informed by the work of Lefever and Hoste
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, although their technique requires
-an entire machine translation system to perform CL-WSD, which is somewhat
-unwieldy when we want to use CL-WSD as a subcomponent of a machine translation
-system.
+language of interest.
 
 Earlier this year, we developed a prototype CL-WSD system that makes use of
 multilingual evidence \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced
 some of the best results in a SemEval shared task on CL-WSD \cite{task10}.
-The task was to translate polysemous nouns from English into other European
-languages. In our SemEval paper, we presented three variations on the approach:
+Concretely, teams undertaking the task had to translate polysemous nouns from
+English into other European languages.
+In our SemEval paper, we presented three variations on the approach:
 a straightforward classification approach (without multilingual evidence), a
 classifier stacking approach, and a graphical model system based on loopy
 belief propagation over Markov networks.
@@ -141,7 +149,8 @@ be translated and used these to make a prediction. The same system could also
 return a probability distribution over target-language words or phrases. This
 simple system was used as a subcomponent in the two more sophisticated systems.
 
-The classifier stacking approach used 
+The classifier stacking approach uses
+... %% XXX
 for each available bitext corpus, for each source-language word that we want to
 model, we train a classifier to predict translations from the source language
 into the other language of the bitext.
@@ -153,12 +162,26 @@ In the graphical model approach, we treat the problem of
 ... this also has the property of explicitly handling the uncertainty of each
 of the component classifiers.
 
+
+We could also imagine using a sense-annotated corpus to train a ``monolingual"
+WSD system, and use this as a 
+... basically ensemble methods for WSD.
+\cite{brown1992class}
+
+This approach is informed by the work of Lefever and Hoste
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}, although their technique requires
+an entire machine translation system to perform CL-WSD, which is somewhat
+unwieldy when we want to use CL-WSD as a subcomponent of a machine translation
+system.
+
+
 \subsection{Lexical selection as a sequence labeling problem}
-We will also investigate the use of sequence-labeling models for lexical
-selection.  The intuition behind the sequence-labeling approach is that machine
+We will also investigate the use of sequence labeling models for lexical
+selection.  The intuition behind the sequence labeling approach is that machine
 translation implies an ``all-words" WSD task, in that we need to choose a
 translation for every word or phrase in the source sentence, and that the
 sequence of translations chosen should make sense when taken together.
+
 
 One promising formalism for this line of work is the Maximum Entropy Markov
 Model \cite{icml00/mccallum}, which can be combined in a straightforward way

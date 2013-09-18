@@ -1,4 +1,5 @@
 \section{Related Work}
+\label{sec:relatedwork}
 
 \subsection{Cross-lingual Word Sense Disambiguation}
 
@@ -33,6 +34,8 @@ have made use of HMMs for WSD.
 
 \subsection{Translation into Morphologically Rich Languages}
 
+
+
 Chris Dyer's recent paper at EMNLP
 \cite{chahuneau:2013:emnlp}
 
@@ -63,43 +66,42 @@ Put in some stuff about SAMT and Stat-XFER.
 Who's doing transfer rules that are hand-written?
 
 
+\subsection{Creating Corpora Through Crowdsourcing}
+There has been some work on creating multilingual corpora through
+crowdsourcing, in several variations. Some projects have explicitly had the
+goal of creating sentence-aligned bitexts useful for training MT systems, while
+others have aimed to create useful resources for humans. Also the means of
+crowdsourcing has varied; some contributors have been paid, and others are
+volunteers.
 
+Vamshi Ambati's recent work \cite{ambati_naacl,ambati_act} focuses on using
+crowdsourcing and active learning to produce a corpus for English-Spanish SMT.
+His system has a representation of which words and phrases it should learn
+about, finding n-grams that are common in a development set but have little
+support in the training set, and then automatically creates Mechanical Turk
+tasks to elicit translations containing translations of these n-grams. This
+work makes use of the relatively large population of Internet users (and thus
+MTurk users) familiar with both English and Spanish, and succeeded in building
+a large bitext corpus quickly and cheaply.
 
-\subsection{Creating corpora through crowdsourcing}
+The Joshua team at Johns Hopkins has also successfully used Mechanical Turk to
+crowdsource the creation of corpora for SMT
+\cite{post-callisonburch-osborne:2012:WMT}. In this work, the team built
+large parallel corpora for many languages of the Indian
+subcontinent\footnote{\url{http://joshua-decoder.org/indian-parallel-corpora/}}
+and developed a simple approach for discovering the high-quality contributions,
+in which MTurk users vote on which translations they consider the best.
 
-There has been some work on creating corpora for statistical machine
-translation through crowdsourcing.
+There's also MonoTrans
+\url{http://www.cs.umd.edu/hcil/monotrans/}
+"... an iterative protocol in which monolingual human participants work
+together to improve imperfect machine translations." 
 
-Vamshi Ambati's dissertation work focuses on using crowdsourcing and active
-learning to produce a corpus for English-Spanish SMT. His system has a notion
-of which words and phrases it would like to learn about -- n-grams that are
-common in a development set but have little support in the training set -- and
-then automatically creates Mechanical Turk tasks to elicit translations
-containing translations of these n-grams.
-
-This work makes use of the relatively large population of Internet users (and
-thus MTurk users) familiar with both English and Spanish.
-
-\cite{ambati_naacl}
-
-\cite{ambati_act}
-
-Large parallel corpora have also been created by that Johns Hopkins group
-with the Indian languages
-\cite{post-callisonburch-osborne:2012:WMT}
-
-\subsection{Translation with volunteers}
-
+Contrastingly, the Tatoeba project is a repository of 
 %% Tatoeba
 Tatoeba -- repository of a bunch of example sentences translated into a variety
 of languages.
 \url{http://tatoeba.org/}
-
-There's also MonoTrans
-\url{http://www.cs.umd.edu/hcil/monotrans/}
-
-"... an iterative protocol in which monolingual human participants work
-together to improve imperfect machine translations." 
 
 %% Tradubi
 Tradubi project
@@ -127,5 +129,9 @@ Notably, there is
 iGuarani
 \url{http://iguarani.com/}
 
-Wolf Lustig's dictionary...
+Wolf Lustig's dictionary
+\footnote{\url{http://www.uni-mainz.de/cgi-bin/guarani2/dictionary.pl}}, which
+has versions in Spanish, German, and English.
 
+
+\footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}}
