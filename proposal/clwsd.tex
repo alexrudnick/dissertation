@@ -206,7 +206,7 @@ which is described in \cite[\S 11.3.5.1]{Koller+Friedman:09}.
   \includegraphics[width=5cm]{pentagram.pdf}
   \end{center}
   \caption{The network structure used in the MRF system: a complete graph with
-  five nodes in which each node represents a random variable for the
+  five nodes, in which each node represents the random variable for the
   translation into a target language.}
   \label{fig:pentagram}
 \end{figure}
@@ -299,10 +299,10 @@ We have yet to explore what the best approaches are for choosing which, and how
 many, words should be modeled with classifiers for best results, but this will
 be an important question to address.
 
-More sophisticated sequence models, such as Conditional Random Fields (XXX
-cite), may be useful in this task as well. 
+More sophisticated sequence models, such as Conditional Random Fields
+\cite{lafferty2001conditional}, may be useful in this task as well. 
 We ran into difficulties in initial experiments with the off-the-shelf
-CRF tool Mallet (XXX cite Mallet) -- training proved intractable on
+CRF tool Mallet \cite{McCallumMALLET} -- training proved intractable on
 one machine due to the large label space (all target-language words and
 phrases), but these problems may be surmountable with some ingenuity or
 parallelism.
