@@ -1,0 +1,13 @@
+graph G {
+  edge [len=2];
+  es -- de;
+  es -- nl;
+  es -- fr;
+  es -- it;
+  de -- nl;
+  de -- fr;
+  de -- it;
+  nl -- fr;
+  nl -- it;
+  fr -- it;
+}
