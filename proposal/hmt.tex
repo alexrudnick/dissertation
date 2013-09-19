@@ -1,5 +1,4 @@
 \section{CL-WSD for Hybrid Machine Translation in Low-Resource Settings}
-
 In recent years, we have seen renewed interest in machine translation systems
 that take into account syntactic structure, linguistic knowledge, and semantic
 representations.
@@ -79,31 +78,42 @@ As an alternative, we could adapt the techniques in
 \cite{chahuneau:2013:emnlp} to generate translation rules that contain the
 appropriately inflected target forms, just before running the decoder.
 Rule-based approaches may also be sensible for generating Guarani morphology,
-in some cases, and these will have to be investigated.
+in some cases, and these will have to be investigated. In any case, once the
+appropriate morphological features have been predicted, surface forms of
+Guarani words will be generated with the FST-based morphological analyzer and
+generator developed by Michael Gasser and described in
+\cite{rudnick-gasser:2013:HyTra-2013}.
 
 \subsection{SQUOIA}
+SQUOIA\footnote{Described in detail at
+\url{http://www.cl.uzh.ch/research/maschinelleuebersetzung/hybridmt_en.html}; 
+Code available at \url{http://code.google.com/p/squoia/}}
+is a project for MT from Spanish to Quechua, another relatively large
+indigenous American language. SQUOIA is being developed by a team at the
+University of Zurich. For the most part, it is a classical rule-based transfer
+system, although the team has recently developed techniques for predicting verb
+morphology with machine learning methods, in cases when rules cannot reliably
+disambiguate \cite{riosgonzales-gohring:2013:HyTra}. It does not currently use
+machine learning for lexical selection, although we have been in contact with
+the team and are planning to collaborate to add CL-WSD features.
 
-TODO Add some stuff about Squoia and how we're going to integrate with it.
-\cite{riosgonzales-gohring:2013:HyTra}
-\footnote{\url{http://code.google.com/p/squoia/}}
-
-
-SQUOIA is based on the architecture from Matxin \cite{matxin_2005}. 
-
-How are we going to integrate?
+SQUOIA's architecture is based on the Matxin system \cite{matxin_2005}, which
+was originally intended for translating from Spanish to Basque.
+It consists of a pipeline of scripts, each of which passes along a tree
+describing the current input sentence, in XML form. Adding CL-WSD to this
+system will involve adding another script somewhere in the pipeline that
+extracts features from the current annotated sentence, makes lexical choices,
+and then passes these choices to subsequent scripts.
 
 \subsection{L3}
-
-\cite{gasser:sxdg}
-
 L3 is an RBMT system based on synchronous dependency grammars and constraint
 solving \cite{gasser:sxdg,gasser:aflat2012}.
 It depends on linguistic knowledge about the source and target languages and
 can also include abstract semantic representations as an intermediate stage in
 processing. It integrates morphological analysis and generation for use in
-translating morphologically rich languages, such as Guarani.
-(The morphological analyzers and generators to be used in Tereré were
-originally developed for L3 by Michael Gasser.)
+translating morphologically rich languages, such as Guarani;
+the morphological analyzers and generators to be used in Tereré were originally
+developed for L3.
 
 However, L3 is currently entirely rule-based and it needs a better way to rank
 the licensed translations of an input sentence. It faces syntactic and lexical
@@ -113,5 +123,6 @@ other choices, yielding the higher-quality translations first.
 
 \subsection{Apertium}
 Apertium is another RBMT system based on shallow transfer.
-
 \cite{Forcada_theapertium}.
+
+
