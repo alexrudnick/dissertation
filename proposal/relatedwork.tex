@@ -1,28 +1,7 @@
 \section{Related Work}
 \label{sec:relatedwork}
 
-\subsection{Cross-lingual Word Sense Disambiguation}
-
-\subsubsection{CL-WSD in SMT}
-While most SMT systems do not make use of an explicit WSD module, recently
-there has been work on adding WSD classifiers in to statistical MT systems.
-Particularly, Carpuat and Wu have shown how to use CL-WSD, or more broadly,
-cross-lingual phrase sense disambiguation, to improve modern phrase-based SMT
-systems
-\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}. In
-Carpuat's work, classifiers are used to label multi-word expressions (phrases,
-in the phrase-based SMT sense) with target language phrases. She demonstrates
-how this is more appropriate in an an SMT setting than simply labeling
-individual words with WordNet synsets, as had previously been attempted, and
-showed significant improvements on a Chinese-English translation task.
-
-There has also been work on using discriminative MaxEnt models to adapt
-the ``forward" translation model of an SMT system, using richer
-source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
-Somewhat interestingly, while it has the same effect, this work does not
-describe itself in terms of word sense disambiguation.
-
-\subsubsection{CL-WSD \emph{in vitro}}
+\subsection{CL-WSD \emph{in vitro}}
 ParaSense, the CL-WSD system developed by Els Lefever
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
 several different parallel corpora.
@@ -54,11 +33,30 @@ use of HMMs for WSD.
 %%Also factored models...
 %%\cite{yeniterzi-oflazer:2010:ACL}
 
-\subsection{Hybrid Machine Translation for Under-Resourced Languages}
+\subsection{CL-WSD for Lexical Selection}
+While most SMT systems do not make use of an explicit WSD module, recently
+there has been work on adding WSD classifiers in to statistical MT systems.
+Particularly, Carpuat and Wu have shown how to use CL-WSD, or more broadly,
+cross-lingual phrase sense disambiguation, to improve modern phrase-based SMT
+systems
+\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}. In
+Carpuat's work, classifiers are used to label multi-word expressions (phrases,
+in the phrase-based SMT sense) with target language phrases. She demonstrates
+how this is more appropriate in an an SMT setting than simply labeling
+individual words with WordNet synsets, as had previously been attempted, and
+showed significant improvements on a Chinese-English translation task.
+
+There has also been work on using discriminative MaxEnt models to adapt
+the ``forward" translation model of an SMT system, using richer
+source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
+Somewhat interestingly, while it has the same effect, this work does not
+describe itself in terms of word sense disambiguation.
+
 %% text from the HyTra paper
-However, there has been work recently on using WSD techniques for translation
-into lower-resourced languages, such as the English-Slovene language pair, as
-in \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+Although they did not present a complete MT system, there has also been work
+on using WSD techniques for translation into lower-resourced languages, such as
+the English-Slovene language pair, as in
+\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
 The Apertium team has a particular practical interest in improving lexical
 selection in RBMT; they recently have been developing
@@ -69,7 +67,7 @@ to produce lexical selection rules that are understandable and modifiable by
 humans.
 
 \subsection{Creating Corpora Through Crowdsourcing}
-There has been some work on creating multilingual corpora through
+Many groups have addressed the problem of creating multilingual corpora through
 crowdsourcing, in several variations. Some projects have explicitly had the
 goal of creating sentence-aligned bitexts useful for training MT systems, while
 others have aimed to create useful resources for humans. Also the means of
@@ -95,57 +93,67 @@ subcontinent\footnote{\url{http://joshua-decoder.org/indian-parallel-corpora/}}
 and developed a simple approach for discovering the high-quality contributions,
 in which MTurk users vote on which translations they consider the best.
 
+%% DuoLingo \footnote{\url{http://duolingo.com}}, a company started by Luis von
+%% Ahn, offers free language lessons to users 
 %% XXX
-There's also MonoTrans
-\url{http://www.cs.umd.edu/hcil/monotrans/}
-"... an iterative protocol in which monolingual human participants work
-together to improve imperfect machine translations." 
-
+%% There's also MonoTrans
+%% \url{http://www.cs.umd.edu/hcil/monotrans/}
+%% "... an iterative protocol in which monolingual human participants work
+%% together to improve imperfect machine translations." 
 %% Tradubi
-Tradubi project
-\url{http://wiki.apertium.org/wiki/Tradubi}
-
-(project seems to have died, though)
-
-%% XXX
-then there's Amara and obviously DuoLingo...
+%%Tradubi project
+%%\url{http://wiki.apertium.org/wiki/Tradubi}
+%%(project seems to have died, though)
+%%then there's Amara and obviously DuoLingo...
+%% OPUS
+%% OPUS, "the open parallel corpus".
+%% \url{http://opus.lingfil.uu.se/}
 
 \subsubsection{Crowdsourcing Resources for People}
 
-There are also a number of community-driven projects for building translations
-of documents with human readers as the intended audience. These projects are
-all run by volunteers, 
+There are also a number of projects for building translations of documents with
+human readers as the intended audience.
+While the familiar DuoLingo \footnote{\url{http://duolingo.com}} is a business
+that offers free online language lessons to learners and charges its customers
+for having students translate documents, many of these other projects are
+non-profit, community-driven, and cover less commonly taught languages.
 
-Contrastingly, the Tatoeba project is a repository of 
-%% Tatoeba
-Tatoeba -- repository of a bunch of example sentences translated into a variety
-of languages.
-\url{http://tatoeba.org/}
+Tatoeba \footnote{\url{http://tatoeba.org/}} (which is Japanese for ``for
+example") is a repository of simple example sentences, with their translations
+into other languages. Users may contribute new sentences or translations of
+existing sentences into other languages. Interested users may also download the
+entire Creative-Commons licensed database of sentences
+\footnote{\url{http://tatoeba.org/eng/downloads}}, which includes text in a
+large variety of languages, including some Guarani. As of this writing, there
+are 474 Guarani sentences in Tatoeba.
 
-
-%% Traduwiki
-Traduwiki
-\url{http://traduwiki.org}
-
-This looks awesome. If we could just bring up an instance of this, that would
-be close to the right thing.
-
-%% OPUS
-OPUS, "the open parallel corpus".
-\url{http://opus.lingfil.uu.se/}
+In contrast with Tatoeba, Traduwiki \footnote{\url{http://traduwiki.org}} is a
+project for building translations of documents rather than individual example
+sentences. Users may upload new documents to translate, with the intention that
+their writing reach a broader audience than it would reach in the original
+language, and volunteers can translate individual segments. Unfortunately, this
+project seems to have gone largely dormant, and the site is gradually
+collecting spam edits. Unlike Tatoeba, the Traduwiki software does not seem to
+be open source, and there is no obvious data export functionality -- Guampa,
+our new software for online bilingual corpus construction, will fix both of
+these problems.
 
 \subsection{Online Language Tools for Guarani}
+There are currently very few online language tools for Guarani; some of the
+best available ones are iGuarani \footnote{\url{http://iguarani.com/}}, a
+searchable online dictionary and gisting translation system developed by young
+Paraguayan programmer Diego Alejandro Gavilán.
 
-While there are not currently many online language tools for the Guarani, there
-are a few ...
+There is also a small searchable online dictionary developed by Wolf Lustig
+\footnote{\url{http://www.uni-mainz.de/cgi-bin/guarani2/dictionary.pl}},
+which has versions in Spanish, German, and English. He has graciously made this
+dictionary available for our use, and this will provide a starting point for
+our Spanish-Guarani translation system.
 
-Notably, there is 
-iGuarani
-\url{http://iguarani.com/}
-
-Wolf Lustig's dictionary
-\footnote{\url{http://www.uni-mainz.de/cgi-bin/guarani2/dictionary.pl}}, which
-has versions in Spanish, German, and English.
-
-
-\footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}}
+The Guarani activist and education community has a presence on the Web,
+although a startlingly large fraction of this presence is a single author,
+Dr. David Galeano Olivera, the president of the \emph{Ateneo de Lengua y
+Cultura Guaraní}. He has collected a number of resources both about and in the
+Guarani language
+\footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}},
+some in Spanish and some in Guarani, and will likely continue to do so.
