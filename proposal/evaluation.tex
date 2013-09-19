@@ -1,14 +1,34 @@
 \section{Evaluation}
 
-Seriously need to think and write about evaluation here.
+In order to evaluate our CL-WSD approaches and their effects on translation
+systems, we will need to have some metrics for comparison between our
+techniques, sensible baselines, and results reported by other researchers.
 
-Things we could do include:
+One clear \emph{in vitro} approach for measuring the success of a CL-WSD system
+will be the metrics provided by the SemEval shared tasks
+\cite{lefever-hoste:2009:SEW,task10}; measuring our performance on these test
+sets will provide a clear comparison between our work, several other CL-WSD
+systems from the past few years, and the results posted by Els Lefever's
+ParaSense system.
 
-\begin{itemize}
-\item winning at the SemEval CL-WSD shared task
-\item constructing more held-out test sets
-\item BLEU scores
-\item more thorough, formal version of the evaluation from the HyTra paper
-\item human evaluations
-\end{itemize}
+These test sets are limited in scope, however, and will only demonstrate our
+performance for translating individual polysemous English nouns, ignoring the
+problem of translating the rest of the sentence.
+Furthermore, our broader practical goal is to use Spanish as a source language,
+and the resources that we can use to analyze an input English sentence will be
+different from those for Spanish.
 
+An approach that we took recently \cite{rudnick-gasser:2013:HyTra-2013} was to
+simply report classification accuracy for the CL-WSD task of labeling input
+Spanish sentences with Guarani stems, from a held-out test set sampled from the
+Bible.
+This will be closer to an accurate assessment of a lexical selection system
+trying to translate every word in running text with a realistically large
+vocabulary. As we collect more bitext, we will be able to construct test sets
+from a broader domain.
+
+We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
+techniques while they are in use for lexical selection in running MT systems.
+Thus we will use standard approaches for evaluating MT, such as BLEU and METEOR
+scores, and human evaluations, likely conducted online so that fluent Guarani
+speakers will be able to participate.

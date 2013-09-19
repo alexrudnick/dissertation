@@ -107,22 +107,39 @@ and then passes these choices to subsequent scripts.
 
 \subsection{L3}
 L3 is an RBMT system based on synchronous dependency grammars and constraint
-solving \cite{gasser:sxdg,gasser:aflat2012}.
-It depends on linguistic knowledge about the source and target languages and
-can also include abstract semantic representations as an intermediate stage in
-processing. It integrates morphological analysis and generation for use in
-translating morphologically rich languages, such as Guarani;
+solving \cite{gasser:sxdg,gasser:aflat2012}.  It makes use of syntactic
+knowledge about the source and target languages and can also include abstract
+semantic representations as an intermediate stage in processing. Notably, L3
+does not use a pipeline architecture: all of the constraints about the source
+syntax, target syntax, semantic representation, and their relationships are
+instantiated in one step, then solved jointly. L3 integrates morphological
+analysis and generation for use in translating morphologically rich languages,
+such as Guarani and Ethiopian semitic languages;
 the morphological analyzers and generators to be used in Tereré were originally
 developed for L3.
 
-However, L3 is currently entirely rule-based and it needs a better way to rank
-the licensed translations of an input sentence. It faces syntactic and lexical
-ambiguity both in its analysis of the input sentence and in the construction of
-output sentences. Ideally, a good lexical selection module would constrain its
-other choices, yielding the higher-quality translations first.
+However, the constraints in L3 are currently unweighted, and it could use a way
+to rank the licensed translations of an input sentence. It faces syntactic and
+lexical ambiguity both in its analysis of the input sentence and in the
+construction of output sentences. Ideally, a good lexical selection module
+would constrain its other choices, yielding the higher-quality translations
+first.
 
 \subsection{Apertium}
-Apertium is another RBMT system based on shallow transfer.
-\cite{Forcada_theapertium}.
+Apertium\footnote{\url{http://www.apertium.org/}} \cite{Forcada_theapertium} is
+another transfer-based RBMT system, originally designed for translating between
+the languages of Spain but now handling over thirty language pairs. Some
+language pairs are quite mature, while others are in prototype stages.
 
-
+Apertium is a ``shallow transfer" system, meaning that it does not depend on
+complete syntactic analysis of input sentences, but typically works by
+chunking.
+In his dissertation work (\cite{tyers-fst,tyers-thesis}), Francis Tyers has
+been developing a new lexical selection system for Apertium, one that learns
+lexical selection rules in the form of finite-state transducers from available
+bitext. These rules are also human readable and editable, which seems like a
+useful feature so that users can debug and tweak a translation system as
+desired.
+Tyers' lexical selection system is a strong baseline against which we should
+compare our new CL-WSD approaches, and time and ingenuity permitting, we would
+also like to integrate our system into Apertium.

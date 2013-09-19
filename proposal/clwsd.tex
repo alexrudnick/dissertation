@@ -308,15 +308,16 @@ phrases), but these problems may be surmountable with some ingenuity or
 parallelism.
 
 \subsection{System Combination and Other Future Directions}
-
 There are a number of future directions that we would like to investigate, in
 addition to the ones mentioned previously.
 Notably, we will do significant feature engineering; so far, the features we
 have used for our classifiers have been limited to the tokens in a small window
 around the current source word and their part-of-speech tags.
-But we could extract any number of other features, perhaps syntactic ones
-through a source language parser, clustering the input words or mapping them to
-their WordNet synsets (when available), bag-of-words features for a sentence,
+For the Spanish-Guarani language pair, we will be able to make use of
+the comparatively large set of resources for analyzing the input Spanish.
+We could extract many different features, perhaps syntactic ones through a
+source language parser, word-cluster features for each input word, WordNet
+synset labels (when available), bag-of-words features for the entire sentence,
 or even discourse or document-level features where appropriate.
 
 We will also develop ways to integrate different CL-WSD algorithms with each

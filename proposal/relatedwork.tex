@@ -3,39 +3,48 @@
 
 \subsection{Cross-lingual Word Sense Disambiguation}
 
-While most SMT systems do not make use of an explicit WSD module,
-recently there has been some work on using classifiers or other . It 
+\subsubsection{CL-WSD in SMT}
+While most SMT systems do not make use of an explicit WSD module, recently
+there has been work on adding WSD classifiers in to statistical MT systems.
+Particularly, Carpuat and Wu have shown how to use CL-WSD, or more broadly,
+cross-lingual phrase sense disambiguation, to improve modern phrase-based SMT
+systems
+\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}. In
+Carpuat's work, classifiers are used to label multi-word expressions (phrases,
+in the phrase-based SMT sense) with target language phrases. She demonstrates
+how this is more appropriate in an an SMT setting than simply labeling
+individual words with WordNet synsets, as had previously been attempted, and
+showed significant improvements on a Chinese-English translation task.
 
-Particularly, Carpuat and Wu have shown how to use word-sense disambiguation
-techniques to improve modern phrase-based SMT systems, developing systems that
-help 
-\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}.
+There has also been work on using discriminative MaxEnt models to adapt
+the ``forward" translation model of an SMT system, using richer
+source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
+Somewhat interestingly, while it has the same effect, this work does not
+describe itself in terms of word sense disambiguation.
 
-
-\cite{vzabokrtsky-popel-marevcek:2010:WMT}
-
-
-ParaSense, the system of Lefever
-and Hoste, takes into account evidence from all of the available parallel
-corpora. Let $S$ be the set of five target languages and $t$ be the particular
-target language of interest at the moment; ParaSense creates bag-of-words
-features from the translations of the target sentence into the languages $S -
-\lbrace{t \rbrace}$.
-Given corpora that are parallel over many languages, this is straightforward at
+\subsubsection{CL-WSD \emph{in vitro}}
+ParaSense, the CL-WSD system developed by Els Lefever
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
+several different parallel corpora.
+For predicting the translation of a source word into
+any particular target language, ParaSense creates
+bag-of-words features from the translations of the input sentence into every
+other language that it knows about. As of this writing, ParaSense handles
+translation from English into French, Spanish, Italian, Dutch and German.
+Given corpora that are parallel over many languages, such as Europarl, this is
+straightforward at
 training time. However, at testing time it requires a complete MT system for
-each of the four other languages, which is computationally prohibitive. Thus in
-our work, we learn from several parallel corpora but require neither a locally
-running MT system nor access to an online translation API.
+each of the four other languages, which seems computationally prohibitive. In
+the past, ParaSense has simply called out to the Google Translate API to
+generate the bag-of-words features required for test sentences. This seems
+unwieldy, and thus in our work, we learn from several parallel corpora but
+require neither a locally running MT system nor access to an online translation
+API.
 
-Following the work of Lefever and Hoste
-\shortcite{lefever-hoste-decock:2011:ACL-HLT2011}, we wanted to make use of
-multiple bitext corpora for the CL-WSD task.
-
-To our knowledge, there has not been other work on framing all-words WSD as a
-sequence labeling problem. However, in monolingual WSD, Molina \textit{et al.}
-\shortcite{DBLP:conf/iberamia/MolinaPS02}
-have made use of HMMs for WSD. 
-
+To our knowledge, there has not been other work on framing CL-WSD for all words
+in an input sentence as a sequence labeling problem. However, in monolingual
+WSD, Molina \textit{et al.} \shortcite{DBLP:conf/iberamia/MolinaPS02} have made
+use of HMMs for WSD. 
 
 %%\subsection{Translation into Morphologically Rich Languages}
 %%Chris Dyer's recent paper at EMNLP
@@ -46,8 +55,6 @@ have made use of HMMs for WSD.
 %%\cite{yeniterzi-oflazer:2010:ACL}
 
 \subsection{Hybrid Machine Translation for Under-Resourced Languages}
-HMT for low-resource languages...
-
 %% text from the HyTra paper
 However, there has been work recently on using WSD techniques for translation
 into lower-resourced languages, such as the English-Slovene language pair, as
@@ -60,11 +67,6 @@ transducers for lexical selection from the available parallel corpora. It is
 intended to be both very fast, for use in practical translation systems, and
 to produce lexical selection rules that are understandable and modifiable by
 humans.
-
-Put in some stuff about SAMT and Stat-XFER.
-
-Who's doing transfer rules that are hand-written?
-
 
 \subsection{Creating Corpora Through Crowdsourcing}
 There has been some work on creating multilingual corpora through
