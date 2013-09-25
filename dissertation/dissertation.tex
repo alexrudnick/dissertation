@@ -1,26 +1,31 @@
 \documentclass{iuthesis}
 
-\usepackage{graphicx}
-\usepackage{url}
-\usepackage{cite}
+\usepackage[utf8]{inputenc}
 \usepackage{bigstrut}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{lingmacros}
+\usepackage{rotating}
 \usepackage{setspace}
 \usepackage{textcomp}
-\usepackage{rotating}
+\usepackage{url}
 
-\title{Title}
+\title{Cross-lingual Word Sense Disambiguation for Low-Resource Hybrid Machine
+Translation}
 
-\author{Author}
+\author{Alexander James Rudnick}
 
-\advisor{Advisor}
-\secondreader{Member 1}
-\thirdreader{Member 2}
-\fourthreader{Member 3}
+\advisor{Michael E. Gasser}
+\secondreader{Sandra C. Kübler}
+\thirdreader{Markus Dickinson}
+\fourthreader{David J. Crandall}
+\fifthreader{John S. DeNero}
 \departmentname{School}
 \department{Informatics and Computing}
-\copyrightyear{2012}
-\submitdate{December 2012}
-\acceptdate{12/17/2012}
+\copyrightyear{2014}
+\submitdate{September 2014}
+\acceptdate{09/24/2014}
 
 % for use with the iuthesis-alt.cls
 % \parskip=6pt
@@ -55,9 +60,15 @@ Abstract Here
 
 \mainmatter
 
-\chapter{Introduction\label{ch:intro}} % 1
-
-See \cite{small} and \cite{big} for more detail.
+\input{overview.tex}
+\input{clwsd.tex}
+\input{hmt.tex}
+\input{evaluation.tex}
+\input{guarani.tex}
+\input{crowdsourcing.tex}
+\input{relatedwork.tex}
+\input{researchplan.tex}
+\input{statuscontributions.tex}
 
 \bibliographystyle{is-abbrv}
 \bibliography{dissertation}
