@@ -17,8 +17,8 @@ Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which describes an
 essentially modern conception of word sense disambiguation.
 
 In the early history of machine translation, researchers were very concerned
-with WSD; to some, it seemed an insurmountable problem. As Bar-Hillel wrote,
-discussing the possibility of writing a program to translate sentences with
+with WSD; to some, it seemed an insurmountable problem. Bar-Hillel 
+discussed the difficulty of writing a program to translate sentences with
 simple ambiguities like \emph{The box was in the pen.} \cite{barhillel1960}:
 
 \begin{quote}
@@ -34,7 +34,7 @@ As of this writing, for this particular example, Google Translate picks the
 less-sensible ``in the writing implement" translation (see Figure
 \ref{fig:box-in-pen}).
 One wonders how this could come about -- we would hope that the n-gram language
-model for Spanish would prefer sentences about things in enclosures than things
+model for Spanish would prefer sentences about things in enclosures to things
 in writing implements.
 But the word \emph{en} can be a translation of either the English ``in" or
 ``on", and \emph{pluma} can also mean ``feather".
@@ -54,9 +54,10 @@ boundaries.
 This happens for a number of reasons: figurative or metaphorical uses may not
 translate directly,
 obligatory information in one language may be left unspecified in another,
-or the criteria for selecting a word may simply be differ.
+or the criteria for selecting a word may simply differ.
 To give some familiar examples, a ``leg" of a trip in English is typically
-translated as \emph{etape} in French, which is unrelated to biological legs;
+translated as \emph{etape} in French, which is unrelated to limbs used for
+walking;
 translating ``brother" to Japanese requires specifying whether the brother is
 older (\emph{ani}) or younger (\emph{ot\=oto});
 a soap bubble or a ceramic plate can be destroyed with the same word in
@@ -86,7 +87,7 @@ All over the ice were little Cohens, little Levys, their names sewed in block
 \label{sent:letra}
 
 We would want (\ref{sent:carta}) to be translated with the word \emph{carta},
-and (\ref{sent:letra}) to be translated with ``letra" or something similar.
+and (\ref{sent:letra}) to be translated with \emph{letra} or something similar.
 Google Translate (as of this writing) handles both of these sentences well,
 rendering the first with ``cartas" and the second with an even better choice,
 translating the phrase ``block letters" as \emph{mayúsculas}.
@@ -142,7 +143,7 @@ due to being related languages, or simply by coincidence.
 Alternatively, a combination of translations into several languages may provide
 evidence for a certain lexical choice in the target language of interest.
 
-Earlier this year, we developed a prototype CL-WSD system that makes use of
+In early 2013, we developed a prototype CL-WSD system that makes use of
 multilingual evidence \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced
 some of the best results in a SemEval shared task on CL-WSD \cite{task10}.
 Concretely, teams undertaking the task had to translate polysemous nouns from
@@ -159,11 +160,12 @@ return a probability distribution over target language words or phrases. This
 simple system was used as a subcomponent in the two more sophisticated systems.
 
 \subsection{Classifier stacking}
-The classifier stacking approach made use of translations into the other four
-languages as features for predicting the translation for the current target
-language.
-For example, to translate an English word into Spanish, we would include its
-translations into French, Italian, Dutch and German as features.
+The classifier stacking approach, in order to predict the translation of a word
+into a given target language, uses translations into the other four available
+target languages as features.
+For example, to translate an English word into Spanish, we would give the
+classifier features encoding that word's translations into French, Italian,
+Dutch and German.
 At training time, since we were provided with parallel translations for all six
 languages, we found the correct answers in the parallel corpora, but for test
 sentences, the translations were not available, so they were predicted with the

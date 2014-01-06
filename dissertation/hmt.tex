@@ -10,6 +10,8 @@ increasingly blurred, and hybrid systems are being developed in both
 directions, with RBMT systems incorporating components based on machine
 learning, as well as SMT systems making use of linguistic knowledge for
 morphology and syntax.
+%%TODO(alexr): get lots of good examples, add pointers to the related work
+%% section.
 Additionally, for most of the world's language pairs, there is simply no large
 bitext corpus available, so training a purely statistical machine translation
 system is infeasible.
@@ -21,17 +23,29 @@ We would like for RBMT or hybrid systems, once developed, to be able to make
 use of any bitext on hand.  Like SMT systems, they should be able to produce
 better translations as larger corpora become available, without additional code
 changes.
+In this dissertation work, we will develop a software package called
+chipa, which will do just that: %% XXX: better wording?
+it will integrate with a variety of machine translation systems to help them
+use any available bitext to make better word choices.
 
-In this dissertation work, we will apply the CL-WSD techniques we develop to a
-number of different MT systems with different designs, translating several
-different language pairs.  These will include, at least: a hybrid SCFG-based
-system that makes use of both bilingual transfer rules and a monolingual
-language model, translating from Spanish to Guarani (Tereré) and a classic
-transfer-based system translating Spanish to Quechua (Squoia).
-We would also like to integrate into a more sophisticated RBMT system based on
-constraint solving and synchronous dependency grammars (L3),
-and a second system based on shallow transfer (Apertium), which has been
+Concretely, we will apply the CL-WSD techniques we develop to a number of
+different MT systems with different designs, translating several different
+language pairs.  These will include, at least:
+\begin{itemize}
+\item Tereré, a hybrid SCFG-based system that makes use of both bilingual
+transfer rules and a monolingual language model, translating from Spanish to
+Guarani.
+\item SQUOIA, a classic transfer-based system translating Spanish to Quechua.
+\end{itemize}
+
+We would also like to integrate Chipa into:
+
+\begin{itemize}
+\item L3, a more sophisticated RBMT system based on constraint solving and
+synchronous dependency grammars 
+\item Apertium, a system based on shallow transfer, which has been
 applied to a large number of language pairs.
+\end{itemize}
 
 \section{Tereré}
 Since we hope that our ideas about lexical selection will make sense in several
