@@ -1,0 +1,161 @@
+\chapter{Background}
+
+%% \chapter{CL-WSD for Hybrid Machine Translation in Low-Resource Settings}
+In recent years, we have seen renewed interest in machine translation systems
+that take into account syntactic structure, linguistic knowledge, and semantic
+representations.
+Hopefully, these will provide better translation for language pairs with
+significant reordering or syntactic divergences, and where one or both of the
+languages has rich morphology.
+The boundaries between rule-based and statistical MT systems are becoming
+increasingly blurred, and hybrid systems are being developed in both
+directions, with RBMT systems incorporating components based on machine
+learning, as well as SMT systems making use of linguistic knowledge for
+morphology and syntax.
+%%TODO(alexr): get lots of good examples, add pointers to the related work
+%% section.
+Additionally, for most of the world's language pairs, there is simply no large
+bitext corpus available, so training a purely statistical machine translation
+system is infeasible.
+Thus, while SMT approaches have had great success, and drastically changed the
+machine translation landscape since the 1990s, RBMT approaches are still
+relevant for many language pairs.
+
+We would like for RBMT or hybrid systems, once developed, to be able to make
+use of any bitext on hand.  Like SMT systems, they should be able to produce
+better translations as larger corpora become available, without additional code
+changes.
+In this dissertation work, we will develop a software package called
+chipa, which will do just that: %% XXX: better wording?
+it will integrate with a variety of machine translation systems to help them
+use any available bitext to make better word choices.
+
+Concretely, we will apply the CL-WSD techniques we develop to a number of
+different MT systems with different designs, translating several different
+language pairs.  These will include, at least:
+\begin{itemize}
+\item Tereré, a hybrid SCFG-based system that makes use of both bilingual
+transfer rules and a monolingual language model, translating from Spanish to
+Guarani.
+\item SQUOIA, a classic transfer-based system translating Spanish to Quechua.
+\end{itemize}
+
+We would also like to integrate Chipa into:
+
+\begin{itemize}
+\item L3, a more sophisticated RBMT system based on constraint solving and
+synchronous dependency grammars 
+\item Apertium, a system based on shallow transfer, which has been
+applied to a large number of language pairs.
+\end{itemize}
+
+\section{Tereré}
+Since we hope that our ideas about lexical selection will make sense in several
+different contexts, we will develop a new machine translation system out of
+open-source SMT components, particularly relying on the cdec decoder and its
+associated tools \cite{Dyer_etal_2010}.
+
+This new system is called ``Tereré"
+\footnote{\url{http://github.com/alexrudnick/terere}; 
+Tereré is a cold variety of yerba mate brewed with ice water; it is a
+specifically Paraguayan specialty.}.
+Tereré will make use of modern hybrid MT techniques; our current design is
+fairly similar to the Stat-XFER approach \cite{DBLP:conf/cicling/Lavie08}
+developed by researchers at CMU.
+Like Stat-XFER, Tereré will make use of bilingual transfer rules, a lexical
+transfer stage, a target-language LM, and statistical decoding.
+
+While the initial transfer rules will likely be written by hand, based the
+respective grammars of Spanish and Guarani, we may also include
+automatically-extracted rules, perhaps via Thrax \cite{weese-EtAl:2011:WMT} or
+a forthcoming tool for extracting Inversion Transduction Grammars, from Dekai
+Wu's team at HKUST \cite{saers-addanki-wu:2013:HyTra}.
+The use of automatically-extracted transfer rules would make the system more
+similar to the SAMT approaches of Zollmann and Venugopal
+\cite{zollmann-venugopal:2006:WMT}.
+
+In order to integrate our CL-WSD systems into Tereré, we will automatically
+produce a SCFG rules just before decoding, in which features that encodes the
+preferences of the WSD system are added to each lexical transfer rule. Then
+the weights for all of the features provided to the system (translation
+probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned with
+MERT \cite{och:2003:ACL}, and the decoder will use these to search the space of
+licensed translations.
+
+We will approach the rich morphology of Guarani and the associated data
+sparsity by having the system produce uninflected Guarani stems, which we will
+then inflect in a second pass.
+In the second pass, we will predict the appropriate morphological features will
+with a discriminative sequence-labeling approach based on work at Microsoft
+Research \cite{toutanova-suzuki-ruopp:2008:ACLMain}.
+Thus both the transfer rules and the language model will be in terms of stemmed
+Guarani.
+As an alternative, we could adapt the techniques in
+\cite{chahuneau:2013:emnlp} to generate translation rules that contain the
+appropriately inflected target forms, just before running the decoder.
+Rule-based approaches may also be sensible for generating Guarani morphology,
+in some cases, and these will have to be investigated. In any case, once the
+appropriate morphological features have been predicted, surface forms of
+Guarani words will be generated with the FST-based morphological analyzer and
+generator developed by Michael Gasser and described in
+\cite{rudnick-gasser:2013:HyTra-2013}.
+
+\section{SQUOIA}
+SQUOIA\footnote{Described in detail at
+\url{http://www.cl.uzh.ch/research/maschinelleuebersetzung/hybridmt_en.html}; 
+Code available at \url{http://code.google.com/p/squoia/}}
+is a project for MT from Spanish to Quechua, another relatively large
+indigenous American language. SQUOIA is being developed by a team at the
+University of Zurich. For the most part, it is a classical rule-based transfer
+system, although the team has recently developed techniques for predicting verb
+morphology with machine learning methods, in cases when rules cannot reliably
+disambiguate \cite{riosgonzales-gohring:2013:HyTra}. It does not currently use
+machine learning for lexical selection, although we have been in contact with
+the team and are planning to collaborate to add CL-WSD features.
+
+SQUOIA's architecture is based on the Matxin system \cite{matxin_2005}, which
+was originally intended for translating from Spanish to Basque.
+It consists of a pipeline of scripts, each of which passes along a tree
+describing the current input sentence, in XML form. Adding CL-WSD to this
+system will involve adding another script somewhere in the pipeline that
+extracts features from the current annotated sentence, makes lexical choices,
+and then passes these choices to subsequent scripts.
+
+\section{L3}
+L3 is an RBMT system based on synchronous dependency grammars and constraint
+solving \cite{gasser:sxdg,gasser:aflat2012}.  It makes use of syntactic
+knowledge about the source and target languages and can also include abstract
+semantic representations as an intermediate stage in processing. Notably, L3
+does not use a pipeline architecture: all of the constraints about the source
+syntax, target syntax, semantic representation, and their relationships are
+instantiated in one step, then solved jointly. L3 integrates morphological
+analysis and generation for use in translating morphologically rich languages,
+such as Guarani and Ethiopian semitic languages;
+the morphological analyzers and generators to be used in Tereré were originally
+developed for L3.
+
+However, the constraints in L3 are currently unweighted, and it could use a way
+to rank the licensed translations of an input sentence. It faces syntactic and
+lexical ambiguity both in its analysis of the input sentence and in the
+construction of output sentences. Ideally, a good lexical selection module
+would constrain its other choices, yielding the higher-quality translations
+first.
+
+\section{Apertium}
+Apertium\footnote{\url{http://www.apertium.org/}} \cite{Forcada_theapertium} is
+another transfer-based RBMT system, originally designed for translating between
+the languages of Spain but now handling over thirty language pairs. Some
+language pairs are quite mature, while others are in prototype stages.
+
+Apertium is a ``shallow transfer" system, meaning that it does not depend on
+complete syntactic analysis of input sentences, but typically works by
+chunking.
+In his dissertation work (\cite{tyers-fst,tyers-thesis}), Francis Tyers has
+been developing a new lexical selection system for Apertium, one that learns
+lexical selection rules in the form of finite-state transducers from available
+bitext. These rules are also human readable and editable, which seems like a
+useful feature so that users can debug and tweak a translation system as
+desired.
+Tyers' lexical selection system is a strong baseline against which we should
+compare our new CL-WSD approaches, and time and ingenuity permitting, we would
+also like to integrate our system into Apertium.
