@@ -1,1 +1,108 @@
 \chapter{Learning from Multilingual Data}
+
+\section{Using multilingual evidence}
+For some languages, such as English, Spanish, and the other languages of the
+European Union, we have multiple bitext corpora available, covering several
+different language pairs with the same source language. Through the Europarl
+corpus \cite{europarl}, for example, we have bitext corpora in which English is
+paired with Spanish, German, French, and 17 other European languages.
+We would like to be able to make use of evidence from all of these corpora when
+translating into any particular target language, ideally even when the corpora
+involved are not all mutually parallel.
+Each corpus may contain useful examples of a given source language word,
+and senses of that word may be lexicalized in varying, non-overlapping ways in
+the different target languages.
+This approach is particularly informed by the ongoing work of Els Lefever
+\emph{et. al} (see especially \cite{lefever-hoste-decock:2011:ACL-HLT2011}),
+although their technique requires an entire machine translation system to
+perform CL-WSD, which seems unwieldy when we want to use CL-WSD as a
+subcomponent of a machine translation system.
+
+We want a CL-WSD system to be able to learn the relationships between the
+senses of a given source word that are lexicalized in different ways in various
+languages.
+Two target languages may happen to surface the same sense distinctions, perhaps
+due to being related languages, or simply by coincidence.
+Alternatively, a combination of translations into several languages may provide
+evidence for a certain lexical choice in the target language of interest.
+
+In early 2013, we developed a prototype CL-WSD system that makes use of
+multilingual evidence \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced
+some of the best results in a SemEval shared task on CL-WSD \cite{task10}.
+Concretely, teams undertaking the task had to translate polysemous nouns from
+English into five other European languages.
+In our SemEval paper, we presented three variations on the approach:
+a straightforward classification approach (without multilingual evidence), a
+classifier stacking approach, and a graphical model system based on loopy
+belief propagation over Markov networks.
+
+The simplest system presented in that work, based on a maximum entropy
+classifier, simply extracted features from a window around the English noun to
+be translated and used these to make a prediction. The same system could also
+return a probability distribution over target language words or phrases. This
+simple system was used as a subcomponent in the two more sophisticated systems.
+
+\subsection{Classifier stacking}
+The classifier stacking approach, in order to predict the translation of a word
+into a given target language, uses translations into the other four available
+target languages as features.
+For example, to translate an English word into Spanish, we would give the
+classifier features encoding that word's translations into French, Italian,
+Dutch and German.
+At training time, since we were provided with parallel translations for all six
+languages, we found the correct answers in the parallel corpora, but for test
+sentences, the translations were not available, so they were predicted with the
+simpler non-multilingual classifiers.
+
+The classifier stacking approach could likely be improved by adding features
+derived from more sources.
+We would like to try adding classifiers trained on the other Europarl
+languages, as well as completely different corpora; this would require that for
+the stacked classifier, we would train on predicted translations rather than
+This approach only requires that the first-layer classifiers make \emph{some}
+prediction based on text in the source language;
+they need not be trained from the same source text, depend on the same
+features, or even output words as labels. Monolingual WSD systems seem likely
+to help out, as do Brown-style word clusters \cite{brown1992class}.
+
+\subsection{Markov Networks}
+In our SemEval entry, we also investigated a Markov network (or ``Markov Random
+Field") approach, building a network of interacting variables (see Figure
+\ref{fig:pentagram}) to solve the classification problem for all five target
+languages jointly.
+
+The network has nodes that correspond to the distributions produced by the
+simple classifiers, given an input sentence, and edges with pairwise potentials
+that are derived from the joint probabilities of target language labels
+occurring together in the training data. 
+Thus the task of finding the optimal translations into five languages jointly
+is framed as a MAP inference problem, where we try to maximize the joint
+probability of all five variables, given the evidence of the features extracted
+from the source language sentence.
+The inference process is performed using loopy belief propagation
+\cite{DBLP:conf/uai/MurphyWJ99}, which is an approximate but tractable
+inference algorithm that, while giving no guarantees, often produces good
+solutions in practice.
+We used the formulation for pairwise Markov networks that passes messages
+directly between the nodes rather than first constructing a cluster graph,
+which is described in \cite[\S 11.3.5.1]{Koller+Friedman:09}.
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=5cm]{pentagram.pdf}
+  \end{center}
+  \caption{The network structure used in the MRF system: a complete graph with
+  five nodes, in which each node represents the random variable for the
+  translation into a target language.}
+  \label{fig:pentagram}
+\end{figure}
+
+Our initial approach for setting the weights in the Markov network requires,
+for each pair of languages, a parallel corpus for that language. It thus seems
+less easily extensible than the classifier stacking approach, in which it is
+clear how we can include all kinds of heterogeneous information.
+The benefit of the Markov network approach is that it takes seriously the
+uncertainty present in the predictions of each of the component classifiers,
+solving the entire problem jointly.
+The Markov network approach may also play a part in our future CL-WSD systems.
+

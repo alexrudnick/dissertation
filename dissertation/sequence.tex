@@ -1,1 +1,88 @@
 \chapter{Sequence Models}
+
+\subsection{CL-WSD as a Sequence Labeling Problem}
+We will also investigate the use of sequence models for CL-WSD.
+The intuition behind the sequence labeling approach is that machine translation
+implies an ``all-words" WSD task, in that we need to choose a translation for
+each word in the source sentence, and that the sequence of translations chosen
+should make sense when taken together.
+
+We have developed a prototype CL-WSD system based on sequence labeling and
+applied it to both English-Spanish and Spanish-Guarani translation tasks.
+Concretely in this case, we want to label each source language word with a
+target language word or phrase, or \emph{NULL}.
+This work was presented at the HyTra workshop in August
+\cite{rudnick-gasser:2013:HyTra-2013}.
+
+One promising formalism for this line of work, used in the prototype, is the
+Maximum Entropy Markov Model \cite{icml00/mccallum}.
+Like an HMM, an MEMM models transitions over labels, although in the MEMM the
+input sequence is given.
+This frees us to extract any features we like from the source language
+sentence. The ``Markov" aspect of the MEMM is that, unlike a standard maximum
+entropy classifier, we can include information from the previous $k$ labels as
+features, for a $k$-th order MEMM.
+Thus at every step in the sequence labeling, we want a distribution
+$P(t_i | S, t_{i-1}...t_{i-k})$ describing the probability of each possible
+target-language label for the current source language token.
+Here the probability of a sequence of labels $T$ is the product of each of the
+individual transition probabilities that compose that sequence.
+These probabilities are estimated with a MaxEnt classifier trained with 
+the MEGA Model optimization package
+\footnote{\url{http://www.umiacs.umd.edu/~hal/megam/}}.
+For inference with this model, we used a beam search rather than the Viterbi
+algorithm, for convenience and speed while using a second-order Markov model.
+
+To avoid building a single classifier that might return
+thousands of different labels, we could in principle build a classifier for
+each individual word in the source language vocabulary, each of which will
+produce perhaps tens of possible target language labels. However, there will be
+tens or hundreds of thousands of words in the source language vocabulary, and
+most word-types will only occur very rarely, especially in a low-resource
+scenario.
+In any case, it may be prohibitively expensive to train and store many
+thousands of classifiers.
+
+We would like a way to focus our efforts on some words, but not all, and to
+back off to a simpler model when a classifier is not available for a given
+word. It turns out to be straightforward to do this --  we can use MaxEnt
+classifiers when available, and then use the simpler HMM when they are not. The
+details of how to do this are described in the paper.
+
+In the implementation, we can specify criteria under which a source language
+word will have its translations explicitly modeled with a maximum entropy
+classifier. When training a system, one might choose, for example, the 100 most
+common polysemous words, all words that are observed a certain number of times
+in the training corpus, or words that are particularly of interest for some
+other reason.
+
+At training time, we find all of the instances of the words that we want to
+model with classifiers, along with their contexts, so that we can extract
+appropriate features for training the classifiers. Then we train classifiers
+for those words, and store the classifiers in a database for retrieval at
+inference time.
+
+%%At each step in the sequence, we would like the distribution over possible
+%%labels for the current source word, given the source sentence features and the
+%%recent context. If we had already estimated the parameters for an HMM, we could
+%%compute the joint probability of each possible target 
+%%$P(s_i, t_i | t_{i-1}...t_{i-k})$ -- 
+%%as is typical in HMMs, it is just the product of the ``transition" and
+%%``emission" probabilities, which are straightforward to estimate. To turn this
+%%into a conditional probability, we could divide by the prior of the current
+%%source word.
+%%In the context of minimizing negative log-probabilities during beam search,
+%%this is not necessary, since the source word is fixed; we can simply use the
+%%negative log of that joint probability as-is.
+
+We have yet to explore what the best approaches are for choosing which, and how
+many, words should be modeled with classifiers for best results, but this will
+be an important question to address.
+
+More sophisticated sequence models, such as Conditional Random Fields
+\cite{lafferty2001conditional}, may be useful in this task as well. 
+We ran into difficulties in initial experiments with the off-the-shelf
+CRF tool Mallet \cite{McCallumMALLET} -- training proved intractable on
+one machine due to the large label space (all target-language words and
+phrases), but these problems may be surmountable with some ingenuity or
+parallelism.

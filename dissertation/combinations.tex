@@ -1,1 +1,45 @@
 \chapter{Combining Approaches}
+
+Don't we have a pretty good story for this, using log-linear models in Tereré?
+...
+
+\section{System Combination and Other Future Directions}
+There are a number of future directions that we would like to investigate, in
+addition to the ones mentioned previously.
+Notably, we will do significant feature engineering; so far, the features we
+have used for our classifiers have been limited to the tokens in a small window
+around the current source word and their part-of-speech tags.
+For the Spanish-Guarani language pair, we will be able to make use of
+the comparatively large set of resources for analyzing the input Spanish.
+We could extract many different features, perhaps syntactic ones through a
+source language parser, word-cluster features for each input word, WordNet
+synset labels (when available), bag-of-words features for the entire sentence,
+or even discourse or document-level features where appropriate.
+
+We will also develop ways to integrate different CL-WSD algorithms with each
+other and with their containing MT systems; one obvious approach would be to do
+classifier stacking from within an MEMM.
+We could also imagine having an MT system invoking several different CL-WSD
+systems and using them in an ensemble-like way.
+Perhaps the CL-WSD systems could vote, with each of their recommendations
+weighted using MERT, and leaving the final choice to the decoder.
+
+We will also need to address both multi-word expressions and morphology and how
+they interact with the CL-WSD system.
+Thus far, we have assumed one-to-many alignments, and labeled each source word
+with zero or more lemmatized target words or word stems.
+However in practice, we will want to make use of multi-word expressions, and
+our translation systems will need to generate appropriately inflected target
+language text. This latter problem, and possible approaches for addressing it,
+will be discussed in subsequent sections.
+
+%The question we were trying to address is like:
+%what if your n-gram model over labels for your source language has one idea
+%(this is the next likely label), and your emission probabilities say something
+%else (this is the label most likely to generate the observed input word)...
+%well, we could imagine just making several different decisions and letting the
+%decoder sort it out. We're doing that already actually, by including
+%phrase-table probabilities and a language model.
+%Are we just converging on the idea of a log-linear model again?
+%But the point here is that we don't have to have just one CL-WSD system. We can
+%have a bunch and let them fight it out. Hopefully this will help!
