@@ -3,6 +3,14 @@
 Don't we have a pretty good story for this, using log-linear models in Tereré?
 ...
 
+The deal with morphogen \cite{chahuneau:2013:emnlp}
+is that they, on demand, populate the phrase table with brand new phrases with
+correct morphology already there. Then the decoder selects among the PT entries
+with the regular infrastructure that you would have used anyway for SMT.
+
+So in Tereré, we don't want to use TL lemmas as our label set; we want to use
+the PT entries.
+
 \section{System Combination and Other Future Directions}
 There are a number of future directions that we would like to investigate, in
 addition to the ones mentioned previously.
