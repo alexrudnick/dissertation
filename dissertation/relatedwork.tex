@@ -58,14 +58,24 @@ on using WSD techniques for translation into lower-resourced languages, such as
 the English-Slovene language pair, as in
 \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
-The Apertium team has a particular practical interest in improving lexical
-selection in RBMT; they recently have been developing
-a new system, described in \cite{tyers-fst}, that learns finite-state
-transducers for lexical selection from the available parallel corpora. It is
-intended to be both very fast, for use in practical translation systems, and
-to produce lexical selection rules that are understandable and modifiable by
-humans.
+%%The Apertium team has a particular practical interest in improving lexical
+%%selection in RBMT; they recently have been developing
+%%a new system, described in \cite{tyers-fst}, that learns finite-state
+%%transducers for lexical selection from the available parallel corpora. It is
+%%intended to be both very fast, for use in practical translation systems, and
+%%to produce lexical selection rules that are understandable and modifiable by
+%%humans.
 
+Francis Tyers, in his dissertation work \shortcite{tyers-thesis},
+provides an overview of lexical selection systems and describes methods for
+learning lexical selection rules based on available parallel corpora.
+These rules make reference to the lexical items and parts of speech surrounding
+the word to be translated. Once learned, these rules are intended to be
+understandable and modifiable by human language experts. For practical use in
+the Apertium machine translation system, they are compiled to finite-state
+transducers.
+
+%% XXX: maybe we should take all the stuff about Guampa out.
 \subsection{Creating Corpora Through Crowdsourcing}
 Many groups have addressed the problem of creating multilingual corpora through
 crowdsourcing, in several variations. Some projects have explicitly had the
