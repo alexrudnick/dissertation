@@ -53,10 +53,12 @@ language pair with relatively modest resources.
 
 \section{Questions to address}
 \begin{enumerate}
-%% XXX(alexr): update the questions from the presentation
-\item What are effective ways to build a practical machine translation system
-targeting an under-resourced, morphologically rich language?
-\item Which CL-WSD techniques are useful for this purpose?
-\item Which kinds of MT systems can benefit from CL-WSD?
-%% \item How can we collect bigger corpora to train our system?
+\item Can we use monolingual resources from the source language to improve
+accuracy on the cross-lingual word sense disambiguation task?
+\item Can we use multilingual resources, such as bitext corpora pairing the
+source language with languages other than the current target language?
+\item Will sequence labeling techniques, in which we jointly model labeling
+source-language words with target-language labels, improve results for the
+CL-WSD task?
+\item Which kinds of machine translation systems can benefit from CL-WSD?
 \end{enumerate}
