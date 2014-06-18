@@ -1,50 +1,76 @@
 \chapter{Overview}
-In this dissertation, I will investigate techniques for building a hybrid
-machine translation (HMT) system for a language pair with relatively modest
-resources.
-I propose that cross-lingual word sense disambiguation (CL-WSD) is a feasible
-and practical means for lexical selection in this setting, and will work to
-demonstrate this by using it to construct a HMT system for Spanish and Guarani,
-the co-official languages of Paraguay.
-Along the way, I will develop new CL-WSD approaches, including the use of
-multilingual evidence and sequence-labeling techniques, and integrate
-CL-WSD software into several different machine translation systems.
+In this dissertation, I will investigate techniques for machine translation for
+a language pair with modest resources, particularly one for which we have
+relatively little training data available for the target language.  I propose
+that cross-lingual word sense disambiguation (CL-WSD) is a feasible and
+practical means for lexical selection in this setting, and will demonstrate
+this in experiments on translating from Spanish to Guarani, the co-official
+languages of Paraguay.
+
+I will develop new CL-WSD approaches, including the use of unsupervised
+clustering on source-language text, multilingual corpora for the source
+language, and sequence-labeling techniques. I will also integrate the CL-WSD
+software into several different machine translation systems to show its
+practical applicability.
 
 Lexical ambiguity presents a serious challenge for rule-based machine
-translation (RBMT) systems, since many words will have multiple possible
+translation (RBMT) systems, since many words have multiple possible
 translations in the target language. Moreover, several translations of a given
 word may all be syntactically valid in context, but have significantly
 different meanings. Even when choosing among near-synonyms, we would like to
 respect the selectional preferences of the target language so as to produce
 natural-sounding output text.
 
-Writing lexical selection rules by hand is tedious and error-prone; bilingual
-informants, if available, may not be able to enumerate the contexts in which
-they would choose one alternative over another. Thus we would like to learn
-from corpora when possible. However, for most language pairs, suitably large
-sentence-aligned bitext corpora are not available, so creating and deploying a
+%% XXX
+We really need to talk more about hybridity in here and what's rule-based and
+what's statistical and how this is part of the ongoing battles getting fought
+out in MT research.
+
+%% XXX: need several good examples here
+
+%% ... we should actually discover these from data! Let's align europarl and find
+%% them!
+
+%% es->en examples...
+
+%% example of completely different meanings
+
+%% example of selectional preferences, but similar meaning
+
+%% then es->gn examples
+
+Writing lexical selection rules by hand, while possible in principle, is
+tedious and error-prone.
+Bilingual informants, if available, may not be able to enumerate the contexts
+in which they would choose one alternative over another. Thus we would like to
+learn from corpora when possible.
+We do not have very large sentence-aligned bitext corpora for most language
+pairs, however, and will have to make do with the Bible, which is an acceptable
+starting point.\footnote{The
+Bible has been translated into a substantial fraction of the world's languages
+and contains more than thirty thousand verses (roughly, sentences) in
+a variety of text genres. For an overview of using the Bible for multilingual
+NLP applications, please see Resnik \emph{et al.}
+\cite{DBLP:journals/lre/ResnikOD99} and Mayer and Cysouw
+\cite{MAYER14.220.L14-1215}.} As statistical machine translation systems
+improve dramatically as larger bitext corpora become available, ... , some
+techniques . However, that project is not the focus of this dissertation work.
+
+However, for most language pairs, suitably large
+sentence-aligned bitext corpora are not available,
+so creating and deploying a
 translation system based on machine learning techniques will require collecting
-a larger corpus. In order to support this work, we have ongoing collaborative
-projects for crowdsourcing the collection of larger bitexts.
+a larger corpus.
 
 The major contributions of this work will be new approaches for CL-WSD,
 integrating CL-WSD into MT systems, and building MT systems that target
 morphologically rich languages with few language resources.  Additionally, on a
 practical level we will develop a suite of reusable open-source software
-including a hybrid MT system for Spanish-Guarani, websites for crowdsourcing
-bilingual data collection to a relatively small though engaged population, and
-a freely available corpus of Spanish-Guarani bitext.
-\footnote{All development is being carried out in public repositories, and will
-be linked from \url{http://hltdi.github.io} and
-\url{http://github.com/alexrudnick}}
+including a hybrid MT system for Spanish-Guarani,
 
-%% In this work I will focus on Spanish and Guarani, the co-official languages of
-%% Paraguay. I will describe novel approaches to CL-WSD, including using evidence
-%% from multilingual sources and sequence labeling techniques. I will also
-%% investigate the collection of a larger bilingual corpus through crowdsourcing
-%% and the integration of the disambiguation techniques into a rule-based
-%% translation engine, producing a hybrid rule-based/statistical translation
-%% system.
+All of the software used in this dissertation has been developed in public
+repositories, and is freely available online at
+\url{http://github.com/hltdi} and \url{http://github.com/alexrudnick}.
 
 \section{Thesis statement}
 Cross-lingual word sense disambiguation is a feasible and practical
@@ -62,3 +88,36 @@ source-language words with target-language labels, improve results for the
 CL-WSD task?
 \item Which kinds of machine translation systems can benefit from CL-WSD?
 \end{enumerate}
+
+\section{Dissertation Structure}
+In the following chapters, we will discuss the relevant background information
+and investigate these questions, as follows.
+
+%% XXX: I vs we -- what to do here?
+\begin{itemize}
+\item In Chapter \ref{chap:background} we will discuss the previous work on
+CL-WSD and its applications, as well as some of the approaches that have been
+taken for hybrid rule-based/statistical machine translation systems. We will
+also discuss Spanish and Guarani, the languages of Paraguay, and some of the
+historical and social context for this translation pair.
+\item In Chapter \ref{chap:evaluation}, we will discuss the data sets used in
+this work and our evaluation metrics for measuring success in this project.
+\item In Chapter \ref{chap:monolingual}, we will explore some approaches for
+using the available resources for Spanish, including 
+\item In Chapter \ref{chap:multilingual}, we will expand our approaches to
+include the multilingual resources for Spanish, CL-WSD classifiers for
+languages other than Guarani.
+\item In Chapter \ref{chap:sequence} ... addressing Question 3.
+\item In Chapter \ref{chap:combinations}, we will 
+\item In Chapter \ref{chap:integration}, we will discuss integrating our CL-WSD
+software into a small sampling of running machine translation systems,
+addressing Question 4 and supporting our thesis statement in practice.
+\item Finally, in Chapter \ref{chap:conclusions}, we will conclude and describe
+possible work for the future.
+\end{itemize}
+
+%% XXX: maybe this goes in the preface?
+\section{Works That Led To This Dissertation}
+There's usually a section about this sort of thing, right?
+But maybe it goes in the preface.
+Francis has a section like this; Andy does not.
