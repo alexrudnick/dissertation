@@ -26,6 +26,75 @@ We really need to talk more about hybridity in here and what's rule-based and
 what's statistical and how this is part of the ongoing battles getting fought
 out in MT research.
 
+
+
+To appreciate the word-sense disambiguation problem embedded in machine
+translation, consider for a moment the different senses of ``have" in
+English. In \emph{have a sandwich}, \emph{have a bath}, \emph{have an
+argument}, and even \emph{have a good argument}, the meaning of the verb ``to
+have" is quite different. It would be surprising if our target language,
+especially if it is not closely related, used a light verb that could appear in
+all of these contexts.
+
+A concrete example for different lexicalization patterns in Spanish and Quechua
+are the transitive motion verbs: The Spanish lemmas contain information about
+the path of the movement, e.g. {\em traer} - 'bring (here)' vs. {\em llevar} -
+'take (there)'. Quechua roots, on the other hand, use a suffix ({\em -mu}) to
+express direction, but instead lexicalize information about the manner of
+movement and the object that is being moved. Consider the following examples:
+
+\begin{itemize}
+\renewcommand{\labelitemii}{$\bullet$}
+ \small
+ \item[] general motion verbs:
+ \begin{itemize}
+ \item {\em pusa-(mu-)}: `take/bring a person'
+ \item {\em apa-(mu-)-}: `take/bring an animal or an inanimated object'
+ \end{itemize}
+ \item[] motion verbs with manner:
+ \begin{itemize}
+ \item {\em marq'a-(mu-)}: `take/bring smth. in one's arms'
+ \item {\em q'ipi-(mu-)}:  `take/bring smth. on one's back or in a bundle'
+ \item {\em millqa-(mu-)}: `take/bring smth. in one's skirts'
+ \item {\em hapt'a-(mu-)}: `take/bring smth. in one's fists'
+ \item {\em lluk'i-(mu-)}: `take/bring smth. below their arms'
+ \item {\em rikra-(mu-)}:  `take/bring smth. on one's shoulders'
+ \item {\em rampa-(mu-)}:  `take/bring a person holding their hand'
+ \end{itemize}
+\end{itemize}
+
+The correct translation of Spanish {\em traer} or {\em llevar} into Quechua
+thus depends on the context. Furthermore, different languages simply make
+different distinctions about
+the world. The Spanish \emph{hermano} 'brother', \emph{hijo} 'son' and
+\emph{hija} 'daughter'
+all translate to different
+Quechua terms based on the person related to the referent; a daughter relative to
+her father is \emph{ususi}, but when described relative to her mother,
+\emph{warmi wawa} \cite{academiamayor}.
+
+Chipa, then, must learn to make these distinctions automatically, learning from
+examples in available word-aligned bitext corpora. Given such a corpus, we can
+discover the different possible translations for each source-language word, and
+with supervised learning, how to discriminate between them.  Since instances of
+a source-language word may be NULL-aligned, both in the training data and in
+actual translations, we allow users to request classifiers that consider NULL
+as a valid label for classification, or not, as appropriate for the
+application.
+
+The software holds all of the available bitext in a database, retrieving the
+relevant training sentences and learning classifiers on demand.
+If a source word has been seen with multiple different translations, then a
+classifier will be trained for it. If it has been seen aligned to only one
+target-language type, then this is simply noted, and if the source word is not
+present in the training data, then that word is marked out-of-vocabulary.
+Memory permitting, these classifiers and annotations are kept cached for later
+usage. Chipa can be run as a server, providing an interface whereby client
+programs can request CL-WSD decisions over RPC.
+
+
+
+
 %% XXX: need several good examples here
 
 %% ... we should actually discover these from data! Let's align europarl and find

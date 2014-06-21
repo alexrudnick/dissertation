@@ -37,8 +37,45 @@ It would be good to include some nice examples of the clusters that Brown
 Clustering learns, based on the different source-language corpora that we
 cluster on.
 
+\section{Maybe explain how Brown Clustering works here?}
+Not sure how important this is to the argument...
+
+\section{Other Unsupervised Word Representations}
+We can try applying the other stuff in the Turian et al Word Representations
+paper, and also we can try using word2vec!
+
+
+
+
+\subsection{Learning From Monolingual Data}
+While in this work, our target language is under-resourced, we have many
+language resources available for the source language. We would like to use these to
+make better sense of the input text, giving our classifiers clearer signals for
+lexical selection in the target language.
+
+One resource for Spanish is its abundant monolingual text. Given
+large amounts of Spanish-language text, we can use unsupervised methods to
+discover semantic regularities. In this work we apply Brown clustering
+\cite{Brown92class-basedn-gram}, which has been used successfully in a variety
+of text classification tasks \cite{turian-ratinov-bengio:2010:ACL} and provides
+a straightforward mechanism to add features learned from monolingual text.
+
+The Brown clustering algorithm takes as input unannotated text and produces a
+mapping from word types in that text to clusters, such that words in the same
+cluster have similar usage patterns according the corpus's bigram statistics.
+We can then use this mapping from words to clusters in our classifiers, adding
+an additional annotation for each word that allow the classifiers to find
+higher-level abstractions than surface-level words or particular lemmas.
+The desired number of clusters must be set ahead of time, but is a tunable
+parameter.
+We use a popular open source implementation of Brown clustering,
+\footnote{\url{https://github.com/percyliang/brown-cluster}} described by
+Liang \cite{Liang05semi-supervisedlearning}, running on both the Spanish
+side of our bitext corpus and on the Europarl corpus \cite{europarl} for
+Spanish.
+
 \begin{figure*}[t!]
-  \begin{tabular}{|l|p{12cm}|}
+  \begin{tabular}{|l|p{15cm}|}
     \hline
     category  & top twenty word types by frequency \\
     \hline
@@ -54,15 +91,16 @@ cluster on.
     \hline
   \end{tabular}
 \caption{Some illustrative clusters found by the Brown clustering algorithm on
-the lemmatized version of the Spanish Europarl corpus. These are five out of
-the $C=1000$ clusters, picked and labeled arbitrarily. The
-words listed are the top twenty terms from that cluster, by frequency.}
+the Spanish Europarl data. These are five out of $C=1000$ clusters, and
+were picked and labeled arbitrarily by the authors. The words listed are the
+top twenty terms from that cluster, by frequency.}
 \label{fig:clusters}
 \end{figure*}
 
-\section{Maybe explain how Brown Clustering works here?}
-Not sure how important this is to the argument...
+Figure \ref{fig:clusters} shows some illustrative examples of clusters that
+we found in the Spanish Europarl corpus.  Examining the output of the
+clustering algorithm, we see some intuitively satisfying results; there are
+clusters corresponding to the names of many countries, some nouns referring to
+people, and common transitive verbs. Note that the clustering is unsupervised,
+and the labels given are not produced by the algorithm.
 
-\section{Other Unsupervised Word Representations}
-We can try applying the other stuff in the Turian et al Word Representations
-paper, and also we can try using word2vec!
