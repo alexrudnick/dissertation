@@ -169,13 +169,22 @@ information and surface word forms, will be helpful in the future.
 
 \section{Related Work}
 
+\subsection{early SMT with WSD}
 %% Brown et al
 Framing the resolution of lexical ambiguities in machine translation
 as an explicit classification
 task has a long history, dating back at least to early SMT work at IBM
 \cite{Brown91word-sensedisambiguation}.
 
+An early paper by IBM researchers \cite{Brown91word-sensedisambiguation},
+outlines the CLWSD task in a strikingly similar way, as a WSD task where the
+possible senses of a word are extracted from statistical alignments learned
+over a bitext corpus. Brown \textit{et al.} report significant translation
+quality improvements through the use of their WSD system, over a small
+hand-evaluated set of test sentences.
 
+
+\subsection{PB-SMT with phrase sense disambiguation}
 %% Carpuat and Wu
 More recently, Carpuat and Wu have
 shown how to use classifiers to improve modern phrase-based SMT systems
@@ -192,18 +201,8 @@ lexical choice among possible translations for a given word can often be
 handled by the language model for the target language, simply due to
 collocations of appropriate words in the training data.
 
-Interestingly, while Carpuat and Wu presented their work as the first time
-CLWSD has been integrated into a machine translation system such that it
-reliably improved the translation quality, an early paper by IBM researchers
-\cite{Brown91word-sensedisambiguation}, outlines the CLWSD task in a strikingly
-similar way, as a WSD task where the possible senses of a word are extracted
-from statistical alignments learned over a bitext corpus. Brown \textit{et al.}
-report significant translation quality improvements through the use of their
-WSD system, over a small hand-evaluated set of test sentences.
 
-
-
-%% SemEval CL-WSD
+\subsection{CL-WSD at SemEval}
 CL-WSD has received enough attention to warrant shared tasks at recent SemEval
 workshops; the most recent running of the task is described by Lefever and
 Hoste \cite{task10}.
@@ -211,6 +210,7 @@ In this task, participants are asked to translate twenty different polysemous
 English nouns into five different European languages, in a variety of contexts.
 
 
+\subsection{multilingual evidence for CL-WSD}
 %% ParaSense
 Lefever \emph{et al.}, in work on the ParaSense system
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, produced top results for
@@ -230,7 +230,30 @@ several languages, on demand, with the Google Translate API. They outperform
 the previous state-of-the art systems on the SemEval 2010 shared task 13
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
 
-%% Tyers
+In our earlier work, we prototyped a system that addresses some of the issues
+with ParaSense, requiring more modest software infrastructure for feature
+extraction while still allowing CL-WSD systems to make use of several mutually
+parallel bitexts that share a source language
+\cite{rudnick-liu-gasser:2013:SemEval-2013}.
+
+\subsection{WSD for lower-resourced languages}
+However, there has been work recently on using WSD techniques for translation
+into lower-resourced languages, such as the English-Slovene language pair, as
+in \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+
+Dinu and Kübler~\cite{Dinu07} have addressed the problem of monolingual WSD for
+a lower-resourced language, particularly Romanian. In their work, they describe
+an instance-based approach in which a relatively small number of features is
+used quite effectively. In other work on lower-resourced languages,
+Sarrafzdadeh \textit{et al.} have investigated a version of the Lesk algorithm
+for Farsi.
+
+%% XXX
+One sort of interesting point here is that we are not doing WSD on a
+low-resourced language. This is ultimately WSD on Spanish with a sense
+inventory that we automatically discover from cross-lingual evidence.
+
+\subsection{lexical selection in low-resource settings}
 Francis Tyers, in his dissertation work \cite{tyers-dissertation},
 provides an overview of lexical selection systems and describes methods for
 learning lexical selection rules based on available parallel corpora. These
@@ -248,17 +271,6 @@ intended to be both very fast, for use in practical translation systems, and
 to produce lexical selection rules that are understandable and modifiable by
 humans.
 
-
-In our earlier work, we prototyped a system that addresses some of the issues
-with ParaSense, requiring more modest software infrastructure for feature
-extraction while still allowing CL-WSD systems to make use of several mutually
-parallel bitexts that share a source language
-\cite{rudnick-liu-gasser:2013:SemEval-2013}.
-We have also done some previous work on CL-WSD for translating into indigenous
-American languages; an earlier version of Chipa, for Spanish-Guarani, made use
-of sequence models to jointly predict all of the translations for a sentence at
-once \cite{rudnick-gasser:2013:HyTra}.
-
 %% SQUOIA extensions: relevant to Hybrid MT
 Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
 earlier work on extending the SQUOIA MT system with machine learning modules.
@@ -266,25 +278,21 @@ They used classifiers to predict the target forms of verbs in cases where the
 system's hand-crafted rules cannot make a decision based on the current
 context.
 
-%% sequence models for WSD
+\subsection{Sequence models for word-sense disambiguation}
 To our knowledge, there has not been work specifically on sequence labeling
-applied to lexical selection for RBMT systems. However, 
-there has been work recently on using WSD techniques for translation into
-lower-resourced languages, such as the English-Slovene language pair, as in 
-\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+applied to lexical selection for RBMT systems.
 
 Outside of the CL-WSD setting, there has been work on framing all-words WSD as
 a sequence labeling problem. Particularly, Molina \textit{et al.}
 \cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
 WSD in a monolingual setting.
 
-%% WSD for lower-resourced languages
-Dinu and Kübler~\cite{Dinu07} have addressed the problem of monolingual WSD for
-a lower-resourced language, particularly Romanian. In their work, they describe
-an instance-based approach in which a relatively small number of features is
-used quite effectively. In other work on lower-resourced languages,
-Sarrafzdadeh \textit{et al.} have investigated a version of the Lesk algorithm
-for Farsi.
+We have also done some previous work on CL-WSD for translating into indigenous
+American languages; an earlier version of Chipa, for Spanish-Guarani, made use
+of sequence models to jointly predict all of the translations for a sentence at
+once \cite{rudnick-gasser:2013:HyTra}.
+
+
 
 \subsection{Translation into Morphologically Rich Languages}
 Chris Dyer's recent paper at EMNLP
