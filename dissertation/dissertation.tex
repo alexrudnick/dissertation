@@ -1,4 +1,4 @@
-\documentclass{iuthesis}
+\documentclass[11pt]{iuthesis}
 
 \usepackage[utf8]{inputenc}
 \usepackage{bigstrut}
@@ -33,6 +33,9 @@ Translation}
 % \parskip=6pt
 % \parindent=0pt
 % \normalparindent=0pt
+
+% add chapter numbers to section numbers
+\renewcommand{\thesection}{\thechapter.\arabic{section}}
 
 % Helpful for TODO and TBD in the output of the file (in red)
 \newcommand{\TBD}[0]{{\color{red}TBD}}
