@@ -23,3 +23,81 @@ Practically, we should also have a new MT system for the Spanish-Guarani
 language pair where there was previously none, an open-source reusable
 package for helping RBMT systems make appropriate lexical choices, and a freely
 available bitext corpus for a resource-poor language.
+
+\section{Future Work}
+\section{Acquiring larger bitext corpora}
+\label{sec:crowdsourcing}
+As part of the ongoing work for the practical goal of building a useful
+Spanish-Guarani MT system, we would like to build larger training corpora,
+containing both bitext and monolingual Guarani text.
+To help in the collection, we plan to build two websites:
+a collaborative online space for building translations of documents, 
+and a searchable repository of Guarani and bilingual documents.
+Initial designs for both of these sites were done as a master's project in HCI
+by Alberto Samaniego\footnote{\url{http://albsama.com}}, who will hopefully
+continue collaborating on this project from his native Paraguay.
+We have also had helpful software contributions from
+Rodrigo Villalba Zayas\footnote{\url{http://github.com/rodrigovz}} --
+also from Paraguay -- and more potential collaborators have expressed
+interest in helping, from Paraguay, Indiana, and the broader open-source world.
+
+\section{Collecting Guarani Documents}
+The first website we will develop is called ``Tahekami", which means
+\emph{let's search together} in Guarani.
+Tahekami is a repository of Guarani and bilingual documents that will allow
+searching, browsing documents by tag, and uploading new documents.
+
+An initial version of this site is already well underway
+\footnote{\url{http://github.com/hltdi/gn-documents}}.  We have a working
+search engine based on the Whoosh library
+\footnote{\url{http://bitbucket.org/mchaput/whoosh/wiki/Home}} and some sample
+documents -- twelve masters theses from the \emph{Ateneo}. We will need to
+develop policies for which documents are permissible for distribution through
+this site and work on integrating morphological analysis into the search
+engine. Currently, new documents must be approved by an administrator before
+being added to the index.
+
+\section{Collecting Translations}
+The second website, tentatively called ``Guampa"
+\footnote{A ``guampa", in Paraguay, is the cup from which one drinks yerba mate
+or tereré. The term ``guampa" is also local to Paraguay; in other parts of
+South America, the container itself is called a ``mate".},
+will be used by Guarani speakers and learners to produce translations of
+relevant documents from Spanish to Guarani or vice-versa.
+It will be something like a bilingual wiki, although the interface will
+encourage users to edit sentences individually.
+The software will segment the sentences in the initial
+source-language documents and allow users to contribute translations for each
+source sentence in turn, while showing the complete document context.
+As a result of this, not only will will we be able to collect bitext training
+data, but we will also produce useful translations.
+
+Initially, this site will be seeded with documents from the Spanish and Guarani
+Wikipedias. Successful translations of the Spanish-language articles could be
+fed back into the Guarani Wikipedia. Other documents will be added by
+Guarani-language educators and perhaps also pulled from Tahekami. Translations
+may be assigned as homework by Guarani-language teachers.
+
+The website will keep track of translations contributed by individual users;
+there may be game-like features and community voting, where large number of
+translations, or particularly good ones, are recognized, perhaps with virtual
+prizes and badges.
+Ideally, community management will be addressed by Paraguayan volunteers and
+the gamification features can be built by contributors from the open source
+world; this website and its richer features are not the primary focus of this
+dissertation.
+
+We may eventually collect enough bitext with this website such that it makes
+sense to develop approaches for determining which sentences are the most
+reliable and the most useful for training; this may correlate with quality
+judgements from the human volunteers.
+Investigating this relationship would make a good research question.
+
+In the medium-term, this website will get an integrated ability to search
+a translation memory and automatic suggestions from a machine translation
+system\footnote{Features described in a presentation in Spanish here:
+\url{http://www.cs.indiana.edu/~gasser/Taller2013/} ; English-language similar
+presentation: \url{http://tinyurl.com/alexr-clingding-guarani} }
+. While these features will be both useful and present a number of
+interesting research questions, they are outside the scope of this
+dissertation.
