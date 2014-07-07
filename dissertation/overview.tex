@@ -13,13 +13,17 @@ language, and sequence-labeling techniques. I will also integrate the CL-WSD
 software into several different machine translation systems to show its
 practical applicability.
 
-Lexical ambiguity presents a serious challenge for rule-based machine
-translation (RBMT) systems, since many words have multiple possible
-translations in the target language. Moreover, several translations of a given
-word may all be syntactically valid in context, but have significantly
-different meanings. Even when choosing among near-synonyms, we would like to
-respect the selectional preferences of the target language so as to produce
-natural-sounding output text.
+%% XXX: why the black box here?
+Lexical ambiguity presents a daunting challenge for rule-based machine
+translation (RBMT) systems;
+many words have multiple possible translations in the target language.
+Moreover, several translations of a given word may all be syntactically valid
+in context, but have significantly different meanings. Even when choosing among
+near-synonyms, we would like to respect the selectional preferences of the
+target language so as to produce natural-sounding output text.  The human
+authors of the rules in an RBMT system may not have enumerated the exact
+contexts or classes of contexts in which each target-language form should be
+used -- this is a difficult and time-consuming task!
 
 %% XXX
 We really need to talk more about hybridity in here and what's rule-based and

@@ -1,4 +1,4 @@
-\chapter{Evaluation}
+\chapter{Data Sets, Tasks, and Evaluation}
 \label{chap:evaluation}
 
 In order to evaluate our CL-WSD approaches and their effects on translation
@@ -33,3 +33,44 @@ techniques while they are in use for lexical selection in running MT systems.
 Thus we will use standard approaches for evaluating MT, such as BLEU and METEOR
 scores, and human evaluations, likely conducted online so that fluent Guarani
 speakers will be able to participate.
+
+
+\section{Data Sets}
+The BIBLE
+
+
+\section{Tasks and Evaluation}
+
+
+\section{Morphological Analysis for Guarani}
+\label{sec:guaranima}
+We analyze the Spanish and Guarani Bible using our in-house morphological
+analyzer, originally developed for Ethiopian Semitic languages 
+\cite{gasser:eacl09}.
+As in other, more familiar, modern
+morphological analyzers such as \cite{beesley+karttunen}, analysis in our
+system is modeled by cascades of finite-state transducers (FSTs).  To solve the
+problem of long-distance dependencies, we extend the basic FST framework using
+an idea introduced by Amtrup \cite{amtrup:03}.  Amtrup starts with the
+well-understood framework of weighted FSTs, familiar from speech recognition.
+For speech recognition, FST arcs are weighted with probabilities, and a
+successful traversal of a path through a transducer results in a probability
+that is the product of the probabilities on the arcs that are traversed, as
+well as an output string as in conventional transducers.  Amtrup showed that
+probabilities could be replaced by feature structures and multiplication by
+unification.  In an FST weighted with feature structures, the result of a
+successful traversal is the unification of the feature structure ``weights'' on
+the traversed arcs, as well as an output string.  Because a feature structure
+is accumulated during the process of transduction, the transducer retains a
+sort of memory of where it has been, permitting the incorporation of
+long-distance constraints such as those relating the negative prefix and suffix
+of Guarani verbs.
+
+In our system, the output of the morphological analysis of a word is a root and
+a feature structure representing the grammatical features of the word.  We
+implemented separate FSTs for Spanish verbs, for Guarani nouns, and for the two
+main categories of Guarani verbs and adjectives.  Since Spanish nouns and
+adjectives have very few forms, we simply list the alternatives in the lexicon
+for these categories.  For this paper, we are only concerned with the roots of
+words in our corpora, so we ignore the grammatical features that are output
+with each word.

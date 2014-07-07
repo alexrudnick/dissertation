@@ -17,8 +17,9 @@ What did we say in the outline?
 % XXX
 Word types often -- or perhaps always, to take a philosophical view of 
 communication and semiosis -- have many possible meanings. Given a string of
-characters or an utterance, there are many possible meanings that one
-could assign to that word token. In the simplest case, one could be faced with
+characters or an utterance, the listener or reader must do some computational
+work to interpret the received message, and they may fail.
+In the simplest case, one could be faced with
 a homophone or homograph and need to distinguish between different lexemes that
 could be intended. There could be technical or jargon senses that conflict with
 colloquial uses of a word; consider the many different meanings of ``kernel",
@@ -35,47 +36,13 @@ dictionary or a WordNet.
 %XXX
 
 For a broad overview of the history of word sense disambiguation, please see
-Navigli \emph{et al.}'s book on the topic. \cite{wsdbook}
-
+Navigli \emph{et al.}'s book on the topic. \cite{agirre2006word}
 
 It has long been held that word sense disambiguation is a central problem in
 other NLP applications, including machine translation. As early as 1960,
 Yehoshua Bar-Hillel considered machine translation for the general case to be
 impossible, due to the insurmountable task of writing WSD routines for all
 source-language words. \cite{barhillel1960}
-
-\begin{quote}
-During the past year I have repeatedly tried to point out the illusory
-character of the FAHQT ideal even in respect to the mechanical determination of
-the syntactical structure of a given source-language sentence... Here I shall
-show that there exist extremely simple sentences in English -- and the same
-holds, I am sure, for any other natural language -- which within certain
-linguistic contexts, would be uniquely (up to plain synonymy) and unambiguously
-translated into any other language by anyone with a sufficient knowledge of the
-two languages involved, though I know of no program that would enable a machine
-to come up with this unique rendering unless by a completely arbitrary and
-\emph{ad hoc} procedure whose futility would show itself in the next example.
-
-A sentence of this kind is the following: \emph{The box was in the pen.}
-\end{quote}
-
-\section{Cross-lingual word sense disambiguation}
-\label{sec:clwsd}
-
-Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling words
-or phrases in some input text with their contextually-appropriate translations
-into some target language.
-It is a variant of the more general WSD task, with the sense inventory for each
-word defined as its possible translations.
-This setting for WSD has immediate applications in both machine translation and
-cross-language information retrieval, since many words have multiple possible
-translations.
-
-WSD in translation has a long history; practical work in integrating
-WSD with statistical machine translation dates back to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
-Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which describes an
-essentially modern conception of word sense disambiguation.
 
 In the early history of machine translation, researchers were very concerned
 with WSD; to some, it seemed an insurmountable problem. Bar-Hillel 
@@ -87,6 +54,8 @@ simple ambiguities like \emph{The box was in the pen.} \cite{barhillel1960}:
 unique rendering unless by a completely arbitrary and ad hoc procedure whose
 futility would show itself ...
 \end{quote}
+
+
 
 To produce a correct rendering of this sentence in Spanish, for example, the
 translation system must decide between translating ``pen" as \emph{corral} (an
@@ -109,6 +78,68 @@ The situation is fairly complex.
   ``pluma" and ``corral" renderings.}
   \label{fig:box-in-pen}
 \end{figure}
+
+
+\begin{quote}
+During the past year I have repeatedly tried to point out the illusory
+character of the FAHQT ideal even in respect to the mechanical determination of
+the syntactical structure of a given source-language sentence... Here I shall
+show that there exist extremely simple sentences in English -- and the same
+holds, I am sure, for any other natural language -- which within certain
+linguistic contexts, would be uniquely (up to plain synonymy) and unambiguously
+translated into any other language by anyone with a sufficient knowledge of the
+two languages involved, though I know of no program that would enable a machine
+to come up with this unique rendering unless by a completely arbitrary and
+\emph{ad hoc} procedure whose futility would show itself in the next example.
+
+A sentence of this kind is the following: \emph{The box was in the pen.}
+\end{quote}
+
+
+
+
+
+
+
+
+
+
+
+\section{Cross-lingual word sense disambiguation}
+\label{sec:clwsd}
+
+Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling words
+or phrases in some input text with their contextually-appropriate translations
+into some target language.
+It is a variant of the more general WSD task, with the sense inventory for each
+word defined as its possible translations.
+This setting for WSD has immediate applications in both machine translation and
+cross-language information retrieval, since many words have multiple possible
+translations.
+
+WSD in translation has a long history; practical work in integrating
+WSD with statistical machine translation dates back to early SMT work at IBM
+\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
+Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which describes an
+essentially modern conception of word sense disambiguation.
+
+
+Framing the resolution of lexical ambiguities in machine translation
+as an explicit classification
+task has a long history, dating back at least to early SMT work at IBM
+\cite{Brown91word-sensedisambiguation}.  More recently, Carpuat and Wu have
+shown how to use word-sense disambiguation techniques to improve modern
+phrase-based SMT systems \cite{carpuatpsd}, even though the language model and
+phrase tables of these systems can mitigate the problem of lexical ambiguities
+somewhat. Treating lexical selection as a word-sense disambiguation problem, in
+which the sense inventory for each source-language word is its set of possible
+translations, is often called cross-lingual WSD (CL-WSD). This framing has
+received enough attention to warrant shared tasks at recent SemEval workshops;
+the most recent running of the task is described in \cite{task10}.
+
+
+
+
 
 In general, there is a many-to-many relationship between words across language
 boundaries.
@@ -182,49 +213,7 @@ in MT.
 
 
 
-
-
-
-
-\section{Hybrid MT}
-
-In recent years, we have seen renewed interest in machine translation systems
-that take into account syntactic structure, linguistic knowledge, and semantic
-representations.
-Hopefully, these will provide better translation for language pairs with
-significant reordering or syntactic divergences, and where one or both of the
-languages has rich morphology.
-The boundaries between rule-based and statistical MT systems are becoming
-increasingly blurred, and hybrid systems are being developed in both
-directions, with RBMT systems incorporating components based on machine
-learning, as well as SMT systems making use of linguistic knowledge for
-morphology and syntax.
-
-Additionally, for most of the world's language pairs, there is simply no large
-bitext corpus available, so training a purely statistical machine translation
-system is infeasible.
-Thus, while SMT approaches have had great success, and drastically changed the
-machine translation landscape since the 1990s, RBMT approaches are still
-relevant for many language pairs.
-
-We would like for RBMT or hybrid systems, once developed, to be able to make
-use of any bitext on hand.  Like SMT systems, they should be able to produce
-better translations as larger corpora become available, without additional code
-changes.
-In this dissertation work, we will develop a software package called
-chipa, which will do just that: %% XXX: better wording?
-it will integrate with a variety of machine translation systems to help them
-use any available bitext to make better word choices.
-
-
-
-
-
-
-
 \section{History of CL-WSD}
-
-
 ParaSense, the CL-WSD system developed by Els Lefever
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
 several different parallel corpora.
@@ -274,13 +263,13 @@ on using WSD techniques for translation into lower-resourced languages, such as
 the English-Slovene language pair, as in
 \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
-%%The Apertium team has a particular practical interest in improving lexical
-%%selection in RBMT; they recently have been developing
-%%a new system, described in \cite{tyers-fst}, that learns finite-state
-%%transducers for lexical selection from the available parallel corpora. It is
-%%intended to be both very fast, for use in practical translation systems, and
-%%to produce lexical selection rules that are understandable and modifiable by
-%%humans.
+The Apertium team has a particular practical interest in improving lexical
+selection in RBMT; they recently have been developing
+a new system, described in \cite{tyers-fst}, that learns finite-state
+transducers for lexical selection from the available parallel corpora. It is
+intended to be both very fast, for use in practical translation systems, and
+to produce lexical selection rules that are understandable and modifiable by
+humans.
 
 Francis Tyers, in his dissertation work \cite{tyers-dissertation},
 provides an overview of lexical selection systems and describes methods for
@@ -292,53 +281,48 @@ the Apertium machine translation system, they are compiled to finite-state
 transducers.
 
 
-\section{Online Language Tools for Guarani}
-There are currently very few online language tools for Guarani; some of the
-best available ones are iGuarani \footnote{\url{http://iguarani.com/}}, a
-searchable online dictionary and gisting translation system developed by young
-Paraguayan programmer Diego Alejandro Gavilán.
-
-There is also a small searchable online dictionary developed by Wolf Lustig
-\footnote{\url{http://www.uni-mainz.de/cgi-bin/guarani2/dictionary.pl}},
-which has versions in Spanish, German, and English. He has graciously made this
-dictionary available for our use, and this will provide a starting point for
-our Spanish-Guarani translation system.
-
-The Guarani activist and education community has a presence on the Web,
-although a startlingly large fraction of this presence is a single author,
-Dr. David Galeano Olivera, the president of the \emph{Ateneo de Lengua y
-Cultura Guaraní}. He has collected a number of resources both about and in the
-Guarani language
-\footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}},
-some in Spanish and some in Guarani, and will likely continue to do so.
 
 
 
 
 
-Here classifiers are trained with the scikit-learn machine learning package
-\cite{scikit-learn}, using logistic regression (also known as ``maximum
-entropy") with the default settings and the regularization constant set to
-$C=0.1$. We also use various utility functions from NLTK \cite{nltkbook}. 
+\section{Hybrid MT}
 
-For this work, we use familiar features for text classification: the
-surrounding lemmas for the current token (three on either side) and the
-bag-of-words features for the entire current sentence. We additionally include,
-optionally, the Brown cluster labels (see below for an explanation),
-both for the immediate surrounding context and the entire sentence.
-We suspect that more feature engineering, particularly making use of syntactic
-information and surface word forms, will be helpful in the future.
+In recent years, we have seen renewed interest in machine translation systems
+that take into account syntactic structure, linguistic knowledge, and semantic
+representations.
+Hopefully, these will provide better translation for language pairs with
+significant reordering or syntactic divergences, and where one or both of the
+languages has rich morphology.
+The boundaries between rule-based and statistical MT systems are becoming
+increasingly blurred, and hybrid systems are being developed in both
+directions, with RBMT systems incorporating components based on machine
+learning, as well as SMT systems making use of linguistic knowledge for
+morphology and syntax.
 
-\begin{figure}[t!]
-  \begin{itemize}
-    \item lemmas from surrounding context (three tokens on either side)
-    \item bag of lemmas from the entire sentence
-    \item Brown cluster labels from surrounding context
-    \item bag of Brown cluster labels from the entire sentence
-  \end{itemize}
-\caption{Features used in classification}
-\label{fig:features}
-\end{figure}
+Additionally, for most of the world's language pairs, there is simply no large
+bitext corpus available, so training a purely statistical machine translation
+system is infeasible.
+Thus, while SMT approaches have had great success, and drastically changed the
+machine translation landscape since the 1990s, RBMT approaches are still
+relevant for many language pairs.
+
+We would like for RBMT or hybrid systems, once developed, to be able to make
+use of any bitext on hand.  Like SMT systems, they should be able to produce
+better translations as larger corpora become available, without additional code
+changes.
+In this dissertation work, we will develop a software package called
+chipa, which will do just that: %% XXX: better wording?
+it will integrate with a variety of machine translation systems to help them
+use any available bitext to make better word choices.
+
+
+
+
+
+
+
+
 
 \section{Related Work}
 
@@ -467,20 +451,6 @@ once \cite{rudnick-gasser:2013:HyTra}.
 
 
 
-\subsection{Translation into Morphologically Rich Languages}
-Chris Dyer's recent paper at EMNLP
-\cite{chahuneau:2013:emnlp}
-
-Talk about prediction for morphology.
-\cite{toutanova-suzuki-ruopp:2008:ACLMain}
-
-Also factored models...
-\cite{yeniterzi-oflazer:2010:ACL}
-
-
-\chapter{Related Work}
-\label{sec:relatedwork}
-
 \section{CL-WSD \emph{in vitro}}
 ParaSense, the CL-WSD system developed by Els Lefever
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
@@ -505,14 +475,6 @@ in an input sentence as a sequence labeling problem. However, in monolingual
 WSD, Molina \textit{et al.} \cite{DBLP:conf/iberamia/MolinaPS02} have made
 use of HMMs for WSD. 
 
-%%\subsection{Translation into Morphologically Rich Languages}
-%%Chris Dyer's recent paper at EMNLP
-%%\cite{chahuneau:2013:emnlp}
-%%Talk about prediction for morphology.
-%%\cite{toutanova-suzuki-ruopp:2008:ACLMain}
-%%Also factored models...
-%%\cite{yeniterzi-oflazer:2010:ACL}
-
 \section{CL-WSD for Lexical Selection}
 While most SMT systems do not make use of an explicit WSD module, recently
 there has been work on adding WSD classifiers in to statistical MT systems.
@@ -529,8 +491,8 @@ showed significant improvements on a Chinese-English translation task.
 There has also been work on using discriminative MaxEnt models to adapt
 the ``forward" translation model of an SMT system, using richer
 source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
-Somewhat interestingly, while it has the same effect, this work does not
-describe itself in terms of word sense disambiguation.
+While it has much the same effect, this work does not describe itself in terms
+of word sense disambiguation.
 
 %% text from the HyTra paper
 Although they did not present a complete MT system, there has also been work
@@ -538,13 +500,6 @@ on using WSD techniques for translation into lower-resourced languages, such as
 the English-Slovene language pair, as in
 \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
-%%The Apertium team has a particular practical interest in improving lexical
-%%selection in RBMT; they recently have been developing
-%%a new system, described in \cite{tyers-fst}, that learns finite-state
-%%transducers for lexical selection from the available parallel corpora. It is
-%%intended to be both very fast, for use in practical translation systems, and
-%%to produce lexical selection rules that are understandable and modifiable by
-%%humans.
 
 Francis Tyers, in his dissertation work \cite{tyers-dissertation},
 provides an overview of lexical selection systems and describes methods for
@@ -555,6 +510,24 @@ understandable and modifiable by human language experts. For practical use in
 the Apertium machine translation system, they are compiled to finite-state
 transducers.
 
+
+
+
+
+
+\subsection{Translation into Morphologically Rich Languages}
+Chris Dyer's recent paper at EMNLP
+\cite{chahuneau:2013:emnlp}
+
+Talk about prediction for morphology.
+\cite{toutanova-suzuki-ruopp:2008:ACLMain}
+
+Also factored models...
+\cite{yeniterzi-oflazer:2010:ACL}
+
+
+
+%%%% Paraguay and Guarani %%%%
 
 
 \urldef{\leydelenguas}\url{http://www.cultura.gov.py/lang/es-es/2011/05/ley-de-lenguas-n%C2%BA-4251/}
@@ -621,5 +594,3 @@ Cultura Guaraní}. He has collected a number of resources both about and in the
 Guarani language
 \footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}},
 some in Spanish and some in Guarani, and will likely continue to do so.
-
-
