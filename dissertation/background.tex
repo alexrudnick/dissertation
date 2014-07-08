@@ -97,14 +97,6 @@ A sentence of this kind is the following: \emph{The box was in the pen.}
 
 
 
-
-
-
-
-
-
-
-
 \section{Cross-lingual word sense disambiguation}
 \label{sec:clwsd}
 
@@ -210,27 +202,15 @@ in MT.
 \end{figure}
 
 
-
-
-
 \section{History of CL-WSD}
-ParaSense, the CL-WSD system developed by Els Lefever
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
-several different parallel corpora.
-For predicting the translation of a source word into
-any particular target language, ParaSense creates
-bag-of-words features from the translations of the input sentence into every
-other language that it knows about. As of this writing, ParaSense handles
-translation from English into French, Spanish, Italian, Dutch and German.
-Given corpora that are parallel over many languages, such as Europarl, this is
-straightforward at
-training time. However, at testing time it requires a complete MT system for
-each of the four other languages, which seems computationally prohibitive. In
-the past, ParaSense has simply called out to the Google Translate API to
-generate the bag-of-words features required for test sentences. This seems
-unwieldy, and thus in our work, we learn from several parallel corpora but
-require neither a locally running MT system nor access to an online translation
-API.
+Before the work of Carpuat and Wu~\cite{improvingsmtwsd}, it was apparently
+unclear whether WSD was necessary or helpful for a state-of-the-art statistical
+MT system; lexical choice among possible translations for a given word can
+often be handled by the language model for the target language, simply due to
+collocations of appropriate words in the training data.
+
+
+
 
 To our knowledge, there has not been other work on framing CL-WSD for all words
 in an input sentence as a sequence labeling problem. However, in monolingual
@@ -238,47 +218,18 @@ WSD, Molina \textit{et al.} \cite{DBLP:conf/iberamia/MolinaPS02} have made
 use of HMMs for WSD. 
 
 
-\section{CL-WSD for Lexical Selection}
-While most SMT systems do not make use of an explicit WSD module, recently
-there has been work on adding WSD classifiers in to statistical MT systems.
-Particularly, Carpuat and Wu have shown how to use CL-WSD, or more broadly,
-cross-lingual phrase sense disambiguation, to improve modern phrase-based SMT
-systems
-\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}. In
-Carpuat's work, classifiers are used to label multi-word expressions (phrases,
-in the phrase-based SMT sense) with target language phrases. She demonstrates
-how this is more appropriate in an an SMT setting than simply labeling
-individual words with WordNet synsets, as had previously been attempted, and
-showed significant improvements on a Chinese-English translation task.
+%% Brown et al
+Framing the resolution of lexical ambiguities in machine translation
+as an explicit classification
+task has a long history, dating back at least to early SMT work at IBM
+\cite{Brown91word-sensedisambiguation}.
 
-There has also been work on using discriminative MaxEnt models to adapt
-the ``forward" translation model of an SMT system, using richer
-source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
-Somewhat interestingly, while it has the same effect, this work does not
-describe itself in terms of word sense disambiguation.
-
-%% text from the HyTra paper
-Although they did not present a complete MT system, there has also been work
-on using WSD techniques for translation into lower-resourced languages, such as
-the English-Slovene language pair, as in
-\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
-
-The Apertium team has a particular practical interest in improving lexical
-selection in RBMT; they recently have been developing
-a new system, described in \cite{tyers-fst}, that learns finite-state
-transducers for lexical selection from the available parallel corpora. It is
-intended to be both very fast, for use in practical translation systems, and
-to produce lexical selection rules that are understandable and modifiable by
-humans.
-
-Francis Tyers, in his dissertation work \cite{tyers-dissertation},
-provides an overview of lexical selection systems and describes methods for
-learning lexical selection rules based on available parallel corpora.
-These rules make reference to the lexical items and parts of speech surrounding
-the word to be translated. Once learned, these rules are intended to be
-understandable and modifiable by human language experts. For practical use in
-the Apertium machine translation system, they are compiled to finite-state
-transducers.
+An early paper by IBM researchers \cite{Brown91word-sensedisambiguation},
+outlines the CLWSD task in a strikingly similar way, as a WSD task where the
+possible senses of a word are extracted from statistical alignments learned
+over a bitext corpus. Brown \textit{et al.} report significant translation
+quality improvements through the use of their WSD system, over a small
+hand-evaluated set of test sentences.
 
 
 
@@ -317,219 +268,7 @@ it will integrate with a variety of machine translation systems to help them
 use any available bitext to make better word choices.
 
 
-
-
-
-
-
-
-
-\section{Related Work}
-
-\subsection{early SMT with WSD}
-%% Brown et al
-Framing the resolution of lexical ambiguities in machine translation
-as an explicit classification
-task has a long history, dating back at least to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}.
-
-An early paper by IBM researchers \cite{Brown91word-sensedisambiguation},
-outlines the CLWSD task in a strikingly similar way, as a WSD task where the
-possible senses of a word are extracted from statistical alignments learned
-over a bitext corpus. Brown \textit{et al.} report significant translation
-quality improvements through the use of their WSD system, over a small
-hand-evaluated set of test sentences.
-
-
-\subsection{PB-SMT with phrase sense disambiguation}
-%% Carpuat and Wu
-More recently, Carpuat and Wu have
-shown how to use classifiers to improve modern phrase-based SMT systems
-\cite{carpuatpsd}.
-
-Recent years have seen a resurgence of interest in the integration of
-word-sense disambiguation techniques into machine translation.  We suspect that
-WSD will be especially useful for translating into under-resourced and
-morphologically rich languages, for which good language models are likely to be
-sparse. Before the work of 
-Carpuat and Wu~\cite{improvingsmtwsd}, it was apparently unclear whether
-WSD was necessary or helpful for a state-of-the-art statistical MT system;
-lexical choice among possible translations for a given word can often be
-handled by the language model for the target language, simply due to
-collocations of appropriate words in the training data.
-
-
-\subsection{CL-WSD at SemEval}
-CL-WSD has received enough attention to warrant shared tasks at recent SemEval
-workshops; the most recent running of the task is described by Lefever and
-Hoste \cite{task10}.
-In this task, participants are asked to translate twenty different polysemous
-English nouns into five different European languages, in a variety of contexts.
-
-
-\subsection{multilingual evidence for CL-WSD}
-%% ParaSense
-Lefever \emph{et al.}, in work on the ParaSense system
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, produced top results for
-this task with classifiers trained on local contextual features, with the 
-addition of a bag-of-words model of the translation of the complete source
-sentence into other (neither the source nor the target) languages. At training
-time, the foreign bag-of-words features for a sentence are extracted from
-available parallel corpora, but at testing time, they must be
-estimated with a third-party MT system, as they are not known a priori.
-This work has not yet, to our knowledge, been integrated into an MT system
-on its own.
-
-Lefever \textit{et al.} recently described a novel approach to WSD, making use
-of evidence from several languages at once to disambiguate English-language
-source sentences. This is done by building artificial parallel corpora in
-several languages, on demand, with the Google Translate API. They outperform
-the previous state-of-the art systems on the SemEval 2010 shared task 13
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}.
-
-In our earlier work, we prototyped a system that addresses some of the issues
-with ParaSense, requiring more modest software infrastructure for feature
-extraction while still allowing CL-WSD systems to make use of several mutually
-parallel bitexts that share a source language
-\cite{rudnick-liu-gasser:2013:SemEval-2013}.
-
-\subsection{WSD for lower-resourced languages}
-However, there has been work recently on using WSD techniques for translation
-into lower-resourced languages, such as the English-Slovene language pair, as
-in \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
-
-Dinu and Kübler~\cite{Dinu07} have addressed the problem of monolingual WSD for
-a lower-resourced language, particularly Romanian. In their work, they describe
-an instance-based approach in which a relatively small number of features is
-used quite effectively. In other work on lower-resourced languages,
-Sarrafzdadeh \textit{et al.} have investigated a version of the Lesk algorithm
-for Farsi.
-
-%% XXX
-One sort of interesting point here is that we are not doing WSD on a
-low-resourced language. This is ultimately WSD on Spanish with a sense
-inventory that we automatically discover from cross-lingual evidence.
-
-\subsection{lexical selection in low-resource settings}
-Francis Tyers, in his dissertation work \cite{tyers-dissertation},
-provides an overview of lexical selection systems and describes methods for
-learning lexical selection rules based on available parallel corpora. These
-rules make reference to the lexical items and parts of speech surrounding the
-word to be translated. Once learned, these rules are intended to be
-understandable and modifiable by human language experts. For practical use in
-the Apertium machine translation system, they are compiled to finite-state
-transducers.
-
-The Apertium team has a particular practical interest in improving lexical
-selection in RBMT; they recently have been developing
-a new system, described in \cite{tyers-fst}, that learns finite-state
-transducers for lexical selection from the available parallel corpora. It is
-intended to be both very fast, for use in practical translation systems, and
-to produce lexical selection rules that are understandable and modifiable by
-humans.
-
-%% SQUOIA extensions: relevant to Hybrid MT
-Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
-earlier work on extending the SQUOIA MT system with machine learning modules.
-They used classifiers to predict the target forms of verbs in cases where the
-system's hand-crafted rules cannot make a decision based on the current
-context.
-
-\subsection{Sequence models for word-sense disambiguation}
-To our knowledge, there has not been work specifically on sequence labeling
-applied to lexical selection for RBMT systems.
-
-Outside of the CL-WSD setting, there has been work on framing all-words WSD as
-a sequence labeling problem. Particularly, Molina \textit{et al.}
-\cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
-WSD in a monolingual setting.
-
-We have also done some previous work on CL-WSD for translating into indigenous
-American languages; an earlier version of Chipa, for Spanish-Guarani, made use
-of sequence models to jointly predict all of the translations for a sentence at
-once \cite{rudnick-gasser:2013:HyTra}.
-
-
-
-\section{CL-WSD \emph{in vitro}}
-ParaSense, the CL-WSD system developed by Els Lefever
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
-several different parallel corpora.
-For predicting the translation of a source word into
-any particular target language, ParaSense creates
-bag-of-words features from the translations of the input sentence into every
-other language that it knows about. As of this writing, ParaSense handles
-translation from English into French, Spanish, Italian, Dutch and German.
-Given corpora that are parallel over many languages, such as Europarl, this is
-straightforward at
-training time. However, at testing time it requires a complete MT system for
-each of the four other languages, which seems computationally prohibitive. In
-the past, ParaSense has simply called out to the Google Translate API to
-generate the bag-of-words features required for test sentences. This seems
-unwieldy, and thus in our work, we learn from several parallel corpora but
-require neither a locally running MT system nor access to an online translation
-API.
-
-To our knowledge, there has not been other work on framing CL-WSD for all words
-in an input sentence as a sequence labeling problem. However, in monolingual
-WSD, Molina \textit{et al.} \cite{DBLP:conf/iberamia/MolinaPS02} have made
-use of HMMs for WSD. 
-
-\section{CL-WSD for Lexical Selection}
-While most SMT systems do not make use of an explicit WSD module, recently
-there has been work on adding WSD classifiers in to statistical MT systems.
-Particularly, Carpuat and Wu have shown how to use CL-WSD, or more broadly,
-cross-lingual phrase sense disambiguation, to improve modern phrase-based SMT
-systems
-\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}. In
-Carpuat's work, classifiers are used to label multi-word expressions (phrases,
-in the phrase-based SMT sense) with target language phrases. She demonstrates
-how this is more appropriate in an an SMT setting than simply labeling
-individual words with WordNet synsets, as had previously been attempted, and
-showed significant improvements on a Chinese-English translation task.
-
-There has also been work on using discriminative MaxEnt models to adapt
-the ``forward" translation model of an SMT system, using richer
-source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
-While it has much the same effect, this work does not describe itself in terms
-of word sense disambiguation.
-
-%% text from the HyTra paper
-Although they did not present a complete MT system, there has also been work
-on using WSD techniques for translation into lower-resourced languages, such as
-the English-Slovene language pair, as in
-\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
-
-
-Francis Tyers, in his dissertation work \cite{tyers-dissertation},
-provides an overview of lexical selection systems and describes methods for
-learning lexical selection rules based on available parallel corpora.
-These rules make reference to the lexical items and parts of speech surrounding
-the word to be translated. Once learned, these rules are intended to be
-understandable and modifiable by human language experts. For practical use in
-the Apertium machine translation system, they are compiled to finite-state
-transducers.
-
-
-
-
-
-
-\subsection{Translation into Morphologically Rich Languages}
-Chris Dyer's recent paper at EMNLP
-\cite{chahuneau:2013:emnlp}
-
-Talk about prediction for morphology.
-\cite{toutanova-suzuki-ruopp:2008:ACLMain}
-
-Also factored models...
-\cite{yeniterzi-oflazer:2010:ACL}
-
-
-
 %%%% Paraguay and Guarani %%%%
-
-
 \urldef{\leydelenguas}\url{http://www.cultura.gov.py/lang/es-es/2011/05/ley-de-lenguas-n%C2%BA-4251/}
 
 \section{Paraguay and the Guarani Language}
@@ -594,3 +333,230 @@ Cultura Guaraní}. He has collected a number of resources both about and in the
 Guarani language
 \footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}},
 some in Spanish and some in Guarani, and will likely continue to do so.
+
+
+
+\section{Related Work}
+
+\subsection{CL-WSD \emph{in vitro}}
+ParaSense, the CL-WSD system developed by Els Lefever
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
+several different parallel corpora.
+For predicting the translation of a source word into
+any particular target language, ParaSense creates
+bag-of-words features from the translations of the input sentence into every
+other language that it knows about. As of this writing, ParaSense handles
+translation from English into French, Spanish, Italian, Dutch and German.
+Given corpora that are parallel over many languages, such as Europarl, this is
+straightforward at
+training time. However, at testing time it requires a complete MT system for
+each of the four other languages, which seems computationally prohibitive. In
+the past, ParaSense has simply called out to the Google Translate API to
+generate the bag-of-words features required for test sentences. This seems
+unwieldy, and thus in our work, we learn from several parallel corpora but
+require neither a locally running MT system nor access to an online translation
+API.
+
+
+\subsection{CL-WSD at SemEval}
+CL-WSD has received enough attention to warrant shared tasks at recent SemEval
+workshops; the most recent running of the task is described by Lefever and
+Hoste \cite{task10}.
+In this task, participants are asked to translate twenty different polysemous
+English nouns into five different European languages, in a variety of contexts.
+
+
+\subsection{multilingual evidence for CL-WSD}
+
+%% ParaSense and everything pertaining to ParaSense
+Lefever \emph{et al.}, in work on the ParaSense system
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}, produced top results for
+this task with classifiers trained on local contextual features, with the 
+addition of a bag-of-words model of the translation of the complete source
+sentence into other (neither the source nor the target) languages. At training
+time, the foreign bag-of-words features for a sentence are extracted from
+available parallel corpora, but at testing time, they must be
+estimated with a third-party MT system, as they are not known a priori.
+This work has not yet, to our knowledge, been integrated into an MT system
+on its own.
+
+Lefever \textit{et al.} recently described a novel approach to WSD, making use
+of evidence from several languages at once to disambiguate English-language
+source sentences. This is done by building artificial parallel corpora in
+several languages, on demand, with the Google Translate API. They outperform
+the previous state-of-the art systems on the SemEval 2010 shared task 13
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}.
+
+In our earlier work, we prototyped a system that addresses some of the issues
+with ParaSense, requiring more modest software infrastructure for feature
+extraction while still allowing CL-WSD systems to make use of several mutually
+parallel bitexts that share a source language
+\cite{rudnick-liu-gasser:2013:SemEval-2013}.
+
+ParaSense, the CL-WSD system developed by Els Lefever
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
+several different parallel corpora.
+For predicting the translation of a source word into
+any particular target language, ParaSense creates
+bag-of-words features from the translations of the input sentence into every
+other language that it knows about. As of this writing, ParaSense handles
+translation from English into French, Spanish, Italian, Dutch and German.
+Given corpora that are parallel over many languages, such as Europarl, this is
+straightforward at
+training time. However, at testing time it requires a complete MT system for
+each of the four other languages, which seems computationally prohibitive. In
+the past, ParaSense has simply called out to the Google Translate API to
+generate the bag-of-words features required for test sentences. This seems
+unwieldy, and thus in our work, we learn from several parallel corpora but
+require neither a locally running MT system nor access to an online translation
+API.
+
+\subsection{WSD with sequence models}
+To our knowledge, there has not been other work on framing CL-WSD for all words
+in an input sentence as a sequence labeling problem. However, in monolingual
+WSD, Molina \textit{et al.} \cite{DBLP:conf/iberamia/MolinaPS02} have made
+use of HMMs for WSD. 
+
+To our knowledge, there has not been work specifically on sequence labeling
+applied to lexical selection for RBMT systems.
+
+Outside of the CL-WSD setting, there has been work on framing all-words WSD as
+a sequence labeling problem. Particularly, Molina \textit{et al.}
+\cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
+WSD in a monolingual setting.
+
+We have also done some previous work on CL-WSD for translating into indigenous
+American languages; an earlier version of Chipa, for Spanish-Guarani, made use
+of sequence models to jointly predict all of the translations for a sentence at
+once \cite{rudnick-gasser:2013:HyTra}.
+
+XXX:
+Look into the recent stuff from BabelNet and Babelfy: what are they doing
+there?
+
+
+\subsection{CL-WSD for Lexical Selection in RBMT}
+
+Although they did not present a complete MT system, there has also been work
+on using WSD techniques for translation into lower-resourced languages, such as
+the English-Slovene language pair, as in
+\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+
+The Apertium team has a particular practical interest in improving lexical
+selection in RBMT; they recently have been developing
+a new system, described in \cite{tyers-fst}, that learns finite-state
+transducers for lexical selection from the available parallel corpora. It is
+intended to be both very fast, for use in practical translation systems, and
+to produce lexical selection rules that are understandable and modifiable by
+humans.
+
+Francis Tyers, in his dissertation work \cite{tyers-dissertation},
+provides an overview of lexical selection systems and describes methods for
+learning lexical selection rules based on available parallel corpora.
+These rules make reference to the lexical items and parts of speech surrounding
+the word to be translated. Once learned, these rules are intended to be
+understandable and modifiable by human language experts. For practical use in
+the Apertium machine translation system, they are compiled to finite-state
+transducers.
+
+
+Francis Tyers, in his dissertation work \cite{tyers-dissertation},
+provides an overview of lexical selection systems and describes methods for
+learning lexical selection rules based on available parallel corpora. These
+rules make reference to the lexical items and parts of speech surrounding the
+word to be translated. Once learned, these rules are intended to be
+understandable and modifiable by human language experts. For practical use in
+the Apertium machine translation system, they are compiled to finite-state
+transducers.
+
+The Apertium team has a particular practical interest in improving lexical
+selection in RBMT; they recently have been developing
+a new system, described in \cite{tyers-fst}, that learns finite-state
+transducers for lexical selection from the available parallel corpora. It is
+intended to be both very fast, for use in practical translation systems, and
+to produce lexical selection rules that are understandable and modifiable by
+humans.
+
+
+Francis Tyers, in his dissertation work \cite{tyers-dissertation},
+provides an overview of lexical selection systems and describes methods for
+learning lexical selection rules based on available parallel corpora.
+These rules make reference to the lexical items and parts of speech surrounding
+the word to be translated. Once learned, these rules are intended to be
+understandable and modifiable by human language experts. For practical use in
+the Apertium machine translation system, they are compiled to finite-state
+transducers.
+
+\subsection{CL-WSD for PB-SMT}
+
+%% everything about Carpuat and Wu goes here
+More recently, Carpuat and Wu have
+shown how to use classifiers to improve modern phrase-based SMT systems
+\cite{carpuatpsd}.
+
+
+While most SMT systems do not make use of an explicit WSD module, recently
+there has been work on adding WSD classifiers in to statistical MT systems.
+Particularly, Carpuat and Wu have shown how to use CL-WSD, or more broadly,
+cross-lingual phrase sense disambiguation, to improve modern phrase-based SMT
+systems
+\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}. In
+Carpuat's work, classifiers are used to label multi-word expressions (phrases,
+in the phrase-based SMT sense) with target language phrases. She demonstrates
+how this is more appropriate in an an SMT setting than simply labeling
+individual words with WordNet synsets, as had previously been attempted, and
+showed significant improvements on a Chinese-English translation task.
+
+While most SMT systems do not make use of an explicit WSD module, recently
+there has been work on adding WSD classifiers in to statistical MT systems.
+Particularly, Carpuat and Wu have shown how to use CL-WSD, or more broadly,
+cross-lingual phrase sense disambiguation, to improve modern phrase-based SMT
+systems
+\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}. In
+Carpuat's work, classifiers are used to label multi-word expressions (phrases,
+in the phrase-based SMT sense) with target language phrases. She demonstrates
+how this is more appropriate in an an SMT setting than simply labeling
+individual words with WordNet synsets, as had previously been attempted, and
+showed significant improvements on a Chinese-English translation task.
+
+There has also been work on using discriminative MaxEnt models to adapt
+the ``forward" translation model of an SMT system, using richer
+source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
+While it has much the same effect, this work does not describe itself in terms
+of word sense disambiguation.
+
+
+
+
+\subsection{WSD for lower-resourced languages}
+However, there has been work recently on using WSD techniques for translation
+into lower-resourced languages, such as the English-Slovene language pair, as
+in \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+
+Dinu and Kübler~\cite{Dinu07} have addressed the problem of monolingual WSD for
+a lower-resourced language, particularly Romanian. In their work, they describe
+an instance-based approach in which a relatively small number of features is
+used quite effectively. In other work on lower-resourced languages,
+Sarrafzdadeh \textit{et al.} have investigated a version of the Lesk algorithm
+for Farsi.
+
+Although they did not present a complete MT system, there has also been work
+on using WSD techniques for translation into lower-resourced languages, such as
+the English-Slovene language pair, as in
+\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+
+%% XXX
+One sort of interesting point here is that we are not doing WSD on a
+low-resourced language. This is ultimately WSD on Spanish with a sense
+inventory that we automatically discover from cross-lingual evidence.
+
+
+\subsection{Translation into Morphologically Rich Languages}
+Chris Dyer's recent paper at EMNLP
+\cite{chahuneau:2013:emnlp}
+
+Talk about prediction for morphology.
+\cite{toutanova-suzuki-ruopp:2008:ACLMain}
+
+Also factored models...
+\cite{yeniterzi-oflazer:2010:ACL}
