@@ -254,19 +254,6 @@ CL-WSD, we mean the problem of assigning labels to polysemous words in
 source-language text, where each label is a word or phrase type in the target
 language.
 
-This framing of word-sense disambiguation, in which we consider the possible
-senses of a source-language word to be its known target-language translations,
-neatly addresses the problem of choosing an appropriate sense inventory, which
-has historically been a difficult problem for the practical application of WSD
-systems \cite{agirre2006word}.
-Here the sense distinctions that the CL-WSD system should learn are exactly
-those that are lexicalized in the target language.
-The CL-WSD framing also sidesteps the ``knowledge acquisition bottleneck"
-hampering other work in WSD \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
-While supervised CL-WSD methods typically require bitext for training, this is
-more readily available than the sense-annotated text that would otherwise be
-required.
-
 
 \subsection{System Integration}
 In order to integrate Chipa into SQUOIA, we added an additional lexical

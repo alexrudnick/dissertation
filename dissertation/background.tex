@@ -1,9 +1,12 @@
 \chapter{Background}
 \label{chap:background}
 
-XXX We need to decide, y'know, what goes into the background section.
-
-What did we say in the outline?
+In this chapter, I will discuss some of the background relevant to the task at
+hand, including a short overview of word-sense disambiguation broadly, its
+history with respect to machine translation, and how the cross-lingual framing
+of WSD addresses some of the difficulties in successfully applying WSD
+techniques to MT. I also give a short description of the languages we aim to
+support with this work, Guarani and Quechua.
 
 \begin{itemize}
 \item history of CL-WSD
@@ -13,12 +16,10 @@ What did we say in the outline?
 \end{itemize}
 
 \section{Word-Sense Disambiguation}
-
-% XXX
 Word types often -- or perhaps always, to take a philosophical view of 
 communication and semiosis -- have many possible meanings. Given a string of
 characters or an utterance, the listener or reader must do some computational
-work to interpret the received message, and they may fail.
+work to interpret the received message, and this may fail.
 In the simplest case, one could be faced with
 a homophone or homograph and need to distinguish between different lexemes that
 could be intended. There could be technical or jargon senses that conflict with
@@ -26,34 +27,78 @@ colloquial uses of a word; consider the many different meanings of ``kernel",
 ``type" and ``kind" in computer science and mathematics. In the most difficult
 case, the usages can be hyperbolic, metaphorical, sarcastic, or oblique
 references. Understanding these usages will require understanding the broader
-discourse context and the goals of the speaker, which is outside the scope of
-this work.
+discourse context and the goals of the speaker. Discourse modeling is outside
+the scope of this work, but in practice, for machine translation, we will need
+to get some sense of the particular meaning of a polysemous word, in context.
 
-More simply, when faced with a token in a piece of text, we want to be able to
+Concretely, when faced with a token in a piece of text, we want to be able to
 label which \emph{word sense} from a \emph{sense inventory} is meant. The sense
 inventory might come from a pre-set ontology built by lexicographers, such as a
-dictionary or a WordNet.
-%XXX
+dictionary or a WordNet, or it might have  been discovered in some automatic
+way.
+When making use of WSD for some other purpose -- say in information retrieval,
+information extraction, or machine translation -- choosing an appropriate sense
+inventory can be a difficult design task, as applications may require different
+granularities, while different lexicographers will have made their own
+editorial decisions about what constitutes a distinct sense of a word.
+
+%% XXX maybe include an OED entry for some super-polysemous word
+
+%% XXX look up and get reference for ... line hard serve corpus ...
+
+Treating this task as a supervised learning problem, a sensible default for
+many text classification tasks, requires labeled training data, which must be
+annotated manually, specifically for this purpose. Annotated corpora have been
+created for this purpose, but only cover a limited number of words, and are not
+available for all languages. The early SensEval competitions made use of one
+such annotated corpus, which marked hard/line/serve with their respective
+senses from WordNet (XXX check this). It only featured XXX sentences, was
+manually annotated, and was only available for English.
+
+In order to ameliorate this
+``WSD data acquisition bottleneck" (XXX find a reference for this) and allow
+WSD research to move forward in the absence of annotated training data,
+researchers have also created corpora with artificially-ambiguous
+``pseudo-words" -- there are scripts provided to automatically conflate two
+common words by replacing them both with the same token. The original uses are
+then considered two senses of the new pseudo-word, and researchers can check
+whether their WSD algorithms can recover the original token.
 
 For a broad overview of the history of word sense disambiguation, please see
 Navigli \emph{et al.}'s book on the topic. \cite{agirre2006word}
+Supervised-learning approaches are by no means the only strand of research;
+unsupervised word-sense induction approaches...
+
 
 It has long been held that word sense disambiguation is a central problem in
-other NLP applications, including machine translation. As early as 1960,
+NLP applications, including machine translation.
+As early as 1960,
 Yehoshua Bar-Hillel considered machine translation for the general case to be
 impossible, due to the insurmountable task of writing WSD routines for all
 source-language words. \cite{barhillel1960}
 
-In the early history of machine translation, researchers were very concerned
-with WSD; to some, it seemed an insurmountable problem. Bar-Hillel 
-discussed the difficulty of writing a program to translate sentences with
-simple ambiguities like \emph{The box was in the pen.} \cite{barhillel1960}:
+In the early history of machine translation,
+translate sentences with simple ambiguities like \emph{The box was in the pen.}
+\cite{barhillel1960}:
 
 \begin{quote}
-... I know of no program that would enable a machine to come up with this
-unique rendering unless by a completely arbitrary and ad hoc procedure whose
-futility would show itself ...
+During the past year I have repeatedly tried to point out the illusory
+character of the FAHQT ideal even in respect to the mechanical determination of
+the syntactical structure of a given source-language sentence... Here I shall
+show that there exist extremely simple sentences in English -- and the same
+holds, I am sure, for any other natural language -- which within certain
+linguistic contexts, would be uniquely (up to plain synonymy) and unambiguously
+translated into any other language by anyone with a sufficient knowledge of the
+two languages involved, though I know of no program that would enable a machine
+to come up with this unique rendering unless by a completely arbitrary and
+\emph{ad hoc} procedure whose futility would show itself in the next example.
+
+A sentence of this kind is the following: \emph{The box was in the pen.}
 \end{quote}
+
+
+
+
 
 
 
@@ -80,25 +125,25 @@ The situation is fairly complex.
 \end{figure}
 
 
-\begin{quote}
-During the past year I have repeatedly tried to point out the illusory
-character of the FAHQT ideal even in respect to the mechanical determination of
-the syntactical structure of a given source-language sentence... Here I shall
-show that there exist extremely simple sentences in English -- and the same
-holds, I am sure, for any other natural language -- which within certain
-linguistic contexts, would be uniquely (up to plain synonymy) and unambiguously
-translated into any other language by anyone with a sufficient knowledge of the
-two languages involved, though I know of no program that would enable a machine
-to come up with this unique rendering unless by a completely arbitrary and
-\emph{ad hoc} procedure whose futility would show itself in the next example.
-
-A sentence of this kind is the following: \emph{The box was in the pen.}
-\end{quote}
-
-
 
 \section{Cross-lingual word sense disambiguation}
 \label{sec:clwsd}
+
+
+This framing of word-sense disambiguation, in which we consider the possible
+senses of a source-language word to be its known target-language translations,
+neatly addresses the problem of choosing an appropriate sense inventory, which
+has historically been a difficult problem for the practical application of WSD
+systems \cite{agirre2006word}.
+Here the sense distinctions that the CL-WSD system should learn are exactly
+those that are lexicalized in the target language.
+The CL-WSD framing also sidesteps the ``knowledge acquisition bottleneck"
+hampering other work in WSD \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
+While supervised CL-WSD methods typically require bitext for training, this is
+more readily available than the sense-annotated text that would otherwise be
+required.
+
+
 
 Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling words
 or phrases in some input text with their contextually-appropriate translations
@@ -128,6 +173,9 @@ which the sense inventory for each source-language word is its set of possible
 translations, is often called cross-lingual WSD (CL-WSD). This framing has
 received enough attention to warrant shared tasks at recent SemEval workshops;
 the most recent running of the task is described in \cite{task10}.
+
+
+Notably, this fram
 
 
 
@@ -311,8 +359,6 @@ We have also started discussing development plans with several local software
 developers -- including some from the local One Laptop Per Child organization
 -- interested in building open source software, such as the corpus-building
 websites described in the next section.
-
-
 
 \subsection{Online Language Tools for Guarani}
 There are currently very few online language tools for Guarani; some of the
