@@ -80,9 +80,9 @@ mistranslating individual words is well-understood; many have heard the
 apocryphal story about an early MT system faced with the Biblical saying ``the
 spirit is willing but the flesh is weak"... (XXX cite Hutchinson)
 
-As early as 1960, Yehoshua Bar-Hillel wrote that high-quality machine
+As early as 1960, Yehoshua Bar-Hillel wrote that general-purpose machine
 translation (``fully automatic high-quality  translation", as it was  called at
-the  time) was, for impossible due to the insurmountable task of writing WSD
+the  time) was impossible due to the insurmountable task of writing WSD
 routines for all source-language words. \cite{barhillel1960}
 
 \begin{quote}
@@ -140,59 +140,41 @@ lexicographers will map neatly to distinctions made by the target language.
 \label{sec:clwsd}
 
 One variant of word-sense disambiguation, the sort with which we are concerned
-in this work, is \emph{cross-lingual WSD} (CL-WSD). This is the task of
-labeling words or phrases in some input text with their
-contextually-appropriate translations in some target language.
-In this setting, the sense inventory for each word defined as its possible
+in this work, is \emph{cross-lingual WSD} (CL-WSD).  In a CL-WSD task, we  want
+to label words or phrases in the input text with their contextually-appropriate
+translations in some target language.
+Here the sense inventory for each word is defined as its possible
 translations. Typically, the possible translations are discovered automatically
 from a bitext corpus, although a dictionary or other bilingual lexicon may also
 be used as source of possible translations.
 
 %% XXX
-This setting for WSD has immediate applications in both machine translation and
-cross-language information retrieval
-This framing of word-sense disambiguation, in which we consider the possible
-senses of a source-language word to be its known target-language translations,
-neatly addresses the problem of choosing an appropriate sense inventory, which
-has historically been a difficult problem for the practical application of WSD
-systems \cite{agirre2006word}.
-
-Here the sense distinctions that the CL-WSD system should learn are exactly
-those that are lexicalized in the target language.
-The CL-WSD framing also sidesteps the ``knowledge acquisition bottleneck"
-hampering other work in WSD \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
+This setting for WSD has immediate applications in machine translation. It
+also neatly addresses the problem of choosing an appropriate sense inventory,
+which has historically been a difficult problem for the practical application
+of WSD systems \cite{agirre2006word}: the sense distinctions that the system
+should learn are exactly those that are lexicalized in the target language.
+CL-WSD also sidesteps the ``knowledge acquisition bottleneck" hampering other
+work in WSD \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
 While supervised CL-WSD methods typically require bitext for training, this is
 more readily available than the sense-annotated text that would otherwise be
 required.
 
-
-WSD in translation has a long history; practical work in integrating
-WSD with statistical machine translation dates back to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}, but the problem itself was described in
-Warren Weaver's prescient 1949 memorandum \cite{weavermemo}, which describes an
-essentially modern conception of word sense disambiguation.
-
-
-Framing the resolution of lexical ambiguities in machine translation
-as an explicit classification
-task has a long history, dating back at least to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}.  More recently, Carpuat and Wu have
-shown how to use word-sense disambiguation techniques to improve modern
-phrase-based SMT systems \cite{carpuatpsd}, even though the language model and
-phrase tables of these systems can mitigate the problem of lexical ambiguities
-somewhat. Treating lexical selection as a word-sense disambiguation problem, in
-which the sense inventory for each source-language word is its set of possible
-translations, is often called cross-lingual WSD (CL-WSD). This framing has
-received enough attention to warrant shared tasks at recent SemEval workshops;
-the most recent running of the task is described in \cite{task10}.
+WSD applied directly to machine translation has a long history; practical work
+in integrating WSD with statistical machine translation particularly dates back
+to early SMT work at IBM \cite{Brown91word-sensedisambiguation}, but the
+problem itself was described in Warren Weaver's prescient 1949 memorandum
+\cite{weavermemo}, which describes an essentially modern conception of word
+sense disambiguation.
+This framing has received enough attention to warrant shared tasks at recent
+SemEval workshops: SemEval 2010 Task 3 \cite{lefever-hoste:2009:SEW}
+and SemEval 2013 Task 10 \cite{task10} were both explicitly about CL-WSD.
+A similar task was also run in 2014 XXX: cite task5 from 2014, though with a
+target-language context available rather than a  source-language one.
+Some approaches to these tasks are described in Chapter~\ref{chap:relatedwork}.
 
 
-Notably, this fram
-
-
-
-
-
+%% XXX: explain this  sentence?
 In general, there is a many-to-many relationship between words across language
 boundaries.
 This happens for a number of reasons: figurative or metaphorical uses may not
@@ -244,6 +226,8 @@ systems, sparking shared tasks at recent SemEval workshops
 \cite{lefever-hoste:2010:SemEval,task10} and a number of other projects
 described in some detail in \S\ref{sec:relatedwork}).
 
+%% XXX: do we need all this? ...
+
 In this dissertation, we will describe in detail some new approaches for CL-WSD
 and how to integrate them into a practical machine translation system.
 We will develop and extend at least two broad approaches for CL-WSD: the use of
@@ -262,43 +246,10 @@ in MT.
 \end{figure}
 
 
-\section{History of CL-WSD}
-Before the work of Carpuat and Wu~\cite{improvingsmtwsd}, it was apparently
-unclear whether WSD was necessary or helpful for a state-of-the-art statistical
-MT system; lexical choice among possible translations for a given word can
-often be handled by the language model for the target language, simply due to
-collocations of appropriate words in the training data.
-
-
-
-
-To our knowledge, there has not been other work on framing CL-WSD for all words
-in an input sentence as a sequence labeling problem. However, in monolingual
-WSD, Molina \textit{et al.} \cite{DBLP:conf/iberamia/MolinaPS02} have made
-use of HMMs for WSD. 
-
-
-%% Brown et al
-Framing the resolution of lexical ambiguities in machine translation
-as an explicit classification
-task has a long history, dating back at least to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}.
-
-An early paper by IBM researchers \cite{Brown91word-sensedisambiguation},
-outlines the CLWSD task in a strikingly similar way, as a WSD task where the
-possible senses of a word are extracted from statistical alignments learned
-over a bitext corpus. Brown \textit{et al.} report significant translation
-quality improvements through the use of their WSD system, over a small
-hand-evaluated set of test sentences.
-
-
-
-
-
 
 
 \section{Hybrid MT}
-
+%% XXX: section needs work
 In recent years, we have seen renewed interest in machine translation systems
 that take into account syntactic structure, linguistic knowledge, and semantic
 representations.
@@ -323,9 +274,8 @@ use of any bitext on hand.  Like SMT systems, they should be able to produce
 better translations as larger corpora become available, without additional code
 changes.
 In this dissertation work, we will develop a software package called
-chipa, which will do just that: %% XXX: better wording?
-it will integrate with a variety of machine translation systems to help them
-use any available bitext to make better word choices.
+chipa and integrate it with a few  different machine translation systems to
+help them use any available bitext to make better word choices.
 
 
 %%%% Paraguay and Guarani %%%%
@@ -369,8 +319,8 @@ both of which are schools that offer training for Guarani-language translators.
 
 We have also started discussing development plans with several local software
 developers -- including some from the local One Laptop Per Child organization
--- interested in building open source software, such as the corpus-building
-websites described in the next section.
+-- interested in building open source software for corpus-building... XXX
+expand this out.
 
 \subsection{Online Language Tools for Guarani}
 There are currently very few online language tools for Guarani; some of the
@@ -390,4 +340,4 @@ Dr. David Galeano Olivera, the president of the \emph{Ateneo de Lengua y
 Cultura Guaraní}. He has collected a number of resources both about and in the
 Guarani language
 \footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}},
-some in Spanish and some in Guarani, and will likely continue to do so.
+some in Spanish and some in Guarani.
