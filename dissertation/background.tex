@@ -64,22 +64,26 @@ common words by replacing them both with the same token. The original uses are
 then considered two senses of the new pseudo-word, and researchers can check
 whether their WSD algorithms can recover the original token.
 
-For a broad overview of the history of word sense disambiguation, please see
+For a broad overview of the history of and  different approaches to word sense
+disambiguation, please see
 Navigli \emph{et al.}'s book on the topic. \cite{agirre2006word}
 Supervised-learning approaches are by no means the only strand of research;
-unsupervised word-sense induction approaches...
-
+there are also unsupervised word-sense induction approaches,
+knowledge-based heuristics that make use of hand-crafted resources such as
+dictionaries...
+%% XXX
 
 It has long been held that word sense disambiguation is a central problem in
 NLP applications, including machine translation.
-As early as 1960,
-Yehoshua Bar-Hillel considered machine translation for the general case to be
-impossible, due to the insurmountable task of writing WSD routines for all
-source-language words. \cite{barhillel1960}
+Even in popular culture, the dangers of misunderstanding and thus
+mistranslating individual words is well-understood; many have heard the
+apocryphal story about an early MT system faced with the Biblical saying ``the
+spirit is willing but the flesh is weak"... (XXX cite Hutchinson)
 
-In the early history of machine translation,
-translate sentences with simple ambiguities like \emph{The box was in the pen.}
-\cite{barhillel1960}:
+As early as 1960, Yehoshua Bar-Hillel wrote that high-quality machine
+translation (``fully automatic high-quality  translation", as it was  called at
+the  time) was, for impossible due to the insurmountable task of writing WSD
+routines for all source-language words. \cite{barhillel1960}
 
 \begin{quote}
 During the past year I have repeatedly tried to point out the illusory
@@ -96,45 +100,63 @@ to come up with this unique rendering unless by a completely arbitrary and
 A sentence of this kind is the following: \emph{The box was in the pen.}
 \end{quote}
 
-
-
-
-
-
-
 To produce a correct rendering of this sentence in Spanish, for example, the
 translation system must decide between translating ``pen" as \emph{corral} (an
 enclosure, like for an animal) or as \emph{pluma} (the instrument for writing).
-As of this writing, for this particular example, Google Translate picks the
-less-sensible ``in the writing implement" translation (see Figure
-\ref{fig:box-in-pen}).
-One wonders how this could come about -- we would hope that the n-gram language
-model for Spanish would prefer sentences about things in enclosures to things
-in writing implements.
-But the word \emph{en} can be a translation of either the English ``in" or
-``on", and \emph{pluma} can also mean ``feather".
-The situation is fairly complex.
 
+As of this writing, for this particular example, Google Translate picks the
+correct rendering, although in September 2013, it chose the less-sensible 
+``in the writing implement" translation (see Figure
+\ref{fig:box-in-pen}).
+
+One wonders how this could have come about -- we would hope that the n-gram
+language model for Spanish would prefer sentences about things in enclosures to
+things in writing implements.
+But the word \emph{en} can be a translation of either the English ``in" or
+``on", and \emph{pluma} can also mean ``feather", so ``en la pluma" will be
+attested in a  large corpus of Spanish.
+This situation is fairly complex.
 
 \begin{figure}
   \includegraphics[width=12cm]{box-in-pen.png}
   \caption{Google Translate, September 17, 2013; interestingly, adding or
-  removing the final period in the English sentence causes a switch between the
+  removing the final period in the English sentence caused a switch between the
   ``pluma" and ``corral" renderings.}
   \label{fig:box-in-pen}
 \end{figure}
 
+In a translation task, even if we are able to assign a particular sense to a
+given word, we must still map these senses to translations in the target
+language, and there is no guarantee that senses identified by source-language
+lexicographers will map neatly to distinctions made by the target language.
+
+%% XXX: "serious rain" in Russian, "cut/break" verbs that depend on different
+%% distinctions...
+
+%% XXX: light verbs...
 
 
 \section{Cross-lingual word sense disambiguation}
 \label{sec:clwsd}
 
+One variant of word-sense disambiguation, the sort with which we are concerned
+in this work, is \emph{cross-lingual WSD} (CL-WSD). This is the task of
+labeling words or phrases in some input text with their
+contextually-appropriate translations in some target language.
+In this setting, the sense inventory for each word defined as its possible
+translations. Typically, the possible translations are discovered automatically
+from a bitext corpus, although a dictionary or other bilingual lexicon may also
+be used as source of possible translations.
 
+%% XXX
+This setting for WSD has immediate applications in both machine translation and
+cross-language information retrieval
 This framing of word-sense disambiguation, in which we consider the possible
 senses of a source-language word to be its known target-language translations,
 neatly addresses the problem of choosing an appropriate sense inventory, which
 has historically been a difficult problem for the practical application of WSD
 systems \cite{agirre2006word}.
+
 Here the sense distinctions that the CL-WSD system should learn are exactly
 those that are lexicalized in the target language.
 The CL-WSD framing also sidesteps the ``knowledge acquisition bottleneck"
@@ -143,16 +165,6 @@ While supervised CL-WSD methods typically require bitext for training, this is
 more readily available than the sense-annotated text that would otherwise be
 required.
 
-
-
-Cross-lingual word sense disambiguation (CL-WSD) is the task of labeling words
-or phrases in some input text with their contextually-appropriate translations
-into some target language.
-It is a variant of the more general WSD task, with the sense inventory for each
-word defined as its possible translations.
-This setting for WSD has immediate applications in both machine translation and
-cross-language information retrieval, since many words have multiple possible
-translations.
 
 WSD in translation has a long history; practical work in integrating
 WSD with statistical machine translation dates back to early SMT work at IBM
