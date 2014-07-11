@@ -1,55 +1,87 @@
 \chapter{Overview}
-In this dissertation, I will investigate techniques for machine translation for
+
+\begin{centering}
+\emph{A thing with just one meaning has scarcely any meaning at
+all.} \\
+-- Marvin Minsky, \emph{Society of Mind} \cite{minsky1988society} \\
+\end{centering}
+\bigskip
+
+In this dissertation, I investigate techniques for machine translation for
 a language pair with modest resources, particularly one for which we have
-relatively little training data available for the target language.  I propose
+little training data available for the target language. I propose
 that cross-lingual word sense disambiguation (CL-WSD) is a feasible and
-practical means for lexical selection in this setting, and will demonstrate
-this in experiments on translating from Spanish to Guarani, the co-official
-languages of Paraguay.
+practical means for lexical selection in this setting. I demonstrate
+this with translation experiments covering several language pairs focusing on
+Spanish-Guarani -- the co-official languages of Paraguay -- and including
+Quechua and English.
 
-I will develop new CL-WSD approaches, including the use of unsupervised
-clustering on source-language text, multilingual corpora for the source
-language, and sequence-labeling techniques. I will also integrate the CL-WSD
-software into several different machine translation systems to show its
-practical applicability.
+I describe new CL-WSD approaches, including the use of unsupervised
+clustering on source-language text and multilingual corpora for the source
+language as a source of classification features and sequence-labeling
+techniques. I also evaluate their effectiveness in practice. All of these
+techniques have been implemented in a new CL-WSD software system called Chipa
+\footnote{Chipa the software is named for chipa the snack food, popular in many
+  parts of South America. It is a cheesy bread made from cassava flour, often
+  served in a bagel-like shape in Paraguay.  Also \emph{chipa} means 'rivet,
+  bolt, screw' in Quechua; something for holding things together.  The software
+is available at \\ \url{http://github.com/alexrudnick/chipa} under the GPL.}
+We also integrate Chipa with several machine translation systems of different
+architectures to show its practical applicability.
 
-%% XXX: why the black box here?
+The research presented here is motivated in large part to allow primarily
+rule-based machine translation (RBMT) systems to make use of any available
+bitext training data, so that they can improve their translations without their
+human authors having to write new rules.  Despite the dominance and enormous
+success of statistical machine translation (SMT) approaches over the past
+twenty years, they typically require large bitext corpora to be useful. RBMT
+approaches remain attractive for many language pairs due to a simple dearth of
+training data, and there is an active RBMT community working on developing
+machine translation systems for the world's under-resourced and
+under-represented languages.
+
+My hope for this work is that it will provide techniques and tools useful for
+anyone working on machine translation into these languages, whatever the
+architecture of their MT software, allowing them to make use of bitext as it
+becomes available for their language pair.
+
+%% While there have been attempts to make the SMT learning possible from simply
+%% comparable corpora, rather than (XXX: cite Annie?) ...
+
 Lexical ambiguity presents a daunting challenge for rule-based machine
 translation (RBMT) systems;
-many words have multiple possible translations in the target language.
+many words will have multiple possible translations in the target language.
 Moreover, several translations of a given word may all be syntactically valid
 in context, but have significantly different meanings. Even when choosing among
 near-synonyms, we would like to respect the selectional preferences of the
-target language so as to produce natural-sounding output text.  The human
+target language so as to produce natural-sounding output text. The human
 authors of the rules in an RBMT system may not have enumerated the exact
 contexts or classes of contexts in which each target-language form should be
-used -- this is a difficult and time-consuming task!
-
-%% XXX
-We really need to talk more about hybridity in here and what's rule-based and
-what's statistical and how this is part of the ongoing battles getting fought
-out in MT research.
-
-
+used -- this is a difficult and time-consuming task, and there will be many
+thousands of words that might need to be translated in any given source
+language.
 
 To appreciate the word-sense disambiguation problem embedded in machine
 translation, consider for a moment the different senses of ``have" in
 English. In \emph{have a sandwich}, \emph{have a bath}, \emph{have an
 argument}, and even \emph{have a good argument}, the meaning of the verb ``to
-have" is quite different. It would be surprising if our target language,
-especially if it is not closely related, used a light verb that could appear in
-all of these contexts.
+have" is quite different. It would be surprising for our target language,
+especially if it is not closely related, to use a single light verb in
+all of these distinct contexts. Even in a language as closely related as
+Spanish, we see these English expressions rendered with some different
+verbs: \emph{tomar un bocadillo} but \emph{tener un argumento}, for example.
 
-A concrete example for different lexicalization patterns in Spanish and Quechua
-are the transitive motion verbs: The Spanish lemmas contain information about
-the path of the movement, e.g. {\em traer} - 'bring (here)' vs. {\em llevar} -
+Another concrete example, due to Annette Rios \cite{rudnick:saltmil2014},
+surfaces when translating from Spanish to Quechua. 
+Here we see different lexicalization patterns in Spanish and Quechua
+for transitive motion verbs. The Spanish lemmas contain information about the
+path of the movement, e.g. {\em traer} - 'bring (here)' vs. {\em llevar} -
 'take (there)'. Quechua roots, on the other hand, use a suffix ({\em -mu}) to
 express direction, but instead lexicalize information about the manner of
-movement and the object that is being moved. Consider the following examples:
+movement and the object that is being moved.  Consider the following examples:
 
 \begin{itemize}
 \renewcommand{\labelitemii}{$\bullet$}
- \small
  \item[] general motion verbs:
  \begin{itemize}
  \item {\em pusa-(mu-)}: `take/bring a person'
@@ -57,45 +89,34 @@ movement and the object that is being moved. Consider the following examples:
  \end{itemize}
  \item[] motion verbs with manner:
  \begin{itemize}
- \item {\em marq'a-(mu-)}: `take/bring smth. in one's arms'
- \item {\em q'ipi-(mu-)}:  `take/bring smth. on one's back or in a bundle'
- \item {\em millqa-(mu-)}: `take/bring smth. in one's skirts'
- \item {\em hapt'a-(mu-)}: `take/bring smth. in one's fists'
- \item {\em lluk'i-(mu-)}: `take/bring smth. below their arms'
- \item {\em rikra-(mu-)}:  `take/bring smth. on one's shoulders'
+ \item {\em marq'a-(mu-)}: `take/bring something in one's arms'
+ \item {\em q'ipi-(mu-)}:  `take/bring something on one's back or in a bundle'
+ \item {\em millqa-(mu-)}: `take/bring something in one's skirts'
+ \item {\em hapt'a-(mu-)}: `take/bring something in one's fists'
+ \item {\em lluk'i-(mu-)}: `take/bring something below their arms'
+ \item {\em rikra-(mu-)}:  `take/bring something on one's shoulders'
  \item {\em rampa-(mu-)}:  `take/bring a person holding their hand'
  \end{itemize}
 \end{itemize}
+%% XXX: why so much space underneath this?
 
 The correct translation of Spanish {\em traer} or {\em llevar} into Quechua
 thus depends on the context. Furthermore, different languages simply make
 different distinctions about
 the world. The Spanish \emph{hermano} 'brother', \emph{hijo} 'son' and
-\emph{hija} 'daughter'
-all translate to different
-Quechua terms based on the person related to the referent; a daughter relative to
-her father is \emph{ususi}, but when described relative to her mother,
-\emph{warmi wawa} \cite{academiamayor}.
+\emph{hija} 'daughter' all translate to different Quechua terms based on the
+person related to the referent; a daughter relative to her father is
+\emph{ususi}, but when described relative to her mother, \emph{warmi wawa}
+\cite{academiamayor}.
 
-Chipa, then, must learn to make these distinctions automatically, learning from
-examples in available word-aligned bitext corpora. Given such a corpus, we can
-discover the different possible translations for each source-language word, and
-with supervised learning, how to discriminate between them.  Since instances of
-a source-language word may be NULL-aligned, both in the training data and in
-actual translations, we allow users to request classifiers that consider NULL
-as a valid label for classification, or not, as appropriate for the
-application.
-
-The software holds all of the available bitext in a database, retrieving the
-relevant training sentences and learning classifiers on demand.
-If a source word has been seen with multiple different translations, then a
-classifier will be trained for it. If it has been seen aligned to only one
-target-language type, then this is simply noted, and if the source word is not
-present in the training data, then that word is marked out-of-vocabulary.
-Memory permitting, these classifiers and annotations are kept cached for later
-usage. Chipa can be run as a server, providing an interface whereby client
-programs can request CL-WSD decisions over RPC.
-
+Chipa, then, must somehow make these distinctions automatically if it is to
+help translation systems generate valid Quechua.
+Rather than having a human write down the rules for when to select different
+translations, we would like to learn from examples in the available bitext
+corpora.
+Given such a sufficient corpus, we can discover the different possible
+translations for each source-language word, and with supervised learning, how
+to discriminate between them.
 
 
 %%TODO(alexr): get lots of good examples
@@ -118,28 +139,25 @@ Bilingual informants, if available, may not be able to enumerate the contexts
 in which they would choose one alternative over another. Thus we would like to
 learn from corpora when possible.
 We do not have very large sentence-aligned bitext corpora for most language
-pairs, however, and will have to make do with the Bible, which is an acceptable
-starting point.\footnote{The
+pairs, however, and will have to make do with the Bible (though other bitext is
+absolutely welcome and valuable!), which is an acceptable
+starting point containing many commonly used words.\footnote{The
 Bible has been translated into a substantial fraction of the world's languages
 and contains more than thirty thousand verses (roughly, sentences) in
 a variety of text genres. For an overview of using the Bible for multilingual
 NLP applications, please see Resnik \emph{et al.}
 \cite{DBLP:journals/lre/ResnikOD99} and Mayer and Cysouw
-\cite{MAYER14.220.L14-1215}.} As statistical machine translation systems
-improve dramatically as larger bitext corpora become available, ... , some
-techniques . However, that project is not the focus of this dissertation work.
+\cite{MAYER14.220.L14-1215}.}
 
-However, for most language pairs, suitably large
-sentence-aligned bitext corpora are not available,
-so creating and deploying a
-translation system based on machine learning techniques will require collecting
-a larger corpus.
+%%However, for most language pairs, suitably large sentence-aligned bitext
+%%corpora are not available, so creating and deploying a translation system based
+%%on machine learning techniques will require collecting a larger corpus.
+%%However, that project is not the focus of this dissertation work.
 
 The major contributions of this work will be new approaches for CL-WSD,
-integrating CL-WSD into MT systems, and building MT systems that target
-morphologically rich languages with few language resources.  Additionally, on a
-practical level we will develop a suite of reusable open-source software
-including a hybrid MT system for Spanish-Guarani,
+integrating CL-WSD into MT systems ...
+Additionally, on a practical level we will develop a suite of reusable
+open-source software including a hybrid MT system for Spanish-Guarani,
 
 All of the software used in this dissertation has been developed in public
 repositories, and is freely available online at
@@ -163,29 +181,32 @@ CL-WSD task?
 \end{enumerate}
 
 \section{Dissertation Structure}
-In the following chapters, we will discuss the relevant background information
+In the following chapters, I will discuss the relevant background information
 and investigate these questions, as follows.
 
-%% XXX: I vs we -- what to do here?
 \begin{itemize}
-\item In Chapter \ref{chap:background} we will discuss word sense
+\item Chapter \ref{chap:background} gives some background on word sense
 disambiguation, its history, and its applications in machine translation, as
-well as Spanish and Guarani, the the languages of Paraguay, and some of the
+well as on Spanish and Guarani, the languages of Paraguay, and some of the
 social context for this translation pair.
-\item In Chapter \ref{chap:relatedwork} we will discuss some recent work on
-CL-WSD and its applications.
-\item In Chapter \ref{chap:evaluation}, we will discuss the data sets used in
-this work and our evaluation metrics for measuring success in this project.
-\item In Chapter \ref{chap:monolingual}, we will explore some approaches for
-using the available resources for Spanish, including XXX
-\item In Chapter \ref{chap:multilingual}, we will expand our approaches to
-include the multilingual resources for Spanish, CL-WSD classifiers for
+\item Chapter \ref{chap:relatedwork} reviews some recent work on CL-WSD and its
+applications.
+\item Chapter \ref{chap:evaluation} presents the data sets used in this work,
+our evaluation metrics for this project, and the basic architecture of the
+Chipa system.
+\item Chapter \ref{chap:monolingual} explores some approaches for learning from
+the available resources for Spanish to give us better representations for
+translating out of it.
+\item Chapter \ref{chap:multilingual} expands our approaches to include the
+multilingual resources for Spanish, integrating CL-WSD classifiers for
 languages other than Guarani.
-\item In Chapter \ref{chap:sequence} ... addressing Question 3.
-\item In Chapter \ref{chap:combinations}, we will 
-\item In Chapter \ref{chap:integration}, we will discuss integrating our CL-WSD
-software into a small sampling of running machine translation systems,
-addressing Question 4 and supporting our thesis statement in practice.
+\item Chapter \ref{chap:sequence} discusses approaches for jointly assigning
+target-language labels to an entire sentence at once with sequence models.
+\item Chapter \ref{chap:combinations} shows ways to combine the previous
+approaches ... %% XXX do we need this chapter?
+\item Chapter \ref{chap:integration} presents practical applications of Chipa;
+here we will see how to integrate CL-WSD software into different running
+machine translation systems.
 \item Finally, in Chapter \ref{chap:conclusions}, we will conclude and describe
 possible work for the future.
 \end{itemize}
@@ -195,3 +216,11 @@ possible work for the future.
 There's usually a section about this sort of thing, right?
 But maybe it goes in the preface.
 Francis has a section like this; Andy does not.
+
+\begin{itemize}
+\item Rudnick 2011 \cite{rudnick:2011:RANLPStud}
+\item Rudnick and Gasser 2013 \cite{rudnick-gasser:2013:HyTra}
+\item Rudnick, Rios and Gasser 2014 \cite{rudnick:saltmil2014}
+\item Rudnick, Liu and Gasser 2013 \cite{rudnick-liu-gasser:2013:SemEval-2013}
+\item related: Rudnick, Skidmore, Samaniego and Gasser 2014 \cite{RUDNICK14.151}
+\end{itemize}

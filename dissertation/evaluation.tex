@@ -1,4 +1,4 @@
-\chapter{Data Sets, Tasks, and Evaluation}
+\chapter{Data Sets, Tasks, Software and Evaluation}
 \label{chap:evaluation}
 
 In order to evaluate our CL-WSD approaches and their effects on translation
@@ -74,3 +74,34 @@ adjectives have very few forms, we simply list the alternatives in the lexicon
 for these categories.  For this paper, we are only concerned with the roots of
 words in our corpora, so we ignore the grammatical features that are output
 with each word.
+
+\section{Baseline System}
+Chipa is a 
+
+\begin{figure*}
+  \begin{centering}
+  I'll show \emph{you} a feature set.
+  \end{centering}
+  \caption{Yo, these are the features we use.}
+  \label{fig:baselinefeatures}
+\end{figure*}
+
+
+
+Since source-language tokens may be NULL-aligned (\emph{i.e.,} not all words in
+the source text will have corresponding words in the target text), both in the
+training data and in translations, we allow users to request classifiers that
+consider NULL as a valid label for classification, or not, as appropriate for
+the application.
+
+The software holds all of the available bitext in a database, retrieving the
+relevant training sentences and learning classifiers on demand.
+If a source word has been seen with multiple different translations, then a
+classifier will be trained for it. If it has been seen aligned to only one
+target-language type, then this is simply noted, and if the source word is not
+present in the training data, then that word is marked out-of-vocabulary.
+Memory permitting, these classifiers and annotations are kept cached for later
+usage. Chipa can be run as a server, providing an interface whereby client
+programs can request CL-WSD decisions over RPC.
+
+
