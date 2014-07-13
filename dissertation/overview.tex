@@ -43,13 +43,17 @@ under-represented languages.
 My hope for this work is that it will provide techniques and tools useful for
 anyone working on machine translation into these languages, whatever the
 architecture of their MT software, allowing them to make use of bitext as it
-becomes available for their language pair.
+becomes available for their language pair. This combination of strategies is
+what is meant by ``hybrid" in this work -- we would like to combine existing
+RBMT systems with statistical methods where possible, making use both of the
+efforts and insights of linguists working on MT, and of machine learning.
+%% XXX this could use some work; more explanation of what we mean by hybrid
 
 %% While there have been attempts to make the SMT learning possible from simply
 %% comparable corpora, rather than (XXX: cite Annie?) ...
 
 Lexical ambiguity presents a daunting challenge for rule-based machine
-translation (RBMT) systems;
+translation systems;
 many words will have multiple possible translations in the target language.
 Moreover, several translations of a given word may all be syntactically valid
 in context, but have significantly different meanings. Even when choosing among
@@ -57,9 +61,8 @@ near-synonyms, we would like to respect the selectional preferences of the
 target language so as to produce natural-sounding output text. The human
 authors of the rules in an RBMT system may not have enumerated the exact
 contexts or classes of contexts in which each target-language form should be
-used -- this is a difficult and time-consuming task, and there will be many
-thousands of words that might need to be translated in any given source
-language.
+used, and there will be many thousands of words that might need to be
+translated in any given source language.
 
 To appreciate the word-sense disambiguation problem embedded in machine
 translation, consider for a moment the different senses of ``have" in
@@ -70,6 +73,11 @@ especially if it is not closely related, to use a single light verb in
 all of these distinct contexts. Even in a language as closely related as
 Spanish, we see these English expressions rendered with some different
 verbs: \emph{tomar un bocadillo} but \emph{tener un argumento}, for example.
+By cross-lingual word sense disambiguation (CL-WSD), I mean exactly this
+problem: we consider \emph{tomar} and \emph{tener} to be two different
+senses of \emph{have} -- there are certainly more, for a verb like \emph{have}
+-- and the CL-WSD software must label each source-language word with its
+correct translation.
 
 Another concrete example, due to Annette Rios \cite{rudnick:saltmil2014},
 surfaces when translating from Spanish to Quechua. 
@@ -78,14 +86,15 @@ for transitive motion verbs. The Spanish lemmas contain information about the
 path of the movement, e.g. {\em traer} - 'bring (here)' vs. {\em llevar} -
 'take (there)'. Quechua roots, on the other hand, use a suffix ({\em -mu}) to
 express direction, but instead lexicalize information about the manner of
-movement and the object that is being moved.  Consider the following examples:
+movement and the object that is being moved. Some of these verbs are as
+follows:
 
 \begin{itemize}
 \renewcommand{\labelitemii}{$\bullet$}
  \item[] general motion verbs:
  \begin{itemize}
  \item {\em pusa-(mu-)}: `take/bring a person'
- \item {\em apa-(mu-)-}: `take/bring an animal or an inanimated object'
+ \item {\em apa-(mu-)-}: `take/bring an animal or an inanimate object'
  \end{itemize}
  \item[] motion verbs with manner:
  \begin{itemize}
@@ -98,46 +107,40 @@ movement and the object that is being moved.  Consider the following examples:
  \item {\em rampa-(mu-)}:  `take/bring a person holding their hand'
  \end{itemize}
 \end{itemize}
-%% XXX: why so much space underneath this?
 
 The correct translation of Spanish {\em traer} or {\em llevar} into Quechua
-thus depends on the context. Furthermore, different languages simply make
-different distinctions about
-the world. The Spanish \emph{hermano} 'brother', \emph{hijo} 'son' and
-\emph{hija} 'daughter' all translate to different Quechua terms based on the
-person related to the referent; a daughter relative to her father is
-\emph{ususi}, but when described relative to her mother, \emph{warmi wawa}
-\cite{academiamayor}.
+thus depends on the object being moved, and more descriptive translations can
+be chosen, given context clues.
+Furthermore, different languages simply make
+different distinctions about the world. The Spanish \emph{hermano} 'brother',
+\emph{hijo} 'son' and \emph{hija} 'daughter' all translate to different Quechua
+terms based on the person with respect to whom we are describing the referent;
+a daughter relative to her father is \emph{ususi}, but when described relative
+to her mother, \emph{warmi wawa} \cite{academiamayor}.
 
-Chipa, then, must somehow make these distinctions automatically if it is to
-help translation systems generate valid Quechua.
-Rather than having a human write down the rules for when to select different
-translations, we would like to learn from examples in the available bitext
-corpora.
-Given such a sufficient corpus, we can discover the different possible
-translations for each source-language word, and with supervised learning, how
-to discriminate between them.
-
-
-%%TODO(alexr): get lots of good examples
 %% XXX: need several good examples here
-
 %% ... we should actually discover these from data! Let's align europarl and find
 %% them!
-
 %% es->en examples...
-
 %% example of completely different meanings
-
 %% example of selectional preferences, but similar meaning
-
 %% then es->gn examples
 
-Writing lexical selection rules by hand, while possible in principle, is
-tedious and error-prone.
+Chipa, then, must somehow make these distinctions automatically if it is to
+help translation systems generate valid Quechua. It is possible to do this with
+hand-crafted lexical selection rules, or by treating this as a machine learning
+problem and basing lexical selections on the available data, or by some
+combination of the two. 
+Writing lexical selection rules by hand, while possible in principle and an
+approach taken by many MT system implementors, is tedious and error-prone.
 Bilingual informants, if available, may not be able to enumerate the contexts
 in which they would choose one alternative over another. Thus we would like to
 learn from corpora when possible.
+
+Given a sufficient bitext corpus, we can discover the different possible
+translations for each source-language word, and by applying supervised
+learning, we can learn how to discriminate between them.
+
 We do not have very large sentence-aligned bitext corpora for most language
 pairs, however, and will have to make do with the Bible (though other bitext is
 absolutely welcome and valuable!), which is an acceptable
@@ -147,17 +150,19 @@ and contains more than thirty thousand verses (roughly, sentences) in
 a variety of text genres. For an overview of using the Bible for multilingual
 NLP applications, please see Resnik \emph{et al.}
 \cite{DBLP:journals/lre/ResnikOD99} and Mayer and Cysouw
-\cite{MAYER14.220.L14-1215}.}
-
-%%However, for most language pairs, suitably large sentence-aligned bitext
-%%corpora are not available, so creating and deploying a translation system based
-%%on machine learning techniques will require collecting a larger corpus.
-%%However, that project is not the focus of this dissertation work.
+\cite{MAYER14.220.L14-1215}.} In the future, we would like to see larger
+bitext corpora constructed for under-resourced language pairs by their
+respective communities. Our research group has been working on this problem in
+parallel, though that is not the focus of this dissertation.
 
 The major contributions of this work will be new approaches for CL-WSD,
-integrating CL-WSD into MT systems ...
-Additionally, on a practical level we will develop a suite of reusable
-open-source software including a hybrid MT system for Spanish-Guarani,
+demonstrations that they can be used in practice for translating from
+higher-resourced languages into lower-resourced ones, and demonstrations that
+they can be integrated into practical machine translation systems, thus
+improving word choice.
+Additionally, on a practical level we will develop a suite of reusable 
+open-source software, including the CL-WSD engine and a small hybrid MT system
+for Spanish-Guarani.
 
 All of the software used in this dissertation has been developed in public
 repositories, and is freely available online at
@@ -211,16 +216,29 @@ machine translation systems.
 possible work for the future.
 \end{itemize}
 
-%% XXX: maybe this goes in the preface?
-\section{Works That Led To This Dissertation}
-There's usually a section about this sort of thing, right?
-But maybe it goes in the preface.
-Francis has a section like this; Andy does not.
+\section{Previously Published Work}
+This dissertation draws heavily from several previously published papers, in
+which my coauthors and I explore early versions of the ideas and techniques
+described here. They are as follows:
 
 \begin{itemize}
-\item Rudnick 2011 \cite{rudnick:2011:RANLPStud}
-\item Rudnick and Gasser 2013 \cite{rudnick-gasser:2013:HyTra}
-\item Rudnick, Rios and Gasser 2014 \cite{rudnick:saltmil2014}
-\item Rudnick, Liu and Gasser 2013 \cite{rudnick-liu-gasser:2013:SemEval-2013}
-\item related: Rudnick, Skidmore, Samaniego and Gasser 2014 \cite{RUDNICK14.151}
+\item Rudnick 2011, ``Towards Cross-Language Word Sense Disambiguation for
+Quechua" \cite{rudnick:2011:RANLPStud}, in which I explored a simple CL-WSD
+system for Quechua adjectives.
+\item Rudnick, Liu and Gasser 2013, ``HLTDI: CL-WSD Using Markov Random Fields
+for SemEval-2013 Task 10" \cite{rudnick-liu-gasser:2013:SemEval-2013}, a
+SemEval submission in which we explored the use of multilingual evidence for
+CL-WSD.
+\item Rudnick and Gasser 2013, ``Lexical Selection for Hybrid MT with Sequence
+Labeling" \cite{rudnick-gasser:2013:HyTra}, in which we explored using
+Maximum-Entropy Markov Models (MEMMS) for CL-WSD for Spanish-Guarani.
+\item Rudnick, Rios and Gasser 2014, ``Enhancing a Rule-Based MT System with
+Cross-Lingual WSD" \cite{rudnick:saltmil2014}, in which we integrated Chipa
+into an RBMT system for Spanish-Quechua and explored monolingual clustering to
+learn from Spanish data.
+\item Rudnick, Skidmore, Samaniego and Gasser 2014, ``Guampa: a Toolkit for
+Collaborative Translation" \cite{RUDNICK14.151}, which describes our system for
+building larger corpora through enlisting the Guarani-language activist
+community to help. Guampa figures largely into the future of this work, rather
+than having been helpful for data gathering as of yet.
 \end{itemize}
