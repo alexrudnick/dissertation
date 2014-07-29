@@ -1,54 +1,79 @@
 \chapter{Related Work}
 \label{chap:relatedwork}
 
+In this chapter, I will review some of the recent related work, including
+techniques for CL-WSD considered as a task on its own, the application of
+classifiers to lexical selection in various machine translation architectures,
+techniques used in recent runnings of the SemEval task on CL-WSD, and some
+relevant approaches for word-sense disambiguation more broadly. The chipa
+software and the work described in the rest of the dissertation draws heavily
+from ideas described here; particular ideas will be highlighted as we get to
+them.
+
+%% XXX consider: is this the best structure, even?
+
 \section{CL-WSD \emph{in vitro}}
-ParaSense, the CL-WSD system developed by Els Lefever
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
-several different parallel corpora.
-For predicting the translation of a source word into
-any particular target language, ParaSense creates
-bag-of-words features from the translations of the input sentence into every
-other language that it knows about. As of this writing, ParaSense handles
-translation from English into French, Spanish, Italian, Dutch and German.
+
+Some of the previous work on CL-WSD has studied the CL-WSD task in isolation, 
+without being embedded into a machine translation system as such.
+It is sensible to explore CL-WSD on its own for several reasons. Firstly, even
+if our motivation for developing CL-WSD is to improve machine translation
+output, from an engineering perspective, we still want to get a sense of
+how well the individual components of our pipeline are functioning.
+Furthermore, if the MT pipeline is relying on a CL-WSD system to help it with
+lexical selection, one expects that improved disambiguation accuracy will
+result in better translations overall -- though of course in complex software,
+unexpected interactions may occur.
+
+Another motivation for studying CL-WSD on its own is that it provides us with
+new data sets on which we can test supervised word-sense disambiguation
+algorithms: word-aligned bitext from any language pair can be used to train and
+test supervised WSD.
+
+sense-annotated data is even harder to come by than sentence-aligned bitext...
+%% XXX learn more about other sense-annotated data
+
+
+\subsection{Multilingual Evidence for CL-WSD}
+
+One of the most interesting CL-WSD systems of recent years, which inspired our
+use of multilingual evidence in Chipa, is ParaSense
+\cite{lefever-hoste-decock:2011:ACL-HLT2011},
+developed by Els Lefever and colleagues.
+
+ParaSense uses memory-based learning to predict target-language translations
+of individual source-language words. It starts with features that one would
+expect for a text classification problem: the surface forms, POS tags, and
+lemmas for the focus word and the tokens in a small window around it, as well
+as some syntactic information from a chunk parser. But ParaSense then adds
+bag-of-words features for translations of the input sentence into languages
+\emph{other} than the target language. ParaSense handles translation from
+English into French, Spanish, Italian, Dutch and German, so for example when
+translating from English to French, it would include bag-of-words features
+extracted from the translations of the English sentence into Spanish, Italian,
+Dutch and German.  
+
 Given corpora that are parallel over many languages, such as Europarl, this is
-straightforward at
-training time. However, at testing time it requires a complete MT system for
-each of the four other languages, which seems computationally prohibitive. In
-the past, ParaSense has simply called out to the Google Translate API to
-generate the bag-of-words features required for test sentences. This seems
-unwieldy, and thus in our work, we learn from several parallel corpora but
-require neither a locally running MT system nor access to an online translation
-API.
+straightforward at training time.
+However, at testing time it requires a complete MT system for each of the four
+other languages, which seems computationally prohibitive.
+
+This is done by building artificial parallel corpora in several languages, on
+demand, with the Google Translate API.
 
 
-\section{CL-WSD at SemEval}
-CL-WSD has received enough attention to warrant shared tasks at recent SemEval
-workshops; the most recent running of the task is described by Lefever and
-Hoste \cite{task10}.
-In this task, participants are asked to translate twenty different polysemous
-English nouns into five different European languages, in a variety of contexts.
+In the past, ParaSense has simply called out to the Google Translate API to
+generate the bag-of-words features required for test sentences.
 
+This seems unwieldy, and thus in our work, we learn from several parallel
+corpora but require neither a locally running MT system nor access to an online
+translation API.
 
-\section{multilingual evidence for CL-WSD}
-
-%% ParaSense and everything pertaining to ParaSense
-Lefever \emph{et al.}, in work on the ParaSense system
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, produced top results for
-this task with classifiers trained on local contextual features, with the 
-addition of a bag-of-words model of the translation of the complete source
-sentence into other (neither the source nor the target) languages. At training
-time, the foreign bag-of-words features for a sentence are extracted from
-available parallel corpora, but at testing time, they must be
-estimated with a third-party MT system, as they are not known a priori.
+They outperform the previous state-of-the art systems on the SemEval 2010
+shared task 13 \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
 This work has not yet, to our knowledge, been integrated into an MT system
 on its own.
 
-Lefever \textit{et al.} recently described a novel approach to WSD, making use
-of evidence from several languages at once to disambiguate English-language
-source sentences. This is done by building artificial parallel corpora in
-several languages, on demand, with the Google Translate API. They outperform
-the previous state-of-the art systems on the SemEval 2010 shared task 13
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}.
 
 In our earlier work, we prototyped a system that addresses some of the issues
 with ParaSense, requiring more modest software infrastructure for feature
@@ -56,30 +81,16 @@ extraction while still allowing CL-WSD systems to make use of several mutually
 parallel bitexts that share a source language
 \cite{rudnick-liu-gasser:2013:SemEval-2013}.
 
-ParaSense, the CL-WSD system developed by Els Lefever
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, takes into account evidence from
-several different parallel corpora.
-For predicting the translation of a source word into
-any particular target language, ParaSense creates
-bag-of-words features from the translations of the input sentence into every
-other language that it knows about. As of this writing, ParaSense handles
-translation from English into French, Spanish, Italian, Dutch and German.
-Given corpora that are parallel over many languages, such as Europarl, this is
-straightforward at
-training time. However, at testing time it requires a complete MT system for
-each of the four other languages, which seems computationally prohibitive. In
-the past, ParaSense has simply called out to the Google Translate API to
-generate the bag-of-words features required for test sentences. This seems
-unwieldy, and thus in our work, we learn from several parallel corpora but
-require neither a locally running MT system nor access to an online translation
-API.
 
 \section{WSD with sequence models}
 To our knowledge, there has not been other work on framing CL-WSD for all words
-in an input sentence as a sequence labeling problem. However, in monolingual
-WSD, Molina \textit{et al.} \cite{DBLP:conf/iberamia/MolinaPS02} have made
-use of HMMs for WSD. 
+in an input sentence as a sequence labeling problem.
+%% XXX: in some sense, isn't an MT system with a LM just a richer model for
+%% this, with different possible segmentations and reordering?
 
+
+However, in monolingual WSD, Molina \textit{et al.}
+\cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for WSD. 
 
 To our knowledge, there has not been work specifically on sequence labeling
 applied to lexical selection for RBMT systems.
@@ -100,11 +111,6 @@ there?
 
 
 \section{CL-WSD for Lexical Selection in RBMT}
-
-Although they did not present a complete MT system, there has also been work
-on using WSD techniques for translation into lower-resourced languages, such as
-the English-Slovene language pair, as in
-\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
 The Apertium team has a particular practical interest in improving lexical
 selection in RBMT; they recently have been developing
@@ -203,11 +209,12 @@ a lower-resourced language, particularly Romanian. In their work, they describe
 an instance-based approach in which a relatively small number of features is
 used quite effectively. In other work on lower-resourced languages,
 Sarrafzdadeh \textit{et al.} have investigated a version of the Lesk algorithm
-for Farsi.
+for Farsi \cite{sarrafzdadeh}.
 
 Although they did not present a complete MT system, there has also been work
 on using WSD techniques for translation into lower-resourced languages, such as
 the English-Slovene language pair, as in
+the work of \v{S}pela \emph{et al.}
 \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
 %% XXX
@@ -216,7 +223,31 @@ low-resourced language. This is ultimately WSD on Spanish with a sense
 inventory that we automatically discover from cross-lingual evidence.
 
 
+\section{CL-WSD at SemEval}
+CL-WSD has received enough attention to warrant shared tasks at recent SemEval
+workshops; the most recent running of the task is described by Lefever and
+Hoste \cite{task10}.
+
+Similar was the earlier task: \cite{lefever-hoste:2009:SEW}
+
+There was also the Writing Assistant task (XXX cite Maarten), which is related
+but not quite the same.
+
+In the two CL-WSD tasks, participants were asked to translate twenty different
+polysemous English nouns into five different European languages, in a variety
+of contexts.
+
+Some of the approaches explored included...
+
+
+
 \section{Translation into Morphologically Rich Languages}
+In Section \ref{sec:terere}, we are attempting to build a complete MT system
+for the Spanish-Guarani language pair. As Guarani has a very rich morphology,
+which we will need to predict and synthesize. As such, here we will quickly
+review some of the work on morphological prediction and generation for
+statistical MT systems.
+
 Chris Dyer's recent paper at EMNLP
 \cite{chahuneau:2013:emnlp}
 
