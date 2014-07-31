@@ -11,7 +11,7 @@ support with this work, Guarani and Quechua.
 \section{Word-Sense Disambiguation}
 Word types often -- or perhaps always, to take a philosophical view of 
 communication and semiosis -- have many possible meanings. Given a string of
-characters or an utterance, the listener or reader must do some computational
+characters or an utterance, the reader or listener must do some computational
 work to interpret the received message, and this may fail.
 In the simplest case, one could be faced with
 a homophone or homograph and need to distinguish between different lexemes that
@@ -24,11 +24,20 @@ discourse context and the goals of the speaker. Discourse modeling is outside
 the scope of this work, but in practice, for machine translation, we will need
 to get some sense of the particular meaning of a polysemous word, in context.
 
-Concretely, when faced with a token in a piece of text, we want to be able to
-label which \emph{word sense} from a \emph{sense inventory} is meant. The sense
-inventory might come from a pre-set ontology built by lexicographers, such as a
+What we mean by word sense disambiguation is just this:
+when faced with a token in a piece of text, we want to be able to
+decide which \emph{word sense} from a \emph{sense inventory} is the intended
+meaning. The sense inventory might come from a pre-set ontology built by
+lexicographers, such as a
 dictionary or a WordNet, or it might have  been discovered in some automatic
-way.
+way. Word-sense disambiguation tasks have typically been divided into two
+varieties, where \emph{lexical sample} tasks require labeling occurrences of
+some small number of words types, and \emph{all-words} tasks, in which every
+word in the input text must be labeled. In NLP applications faced with
+arbitrary text, this distinction may not be relevant, as the application will
+encounter previously unseen words, for which there are no known senses in the
+ontology.
+
 When making use of WSD for some other purpose -- say in information retrieval,
 information extraction, or machine translation -- choosing an appropriate sense
 inventory can be a difficult design task, as applications may require different
@@ -42,11 +51,17 @@ editorial decisions about what constitutes a distinct sense of a word.
 Treating this task as a supervised learning problem, a sensible default for
 many text classification tasks, requires labeled training data, which must be
 annotated manually, specifically for this purpose. Annotated corpora have been
-created for this purpose, but only cover a limited number of words, and are not
-available for all languages. The early SensEval competitions made use of one
+created for supervised WSD, but they are only available for a few languages and
+are difficult and time-consuming to prepare.
+The early SensEval competitions made use of one
 such annotated corpus, which marked hard/line/serve with their respective
 senses from WordNet (XXX check this). It only featured XXX sentences, was
 manually annotated, and was only available for English.
+
+but only cover a limited number of words, and are not available for all
+languages.
+
+
 
 In order to ameliorate this
 ``WSD data acquisition bottleneck" (XXX find a reference for this) and allow
@@ -162,14 +177,17 @@ sense disambiguation.
 This framing has received enough attention to warrant shared tasks at recent
 SemEval workshops: SemEval 2010 Task 3 \cite{lefever-hoste:2009:SEW}
 and SemEval 2013 Task 10 \cite{task10} were both explicitly about CL-WSD.
-A similar task was also run in 2014 XXX: cite task5 from 2014, though with a
-target-language context available rather than a  source-language one.
-Some approaches to these tasks are described in Chapter~\ref{chap:relatedwork}.
+A similar task was also run in 2014 \cite{vangompel-EtAl:2014:SemEval},
+although this task provides a target-language context rather than a
+source-language one, more closely representing the problem faced by an agent
+trying to help a second-language learner compose a sentence in their L2 than
+that faced by a machine translation system. Some approaches to the first two
+tasks are described in Chapter~\ref{chap:relatedwork}.
 
 
 %% XXX: explain this  sentence?
-In general, there is a many-to-many relationship between words across language
-boundaries.
+In general, there is a many-to-many relationship across language boundaries
+between words and their possible translations.
 This happens for a number of reasons: figurative or metaphorical uses may not
 translate directly,
 obligatory information in one language may be left unspecified in another,
@@ -219,17 +237,6 @@ systems, sparking shared tasks at recent SemEval workshops
 \cite{lefever-hoste:2010:SemEval,task10} and a number of other projects
 described in some detail in \S\ref{sec:relatedwork}).
 
-%% XXX: do we need all this? ...
-
-In this dissertation, we will describe in detail some new approaches for CL-WSD
-and how to integrate them into a practical machine translation system.
-We will develop and extend at least two broad approaches for CL-WSD: the use of
-multilingual evidence where available, and CL-WSD as a sequence labeling
-problem.
-Both of these techniques have been prototyped and presented at workshops, but
-they will be refined significantly and packaged into more general tools for use
-in MT.  
-
 \begin{figure}
   \includegraphics[width=12cm]{hutchins-leg-etc.png}
   \caption{Overlap of words related to ``leg"; relationships between English
@@ -244,30 +251,32 @@ in MT.
 In recent years, we have seen renewed interest in machine translation systems
 that take into account syntactic structure, linguistic knowledge, and semantic
 representations.
-Hopefully, these will provide better translation for language pairs with
-significant reordering or syntactic divergences, and where one or both of the
-languages has rich morphology.
 The boundaries between rule-based and statistical MT systems are becoming
 increasingly blurred, and hybrid systems are being developed in both
 directions, with RBMT systems incorporating components based on machine
 learning, as well as SMT systems making use of linguistic knowledge for
 morphology and syntax.
+Rule-based components are especially applicable in cases where the language
+pair involves predictable reordering through syntactic divergences
+(XXX citation)
+and in cases where one or both sides of the translation pair exhibits rich
+morphology; morphological analysis and generation software generally consists
+of hand-written rules in the form of finite-state transducers.
 
 Additionally, for most of the world's language pairs, there is simply no large
 bitext corpus available, so training a purely statistical machine translation
-system is infeasible.
-Thus, while SMT approaches have had great success, and drastically changed the
-machine translation landscape since the 1990s, RBMT approaches are still
-relevant for many language pairs.
+system is infeasible.\footnote{Techniques for learning from comparable corpora,
+such as translation spotting, are under development, and there has been some
+work on building sufficiently large bitext corpora through crowdsourcing, but
+these approaches have not yet reached wide adoption}
+As such, RBMT approaches are still relevant for many language pairs.
 
 We would like for RBMT or hybrid systems, once developed, to be able to make
-use of any bitext on hand.  Like SMT systems, they should be able to produce
-better translations as larger corpora become available, without additional code
-changes.
-In this dissertation work, we will develop a software package called
-chipa and integrate it with a few  different machine translation systems to
-help them use any available bitext to make better word choices.
-
+use of any bitext resources that are available, or that become available later.
+Like SMT systems, they should be able to produce better translations as larger
+corpora are developed, without additional code changes.
+The main goal of the Chipa software, from an engineering perspective, is to
+enable this kind of MT improvement.
 
 \urldef{\leydelenguas}\url{http://www.cultura.gov.py/lang/es-es/2011/05/ley-de-lenguas-n%C2%BA-4251/}
 
@@ -306,11 +315,9 @@ language activists and educators from the \emph{Ateneo de la Lengua y Cultura
 Guaraní} \footnote{\url{http://www.ateneoguarani.edu.py/}} and the
 \emph{Fundación Yvy Marãe'{\~y}} \footnote{\url{http://yvymaraey.org/}},
 both of which are schools that offer training for Guarani-language translators.
-
-We have also started discussing development plans with several local software
-developers -- including some from the local One Laptop Per Child organization
--- interested in building open source software for corpus-building... XXX
-expand this out.
+We have also been discussing development plans with several local software
+developers, including members of the local One Laptop Per Child organization
+and the Secretariat of Language Policies.
 
 \subsection{Online Language Tools for Guarani}
 There are currently very few online language tools for Guarani; some of the
