@@ -38,48 +38,47 @@ sense-annotated data is even harder to come by than sentence-aligned bitext...
 
 One of the most interesting CL-WSD systems of recent years, which inspired our
 use of multilingual evidence in Chipa, is ParaSense
-\cite{lefever-hoste-decock:2011:ACL-HLT2011},
-developed by Els Lefever and colleagues.
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}, developed by Els Lefever and
+colleagues.
 
-ParaSense uses memory-based learning to predict target-language translations
-of individual source-language words. It starts with features that one would
-expect for a text classification problem: the surface forms, POS tags, and
-lemmas for the focus word and the tokens in a small window around it, as well
-as some syntactic information from a chunk parser. But ParaSense then adds
-bag-of-words features for translations of the input sentence into languages
-\emph{other} than the target language. ParaSense handles translation from
-English into French, Spanish, Italian, Dutch and German, so for example when
-translating from English to French, it would include bag-of-words features
-extracted from the translations of the English sentence into Spanish, Italian,
-Dutch and German.  
+ParaSense uses memory-based learning to predict target-language translations of
+individual source-language words in a lexical sample task. It starts with
+features that one would expect for a text classification problem: the surface
+forms, POS tags, and lemmas for the focus word and the tokens in a small window
+around it, as well as some syntactic information from a chunk parser. But
+ParaSense also includes bag-of-words features for translations of the input
+sentence into languages \emph{other} than the target language. ParaSense
+handles translation from English into French, Spanish, Italian, Dutch and
+German, so for example when translating from English to French, it includes
+bag-of-words features extracted from the translations of the English sentence
+into Spanish, Italian, Dutch and German (but not French).
 
 Given corpora that are parallel over many languages, such as Europarl, this is
-straightforward at training time.
-However, at testing time it requires a complete MT system for each of the four
-other languages, which seems computationally prohibitive.
-
-This is done by building artificial parallel corpora in several languages, on
-demand, with the Google Translate API.
-
-
-In the past, ParaSense has simply called out to the Google Translate API to
+straightforward at training time. However, at testing time it is faced with a
+novel sentence for which it has no translation. Here ParaSense requires a
+complete MT system for each of the four other languages: it generates a
+translation into the other four languages.
+When ParaSense was being developed, it simply called out to the Google
+Translate API (which is, as of this writing, no longer available gratis) to
 generate the bag-of-words features required for test sentences.
+This seems unwieldy and arguably detrimental to reproducible research: it
+benefits from whatever techniques Google Translate is using to do word choice,
+which are not necessarily discussed with the public, and these will change
+without warning over time.
 
-This seems unwieldy, and thus in our work, we learn from several parallel
-corpora but require neither a locally running MT system nor access to an online
-translation API.
-
-They outperform the previous state-of-the art systems on the SemEval 2010
-shared task 13 \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
-This work has not yet, to our knowledge, been integrated into an MT system
-on its own.
-
+Critiques aside, ParaSense is very effective for its task.  When applied to the
+SemEval 2010 CL-WSD task test data (described in
+\cite{lefever-hoste:2010:SemEval}), it outperformed all of the systems
+submitted for that task for nearly all of the target languages, being
+outperformed, by a small margin, for one system when targeting Spanish
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}.
 
 In our earlier work, we prototyped a system that addresses some of the issues
-with ParaSense, requiring more modest software infrastructure for feature
-extraction while still allowing CL-WSD systems to make use of several mutually
-parallel bitexts that share a source language
-\cite{rudnick-liu-gasser:2013:SemEval-2013}.
+with ParaSense \cite{rudnick-liu-gasser:2013:SemEval-2013}; these ideas are
+developed further in Chapter \ref{chap:multilingual}.
+Chipa requires neither a locally running MT system nor access to an online
+translation API for its feature extraction, but still learns from several
+mutually parallel bitexts that share a source language.
 
 
 \section{WSD with sequence models}
@@ -107,7 +106,8 @@ once \cite{rudnick-gasser:2013:HyTra}.
 
 XXX:
 Look into the recent stuff from BabelNet and Babelfy: what are they doing
-there?
+there? Could that be described as sequence models?
+
 
 
 \section{CL-WSD for Lexical Selection in RBMT}
