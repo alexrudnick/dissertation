@@ -29,7 +29,7 @@ when faced with a token in a piece of text, we want to be able to
 decide which \emph{word sense} from a \emph{sense inventory} is the intended
 meaning. The sense inventory might come from a pre-set ontology built by
 lexicographers, such as a
-dictionary or a WordNet, or it might have  been discovered in some automatic
+dictionary or a wordnet, or it might have  been discovered in some automatic
 way. Word-sense disambiguation tasks have typically been divided into two
 varieties, where \emph{lexical sample} tasks require labeling occurrences of
 some small number of words types, and \emph{all-words} tasks, in which every
@@ -45,11 +45,11 @@ granularities, while different lexicographers will have made their own
 editorial decisions about what constitutes a distinct sense of a word.
 
 \begin{figure}
-  %% XXX
-  OMFG THERE ARE SO MANY SENSES
-  \caption{WordNet 3.1 senses for the verb ``take". In WordNet and similar
-  projects, word senses are called \emph{synsets}, as there will be a set of
-  synonyms that share the sense.}
+  \includegraphics[width=12cm]{take-wordnet-31.png}
+  \caption{Some of the WordNet 3.1 senses for ``take": there are two noun
+  senses and 42 distinct verb senses, though we only show the first ten. In
+  WordNet and similar projects, word senses are called \emph{synsets}, as there
+  will be a set of synonyms that share the sense.}
   \label{fig:wordnet-senses-take}
 \end{figure}
 
@@ -61,17 +61,22 @@ of annotation is very labor-intensive, especially when annotating data for an
 all-words WSD task, as the annotators must consider the many possible senses
 for each word, and new words will occur during the course of annotation.
 
-%% XXX look up and get reference for ... line hard serve corpus ...
-Sense-annotated corpora have been created for supervised WSD for both the lexical
-selection and all-words settings, but they are only available for a few
-languages, due to the time and effort required to prepare them.
-Some famous sense-annotated corpora include the hard/line/serve corpus, which
-marked hard/line/serve with their respective senses from WordNet (XXX check
-this). It features XXX sentences, each manually annotated, and it was used for
-the XXX SensEval shared task.
+Sense-annotated corpora have been created for supervised WSD for both the
+lexical selection and all-words settings, but they are only available for a few
+languages, due to the time and effort required to prepare them.  Some famous
+sense-annotated corpora include the ``hard/line/serve corpus", originally
+prepared by Leacock \emph{et al.}
+\cite{Leacock:1993:CSS:1075671.1075730,leacock1998using}, which
+marks occurrences of the adjective ``hard", noun ``line" and verb ``serve" with
+their respective senses from WordNet
+\cite{DBLP:journals/cacm/Miller95} (the English-language wordnet from
+Princeton).
+The version distributed currently it features XXX sentences, each manually
+annotated, and it was used for the XXX SensEval shared task.
 There have also been all-words annotated corpora, such as the MASC and
 SemCor corpora, which included XXX sentences annotated with their WordNet
-senses... (XXX cite these too).
+senses... (XXX cite these too), and larger corpora produced with semi-automated
+methods and manually verified.
 
 In order to ameliorate this WSD data acquisition bottleneck and allow WSD
 research to move forward in the absence of annotated training data, researchers
