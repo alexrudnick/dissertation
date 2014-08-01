@@ -44,37 +44,47 @@ inventory can be a difficult design task, as applications may require different
 granularities, while different lexicographers will have made their own
 editorial decisions about what constitutes a distinct sense of a word.
 
-%% XXX maybe include an OED entry for some super-polysemous word
+\begin{figure}
+  %% XXX
+  OMFG THERE ARE SO MANY SENSES
+  \caption{WordNet 3.1 senses for the verb ``take". In WordNet and similar
+  projects, word senses are called \emph{synsets}, as there will be a set of
+  synonyms that share the sense.}
+  \label{fig:wordnet-senses-take}
+\end{figure}
+
+Treating WSD as a supervised learning problem requires labeled training data,
+which for this task means text where each token has been annotated with its
+appropriate sense identifier. 
+Such corpora must be created manually specifically for this purpose, and this kind
+of annotation is very labor-intensive, especially when annotating data for an
+all-words WSD task, as the annotators must consider the many possible senses
+for each word, and new words will occur during the course of annotation.
 
 %% XXX look up and get reference for ... line hard serve corpus ...
+Sense-annotated corpora have been created for supervised WSD for both the lexical
+selection and all-words settings, but they are only available for a few
+languages, due to the time and effort required to prepare them.
+Some famous sense-annotated corpora include the hard/line/serve corpus, which
+marked hard/line/serve with their respective senses from WordNet (XXX check
+this). It features XXX sentences, each manually annotated, and it was used for
+the XXX SensEval shared task.
+There have also been all-words annotated corpora, such as the MASC and
+SemCor corpora, which included XXX sentences annotated with their WordNet
+senses... (XXX cite these too).
 
-Treating this task as a supervised learning problem, a sensible default for
-many text classification tasks, requires labeled training data, which must be
-annotated manually, specifically for this purpose. Annotated corpora have been
-created for supervised WSD, but they are only available for a few languages and
-are difficult and time-consuming to prepare.
-The early SensEval competitions made use of one
-such annotated corpus, which marked hard/line/serve with their respective
-senses from WordNet (XXX check this). It only featured XXX sentences, was
-manually annotated, and was only available for English.
+In order to ameliorate this WSD data acquisition bottleneck and allow WSD
+research to move forward in the absence of annotated training data, researchers
+have also created corpora with artificially-ambiguous ``pseudo-words". Ted
+Pedersen, for example, provides scripts to automatically conflate two common
+words by replacing them both with the same token\footnote{Available at
+\url{XXX the website}}. The original uses are then considered two senses of the
+new pseudo-word, and researchers can check whether their WSD algorithms can
+recover the original token.
 
-but only cover a limited number of words, and are not available for all
-languages.
-
-
-
-In order to ameliorate this
-``WSD data acquisition bottleneck" (XXX find a reference for this) and allow
-WSD research to move forward in the absence of annotated training data,
-researchers have also created corpora with artificially-ambiguous
-``pseudo-words" -- there are scripts provided to automatically conflate two
-common words by replacing them both with the same token. The original uses are
-then considered two senses of the new pseudo-word, and researchers can check
-whether their WSD algorithms can recover the original token.
-
-For a broad overview of the history of and  different approaches to word sense
-disambiguation, please see
-Agirre \emph{et al.}'s book on the topic. \cite{agirre2006word}
+For a broad overview of the history of and different approaches to word sense
+disambiguation, please see Agirre \emph{et al.}'s book on the topic.
+\cite{agirre2006word}
 Supervised-learning approaches are by no means the only strand of research;
 there are also unsupervised word-sense induction approaches,
 knowledge-based heuristics that make use of hand-crafted resources such as
@@ -85,8 +95,10 @@ It has long been held that word sense disambiguation is a central problem in
 NLP applications, including machine translation.
 Even in popular culture, the dangers of misunderstanding and thus
 mistranslating individual words is well-understood; many have heard the
-apocryphal story about an early MT system faced with the Biblical saying ``the
-spirit is willing but the flesh is weak"... \cite{hutchins:whiskey}
+(apparently apocryphal \cite{hutchins:whiskey}) story about an early MT system
+faced with the Biblical saying ``the spirit is willing but the flesh is
+weak" in Russian and producing (variations on the story abound) ``the vodka is
+good but the meat is rotten".
 
 As early as 1960, Yehoshua Bar-Hillel wrote that general-purpose machine
 translation (``fully automatic high-quality  translation", as it was  called at
@@ -114,16 +126,15 @@ enclosure, like for an animal) or as \emph{pluma} (the instrument for writing).
 
 As of this writing, for this particular example, Google Translate picks the
 correct rendering, although in September 2013, it chose the less-sensible 
-``in the writing implement" translation (see Figure
-\ref{fig:box-in-pen}).
+``in the writing implement" translation (see Figure \ref{fig:box-in-pen}).
 
 One wonders how this could have come about -- we would hope that the n-gram
 language model for Spanish would prefer sentences about things in enclosures to
 things in writing implements.
 But the word \emph{en} can be a translation of either the English ``in" or
-``on", and \emph{pluma} can also mean ``feather", so ``en la pluma" will be
-attested in a  large corpus of Spanish.
-This situation is fairly complex.
+``on", and \emph{pluma} can also mean ``feather", so \emph{en la pluma} will be
+attested in a large corpus of Spanish; we could easily imagine a sentence
+containing ``on the feather". This situation is fairly complex.
 
 \begin{figure}
   \includegraphics[width=12cm]{box-in-pen.png}
@@ -147,16 +158,16 @@ lexicographers will map neatly to distinctions made by the target language.
 \section{Cross-lingual word sense disambiguation}
 \label{sec:clwsd}
 
-One variant of word-sense disambiguation, the sort with which we are concerned
-in this work, is \emph{cross-lingual WSD} (CL-WSD).  In a CL-WSD task, we  want
-to label words or phrases in the input text with their contextually-appropriate
-translations in some target language.
-Here the sense inventory for each word is defined as its possible
-translations. Typically, the possible translations are discovered automatically
-from a bitext corpus, although a dictionary or other bilingual lexicon may also
-be used as source of possible translations.
+This problem that Bar-Hillel identified as difficult, the one that arises
+in the apocryphal ``spirit is willing" story, is a particular variant of word
+sense disambiguation that we here call \emph{cross-lingual WSD} (CL-WSD).
+In a CL-WSD task, we  want to label words or phrases in the input text with
+their contextually-appropriate translations in some target language. Here the
+sense inventory for each word is defined as its possible translations.
+Typically, the possible translations are discovered automatically from a
+word-aligned bitext corpus, although a dictionary or other bilingual lexicon
+may also be used as source of possible translations.
 
-%% XXX
 This setting for WSD has immediate applications in machine translation. It
 also neatly addresses the problem of choosing an appropriate sense inventory,
 which has historically been a difficult problem for the practical application
@@ -172,20 +183,19 @@ WSD applied directly to machine translation has a long history; practical work
 in integrating WSD with statistical machine translation particularly dates back
 to early SMT work at IBM \cite{Brown91word-sensedisambiguation}, but the
 problem itself was described in Warren Weaver's prescient 1949 memorandum
-\cite{weavermemo}, which describes an essentially modern conception of word
-sense disambiguation.
-This framing has received enough attention to warrant shared tasks at recent
-SemEval workshops: SemEval 2010 Task 3 \cite{lefever-hoste:2009:SEW}
-and SemEval 2013 Task 10 \cite{task10} were both explicitly about CL-WSD.
-A similar task was also run in 2014 \cite{vangompel-EtAl:2014:SemEval},
-although this task provides a target-language context rather than a
-source-language one, more closely representing the problem faced by an agent
-trying to help a second-language learner compose a sentence in their L2 than
-that faced by a machine translation system. Some approaches to the first two
-tasks are described in Chapter~\ref{chap:relatedwork}.
+\cite{weavermemo}, which describes an essentially modern conception of WSD.
 
+This cross-lingual variant of WSD has received enough attention to warrant
+shared tasks at recent SemEval workshops: SemEval 2010 Task 3
+\cite{lefever-hoste:2010:SemEval} and SemEval 2013 Task 10 \cite{task10} were both
+explicitly about CL-WSD.  A similar task was also run in 2014
+\cite{vangompel-EtAl:2014:SemEval}, although this task provides a
+target-language context rather than a source-language one, more closely
+representing the problem faced by an agent trying to help a second-language
+learner compose a sentence in their L2 than that faced by a machine translation
+system. Some approaches to the first two tasks, along with a number of other
+projects, are described in Chapter~\ref{chap:relatedwork}.
 
-%% XXX: explain this  sentence?
 In general, there is a many-to-many relationship across language boundaries
 between words and their possible translations.
 This happens for a number of reasons: figurative or metaphorical uses may not
@@ -198,7 +208,7 @@ walking;
 translating ``brother" to Japanese requires specifying whether the brother is
 older (\emph{ani}) or younger (\emph{ot\=oto});
 a soap bubble or a ceramic plate can be destroyed with the same word in
-Chinese, whereas English speakers typically distinguish between the verbs
+Chinese, whereas English speakers distinguish between the verbs
 ``pop" and ``break" \cite{majid2007semantic}.
 
 Despite these difficulties, most statistical MT systems do not use an explicit
@@ -231,12 +241,6 @@ translating the phrase ``block letters" as \emph{mayúsculas}.
 However longer-distance relationships, search errors, or simple statistical
 accidents can still cause strange translations in practice.
 
-Despite the great success of SMT systems without any explicit models for WSD,
-there has been recent interest in CL-WSD and its application to translation
-systems, sparking shared tasks at recent SemEval workshops
-\cite{lefever-hoste:2010:SemEval,task10} and a number of other projects
-described in some detail in \S\ref{sec:relatedwork}).
-
 \begin{figure}
   \includegraphics[width=12cm]{hutchins-leg-etc.png}
   \caption{Overlap of words related to ``leg"; relationships between English
@@ -247,10 +251,16 @@ described in some detail in \S\ref{sec:relatedwork}).
 
 
 \section{Hybrid MT}
-%% XXX: section needs work
-In recent years, we have seen renewed interest in machine translation systems
-that take into account syntactic structure, linguistic knowledge, and semantic
-representations.
+Recently there has been renewed interest in machine translation systems that
+take into account syntactic structure, linguistic knowledge, and semantic
+representations, perhaps due to a perception that statistical approaches
+relying on flatter phrase-based representations and hierarchical
+representations not based on linguistic intuitions are reaching a performance
+%% plateau.
+%% , such as the classical
+%% phrase-based SMT XXX cite Koehn et al, and nested representations learned
+%% without regard to linguistic intuitions...
+
 The boundaries between rule-based and statistical MT systems are becoming
 increasingly blurred, and hybrid systems are being developed in both
 directions, with RBMT systems incorporating components based on machine
@@ -268,15 +278,16 @@ bitext corpus available, so training a purely statistical machine translation
 system is infeasible.\footnote{Techniques for learning from comparable corpora,
 such as translation spotting, are under development, and there has been some
 work on building sufficiently large bitext corpora through crowdsourcing, but
-these approaches have not yet reached wide adoption}
-As such, RBMT approaches are still relevant for many language pairs.
+these approaches have not yet reached wide adoption.}
+As such, RBMT approaches are still relevant for many language pairs, and there
+is a vibrant research community focused on building linguistically-informed
+primarily rule-based machine translation systems.
 
 We would like for RBMT or hybrid systems, once developed, to be able to make
 use of any bitext resources that are available, or that become available later.
 Like SMT systems, they should be able to produce better translations as larger
-corpora are developed, without additional code changes.
-The main goal of the Chipa software, from an engineering perspective, is to
-enable this kind of MT improvement.
+corpora are developed, without additional code changes: this is the main
+engineering goal for the Chipa software.
 
 \urldef{\leydelenguas}\url{http://www.cultura.gov.py/lang/es-es/2011/05/ley-de-lenguas-n%C2%BA-4251/}
 
@@ -297,7 +308,7 @@ Paraguay is officially a bilingual, pluricultural country, as described by its
 famous \emph{Ley de Lenguas} \footnote{\leydelenguas} (``Law of Languages").
 However, the Guarani language is at a significant social and economic
 disadvantage and is typically not used in formal situations, as Spanish is
-often considered more prestigious. There are, however, an engaged activist
+considered more prestigious. There are, however, an engaged activist
 community, many Guarani-language educators, and a government agency devoted
 specifically to policy regarding language.
 The Guarani language figures significantly into a sense of Paraguayan national
@@ -318,6 +329,7 @@ both of which are schools that offer training for Guarani-language translators.
 We have also been discussing development plans with several local software
 developers, including members of the local One Laptop Per Child organization
 and the Secretariat of Language Policies.
+%% XXX mention Guampa?
 
 \subsection{Online Language Tools for Guarani}
 There are currently very few online language tools for Guarani; some of the
@@ -334,7 +346,6 @@ our Spanish-Guarani translation system.
 The Guarani activist and education community has a presence on the Web,
 although a startlingly large fraction of this presence is a single author,
 Dr. David Galeano Olivera, the president of the \emph{Ateneo de Lengua y
-Cultura Guaraní}. He has collected a number of resources both about and in the
-Guarani language
-\footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}},
-some in Spanish and some in Guarani.
+Cultura Guaraní}. He has collected a number of resources, written in Spanish
+and Guarani, about the Guarani language and the culture surrounding it.
+\footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}}
