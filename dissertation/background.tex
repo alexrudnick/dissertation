@@ -9,10 +9,9 @@ techniques to MT. I also give a short description of the languages we aim to
 support with this work, Guarani and Quechua.
 
 \section{Word-Sense Disambiguation}
-Word types often -- or perhaps always, to take a philosophical view of 
-communication and semiosis -- have many possible meanings. Given a string of
-characters or an utterance, the reader or listener must do some computational
-work to interpret the received message, and this may fail.
+Word types often -- perhaps always -- have many possible meanings. Given a
+string of characters or an utterance, the reader or listener must do some
+computational work to interpret the received message, and this may fail.
 In the simplest case, one could be faced with
 a homophone or homograph and need to distinguish between different lexemes that
 could be intended. There could be technical or jargon senses that conflict with
@@ -22,20 +21,22 @@ case, the usages can be hyperbolic, metaphorical, sarcastic, or oblique
 references. Understanding these usages will require understanding the broader
 discourse context and the goals of the speaker. Discourse modeling is outside
 the scope of this work, but in practice, for machine translation, we will need
-to get some sense of the particular meaning of a polysemous word, in context.
+to get some sense of the particular meaning of polysemous words in context.
 
 What we mean by word sense disambiguation is just this:
 when faced with a token in a piece of text, we want to be able to
 decide which \emph{word sense} from a \emph{sense inventory} is the intended
 meaning. The sense inventory might come from a pre-set ontology built by
 lexicographers, such as a
-dictionary or a wordnet, or it might have  been discovered in some automatic
+dictionary or a wordnet\footnote{Such as WordNet\textregistered, 
+the original wordnet for English \cite{DBLP:journals/cacm/Miller95}}, or it
+might have been discovered in some automatic
 way. Word-sense disambiguation tasks have typically been divided into two
 varieties, where \emph{lexical sample} tasks require labeling occurrences of
 some small number of words types, and \emph{all-words} tasks, in which every
-word in the input text must be labeled. In NLP applications faced with
-arbitrary text, this distinction may not be relevant, as the application will
-encounter previously unseen words, for which there are no known senses in the
+word in the input text must be labeled. In NLP applications that must handle
+arbitrary text, this distinction breaks down somewhat, as the application will
+encounter previously unseen words for which there are no known senses in the
 ontology.
 
 When making use of WSD for some other purpose -- say in information retrieval,
@@ -68,9 +69,7 @@ sense-annotated corpora include the ``hard/line/serve corpus", originally
 prepared by Leacock \emph{et al.}
 \cite{Leacock:1993:CSS:1075671.1075730,leacock1998using}, which
 marks occurrences of the adjective ``hard", noun ``line" and verb ``serve" with
-their respective senses from WordNet
-\cite{DBLP:journals/cacm/Miller95} (the English-language wordnet from
-Princeton).
+their respective senses from WordNet.
 The version distributed currently it features XXX sentences, each manually
 annotated, and it was used for the XXX SensEval shared task.
 There have also been all-words annotated corpora, such as the MASC and
@@ -154,11 +153,6 @@ given word, we must still map these senses to translations in the target
 language, and there is no guarantee that senses identified by source-language
 lexicographers will map neatly to distinctions made by the target language.
 
-%% XXX: "serious rain" in Russian, "cut/break" verbs that depend on different
-%% distinctions...
-
-%% XXX: light verbs...
-
 
 \section{Cross-lingual word sense disambiguation}
 \label{sec:clwsd}
@@ -167,22 +161,25 @@ This problem that Bar-Hillel identified as difficult, the one that arises
 in the apocryphal ``spirit is willing" story, is a particular variant of word
 sense disambiguation that we here call \emph{cross-lingual WSD} (CL-WSD).
 In a CL-WSD task, we  want to label words or phrases in the input text with
-their contextually-appropriate translations in some target language. Here the
+their contextually-appropriate translations in some target language. In this
+case the
 sense inventory for each word is defined as its possible translations.
 Typically, the possible translations are discovered automatically from a
 word-aligned bitext corpus, although a dictionary or other bilingual lexicon
 may also be used as source of possible translations.
 
-This setting for WSD has immediate applications in machine translation. It
+This setting for WSD has an immediate application in machine translation, and
+in this case, it
 also neatly addresses the problem of choosing an appropriate sense inventory,
 which has historically been a difficult problem for the practical application
-of WSD systems \cite{agirre2006word}: the sense distinctions that the system
+of WSD systems \cite{agirre2006word}. The sense distinctions that the system
 should learn are exactly those that are lexicalized in the target language.
 CL-WSD also sidesteps the ``knowledge acquisition bottleneck" hampering other
 work in WSD \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
 While supervised CL-WSD methods typically require bitext for training, this is
 more readily available than the sense-annotated text that would otherwise be
-required.
+required; Gale \emph{et al.} suggested the use of sentence-aligned bitexts for
+WSD research as early as 1992 \cite{gale1992method}.
 
 WSD applied directly to machine translation has a long history; practical work
 in integrating WSD with statistical machine translation particularly dates back
@@ -209,7 +206,8 @@ obligatory information in one language may be left unspecified in another,
 or the criteria for selecting a word may simply differ.
 To give some familiar examples, a ``leg" of a trip in English is typically
 translated as \emph{etape} in French, which is unrelated to limbs used for
-walking;
+walking (see Figure \ref{fig:leg} for a fuller view of the situation's
+complexity);
 translating ``brother" to Japanese requires specifying whether the brother is
 older (\emph{ani}) or younger (\emph{ot\=oto});
 a soap bubble or a ceramic plate can be destroyed with the same word in
