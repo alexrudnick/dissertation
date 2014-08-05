@@ -65,13 +65,19 @@ for each word, and new words will occur during the course of annotation.
 Sense-annotated corpora have been created for supervised WSD for both the
 lexical selection and all-words settings, but they are only available for a few
 languages, due to the time and effort required to prepare them.  Some famous
-sense-annotated corpora include the ``hard/line/serve corpus", originally
+sense-annotated corpora include the ``hard/line/serve" corpus, originally
 prepared by Leacock \emph{et al.}
 \cite{Leacock:1993:CSS:1075671.1075730,leacock1998using}, which
 marks occurrences of the adjective ``hard", noun ``line" and verb ``serve" with
-their respective senses from WordNet.
-The version distributed currently it features XXX sentences, each manually
-annotated, and it was used for the XXX SensEval shared task.
+their respective senses from WordNet.\footnote{Available at
+\url{http://www.d.umn.edu/~tpederse/data.html}}
+These feature roughly four thousand annotated instances of each word. Larger
+lexical selection data sets were prepared for the first three SensEval shared
+tasks\footnote{Archived at the same URL} (\cite{Kilgarriff98senseval}, XXX what
+about 2 and 3?),
+each of which featured 12 to 20 thousand labeled instances of 35 to 73
+different word types.
+
 There have also been all-words annotated corpora, such as the MASC and
 SemCor corpora, which included XXX sentences annotated with their WordNet
 senses... (XXX cite these too), and larger corpora produced with semi-automated
@@ -79,12 +85,10 @@ methods and manually verified.
 
 In order to ameliorate this WSD data acquisition bottleneck and allow WSD
 research to move forward in the absence of annotated training data, researchers
-have also created corpora with artificially-ambiguous ``pseudo-words". Ted
-Pedersen, for example, provides scripts to automatically conflate two common
-words by replacing them both with the same token\footnote{Available at
-\url{XXX the website}}. The original uses are then considered two senses of the
-new pseudo-word, and researchers can check whether their WSD algorithms can
-recover the original token.
+have also created corpora with artificially-ambiguous ``pseudo-words".  The
+original uses are then considered two senses of the new pseudo-word, and
+researchers can check whether their WSD algorithms can recover the original
+token.
 
 For a broad overview of the history of and different approaches to word sense
 disambiguation, please see Agirre \emph{et al.}'s book on the topic.
@@ -103,6 +107,9 @@ mistranslating individual words is well-understood; many have heard the
 faced with the Biblical saying ``the spirit is willing but the flesh is
 weak" in Russian and producing (variations on the story abound) ``the vodka is
 good but the meat is rotten".
+Warren Weaver described, in his prescient 1949 memorandum \cite{weavermemo},
+both an essentially modern conception of WSD and why a translation system would
+need it.
 
 As early as 1960, Yehoshua Bar-Hillel wrote that general-purpose machine
 translation (``fully automatic high-quality  translation", as it was  called at
@@ -153,7 +160,6 @@ given word, we must still map these senses to translations in the target
 language, and there is no guarantee that senses identified by source-language
 lexicographers will map neatly to distinctions made by the target language.
 
-
 \section{Cross-lingual word sense disambiguation}
 \label{sec:clwsd}
 
@@ -183,20 +189,34 @@ WSD research as early as 1992 \cite{gale1992method}.
 
 WSD applied directly to machine translation has a long history; practical work
 in integrating WSD with statistical machine translation particularly dates back
-to early SMT work at IBM \cite{Brown91word-sensedisambiguation}, but the
-problem itself was described in Warren Weaver's prescient 1949 memorandum
-\cite{weavermemo}, which describes an essentially modern conception of WSD.
+to early SMT work at IBM \cite{Brown91word-sensedisambiguation}.
+Despite all of the ambiguities in translation,
+most statistical MT systems do not use an explicit WSD module
+\cite[Chapter~3]{agirre2006word};
+the language model and phrase tables of these systems mitigate lexical
+ambiguities by encouraging words used collocationally to appear together in the
+output. Entire phrases\footnote{Not necessarily ``phrases" in a syntactic
+sense, but subsequences of sentences} such as verbs with their common objects
+may be learned and stored in the phrase table, and the language model will
+encourage common collocations as well. CL-WSD techniques have been successfully
+used to improve SMT, especially when it is applied not just to individual
+tokens but to phrases present in the phrase table, as in the work of Carpuat
+and Wu \cite{carpuatpsd}; there have also been discriminative classifiers used
+to aid in selecting phrase table entries, as in the work of XXX (somebody from
+Charles University or something? ...), which is equivalent, even if not
+described by the authors in terms of word-sense disambiguation.
 
 This cross-lingual variant of WSD has received enough attention to warrant
 shared tasks at recent SemEval workshops: SemEval 2010 Task 3
-\cite{lefever-hoste:2010:SemEval} and SemEval 2013 Task 10 \cite{task10} were both
-explicitly about CL-WSD.  A similar task was also run in 2014
-\cite{vangompel-EtAl:2014:SemEval}, although this task provides a
-target-language context rather than a source-language one, more closely
-representing the problem faced by an agent trying to help a second-language
-learner compose a sentence in their L2 than that faced by a machine translation
-system. Some approaches to the first two tasks, along with a number of other
-projects, are described in Chapter~\ref{chap:relatedwork}.
+\cite{lefever-hoste:2010:SemEval} and SemEval 2013 Task 10 \cite{task10} were
+both classical cross-lingual lexical sample tasks. 
+A similar task was also run in 2014 \cite{vangompel-EtAl:2014:SemEval},
+although this task provides a target-language context rather than a
+source-language one, more closely representing the problem faced by an agent
+trying to help a second-language learner compose a sentence in their L2 than
+that faced by a machine translation system.
+Some approaches to the first two tasks, along with a number of other projects,
+are described in Chapter~\ref{chap:relatedwork}.
 
 In general, there is a many-to-many relationship across language boundaries
 between words and their possible translations.
@@ -213,14 +233,6 @@ older (\emph{ani}) or younger (\emph{ot\=oto});
 a soap bubble or a ceramic plate can be destroyed with the same word in
 Chinese, whereas English speakers distinguish between the verbs
 ``pop" and ``break" \cite{majid2007semantic}.
-
-Despite these difficulties, most statistical MT systems do not use an explicit
-WSD module \cite{wsdchap3}; the language model and phrase tables of these
-systems mitigate lexical ambiguities by encouraging words used collocationally
-to appear together in the output. Entire phrases\footnote{Not necessarily
-``phrases" in a syntactic sense, but subsequences of sentences} such as verbs
-with their common objects may be learned and stored in the phrase table, and
-the language model will encourage common collocations as well.
 
 To take a look at some apparently easier examples, let us also consider the
 following usages of \emph{letter}, from the test set of a recent SemEval shared
@@ -252,18 +264,15 @@ accidents can still cause strange translations in practice.
   \label{fig:leg}
 \end{figure}
 
-
 \section{Hybrid MT}
 Recently there has been renewed interest in machine translation systems that
 take into account syntactic structure, linguistic knowledge, and semantic
 representations, perhaps due to a perception that statistical approaches
 relying on flatter phrase-based representations and hierarchical
 representations not based on linguistic intuitions are reaching a performance
-%% plateau.
-%% , such as the classical
-%% phrase-based SMT XXX cite Koehn et al, and nested representations learned
-%% without regard to linguistic intuitions...
+plateau.
 
+%% XXX: could use some citations.
 The boundaries between rule-based and statistical MT systems are becoming
 increasingly blurred, and hybrid systems are being developed in both
 directions, with RBMT systems incorporating components based on machine
@@ -297,12 +306,12 @@ engineering goal for the Chipa software.
 \section{Paraguay and the Guarani Language}
 Guarani is an indigenous language spoken in Paraguay and the surrounding
 region.
-Historically, it was the native language of the indigenous Guarani people. The
+It is the historical native language of the indigenous Guarani people. The
 word for the Guarani language in Guarani is \emph{avañe'e} (``people's
 language", where \emph{ñe'e} means ``language").
 
 Guarani is unique among indigenous American languages in that a substantial
-number of non-indigenous people speak it.  The majority of Paraguayans are
+number of non-indigenous people speak it. The majority of Paraguayans are
 conversant in Guarani, although they are likely to be bilingual with Spanish.
 In practice, many Paraguayans use a combination of Guarani and Spanish called
 \emph{Jopar{\'a}}, which is the Guarani word for ``mixture".
@@ -329,10 +338,12 @@ language activists and educators from the \emph{Ateneo de la Lengua y Cultura
 Guaraní} \footnote{\url{http://www.ateneoguarani.edu.py/}} and the
 \emph{Fundación Yvy Marãe'{\~y}} \footnote{\url{http://yvymaraey.org/}},
 both of which are schools that offer training for Guarani-language translators.
-We have also been discussing development plans with several local software
+We have also been discussing plans with several local software
 developers, including members of the local One Laptop Per Child organization
-and the Secretariat of Language Policies.
-%% XXX mention Guampa?
+and the Secretariat of Language Policies. Our crowdsourcing and
+collaborative translation system \cite{RUDNICK14.151} is currently under
+development with feedback from professors from the \emph{Ateneo} and
+policymakers at the Secretariat.
 
 \subsection{Online Language Tools for Guarani}
 There are currently very few online language tools for Guarani; some of the
@@ -348,7 +359,7 @@ our Spanish-Guarani translation system.
 
 The Guarani activist and education community has a presence on the Web,
 although a startlingly large fraction of this presence is a single author,
-Dr. David Galeano Olivera, the president of the \emph{Ateneo de Lengua y
-Cultura Guaraní}. He has collected a number of resources, written in Spanish
+David Galeano Olivera, the president of the \emph{Ateneo}.
+He has collected a number of resources, written in Spanish
 and Guarani, about the Guarani language and the culture surrounding it.
 \footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}}
