@@ -294,7 +294,6 @@ relying on flatter phrase-based representations and hierarchical
 representations not based on linguistic intuitions are reaching a performance
 plateau.
 
-%% XXX: could use some citations.
 The boundaries between rule-based and statistical MT systems are becoming
 increasingly blurred, and hybrid systems are being developed in both
 directions, with RBMT systems incorporating components based on machine
@@ -302,7 +301,8 @@ learning, as well as SMT systems making use of linguistic knowledge for
 morphology and syntax.
 Rule-based components are especially applicable in cases where the language
 pair involves predictable reordering through syntactic divergences
-(XXX citation)
+(as in the work of Collins \emph{et al.}
+\cite{collins-koehn-kucerova:2005:ACL})
 and in cases where one or both sides of the translation pair exhibits rich
 morphology; morphological analysis and generation software generally consists
 of hand-written rules in the form of finite-state transducers.
@@ -401,11 +401,12 @@ freely available language resources, including a small treebank
 Quechua language academy \cite{academiamayor}), and morphological analysis and
 generation software.
 
-Quechuan languages also feature rich morphology.  Particularly unfamiliar to
-speakers of European languages may be evidentiality; Quechua verb morphology
-can carry information about how a speaker came to know the information
-contained in a sentence: whether it was directly observed, personally inferred,
-or whether it is hearsay. %% XXX cite
+Quechuan languages also feature rich morphology. Particularly unfamiliar to
+speakers of European languages may be evidentiality; Quechua words (of various
+parts of speech, not only verbs \cite{coronel2002quechua}) can carry
+information about how a speaker came to know the information contained in a
+sentence: whether it was directly observed, personally inferred or doubtful, or
+whether it is hearsay.
 The Chipa software does not directly try to predict evidential markers, but a
 machine translation system targeting Quechua will have to contend with this
 feature of the language.
