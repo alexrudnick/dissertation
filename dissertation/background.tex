@@ -1,12 +1,12 @@
 \chapter{Background}
 \label{chap:background}
 
-In this chapter, I will discuss some of the background relevant to the task at
-hand, including a short overview of word-sense disambiguation broadly, its
-history with respect to machine translation, and how the cross-lingual framing
-of WSD addresses some of the difficulties in successfully applying WSD
-techniques to MT. I also give a short description of the languages we aim to
-support with this work, Guarani and Quechua.
+In this chapter, I will discuss some of the relevant background, including a
+short overview of word-sense disambiguation broadly, its history with respect
+to machine translation, and how the cross-lingual framing of WSD addresses some
+of the difficulties in successfully applying WSD techniques to MT. I also give
+a short description of the languages we would like to support with this work,
+Guarani and Quechua.
 
 \section{Word-Sense Disambiguation}
 Word types often -- perhaps always -- have many possible meanings. Given a
@@ -63,7 +63,7 @@ all-words WSD task, as the annotators must consider the many possible senses
 for each word, and new words will occur during the course of annotation.
 
 Sense-annotated corpora have been created for supervised WSD for both the
-lexical selection and all-words settings, but they are only available for a few
+lexical sample and all-words settings, but they are only available for a few
 languages, due to the time and effort required to prepare them.  Some famous
 sense-annotated corpora include the ``hard/line/serve" corpus, originally
 prepared by Leacock \emph{et al.}
@@ -72,16 +72,35 @@ marks occurrences of the adjective ``hard", noun ``line" and verb ``serve" with
 their respective senses from WordNet.\footnote{Available at
 \url{http://www.d.umn.edu/~tpederse/data.html}}
 These feature roughly four thousand annotated instances of each word. Larger
-lexical selection data sets were prepared for the first three SensEval shared
-tasks\footnote{Archived at the same URL} (\cite{Kilgarriff98senseval}, XXX what
-about 2 and 3?),
-each of which featured 12 to 20 thousand labeled instances of 35 to 73
-different word types.
+lexical sample data sets \footnote{Archived at the same URL} 
+were prepared for the first three SensEval events
+\cite{Kilgarriff98senseval,
+      edmonds-cotton:2001:SENSEVAL,
+      mihalcea-chklovski-kilgarriff:2004:Senseval-3}
+each of which featured thousands of instances of 35 to 73 different
+word types. For SensEval-2 and SensEval-3, verbs were labeled with senses from
+the WordSmyth online
+dictionary-thesaurus\footnote{\url{http://www.wordsmyth.net/}} rather than
+their senses from WordNet, as the WordNet sense distinctions for English verbs
+are very fine-grained, resulting in a very difficult task in the first
+SensEval.
+Larger corpora annotating word senses for many but not all content words
+include the sense-annotated portion of the American National Corpus
+\cite{passonneau2012masc}, which provides a thousand annotated usages of a
+hundred individual word types, each checked by several annotators, with
+inter-annotator agreement data provided.
 
-There have also been all-words annotated corpora, such as the MASC and
-SemCor corpora, which included XXX sentences annotated with their WordNet
-senses... (XXX cite these too), and larger corpora produced with semi-automated
-methods and manually verified.
+There have also been all-words annotated corpora,
+such as SemCor (described by Miller \emph{et al.}
+\cite{Miller:1993:SC:1075671.1075742} and developed by Landes \emph{et al.}
+\cite{landes1998}), a large subset of the Brown Corpus with all
+content words manually annotated with their WordNet senses. ``SemCor" is now
+often used as a generalized term for corpora tagged with senses from a wordnet;
+there are such corpora of varying sizes available for many different
+languages \footnote{For a list of such corpora, see
+\url{http://globalwordnet.org/wordnet-annotated-corpora/}.
+The English-language SemCor has been maintained and updated by Rada Mihalcea
+and is available at \url{http://web.eecs.umich.edu/~mihalcea/downloads.html}}.
 
 In order to ameliorate this WSD data acquisition bottleneck and allow WSD
 research to move forward in the absence of annotated training data, researchers
@@ -90,14 +109,16 @@ original uses are then considered two senses of the new pseudo-word, and
 researchers can check whether their WSD algorithms can recover the original
 token.
 
-For a broad overview of the history of and different approaches to word sense
-disambiguation, please see Agirre \emph{et al.}'s book on the topic.
-\cite{agirre2006word}
-Supervised-learning approaches are by no means the only strand of research;
-there are also unsupervised word-sense induction approaches,
-knowledge-based heuristics that make use of hand-crafted resources such as
-dictionaries...
-%% XXX
+Supervised learning approaches by no means the only strand of research in WSD;
+there are also unsupervised word-sense induction approaches that try to
+discover senses automatically from corpora, knowledge-based algorithms that
+make use of hand-crafted resources such as dictionaries and wordnets to label
+tokens -- such as, classically, the Lesk Algorithm \cite{lesk}, and more
+recently, graph-based algorithms that make use of the structure of very large
+knowledge bases, such as Babelfy \cite{moro2014entity} -- and a host of others.
+For a broad overview of the different approaches to word senses, their
+disambiguation, and the history of the related techniques, please see Agirre
+\emph{et al.}'s book on the topic \cite{agirre2006word}.
 
 It has long been held that word sense disambiguation is a central problem in
 NLP applications, including machine translation.
@@ -202,9 +223,10 @@ encourage common collocations as well. CL-WSD techniques have been successfully
 used to improve SMT, especially when it is applied not just to individual
 tokens but to phrases present in the phrase table, as in the work of Carpuat
 and Wu \cite{carpuatpsd}; there have also been discriminative classifiers used
-to aid in selecting phrase table entries, as in the work of XXX (somebody from
-Charles University or something? ...), which is equivalent, even if not
-described by the authors in terms of word-sense disambiguation.
+to aid in selecting phrase table entries, as in the work of 
+Žabokrtsk\'{y} \emph{et al.} \cite{vzabokrtsky-popel-marevcek:2010:WMT}, which
+is a similar intuition, even if not described by the authors in terms of
+word-sense disambiguation.
 
 This cross-lingual variant of WSD has received enough attention to warrant
 shared tasks at recent SemEval workshops: SemEval 2010 Task 3
@@ -363,3 +385,27 @@ David Galeano Olivera, the president of the \emph{Ateneo}.
 He has collected a number of resources, written in Spanish
 and Guarani, about the Guarani language and the culture surrounding it.
 \footnote{\url{http://cafehistoria.ning.com/profiles/blogs/la-lengua-guarani-o-avanee-en}}
+
+\section{Quechua}
+Quechua is a group of closely related indigenous American languages spoken in
+South America, particularly around the Andes mountain range.
+There are many dialects of Quechua spoken throughout the region, which have
+varying degrees of mutual intelligibility.
+
+For the experiments in this work, we focus on the Cuzco dialect, spoken in and
+around the Peruvian city of Cuzco. This choice is primarily for compatability
+with the SQUOIA machine translation system, which can translate from Spanish
+into this dialect. Cuzco Quechua has about 1.5 million speakers and some useful
+freely available language resources, including a small treebank
+\cite{rios2009quechua}, bilingual dictionaries (such as one published by the
+Quechua language academy \cite{academiamayor}), and morphological analysis and
+generation software.
+
+Quechuan languages also feature rich morphology.  Particularly unfamiliar to
+speakers of European languages may be evidentiality; Quechua verb morphology
+can carry information about how a speaker came to know the information
+contained in a sentence: whether it was directly observed, personally inferred,
+or whether it is hearsay. %% XXX cite
+The Chipa software does not directly try to predict evidential markers, but a
+machine translation system targeting Quechua will have to contend with this
+feature of the language.
