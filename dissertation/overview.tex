@@ -7,9 +7,9 @@ all.} \\
 \end{centering}
 \bigskip
 
-In this dissertation, I investigate techniques for machine translation for
-a language pair with modest resources, particularly one for which we have
-little training data available for the target language. I propose
+In this dissertation, I investigate techniques for lexical selection in
+machine translation, with the goal of supporting language pairs for which 
+there is little training data available for the target language. I propose
 that cross-lingual word sense disambiguation (CL-WSD) is a feasible and
 practical means for lexical selection in this setting. I demonstrate
 this with translation experiments covering several language pairs focusing on
@@ -32,7 +32,7 @@ architectures to show its practical applicability.
 The research presented here is motivated in large part to allow primarily
 rule-based machine translation (RBMT) systems to make use of any available
 bitext training data, so that they can improve their translations without their
-human authors having to write new rules.  Despite the dominance and enormous
+human authors having to write new rules.  Despite the enormous
 success of statistical machine translation (SMT) approaches over the past
 twenty years, they typically require large bitext corpora to be useful. RBMT
 approaches remain attractive for many language pairs due to a simple dearth of
@@ -44,29 +44,18 @@ My hope for this work is that it will provide techniques and tools useful for
 anyone working on machine translation into these languages, whatever the
 architecture of their MT software, allowing them to make use of bitext as it
 becomes available for their language pair. This combination of strategies is
-what is meant by ``hybrid" in this work -- we would like to combine existing
-RBMT systems with statistical methods where possible, making use both of the
-efforts and insights of linguists working on MT, and of machine learning.
-%% XXX this could use some work; more explanation of what we mean by hybrid
+what is meant by ``hybrid" in this work. We would like to combine existing
+RBMT systems with statistical methods where possible, neither throwing away the
+efforts and insights of linguists, nor ignoring the benefits of machine
+learning and corpus-based approaches.
 
-%% While there have been attempts to make the SMT learning possible from simply
-%% comparable corpora, rather than (XXX: cite Annie?) ...
-
-Lexical ambiguity presents a daunting challenge for rule-based machine
-translation systems;
-many words will have multiple possible translations in the target language.
-Moreover, several translations of a given word may all be syntactically valid
-in context, but have significantly different meanings. Even when choosing among
-near-synonyms, we would like to respect the selectional preferences of the
-target language so as to produce natural-sounding output text. The human
-authors of the rules in an RBMT system may not have enumerated the exact
-contexts or classes of contexts in which each target-language form should be
-used, and there will be many thousands of words that might need to be
-translated in any given source language.
-
+\section{WSD in Machine Translation}
+%% TODO Get italics vs quoting straight here. When do we use which?
 To appreciate the word-sense disambiguation problem embedded in machine
 translation, consider for a moment the different senses of ``have" in
-English. In \emph{have a sandwich}, \emph{have a bath}, \emph{have an
+English. In \emph{have a sandwich}, \emph{have a bath}\footnote{Compare with
+``take a bath", which has an additional metaphorical interpretation meaning
+``serious financial loss"}, \emph{have an
 argument}, and even \emph{have a good argument}, the meaning of the verb ``to
 have" is quite different. It would be surprising for our target language,
 especially if it is not closely related, to use a single light verb in
@@ -108,6 +97,7 @@ follows:
  \end{itemize}
 \end{itemize}
 
+%% TODO Get italics vs quoting straight here. When do we use which?
 The correct translation of Spanish {\em traer} or {\em llevar} into Quechua
 thus depends on the object being moved, and more descriptive translations can
 be chosen, given context clues.
@@ -118,24 +108,25 @@ terms based on the person with respect to whom we are describing the referent;
 a daughter relative to her father is \emph{ususi}, but when described relative
 to her mother, \emph{warmi wawa} \cite{academiamayor}.
 
-%% XXX: need several good examples here
-%% ... we should actually discover these from data! Let's align europarl and find
-%% them!
-%% es->en examples...
-%% example of completely different meanings
-%% example of selectional preferences, but similar meaning
-%% then es->gn examples
-
 Chipa, then, must somehow make these distinctions automatically if it is to
 help translation systems generate valid Quechua. It is possible to do this with
 hand-crafted lexical selection rules, or by treating this as a machine learning
 problem and basing lexical selections on the available data, or by some
 combination of the two. 
+
+Lexical ambiguity presents a daunting challenge for rule-based machine
+translation systems. Several translations of a given word may all be
+syntactically valid in context.
+Even when choosing among near-synonyms, we would like to respect the
+selectional preferences of the target language so as to produce
+natural-sounding output text.
+
 Writing lexical selection rules by hand, while possible in principle and an
 approach taken by many MT system implementors, is tedious and error-prone.
 Bilingual informants, if available, may not be able to enumerate the contexts
-in which they would choose one alternative over another. Thus we would like to
-learn from corpora when possible.
+in which they would choose one alternative over another, and there will be many
+thousands of words that might need to be translated in any given source
+language. Thus we would like to learn from corpora when possible.
 
 Given a sufficient bitext corpus, we can discover the different possible
 translations for each source-language word, and by applying supervised
@@ -168,12 +159,12 @@ All of the software used in this dissertation has been developed in public
 repositories, and is freely available online at
 \url{http://github.com/hltdi} and \url{http://github.com/alexrudnick}.
 
-\section{Thesis statement}
+\section{Thesis Statement}
 Cross-lingual word sense disambiguation is a feasible and practical
 means for lexical selection in a hybrid machine translation system for a
 language pair with relatively modest resources.
 
-\section{Questions to address}
+\section{Questions to Address}
 \begin{enumerate}
 \item Can we use monolingual resources from the source language to improve
 accuracy on the cross-lingual word sense disambiguation task?
