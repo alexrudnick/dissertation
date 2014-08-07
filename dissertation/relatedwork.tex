@@ -5,15 +5,14 @@ In this chapter, I will review some of the recent related work, including
 techniques for CL-WSD considered as a task on its own, the application of
 classifiers to lexical selection in various machine translation architectures,
 techniques used in recent runnings of the SemEval task on CL-WSD, and some
-relevant approaches for word-sense disambiguation more broadly. The chipa
+relevant approaches for word-sense disambiguation more broadly. The Chipa
 software and the work described in the rest of the dissertation draws heavily
-from ideas described here; particular ideas will be highlighted as we get to
-them.
+from ideas described here; how particular ideas have been influential will be
+highlighted as we get to them.
 
 %% XXX consider: is this the best structure, even?
 
 \section{CL-WSD \emph{in vitro}}
-
 Some of the previous work on CL-WSD has studied the CL-WSD task in isolation, 
 without being embedded into a machine translation system as such.
 It is sensible to explore CL-WSD on its own for several reasons. Firstly, even
@@ -25,17 +24,8 @@ lexical selection, one expects that improved disambiguation accuracy will
 result in better translations overall -- though of course in complex software,
 unexpected interactions may occur.
 
-Another motivation for studying CL-WSD on its own is that it provides us with
-new data sets on which we can test supervised word-sense disambiguation
-algorithms: word-aligned bitext from any language pair can be used to train and
-test supervised WSD.
-
-sense-annotated data is even harder to come by than sentence-aligned bitext...
-%% XXX learn more about other sense-annotated data
-
 
 \subsection{Multilingual Evidence for CL-WSD}
-
 One of the most interesting CL-WSD systems of recent years, which inspired our
 use of multilingual evidence in Chipa, is ParaSense
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}, developed by Els Lefever and
@@ -62,8 +52,8 @@ When ParaSense was being developed, it simply called out to the Google
 Translate API (which is, as of this writing, no longer available gratis) to
 generate the bag-of-words features required for test sentences.
 This seems unwieldy and arguably detrimental to reproducible research: it
-benefits from whatever techniques Google Translate is using to do word choice,
-which are not necessarily discussed with the public, and these will change
+benefits from whatever techniques Google Translate uses for word choice,
+which are not necessarily discussed with the public, and will change
 without warning over time.
 
 Critiques aside, ParaSense is very effective for its task.  When applied to the
@@ -81,56 +71,59 @@ translation API for its feature extraction, but still learns from several
 mutually parallel bitexts that share a source language.
 
 
-\section{WSD with sequence models}
+\section{WSD with Sequence Models}
 To our knowledge, there has not been other work on framing CL-WSD for all words
 in an input sentence as a sequence labeling problem.
-%% XXX: in some sense, isn't an MT system with a LM just a richer model for
-%% this, with different possible segmentations and reordering?
 
+%% XXX
+In some sense, isn't an MT system with a LM just a richer model for
+this, with different possible segmentations and reordering?
 
-However, in monolingual WSD, Molina \textit{et al.}
-\cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for WSD. 
+However, in monolingual WSD, Molina et al.
+\cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for WSD. Surely
+there's been more of this?
 
-To our knowledge, there has not been work specifically on sequence labeling
-applied to lexical selection for RBMT systems.
-
-Outside of the CL-WSD setting, there has been work on framing all-words WSD as
-a sequence labeling problem. Particularly, Molina \textit{et al.}
-\cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for all-words
-WSD in a monolingual setting.
-
-We have also done some previous work on CL-WSD for translating into indigenous
-American languages; an earlier version of Chipa, for Spanish-Guarani, made use
-of sequence models to jointly predict all of the translations for a sentence at
-once \cite{rudnick-gasser:2013:HyTra}.
-
-XXX:
 Look into the recent stuff from BabelNet and Babelfy: what are they doing
 there? Could that be described as sequence models?
 
-
+This section is really spotty and it'd be shocking if nobody else has tried
+this at all.
 
 \section{CL-WSD for Lexical Selection in RBMT}
+Francis Tyers, in his dissertation work \cite{tyers-dissertation}, develops a
+practical approach for improving lexical selection for the Apertium RBMT
+system. As he described in \cite{tyers-fst}, his software learns finite-state
+transducers for lexical selection from the available parallel corpora.
+It is intended to be both very fast, for use in practical translation systems,
+and to produce lexical selection rules that are understandable and modifiable
+by humans. He also describes experiments in which humans wrote lexical
+selection rules with the same framework.
+The rules available to the system can make reference to the lexical items and
+parts of speech surrounding the word to be translated.
 
-The Apertium team has a particular practical interest in improving lexical
-selection in RBMT; they recently have been developing
-a new system, described in \cite{tyers-fst}, that learns finite-state
-transducers for lexical selection from the available parallel corpora. It is
-intended to be both very fast, for use in practical translation systems, and
-to produce lexical selection rules that are understandable and modifiable by
-humans.
-
-Francis Tyers, in his dissertation work \cite{tyers-dissertation},
-provides an overview of lexical selection systems and describes methods for
-learning lexical selection rules based on available parallel corpora.
-These rules make reference to the lexical items and parts of speech surrounding
-the word to be translated. Once learned, these rules are intended to be
-understandable and modifiable by human language experts. For practical use in
-the Apertium machine translation system, they are compiled to finite-state
-transducers.
+%% XXX
+There's more to say about this.
 
 
 \section{CL-WSD for PB-SMT}
+
+%% Brown et al
+Framing the resolution of lexical ambiguities in machine translation
+as an explicit classification
+task has a long history, dating back at least to early SMT work at IBM
+\cite{Brown91word-sensedisambiguation}.
+
+An early paper by IBM researchers \cite{Brown91word-sensedisambiguation},
+outlines the CLWSD task in a strikingly similar way, as a WSD task where the
+possible senses of a word are extracted from statistical alignments learned
+over a bitext corpus.
+Brown et al. report significant translation quality improvements
+through the use of their WSD system, over a small hand-evaluated set of test
+sentences.
+
+
+
+%% XXX
 
 %% everything about Carpuat and Wu goes here
 More recently, Carpuat and Wu have
@@ -166,28 +159,13 @@ how this is more appropriate in an an SMT setting than simply labeling
 individual words with WordNet synsets, as had previously been attempted, and
 showed significant improvements on a Chinese-English translation task.
 
-Before the work of Carpuat and Wu~\cite{improvingsmtwsd}, it was apparently
-unclear whether WSD was necessary or helpful for a state-of-the-art statistical
-MT system; lexical choice among possible translations for a given word can
+Before the work of Carpuat and Wu~\cite{improvingsmtwsd}, it was
+unclear whether a dedicated WSD module would be helpful for a state-of-the-art 
+SMT system.
+
+lexical choice among possible translations for a given word can
 often be handled by the language model for the target language, simply due to
 collocations of appropriate words in the training data.
-
-
-%% Brown et al
-Framing the resolution of lexical ambiguities in machine translation
-as an explicit classification
-task has a long history, dating back at least to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}.
-
-An early paper by IBM researchers \cite{Brown91word-sensedisambiguation},
-outlines the CLWSD task in a strikingly similar way, as a WSD task where the
-possible senses of a word are extracted from statistical alignments learned
-over a bitext corpus. Brown \textit{et al.} report significant translation
-quality improvements through the use of their WSD system, over a small
-hand-evaluated set of test sentences.
-
-
-
 
 
 There has also been work on using discriminative MaxEnt models to adapt
@@ -208,13 +186,13 @@ Dinu and Kübler~\cite{Dinu07} have addressed the problem of monolingual WSD for
 a lower-resourced language, particularly Romanian. In their work, they describe
 an instance-based approach in which a relatively small number of features is
 used quite effectively. In other work on lower-resourced languages,
-Sarrafzdadeh \textit{et al.} have investigated a version of the Lesk algorithm
+Sarrafzdadeh et al. have investigated a version of the Lesk algorithm
 for Farsi \cite{sarrafzdadeh}.
 
 Although they did not present a complete MT system, there has also been work
 on using WSD techniques for translation into lower-resourced languages, such as
 the English-Slovene language pair, as in
-the work of \v{S}pela \emph{et al.}
+the work of \v{S}pela et al.
 \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
 %% XXX
@@ -224,6 +202,7 @@ inventory that we automatically discover from cross-lingual evidence.
 
 
 \section{CL-WSD at SemEval}
+%% XXX
 CL-WSD has received enough attention to warrant shared tasks at recent SemEval
 workshops; the most recent running of the task is described by Lefever and
 Hoste \cite{task10}.
@@ -240,8 +219,8 @@ of contexts.
 Some of the approaches explored included...
 
 
-
 \section{Translation into Morphologically Rich Languages}
+%% XXX
 In Section \ref{sec:terere}, we are attempting to build a complete MT system
 for the Spanish-Guarani language pair. As Guarani has a very rich morphology,
 which we will need to predict and synthesize. As such, here we will quickly

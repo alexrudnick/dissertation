@@ -444,48 +444,6 @@ training data allowed the classifiers to be used more often; 736 of the
 thousand sentences were influenced by the classifiers in this test set.
 
 \section{Related Work}
-Framing the resolution of lexical ambiguities in machine translation
-as an explicit classification
-task has a long history, dating back at least to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}.  More recently, Carpuat and Wu have
-shown how to use classifiers to improve modern phrase-based SMT systems
-\cite{carpuatpsd}.
-CL-WSD has received enough attention to warrant shared tasks at recent SemEval
-workshops; the most recent running of the task is described by Lefever and
-Hoste \cite{task10}.
-In this task, participants are asked to translate twenty different polysemous
-English nouns into five different European languages, in a variety of contexts.
-
-Lefever \emph{et al.}, in work on the ParaSense system
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}, produced top results for
-this task with classifiers trained on local contextual features, with the 
-addition of a bag-of-words model of the translation of the complete source
-sentence into other (neither the source nor the target) languages. At training
-time, the foreign bag-of-words features for a sentence are extracted from
-available parallel corpora, but at testing time, they must be
-estimated with a third-party MT system, as they are not known a priori.
-This work has not yet, to our knowledge, been integrated into an MT system
-on its own.
-
-In our earlier work, we prototyped a system that addresses some of the issues
-with ParaSense, requiring more modest software infrastructure for feature
-extraction while still allowing CL-WSD systems to make use of several mutually
-parallel bitexts that share a source language
-\cite{rudnick-liu-gasser:2013:SemEval-2013}.
-We have also done some previous work on CL-WSD for translating into indigenous
-American languages; an earlier version of Chipa, for Spanish-Guarani, made use
-of sequence models to jointly predict all of the translations for a sentence at
-once \cite{rudnick-gasser:2013:HyTra}.
-
-Francis Tyers, in his dissertation work \cite{tyers-dissertation},
-provides an overview of lexical selection systems and describes methods for
-learning lexical selection rules based on available parallel corpora. These
-rules make reference to the lexical items and parts of speech surrounding the
-word to be translated. Once learned, these rules are intended to be
-understandable and modifiable by human language experts. For practical use in
-the Apertium machine translation system, they are compiled to finite-state
-transducers.
-
 Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
 earlier work on extending the SQUOIA MT system with machine learning modules.
 They used classifiers to predict the target forms of verbs in cases where the
