@@ -105,23 +105,33 @@ parts of speech surrounding the word to be translated.
 There's more to say about this.
 
 
-\section{CL-WSD for PB-SMT}
 
+\section{CL-WSD for Statistical Machine Translation}
 %% Brown et al
-Framing the resolution of lexical ambiguities in machine translation
-as an explicit classification
-task has a long history, dating back at least to early SMT work at IBM
-\cite{Brown91word-sensedisambiguation}.
+%% XXX get tense right
+While the idea has largely fallen by the wayside in recent years,
+some of the earliest work on statistical machine translation at IBM included
+an explicit WSD module \cite{Brown91word-sensedisambiguation}.
+They considered the senses of a word to be its possible translations,
+explicitly distancing their work from other WSD efforts that focused on
+dictionary senses.
+The WSD module here used binary classifiers similar to decision stumps. Each
+focus word was allocated a single classifier, which could check a single
+feature, e.g., the identity of the nearest noun to the right of the focus word.
+These very simple classifiers would then bias the decoder to choose a
+translation from one of two sets (XXX: were the groups manually grouped, or
+automatically?), which often significantly reduced the uncertainty in the
+situation. The inclusion of WSD improved the translation output markedly; the
+authors deemed 45 of the output sentences ``acceptable" with WSD enabled, over
+only 37 without it.
 
-An early paper by IBM researchers \cite{Brown91word-sensedisambiguation},
-outlines the CLWSD task in a strikingly similar way, as a WSD task where the
-possible senses of a word are extracted from statistical alignments learned
-over a bitext corpus.
-Brown et al. report significant translation quality improvements
-through the use of their WSD system, over a small hand-evaluated set of test
-sentences.
+Later versions included contextually-tuned translation models based on maximum
+entropy modeling for the most common words in the source language
+\cite{Berger:1994:CSM:1075812.1075844} ...
 
-
+In this work,
+as a WSD task where the possible senses of a word are extracted from
+statistical alignments learned over a bitext corpus.
 
 %% XXX
 
