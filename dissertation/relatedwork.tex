@@ -109,7 +109,11 @@ There's more to say about this.
 \section{CL-WSD for Statistical Machine Translation}
 %% Brown et al
 %% XXX get tense right
-While the idea has largely fallen by the wayside in recent years,
+While the idea has, for the most part, fallen by the wayside in recent
+years,\footnote{There are a number of papers on the topic, but for the past
+decade or so, the ``standard" model of phrase-based SMT has not included WSD as
+a component. There are a few stray paragraphs on the topic, but just three, in
+Koehn's book on SMT \cite[\S 5.3.6]{koehn2010statistical}}
 some of the earliest work on statistical machine translation at IBM included
 an explicit WSD module \cite{Brown91word-sensedisambiguation}.
 Brown et al. considered the senses of a word to be its possible translations,
@@ -129,57 +133,53 @@ disambiguation system: contextually-tuned translation models based on
 maximum entropy modeling for the most common words in the source language
 \cite{Berger:1994:CSM:1075812.1075844}.
 
-The idea of making use of source-language context to help lexical selection is
-an attractive one, and has resurfaced several times in the SMT literature. By
+The idea of training classifiers on source-language context to help lexical
+selection is an attractive one, and has resurfaced several times in the SMT
+literature. By
 the early-to-mid 2000s, however, advances in phrase-based SMT, allowing systems
 to translate short coherent chunks and often get word choices correctly ``for
 free" seemed to make WSD modules unnecessary. Work by Cabezas and
 Resnik~\cite{cabezas2005using} and early attempts by Carpuat and
 Wu~\cite{carpuat-wu:2005:ACL} cast doubt as to whether phrase-based SMT
 systems, or even word-based SMT systems trained on large data sets, could
-benefit from WSD.
+benefit from WSD; Cabezas and Resnik, though expressing enthusiasm for future
+developments, did not manage to improve translation performance with WSD, and
+initially (in 2005) Carpuat and Wu argued that SMT systems could be considered
+generalizations of word-sense disambiguation.
 
-
-Gimpel and Smith \cite{gimpel-smith:2008:WMT}
-
-
-Mauser et al. \cite{mauser-hasan-ney:2009:EMNLP}
-
-
-overview from Ale\v{s} \cite{tamchyna2013utilizing}
+%% everything about Carpuat and Wu goes here
+Not long thereafter, however, Carpuat and Wu showed how to use classifiers to
+improve modern phrase-based SMT systems with a series of papers on the topic
+\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation,improvingsmtwsd}.
+In this work, they show that in order for phrase-based SMT systems to benefit
+from classifiers for lexical selection, the system should do
+\emph{phrase}-sense disambiguation, rather than word sense. This is to say, the
+classifiers should be used to select the translation of source-language
+phrases, so as to better match the model used by the rest of the decoder. This
+outperforms the earlier word-based approaches, in which individual words had
+been labeled, either with senses from some sense inventory, or with their
+translations. With this approach, Carpuat and Wu posted significant
+improvements for Chinese-English SMT.
 
 %% XXX: check in the Koehn book and look for anything about having conditional
 %% probabilities for the translation model...
-
-%% everything about Carpuat and Wu goes here
-More recently, Carpuat and Wu have shown how to use classifiers to improve
-modern phrase-based SMT systems
-\cite{carpuatpsd,carpuat-wu:2007:EMNLP-CoNLL2007,carpuat2008evaluation}.
-
-
-lexical choice among possible translations for a given word can
-often be handled by the language model for the target language, simply due to
-collocations of appropriate words in the training data.
-
-Here, Carpuat and Wu use classifiers are used to label multi-word expressions
-(phrases, in the phrase-based SMT sense) with target language phrases.
-She demonstrates
-how this is more appropriate in an an SMT setting than simply labeling
-individual words with WordNet synsets, as had previously been attempted,
-
-and showed significant improvements on a Chinese-English translation task.
-
-Before the work of Carpuat and Wu~\cite{improvingsmtwsd}, it was
-unclear whether a dedicated WSD module would be helpful for a state-of-the-art 
-SMT system.
-
-
+Gimpel and Smith \cite{gimpel-smith:2008:WMT}
+Mauser et al. \cite{mauser-hasan-ney:2009:EMNLP}
+overview from Ale\v{s} \cite{tamchyna2013utilizing}
 
 There has also been work on using discriminative MaxEnt models to adapt
 the ``forward" translation model of an SMT system, using richer
 source-language context features \cite{vzabokrtsky-popel-marevcek:2010:WMT}.
 While it has much the same effect, this work does not describe itself in terms
 of word sense disambiguation.
+
+Recently, Tamchyna et al. (a team that notably includes Marine Carpuat) have
+integrated CL-WSD software into the popular open source Moses SMT system
+\cite{tamchyna2014integrating}, ... . This approach does not use one classifier
+per source word, as had been done in Carpuat's earlier work, but one enormous
+classifier for all known source words, trained with the Vowpal Wabbit (VW)
+machine learning toolkit.
+
 
 \section{WSD for lower-resourced languages}
 However, there has been work recently on using WSD techniques for translation
