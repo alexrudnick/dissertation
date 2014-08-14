@@ -104,7 +104,6 @@ There's more to say about this.
 
 
 \section{CL-WSD for Statistical Machine Translation}
-%% Brown et al
 While the idea has, for the most part, fallen by the wayside in recent
 years,\footnote{There are a number of papers on the topic, but for the past
 decade or so, the ``standard" model of phrase-based SMT has not included WSD as
@@ -185,22 +184,30 @@ the input, and the focus phrase's approximate position in the sentence.
 Mauser et al. \cite{mauser-hasan-ney:2009:EMNLP} present a similar approach,
 although in their work they model translations of individual words
 independently, rather than using phrases from the phrase table, and their
-classifiers consider input sentences as sets of words. %%XXX
+classifiers consider input sentences as sets of words. They argue that
+phrase-based SMT models are already good at predicting sequences, and many of
+the signals that might trigger a different word choice, especially in their
+source language, Chinese, can be placed freely in the input text. They also
+include a ``trigger-based" probability model similar to IBM Model 1
+\cite{DBLP:journals/coling/BrownPPM94}, but conditioned on two source-language
+words rather than one. Like IBM Model 1, this model is trained with
+Expectation-Maximization.
 
-Žabokrtsk\'{y} et al. \cite{vzabokrtsky-popel-marevcek:2010:WMT} take a similar
-approach, using discriminative MaxEnt models to adapt the ``forward"
-translation model probabilities in an SMT system based on dependency grammar.
-While it has much the same effect, this work does not describe itself in terms
-of word sense disambiguation.
+Žabokrtsk\'{y} et al. \cite{vzabokrtsky-popel-marevcek:2010:WMT} use
+discriminative MaxEnt models to adapt the ``forward" translation model
+probabilities in an SMT system based on dependency grammars. While it has much
+the same effect, this work does not describe itself in terms of word sense
+disambiguation.
 
-Recently, Tamchyna et al. (a team that notably includes Marine Carpuat) have
-integrated CL-WSD software into the popular open source Moses SMT system
-\cite{tamchyna2014integrating},
-%% XXX
-This approach does not use one classifier
-per source word, as had been done in Carpuat's earlier work, but one enormous
-classifier for all known source words, trained with the Vowpal Wabbit (VW)
-machine learning toolkit.
+Recently, Tamchyna et al. -- a team that notably includes Marine Carpuat --
+have integrated CL-WSD software into the popular open source Moses SMT system
+\cite{tamchyna2014integrating}.
+This approach does not use one classifier per source phrase, as had been done
+in Carpuat's earlier work, but one enormous classifier for all known source
+words, trained with the Vowpal Wabbit (VW) machine learning toolkit. This
+approach allows generalizations to be learned across different source-language
+phrases, which might be otherwise lost. The software is designed for speed and
+is significantly faster than earlier architectures, they report.
 
 \section{WSD for lower-resourced languages}
 However, there has been work recently on using WSD techniques for translation
