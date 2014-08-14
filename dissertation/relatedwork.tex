@@ -22,7 +22,6 @@ lexical selection, one expects that improved disambiguation accuracy will
 result in better translations overall -- though of course in complex software,
 unexpected interactions may occur.
 
-
 \subsection{Multilingual Evidence for CL-WSD}
 One of the most interesting CL-WSD systems of recent years, which inspired our
 use of multilingual evidence in Chipa, is ParaSense
@@ -90,7 +89,8 @@ this at all.
 \section{CL-WSD for Lexical Selection in RBMT}
 Francis Tyers, in his dissertation work \cite{tyers-dissertation}, develops a
 practical approach for improving lexical selection for the Apertium RBMT
-system. As he described in \cite{tyers-fst}, his software learns finite-state
+system.
+As he describes in \cite{tyers-fst}, his software learns finite-state
 transducers for lexical selection from the available parallel corpora.
 It is intended to be both very fast, for use in practical translation systems,
 and to produce lexical selection rules that are understandable and modifiable
@@ -98,6 +98,7 @@ by humans. He also describes experiments in which humans wrote lexical
 selection rules with the same framework.
 The rules available to the system can make reference to the lexical items and
 parts of speech surrounding the word to be translated.
+
 
 %% XXX
 There's more to say about this.
@@ -210,9 +211,14 @@ phrases, which might be otherwise lost. The software is designed for speed and
 is significantly faster than earlier architectures, they report.
 
 \section{WSD for lower-resourced languages}
-However, there has been work recently on using WSD techniques for translation
+There has been work recently on using WSD techniques for translation
 into lower-resourced languages, such as the English-Slovene language pair, as
 in \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+Although they did not present a complete MT system, there has also been work
+on using WSD techniques for translation into lower-resourced languages, such as
+the English-Slovene language pair, as in
+the work of \v{S}pela et al.
+\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
 
 Dinu and Kübler~\cite{Dinu07} have addressed the problem of monolingual WSD for
 a lower-resourced language, particularly Romanian. In their work, they describe
@@ -221,17 +227,13 @@ used quite effectively. In other work on lower-resourced languages,
 Sarrafzdadeh et al. have investigated a version of the Lesk algorithm
 for Farsi \cite{sarrafzdadeh}.
 
-Although they did not present a complete MT system, there has also been work
-on using WSD techniques for translation into lower-resourced languages, such as
-the English-Slovene language pair, as in
-the work of \v{S}pela et al.
-\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
-
-%% XXX
-One sort of interesting point here is that we are not doing WSD on a
-low-resourced language. This is ultimately WSD on Spanish with a sense
-inventory that we automatically discover from cross-lingual evidence.
-
+One point that should be made about the work in this dissertation is that it is
+ultimately not about word-sense disambiguation for an under-resourced language.
+Here we are focusing on WSD for Spanish, for which we have very large data sets
+and a number of good NLP tools. While our sense inventory happens to be
+extracted from bitext corpora where the other languages involved are
+under-resourced, the decisions to be made are about the meanings of Spanish
+words.
 
 \section{CL-WSD at SemEval}
 %% XXX
@@ -256,13 +258,13 @@ Some of the approaches explored included...
 
 
 \section{Translation into Morphologically Rich Languages}
-%% XXX
-In Section \ref{sec:terere}, we are attempting to build a complete MT system
+In Section \ref{sec:terere}, we describe a complete, if elementary, MT system
 for the Spanish-Guarani language pair. As Guarani has a very rich morphology,
 which we will need to predict and synthesize. As such, here we will quickly
 review some of the work on morphological prediction and generation for
 statistical MT systems.
 
+%% XXX
 Chris Dyer's recent paper at EMNLP
 \cite{chahuneau:2013:emnlp}
 
