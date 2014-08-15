@@ -11,7 +11,7 @@ from ideas described here; how particular ideas have been influential will be
 highlighted as we get to them.
 
 \section{CL-WSD \emph{in vitro}}
-Some of the previous work on CL-WSD has studied the CL-WSD task in isolation, 
+Some of the related work on CL-WSD has studied the CL-WSD task in isolation, 
 without being embedded into a machine translation system as such.
 It is sensible to explore CL-WSD on its own for several reasons. Firstly, even
 if our motivation for developing CL-WSD is to improve machine translation
@@ -58,7 +58,8 @@ SemEval 2010 CL-WSD task test data (described in
 \cite{lefever-hoste:2010:SemEval}), it outperformed all of the systems
 submitted for that task for nearly all of the target languages, being
 outperformed, by a small margin, for one system when targeting Spanish
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}.
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}. A later version, described in
+Lefever's dissertation, outperformed all of the SemEval systems.
 
 In our earlier work, we prototyped a system that addresses some of the issues
 with ParaSense \cite{rudnick-liu-gasser:2013:SemEval-2013}; these ideas are
@@ -67,24 +68,37 @@ Chipa requires neither a locally running MT system nor access to an online
 translation API for its feature extraction, but still learns from several
 mutually parallel bitexts that share a source language.
 
-
 \section{WSD with Sequence Models}
-To our knowledge, there has not been other work on framing CL-WSD for all words
-in an input sentence as a sequence labeling problem.
+To my knowledge, there has not been other work that explicitly frames all-words
+CL-WSD as a sequence labeling problem. Machine translation systems, and
+especially statistical machine translation systems, address this problem
+implicitly -- jointly along with other problems -- when they use language
+models to encourage coherent word choices in the generated text. The
+decomposition of SMT systems into a translation model and a language model
+allows LMs to be trained on very large target-language corpora.  In contrast,
+in our earlier work on CL-WSD with sequence models, we only trained on
+sentence-aligned bitext.
 
-%% XXX
-In some sense, isn't an MT system with a LM just a richer model for
-this, with different possible segmentations and reordering?
+There have, however, been some uses of sequence models for monolingual WSD; in
+this setting, systems can find an assignment disambiguating the entire input
+jointly.  Molina et al. \cite{DBLP:conf/iberamia/MolinaPS02} have described the
+use of hidden Markov models for WSD, situating all-words WSD as a tagging
+problem.  They also used this approach in a Senseval entry
+\cite{molina-pla-segarra:2004:Senseval-3} in the English all-words task at
+Senseval-3, where it posted results towards the middle of the pack.
 
-However, in monolingual WSD, Molina et al.
-\cite{DBLP:conf/iberamia/MolinaPS02} have made use of HMMs for WSD. Surely
-there's been more of this?
+Ciaramita and Altun \cite{ciaramita-altun:2006:EMNLP} frame both coarse-grained
+WSD and information extraction as a tagging problem, using a discriminative
+variation of HMMs trained with perceptrons \cite{collins:2002:EMNLP02}
+to maps nouns and verbs in the input text onto one of 41 ``supersenses", a
+small ontology developed by Ciaramita and Johnson.
 
-Look into the recent stuff from BabelNet and Babelfy: what are they doing
-there? Could that be described as sequence models?
-
-This section is really spotty and it'd be shocking if nobody else has tried
-this at all.
+While it is not explicitly about sequence models, there is a related research
+program underway in the world of graph-based algorithms for knowledge-based
+word-sense disambiguation, exemplified by the work of Moro et al.
+\cite{DBLP:journals/tacl/0001RN14}; they perform word-sense disambiguation and
+entity linking jointly, searching for a globally coherent solution to both
+problems.
 
 \section{CL-WSD for Lexical Selection in RBMT}
 Francis Tyers, in his dissertation work \cite{tyers-dissertation}, develops a
@@ -96,9 +110,9 @@ It is intended to be both very fast, for use in practical translation systems,
 and to produce lexical selection rules that are understandable and modifiable
 by humans. He also describes experiments in which humans wrote lexical
 selection rules with the same framework.
-The rules available to the system can make reference to the lexical items and
-parts of speech surrounding the word to be translated.
-
+The rules available to the system can reference the lexical items and parts of
+speech surrounding the focus word, and when one of them fires, it selects a
+translation.
 
 %% XXX
 There's more to say about this.
@@ -211,29 +225,33 @@ phrases, which might be otherwise lost. The software is designed for speed and
 is significantly faster than earlier architectures, they report.
 
 \section{WSD for lower-resourced languages}
-There has been work recently on using WSD techniques for translation
-into lower-resourced languages, such as the English-Slovene language pair, as
-in \cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
-Although they did not present a complete MT system, there has also been work
-on using WSD techniques for translation into lower-resourced languages, such as
-the English-Slovene language pair, as in
-the work of \v{S}pela et al.
-\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012}. 
+Scaling WSD techniques to new languages is a particularly thorny issue; the
+resource acquisition bottleneck presents a problem even for English.
+The problem is alleviated somewhat when we are interested in supervised CL-WSD,
+with its reliance on bitext rather than sense-annotated corpora.
 
-Dinu and Kübler~\cite{Dinu07} have addressed the problem of monolingual WSD for
-a lower-resourced language, particularly Romanian. In their work, they describe
-an instance-based approach in which a relatively small number of features is
-used quite effectively. In other work on lower-resourced languages,
-Sarrafzdadeh et al. have investigated a version of the Lesk algorithm
-for Farsi \cite{sarrafzdadeh}.
+There has been some work on using WSD techniques for translation into
+lower-resourced languages.  \v{S}pela et al.
+\cite{vintar-fivser-vrvsvcaj:2012:ESIRMT-HyTra2012} discuss applying WSD to
+machine translation for the English-Slovene language pair, using a graph-based
+WSD system and the linked Slovene wordnet to disambiguate English words to aid
+in Slovene lexical selection.
 
-One point that should be made about the work in this dissertation is that it is
-ultimately not about word-sense disambiguation for an under-resourced language.
-Here we are focusing on WSD for Spanish, for which we have very large data sets
-and a number of good NLP tools. While our sense inventory happens to be
-extracted from bitext corpora where the other languages involved are
-under-resourced, the decisions to be made are about the meanings of Spanish
-words.
+Dinu and Kübler~\cite{Dinu07} presented work on monolingual WSD for Romanian.
+They use memory-based learning for classification, with a small number of
+contextual features. With all of its features included, the system
+substantially outperformed the ``most frequent sense" baseline, but adding a
+feature selection step caused a significant further improvement.
+
+In other work on lower-resourced languages, Sarrafzdadeh et al. develop
+a version of the Extended Lesk algorithm for Farsi \cite{sarrafzdadeh}.
+
+One point that should be made about this dissertation is that it is ultimately
+not about word-sense disambiguation for an under-resourced language.  Here we
+are focusing on WSD for Spanish, for which we have very large data sets and a
+number of good NLP tools. While our sense inventory happens to be extracted
+from bitext corpora where the other languages involved are under-resourced, the
+decisions to be made are about the meanings of Spanish words.
 
 \section{CL-WSD at SemEval}
 %% XXX
@@ -242,7 +260,6 @@ workshops; the most recent running of the task is described by Lefever and
 Hoste \cite{task10}.
 
 Similar was the earlier task: \cite{lefever-hoste:2009:SEW}
-
 
 Also the one for English-Hindi
 \cite{chklovski-EtAl:2004:Senseval-3}
@@ -255,7 +272,6 @@ polysemous English nouns into five different European languages, in a variety
 of contexts.
 
 Some of the approaches explored included...
-
 
 \section{Translation into Morphologically Rich Languages}
 In Section \ref{sec:terere}, we describe a complete, if elementary, MT system
