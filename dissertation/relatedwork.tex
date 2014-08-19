@@ -100,23 +100,37 @@ word-sense disambiguation, exemplified by the work of Moro et al.
 entity linking jointly, searching for a globally coherent solution to both
 problems.
 
-\section{CL-WSD for Lexical Selection in RBMT}
+\section{Lexical Selection in RBMT}
+
+A purely rule-based approach to lexical selection, roughly what Bar-Hillel was
+imagining, has been tried.
+
+
+
+
+
 Francis Tyers, in his dissertation work \cite{tyers-dissertation}, develops a
 practical approach for improving lexical selection for the Apertium RBMT
-system.
+system when parallel corpora are available.
+Here translations are selected via rules that can reference the lexical items
+and parts of speech surrounding the focus word; when a rule fires, it selects a
+translation. These rules can be written in an XML encoding, so that they can be
+examined, modified, or even written from scratch, by human linguists.
+He also describes experiments in which linguists wrote lexical selection rules
+with the framework. Having human linguists write rules in this formalism can
+improve MT output to an extent, but seems tedious, as it took a full day's work
+for a linguist to write 156 words, and this only covered lexical selection for
+3\% of the thousand-sentence test corpus.
+
 As he describes in \cite{tyers-fst}, his software learns finite-state
-transducers for lexical selection from the available parallel corpora.
-It is intended to be both very fast, for use in practical translation systems,
-and to produce lexical selection rules that are understandable and modifiable
-by humans. He also describes experiments in which humans wrote lexical
-selection rules with the same framework.
-The rules available to the system can reference the lexical items and parts of
-speech surrounding the focus word, and when one of them fires, it selects a
-translation.
+transducers for lexical selection from parallel corpora.
+His dissertation expands on this, additionally learning, via maximum entropy,
+weights with which different rules can be applied in different contexts.
 
-%% XXX
-There's more to say about this.
-
+Tyers' system is intended to be both very fast, for use in practical
+translation systems, and to produce lexical selection rules that are
+understandable and modifiable by humans. It is currently in use for some
+language pairs in the Apertium project.
 
 \section{CL-WSD for Statistical Machine Translation}
 While the idea has, for the most part, fallen by the wayside in recent
@@ -255,14 +269,20 @@ decisions to be made are about the meanings of Spanish words.
 
 \section{CL-WSD at SemEval}
 %% XXX
-CL-WSD has received enough attention to warrant shared tasks at recent SemEval
-workshops; the most recent running of the task is described by Lefever and
-Hoste \cite{task10}.
 
-Similar was the earlier task: \cite{lefever-hoste:2009:SEW}
+There have been a number of Senseval and SemEval shared tasks focused on
+CL-WSD; they happened in 
 
 Also the one for English-Hindi
 \cite{chklovski-EtAl:2004:Senseval-3}
+
+
+\cite{task10}.
+
+CL-WSD has received enough attention to warrant shared tasks at recent SemEval
+workshops; the most recent running of the task is described by Lefever and
+Hoste
+
 
 There was also the Writing Assistant task \cite{vangompel-EtAl:2014:SemEval},
 which is related but not quite the same.
