@@ -101,36 +101,45 @@ entity linking jointly, searching for a globally coherent solution to both
 problems.
 
 \section{Lexical Selection in RBMT}
-
-A purely rule-based approach to lexical selection, roughly what Bar-Hillel was
-imagining, has been tried.
-
-
-
-
+A purely rule-based approach to lexical selection -- a more declarative version
+of the special-cased disambiguation procedures that Bar-Hillel imagined as
+futile -- has been tried in many cases, with variants in both direct and
+interlingual RBMT systems.
+In one recent example, Bick presented a Danish-English RBMT system with purely
+rule-based lexical selection \cite{bickdan2eng}. The Dan2eng system includes
+roughly $17,000$ individual Constraint Grammar rules for lexical selection
+alone, over $70\%$ of all of the rules written. Development took over two
+years, and Bick suggests that statistical models (including target-language
+LMs) might be used in the future to avoid having to cover all the
+idiosyncracies of lexical transfer.
+A similar approach, though not with the same enormous number of lexical
+selection rules, was taken by Brandt et al. \cite{brandt2011apertium}, with
+their Apertium-based Icelandic-English MT system.
 
 Francis Tyers, in his dissertation work \cite{tyers-dissertation}, develops a
 practical approach for improving lexical selection for the Apertium RBMT
 system when parallel corpora are available.
-Here translations are selected via rules that can reference the lexical items
-and parts of speech surrounding the focus word; when a rule fires, it selects a
-translation. These rules can be written in an XML encoding, so that they can be
-examined, modified, or even written from scratch, by human linguists.
-He also describes experiments in which linguists wrote lexical selection rules
-with the framework. Having human linguists write rules in this formalism can
-improve MT output to an extent, but seems tedious, as it took a full day's work
-for a linguist to write 156 words, and this only covered lexical selection for
-3\% of the thousand-sentence test corpus.
-
 As he describes in \cite{tyers-fst}, his software learns finite-state
 transducers for lexical selection from parallel corpora.
 His dissertation expands on this, additionally learning, via maximum entropy,
 weights with which different rules can be applied in different contexts.
+He also describes experiments in which linguists wrote lexical selection rules
+with the framework. Having human linguists write rules in this formalism can
+improve MT output to an extent, but seems tedious, as it took a full day's work
+for a linguist to write 156 rules, and this only covered lexical selection for
+3\% of the thousand-sentence test corpus.
+
+In this formalism, translations are selected via rules that can reference the
+lexical items and parts of speech surrounding the focus word; when a rule
+fires, it selects a translation. These rules are stored in an XML encoding, so
+that they can be examined, modified, or written from scratch by human
+linguists, but are then compiled to compact finite-state transducers for speedy
+application.
 
 Tyers' system is intended to be both very fast, for use in practical
-translation systems, and to produce lexical selection rules that are
-understandable and modifiable by humans. It is currently in use for some
-language pairs in the Apertium project.
+translation systems, and to produce easily human-interpretable lexical
+selection rules, for modification by linguists. It is currently in use for
+some language pairs in the Apertium project.
 
 \section{CL-WSD for Statistical Machine Translation}
 While the idea has, for the most part, fallen by the wayside in recent
@@ -258,7 +267,11 @@ substantially outperformed the ``most frequent sense" baseline, but adding a
 feature selection step caused a significant further improvement.
 
 In other work on lower-resourced languages, Sarrafzdadeh et al. develop
-a version of the Extended Lesk algorithm for Farsi \cite{sarrafzdadeh}.
+a version of the Extended Lesk algorithm for Farsi \cite{sarrafzdadeh},
+Lesk algorithms (due to early work by Michael Lesk \cite{lesk}) being a
+knowledge-based approach to WSD that relies on dictionaries, counting the
+occurrences of words that occur in a particular sense's dictionary definition;
+there have been many variations on this theme.
 
 One point that should be made about this dissertation is that it is ultimately
 not about word-sense disambiguation for an under-resourced language.  Here we
@@ -268,24 +281,8 @@ from bitext corpora where the other languages involved are under-resourced, the
 decisions to be made are about the meanings of Spanish words.
 
 \section{CL-WSD at SemEval}
-%% XXX
-
 There have been a number of Senseval and SemEval shared tasks focused on
-CL-WSD; they happened in 
-
-Also the one for English-Hindi
-\cite{chklovski-EtAl:2004:Senseval-3}
-
-
-\cite{task10}.
-
-CL-WSD has received enough attention to warrant shared tasks at recent SemEval
-workshops; the most recent running of the task is described by Lefever and
-Hoste
-
-
-There was also the Writing Assistant task \cite{vangompel-EtAl:2014:SemEval},
-which is related but not quite the same.
+CL-WSD, including a few variations on the theme.
 
 In the two CL-WSD tasks, participants were asked to translate twenty different
 polysemous English nouns into five different European languages, in a variety
@@ -293,14 +290,25 @@ of contexts.
 
 Some of the approaches explored included...
 
+Also the one for English-Hindi
+\cite{chklovski-EtAl:2004:Senseval-3}
+
+
+\cite{task10}
+
+
+There was also the Writing Assistant task \cite{vangompel-EtAl:2014:SemEval},
+which is related but not quite the same.
+
+
 \section{Translation into Morphologically Rich Languages}
+%% XXX
 In Section \ref{sec:terere}, we describe a complete, if elementary, MT system
 for the Spanish-Guarani language pair. As Guarani has a very rich morphology,
 which we will need to predict and synthesize. As such, here we will quickly
 review some of the work on morphological prediction and generation for
 statistical MT systems.
 
-%% XXX
 Chris Dyer's recent paper at EMNLP
 \cite{chahuneau:2013:emnlp}
 
