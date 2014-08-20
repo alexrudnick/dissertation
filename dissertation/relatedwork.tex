@@ -333,18 +333,49 @@ representing the task faced by an agent assisting a writer trying to compose
 sentences in a second language but facing gaps in their vocabulary.
 
 \section{Translation into Morphologically Rich Languages}
-%% XXX
 In Section \ref{sec:terere}, we describe a complete, if elementary, MT system
 for the Spanish-Guarani language pair. As Guarani has a very rich morphology,
 which we will need to predict and synthesize. As such, here we will quickly
-review some of the work on morphological prediction and generation for
-statistical MT systems.
+mention some of the work on morphological prediction and generation for
+statistical and hybrid MT systems.
 
-Chris Dyer's recent paper at EMNLP
-\cite{chahuneau:2013:emnlp}
+Koehn and Hoang describe \emph{factored} phrase-based SMT models for predicting
+target-language morphology \cite{koehn-hoang:2007:EMNLP-CoNLL2007}. In this
+kind of approach, instead of having one translation model containing surface
+forms, there can be several different translation models. As a basic strategy,
+they suggest having separate models for the translation of lemmas and another
+for translating parts-of-speech and morphological features. This approach
+allows the MT system to learn more generalized models, both for the translation
+of lemmas and for mapping the morphological features of the source language to
+the target.
+Yeniterzi and Oflazer \cite{yeniterzi-oflazer:2010:ACL} describe an
+application of this model for SMT on English-Turkish.
+They situate their work in terms of the earlier strategy of considering Turkish
+inflectional and derivational morphemes as ``words" to be handled by the SMT
+system as normal and then recombined in a post-processing step, which would
+sometimes fail when the morphemes were not generated in the correct order.
+Contrastingly, their factored model produces Turkish lemmas, then finds the
+relevant inflectional features based on English syntax.
 
-Talk about prediction for morphology.
-\cite{toutanova-suzuki-ruopp:2008:ACLMain}
+Toutanova et al. describe another technique for generating rich morphology in
+SMT \cite{toutanova-suzuki-ruopp:2008:ACLMain}. In their model, they consider
+inflection prediction separately from the task of producing the target-language
+text. One version of their system produces fully-inflected text, which may be
+changed by their inflection-prediction system; the other produces uninflected
+target-language text, relying on the morphology prediction. In either case, the
+morphology of all of the target-language lemmas is predicted with a Maximum
+Entropy Markov Model (MEMM), a discriminative sequence prediction model that
+can take into account both any features extracted from the analysis of the
+source sentence and its own previous morphology predictions. They apply this
+model to both English-Russian and English-Arabic translation, posting
+improvements for both phrase-based and tree-based SMT.
 
-Also factored models...
-\cite{yeniterzi-oflazer:2010:ACL}
+Chahuneau et al. have recently presented yet another method for SMT into
+morphologically rich languages \cite{chahuneau-EtAl:2013:EMNLP}. Here they
+also uses discriminative models to predict target-language inflections based on
+the available source-language annotations, but instead of inflecting the text
+after the decoder has been run, their system generates new phrase-table entries
+with the appropriate inflections included, just before the decoder executes,
+allowing the decoder to optimize for many concerns jointly, informed by the
+language model. Their software is described in more detail in Schlinger et al.
+\cite{DBLP:journals/pbml/SchlingerCD13}, and has had an open-source release.
