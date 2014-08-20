@@ -280,26 +280,57 @@ number of good NLP tools. While our sense inventory happens to be extracted
 from bitext corpora where the other languages involved are under-resourced, the
 decisions to be made are about the meanings of Spanish words.
 
-\section{CL-WSD at SemEval}
-There have been a number of Senseval and SemEval shared tasks focused on
-CL-WSD, including a few variations on the theme.
+\section{CL-WSD at Senseval and SemEval}
+There have been many related Senseval and SemEval shared tasks, covering
+different variations on cross-lingual WSD.
 
-In the two CL-WSD tasks, participants were asked to translate twenty different
-polysemous English nouns into five different European languages, in a variety
-of contexts.
+%% 2001 senseval2
+Senseval-2 featured a Japanese Translation Task \cite{kurohashi:2001:SENSEVAL},
+in which Japanese words were to be labeled with their most appropriate English
+translations from the provided translation memory (TM); the task thus combined
+aspects of word sense disambiguation and example-based machine translation.
 
-Some of the approaches explored included...
+At Senseval-3, there was an English-Hindi translation task
+\cite{chklovski-EtAl:2004:Senseval-3}, in which participants were to label a
+lexical sample of English words with their Hindi translations. Here the gold
+standard translations were created collaboratively online, using the Open Mind
+Word Expert software developed by Chklovski and Mihalcea, but the set of
+possible translations were extracted from a bilingual dictionary. There were
+two subtasks provided; in the more general subtask, systems were provided with
+unannotated text in English. For the ``translation-and-sense" subtask, the
+provided text was previously-used Senseval-2 data, already annotated with its
+WordNet senses. These annotations provided a significant boost to
+classification accuracy for the participating systems.
 
-Also the one for English-Hindi
-\cite{chklovski-EtAl:2004:Senseval-3}
+%% 2007 semeval
+In SemEval 2007, there were two related tasks covering translation between
+English and Chinese. Task 5 \cite{jin-wu-yu:2007:SemEval-2007} was a lexical
+sample task in which Chinese texts were manually annotated with English
+translations from a predefined dictionary, and participants had to predict
+these labels. Task 11 \cite{ng-chan:2007:SemEval-2007}, in contrast, had its
+training and test data gathered from automatically word-aligned parallel
+corpora, and the direction of translation was from English to Chinese.
 
+%% 2010 semeval
+%% 2013 semeval
+In the 2010 and 2013 SemEval CL-WSD tasks
+\cite{lefever-hoste:2010:SemEval,task10}, both organized by Lefever and Hoste,
+participants were asked to translate twenty different polysemous English nouns
+into five different European languages (Dutch French, German Italian, and
+Spanish), given their containing source-language sentence as context. There
+were no explicit bilingual dictionaries provided as sense inventories; the
+possible target-language labels were those found in Europarl \cite{europarl}
+through automatic word alignment, though they were lemmatized by hand. The test
+set was manually annotated with the appropriate (lemmatized) translations from
+the sense inventory for each of the five target languages.
 
-\cite{task10}
-
-
-There was also the Writing Assistant task \cite{vangompel-EtAl:2014:SemEval},
-which is related but not quite the same.
-
+%% 2014 semeval
+Most recently, for SemEval 2014, there was a variant on the CL-WSD task: the
+Writing Assistant task \cite{vangompel-EtAl:2014:SemEval}. In this setting,
+rather than complete source-language sentences, short source-language text
+segments were included in nearly complete target-language sentences,
+representing the task faced by an agent assisting a writer trying to compose
+sentences in a second language but facing gaps in their vocabulary.
 
 \section{Translation into Morphologically Rich Languages}
 %% XXX
