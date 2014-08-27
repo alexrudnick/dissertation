@@ -25,28 +25,32 @@ Spanish sentences with Guarani stems, from a held-out test set sampled from the
 Bible.
 This will be closer to an accurate assessment of a lexical selection system
 trying to translate every word in running text with a realistically large
-vocabulary. As we collect more bitext, we will be able to construct test sets
-from a broader domain.
+vocabulary. Collecting larger bitext corpora would allow us to construct test
+sets from a broader domain.
 
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
 techniques while they are in use for lexical selection in running MT systems.
-Thus we will use standard approaches for evaluating MT, such as BLEU and METEOR
-scores, and human evaluations, likely conducted online so that fluent Guarani
-speakers will be able to participate.
+Here we can use standard approaches for evaluating MT, such as BLEU and METEOR
+scores.
 
+\section{Data Sets and Preprocessing}
 
-\section{Data Sets}
-The BIBLE
+The largest corpus that we have available for all of the languages is the
+Bible. It has been translated into many different languages...
 
+We got the Quechua Bible from Chris Loza and Rada Mihalcea; the preparation
+of the Quechua corpus is described in Loza's masters thesis \cite{chrisloza}.
 
-\section{Tasks and Evaluation}
-
+\subsection{Preprocessing}
 
 \section{Morphological Analysis for Guarani}
 \label{sec:guaranima}
 We analyze the Spanish and Guarani Bible using our in-house morphological
 analyzer, originally developed for Ethiopian Semitic languages 
 \cite{gasser:eacl09}.
+
+For this work, I used ParaMorfo 1.1 and AntiMorfo 1.2.
+
 As in other, more familiar, modern
 morphological analyzers such as \cite{beesley+karttunen}, analysis in our
 system is modeled by cascades of finite-state transducers (FSTs).  To solve the
@@ -74,6 +78,15 @@ adjectives have very few forms, we simply list the alternatives in the lexicon
 for these categories.  For this paper, we are only concerned with the roots of
 words in our corpora, so we ignore the grammatical features that are output
 with each word.
+
+
+\footnote{Michael Gasser's morphological analyzers for Guarani, Quechua,
+Spanish, and other languages are available at
+\url{http://www.cs.indiana.edu/~gasser/Research/software.html} }
+
+\section{Tasks and Evaluation}
+
+
 
 \section{Baseline System}
 Chipa is a 
