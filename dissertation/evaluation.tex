@@ -1,37 +1,91 @@
 \chapter{Data Sets, Tasks, Software and Evaluation}
 \label{chap:evaluation}
-
 In order to evaluate our CL-WSD approaches and their effects on translation
-systems, we will need to have some metrics for comparison between our
-techniques, sensible baselines, and results reported by other researchers.
+systems, we will need to have some basis for comparison between the various
+techniques that we would like to evaluate, sensible baselines, and results
+reported by other researchers.
 
+So in this chapter, I describe the tasks and data sets that we will be
+examining for the rest of the dissertation, as well as the basic version of the
+Chipa software, which will be extended in subsequent chapters.
+
+\section{Measuring CL-WSD Classification Accuracy}
 One clear \emph{in vitro} approach for measuring the success of a CL-WSD system
-will be the metrics provided by the SemEval shared tasks
-\cite{task10}; measuring our performance on these test
-sets will provide a clear comparison between our work, several other CL-WSD
-systems from the past few years, and the results posted by Els Lefever's
-ParaSense system.
+is to report its classification accuracy on pre-labeled data.  Strictly
+speaking, we do not have pre-labeled data in the sense that our bitext does not
+come with sub-sentential alignments, but automatic word alignments are a good
+approximation for this, as long as our sentence (or verse, for Bible text)
+alignments are accurate. For the purposes of this work, we will assume that our
+automatic alignments are correct, putting in our best effort for preprocessing
+on the available text so that the aligner can produce sensible output.
 
+Using our automatically-aligned bitext as labeled data allows us to approximate
+the task faced by an MT system trying to do lexical selection for running text,
+since we can train our classifiers for many different word types. Even using
+only the Bible, we can find a usefully large number of training examples for
+many common word types. Some of these most common words are proper names or
+exhibit only one translation in the other language, but for the most part, they
+are revealed to be polysemous.
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|c|c|c|c|}
+    \hline
+    rank & word type (en) & count (en) & word type (es) & count (es) \\
+    \hline
+    1    & god       & 1 million & dios   & 1 millón \\
+    2    & smite     & 700k      & pelear & setecientos mil \\
+    \multicolumn{5}{|c|}{...} \\ 
+    500 & crunk      & 50 & crunk  & 50 \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Most common (lemmatized, non-stopword) word types in our English and
+  Spanish Bibles}
+  \label{fig:mostcommon-en-es}
+\end{figure*}
+
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|c|c|c|c|}
+    \hline
+    rank & word type (es) & translations (en) & translations (gn) & translations (qu) \\
+    \hline
+    1    & dios   &  god, the management, the lord & guarani & quechua \\
+    2    & pelear &  hit, smack, smite             & guarani & quechua \\
+    \multicolumn{5}{|c|}{...} \\ 
+    500 &  & & & \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Most common (lemmatized, non-stopword) word types in our English and
+  Spanish Bibles}
+  \label{fig:mostcommon-es-translations}
+\end{figure*}
+
+
+Using larger bitexts of course allows us to construct training and test sets
+for a broader vocabulary.
+
+For comparison with other work, we can also run our systems on the SemEval
+shared tasks...
+\cite{task10}; measuring our performance on these test sets will provide a
+clear comparison between our work, several other CL-WSD systems from the past
+few years, and the results posted by Els Lefever's ParaSense system.
 These test sets are limited in scope, however, and will only demonstrate our
 performance for translating individual polysemous English nouns, ignoring the
 problem of translating the rest of the sentence.
+
 Furthermore, our broader practical goal is to use Spanish as a source language,
 and the resources that we can use to analyze an input English sentence will be
 different from those for Spanish.
-
-An approach that we took recently \cite{rudnick-gasser:2013:HyTra-2013} was to
-simply report classification accuracy for the CL-WSD task of labeling input
-Spanish sentences with Guarani stems, from a held-out test set sampled from the
-Bible.
-This will be closer to an accurate assessment of a lexical selection system
-trying to translate every word in running text with a realistically large
-vocabulary. Collecting larger bitext corpora would allow us to construct test
-sets from a broader domain.
 
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
 techniques while they are in use for lexical selection in running MT systems.
 Here we can use standard approaches for evaluating MT, such as BLEU and METEOR
 scores.
+
 
 \section{Data Sets and Preprocessing}
 
@@ -43,7 +97,7 @@ of the Quechua corpus is described in Loza's masters thesis \cite{chrisloza}.
 
 \subsection{Preprocessing}
 
-\section{Morphological Analysis for Guarani}
+\subsection{Morphological Analysis for Guarani}
 \label{sec:guaranima}
 We analyze the Spanish and Guarani Bible using our in-house morphological
 analyzer, originally developed for Ethiopian Semitic languages 
@@ -84,37 +138,63 @@ with each word.
 Spanish, and other languages are available at
 \url{http://www.cs.indiana.edu/~gasser/Research/software.html} }
 
-\section{Tasks and Evaluation}
+\section{Measuring MT Improvements}
 
 
 
 \section{Baseline System}
-Chipa is a 
 
-\begin{figure*}
-  \begin{centering}
-  I'll show \emph{you} a feature set.
-  \end{centering}
-  \caption{Yo, these are the features we use.}
-  \label{fig:baselinefeatures}
-\end{figure*}
+At its heart, the Chipa software takes in a bitext corpus and the associated
+alignments and then, on demand, trains classifiers for words types from the
+source language in order to determine their translations.
 
-
-
-Since source-language tokens may be NULL-aligned (\emph{i.e.,} not all words in
-the source text will have corresponding words in the target text), both in the
-training data and in translations, we allow users to request classifiers that
-consider NULL as a valid label for classification, or not, as appropriate for
-the application.
-
-The software holds all of the available bitext in a database, retrieving the
-relevant training sentences and learning classifiers on demand.
+The software holds all of the available bitext in memory, retrieving the
+relevant training sentences as necessary.
 If a source word has been seen with multiple different translations, then a
 classifier will be trained for it. If it has been seen aligned to only one
 target-language type, then this is simply noted, and if the source word is not
 present in the training data, then that word is marked out-of-vocabulary.
+
+%% XXX: it would be cool to have an example alignment here, maybe a word
+%% aligned to a multi-word expression
+
+Classifiers are trained with the scikit-learn machine learning toolkit
+\cite{scikit-learn} for Python and its associated NLTK interface, though in
+earlier versions, we used megam \cite{daume04cg-bfgs}, also through NLTK.
+
+Since source-language tokens may be NULL-aligned (i.e., not all words in the
+source text will have corresponding words in the target text), both in the
+training data and in translations, we allow users to request classifiers that
+consider NULL as a valid label for classification, or not, as appropriate for
+the application. We report classification accuracies for both settings.
+
 Memory permitting, these classifiers and annotations are kept cached for later
-usage. Chipa can be run as a server, providing an interface whereby client
+usage. Chipa can also be run as a server, providing an interface whereby client
 programs can request CL-WSD decisions over RPC.
 
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|c|}
+    \hline
+    name      & description  \\
+    \hline
+    what      & what is this \\
+    no really & please tell me \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Features for the baseline Chipa system}
+  \label{fig:baselinefeatures}
+\end{figure*}
 
+\section{Classification Results for the Baseline System}
+
+\begin{itemize}
+\item en-es
+\item es-en
+\item es-gn
+\item es-qu
+\end{itemize}
+
+Words in Spanish for which we gain the most by training a classifier --
+measured as the difference in accuracy between
