@@ -11,37 +11,162 @@ Chipa software, which will be extended in subsequent chapters.
 
 \section{Measuring CL-WSD Classification Accuracy}
 One clear \emph{in vitro} approach for measuring the success of a CL-WSD system
-is to report its classification accuracy on pre-labeled data.  Strictly
-speaking, we do not have pre-labeled data in the sense that our bitext does not
-come with sub-sentential alignments, but automatic word alignments are a good
-approximation for this, as long as our sentence (or verse, for Bible text)
+is to report its classification accuracy on pre-labeled data. Strictly
+speaking, we do not have pre-labeled data: our bitext does not
+come with sub-sentential alignments, but automatic word alignments will provide
+a good approximation, as long as our sentence (or verse, for Bible text)
 alignments are accurate. For the purposes of this work, we will assume that our
-automatic alignments are correct, putting in our best effort for preprocessing
-on the available text so that the aligner can produce sensible output.
+automatic alignments are correct, putting in our best effort preprocessing
+the available text so that the aligner can produce sensible output.
 
 Using our automatically-aligned bitext as labeled data allows us to approximate
 the task faced by an MT system trying to do lexical selection for running text,
 since we can train our classifiers for many different word types. Even using
 only the Bible, we can find a usefully large number of training examples for
 many common word types. Some of these most common words are proper names or
-exhibit only one translation in the other language, but for the most part, they
-are revealed to be polysemous.
+exhibit only one translation in the other language, but for the most part,
+we can see with bitext that they are polysemous.
+
+In Figure~\ref{fig:mostcommon-en-es}, we see the most common lemmas used in our
+Bible bitext for our languages, along with their counts. In Figure \
 
 \begin{figure*}
+  \begin{tiny}
   \begin{centering}
-  \begin{tabular}{|r|c|c|c|c|}
+  \begin{tabular}{|r|c|c|}
     \hline
-    rank & word type (en) & count (en) & word type (es) & count (es) \\
+    rank & word type & count \\
     \hline
-    1    & god       & 1 million & dios   & 1 millón \\
-    2    & smite     & 700k      & pelear & setecientos mil \\
-    \multicolumn{5}{|c|}{...} \\ 
-    500 & crunk      & 50 & crunk  & 50 \\
+1 & say & 6992 \\
+2 & yahweh & 6833 \\
+3 & shall & 4802 \\
+4 & god & 4340 \\
+5 & come & 3820 \\
+6 & son & 3490 \\
+7 & go & 3198 \\
+8 & king & 2875 \\
+9 & one & 2700 \\
+10 & israel & 2581 \\
+11 & make & 2520 \\
+12 & day & 2373 \\
+13 & man & 2332 \\
+14 & people & 2149 \\
+15 & house & 2130 \\
+16 & give & 2115 \\
+17 & child & 1981 \\
+18 & take & 1938 \\
+19 & father & 1913 \\
+20 & hand & 1874 \\
+21 & land & 1818 \\
+22 & men & 1615 \\
+23 & also & 1556 \\
+24 & let & 1508 \\
+25 & thing & 1479 \\
+26 & bring & 1467 \\
+27 & lord & 1434 \\
+28 & us & 1407 \\
+29 & know & 1401 \\
+30 & may & 1351 \\
+31 & behold & 1342 \\
+32 & therefore & 1310 \\
+33 & city & 1288 \\
+34 & speak & 1271 \\
+35 & word & 1261 \\
+36 & like & 1179 \\
+37 & even & 1177 \\
+38 & servant & 1129 \\
+39 & name & 1117 \\
+40 & see & 1106 \\
+    \multicolumn{3}{|c|}{...} \\ 
+1029 & preserve & 50 \\
+1030 & calf & 50 \\
+1031 & prey & 50 \\
+1032 & blue & 50 \\
+1033 & ephod & 50 \\
+1034 & repent & 50 \\
+1035 & hearing & 50 \\
+1036 & basket & 50 \\
+1037 & circumcise & 50 \\
+1038 & veil & 50 \\
+1039 & weak & 50 \\
+1040 & scripture & 50 \\
+1041 & milk & 50 \\
+1042 & ought & 50 \\
+1043 & wheat & 50 \\
+1044 & justify & 50 \\
+1045 & engrave & 50 \\
     \hline
   \end{tabular}
+  \quad
+  \begin{tabular}{|r|c|c|}
+    \hline
+    rank & word type & count \\
+    \hline
+1 & ser & 8994 \\
+2 & haber & 8812 \\
+3 & jehová & 6839 \\
+4 & decir & 6324 \\
+5 & hijo & 5136 \\
+6 & dios & 4399 \\
+7 & hacer & 4092 \\
+8 & tierra & 2944 \\
+9 & rey & 2807 \\
+10 & hombre & 2554 \\
+11 & israel & 2549 \\
+12 & tener & 2411 \\
+13 & día & 2263 \\
+14 & dar & 2197 \\
+15 & casa & 2145 \\
+16 & entonces & 2138 \\
+17 & ir/ser & 2110 \\
+18 & pues & 2038 \\
+19 & pueblo & 2007 \\
+20 & si & 1804 \\
+21 & vosotros & 1709 \\
+22 & así & 1692 \\
+23 & mano & 1606 \\
+24 & padre & 1587 \\
+25 & señor & 1478 \\
+26 & delante & 1360 \\
+27 & ver & 1326 \\
+28 & ciudad & 1317 \\
+29 & poner & 1316 \\
+30 & palabra & 1246 \\
+31 & venir & 1244 \\
+32 & tomar & 1150 \\
+33 & david & 1045 \\
+34 & cosa & 1044 \\
+35 & responder & 1024 \\
+36 & mujer & 1010 \\
+37 & volver & 1009 \\
+38 & poder & 1005 \\
+39 & ir & 985 \\
+40 & grande & 965 \\
+    \multicolumn{3}{|c|}{...} \\ 
+1030 & parábola & 51 \\
+1031 & tropezar & 51 \\
+1032 & plaza & 51 \\
+1033 & mancha & 51 \\
+1034 & necesitar & 51 \\
+1035 & cabrío & 51 \\
+1036 & espalda & 51 \\
+1037 & rescatar & 50 \\
+1038 & adversario & 50 \\
+1039 & preso & 50 \\
+1040 & recompensa & 50 \\
+1041 & dirigir & 50 \\
+1042 & dedo & 50 \\
+1043 & banquete & 50 \\
+1044 & circuncidar & 50 \\
+1045 & engaño & 50 \\
+1046 & simeón & 50 \\
+    \hline
+
+  \end{tabular}
   \end{centering}
-  \caption{Most common (lemmatized, non-stopword) word types in our English and
-  Spanish Bibles}
+  \end{tiny}
+  \caption{Some of the most common (lemmatized, non-stopword) word types in our
+  English and Spanish Bibles}
   \label{fig:mostcommon-en-es}
 \end{figure*}
 
