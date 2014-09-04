@@ -21,14 +21,106 @@ the available text so that the aligner can produce sensible output.
 
 Using our automatically-aligned bitext as labeled data allows us to approximate
 the task faced by an MT system trying to do lexical selection for running text,
-since we can train our classifiers for many different word types. Even using
-only the Bible, we can find a usefully large number of training examples for
-many common word types. Some of these most common words are proper names or
-exhibit only one translation in the other language, but for the most part,
-we can see with bitext that they are polysemous.
+since we can train our classifiers for many different word types. We do not
+have sufficient training data to build classifiers for every possible word, but
+this is a problem faced by NLP systems broadly.
+
+For comparison with other work, we can also run our systems on the SemEval
+shared task test sets, which are publicly available. Our task here is framed in
+the same way as the CL-WSD shared tasks from 2010 and 2013, so measuring our
+performance on these test sets will provide a straightforward comparison
+between this work, its variations, and several other CL-WSD systems from recent
+years.  These test sets are limited in scope, however, and will only
+demonstrate Chipa's performance for translating individual English nouns.
+It is also worth noting that our more immediate practical goal is to aid
+translation from Spanish into lower-resourced languages, and the resources that
+we can use to analyze an input English sentence will be different from those
+for Spanish.
+
+\section{Measuring MT Improvements}
+We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
+techniques while they are in use for lexical selection in running MT systems.
+Here we can use standard approaches for evaluating MT, such as BLEU and METEOR
+scores.
+
+For these experiments, we sample sentences from the available bitext --
+particularly ones that contain polysemous words for which we can train
+classifiers! -- and run the MT systems both with and without Chipa enabled.
+These experiments are described in more detail in
+Chapter~\ref{chap:integration}, where I also discuss how to integrate Chipa
+into machine translation software.
+
+\section{Data Sets and Preprocessing}
+%% XXX
+The largest corpus that we have available for all of the languages is the
+Bible. It has been translated into many different languages...
+
+We got the Quechua Bible from Chris Loza and Rada Mihalcea; the preparation
+of the Quechua corpus is described in Loza's masters thesis \cite{chrisloza}.
+
+\subsection{Preprocessing}
+%% XXX
+
+There's a fair amount of work in extracting the text of the verses from the
+Bible in the various formats it's distributed in...
+
+
+
+\subsection{Morphological Analysis for Guarani}
+\label{sec:guaranima}
+We analyze the Spanish and Guarani Bible using our in-house morphological
+analyzer, originally developed for Ethiopian Semitic languages 
+\cite{gasser:eacl09}.
+
+For this work, I used ParaMorfo 1.1 and AntiMorfo 1.2.
+
+As in other, more familiar, modern
+morphological analyzers such as \cite{beesley+karttunen}, analysis in our
+system is modeled by cascades of finite-state transducers (FSTs).  To solve the
+problem of long-distance dependencies, we extend the basic FST framework using
+an idea introduced by Amtrup \cite{amtrup:03}.  Amtrup starts with the
+well-understood framework of weighted FSTs, familiar from speech recognition.
+For speech recognition, FST arcs are weighted with probabilities, and a
+successful traversal of a path through a transducer results in a probability
+that is the product of the probabilities on the arcs that are traversed, as
+well as an output string as in conventional transducers.  Amtrup showed that
+probabilities could be replaced by feature structures and multiplication by
+unification.  In an FST weighted with feature structures, the result of a
+successful traversal is the unification of the feature structure ``weights'' on
+the traversed arcs, as well as an output string.  Because a feature structure
+is accumulated during the process of transduction, the transducer retains a
+sort of memory of where it has been, permitting the incorporation of
+long-distance constraints such as those relating the negative prefix and suffix
+of Guarani verbs.
+
+In our system, the output of the morphological analysis of a word is a root and
+a feature structure representing the grammatical features of the word.  We
+implemented separate FSTs for Spanish verbs, for Guarani nouns, and for the two
+main categories of Guarani verbs and adjectives.  Since Spanish nouns and
+adjectives have very few forms, we simply list the alternatives in the lexicon
+for these categories.  For this paper, we are only concerned with the roots of
+words in our corpora, so we ignore the grammatical features that are output
+with each word.
+
+\footnote{Michael Gasser's morphological analyzers for Guarani, Quechua,
+Spanish, and other languages are available at
+\url{http://www.cs.indiana.edu/~gasser/Research/software.html} }
+
+
+\section{Exploration on the Bitext}
+Even using only the Bible, we can find a usefully large number of training
+examples for many common word types. Some of these most common words are proper
+names or exhibit only one translation in the other language, but for the most
+part, we can see with bitext that they are polysemous.
 
 In Figure~\ref{fig:mostcommon-en-es}, we see the most common lemmas used in our
-Bible bitext for our languages, along with their counts. In Figure \
+Bible bitext for our languages, along with their counts. In
+Figure~\ref{fig:mostcommon-es-translations}, we see the most common lemmas from
+Spanish, along with their most likely translations into English, Guarani and
+Quechua. For the purposes of this work, we will consider words to be
+in-vocabulary if they appear at least fifty times in the training corpus.
+%% XXX: magic number. Do we need to argue about fifty? What if we went down to
+%% forty? Lower than that and this looks pretty ridiculous.
 
 \begin{figure*}
   \begin{tiny}
@@ -170,7 +262,6 @@ Bible bitext for our languages, along with their counts. In Figure \
   \label{fig:mostcommon-en-es}
 \end{figure*}
 
-
 \begin{figure*}
   \begin{centering}
   \begin{tabular}{|r|c|c|c|c|}
@@ -189,83 +280,13 @@ Bible bitext for our languages, along with their counts. In Figure \
   \label{fig:mostcommon-es-translations}
 \end{figure*}
 
-
 Using larger bitexts of course allows us to construct training and test sets
-for a broader vocabulary.
+for a broader vocabulary, however even when working with the Bible, we have
+at least fifty uses of over a thousand different lemmas, for English and
+Spanish, as we see in Figure \ref{fig:mostcommon-en-es}.
 
-For comparison with other work, we can also run our systems on the SemEval
-shared tasks...
-\cite{task10}; measuring our performance on these test sets will provide a
-clear comparison between our work, several other CL-WSD systems from the past
-few years, and the results posted by Els Lefever's ParaSense system.
-These test sets are limited in scope, however, and will only demonstrate our
-performance for translating individual polysemous English nouns, ignoring the
-problem of translating the rest of the sentence.
-
-Furthermore, our broader practical goal is to use Spanish as a source language,
-and the resources that we can use to analyze an input English sentence will be
-different from those for Spanish.
-
-We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
-techniques while they are in use for lexical selection in running MT systems.
-Here we can use standard approaches for evaluating MT, such as BLEU and METEOR
-scores.
-
-
-\section{Data Sets and Preprocessing}
-
-The largest corpus that we have available for all of the languages is the
-Bible. It has been translated into many different languages...
-
-We got the Quechua Bible from Chris Loza and Rada Mihalcea; the preparation
-of the Quechua corpus is described in Loza's masters thesis \cite{chrisloza}.
-
-\subsection{Preprocessing}
-
-\subsection{Morphological Analysis for Guarani}
-\label{sec:guaranima}
-We analyze the Spanish and Guarani Bible using our in-house morphological
-analyzer, originally developed for Ethiopian Semitic languages 
-\cite{gasser:eacl09}.
-
-For this work, I used ParaMorfo 1.1 and AntiMorfo 1.2.
-
-As in other, more familiar, modern
-morphological analyzers such as \cite{beesley+karttunen}, analysis in our
-system is modeled by cascades of finite-state transducers (FSTs).  To solve the
-problem of long-distance dependencies, we extend the basic FST framework using
-an idea introduced by Amtrup \cite{amtrup:03}.  Amtrup starts with the
-well-understood framework of weighted FSTs, familiar from speech recognition.
-For speech recognition, FST arcs are weighted with probabilities, and a
-successful traversal of a path through a transducer results in a probability
-that is the product of the probabilities on the arcs that are traversed, as
-well as an output string as in conventional transducers.  Amtrup showed that
-probabilities could be replaced by feature structures and multiplication by
-unification.  In an FST weighted with feature structures, the result of a
-successful traversal is the unification of the feature structure ``weights'' on
-the traversed arcs, as well as an output string.  Because a feature structure
-is accumulated during the process of transduction, the transducer retains a
-sort of memory of where it has been, permitting the incorporation of
-long-distance constraints such as those relating the negative prefix and suffix
-of Guarani verbs.
-
-In our system, the output of the morphological analysis of a word is a root and
-a feature structure representing the grammatical features of the word.  We
-implemented separate FSTs for Spanish verbs, for Guarani nouns, and for the two
-main categories of Guarani verbs and adjectives.  Since Spanish nouns and
-adjectives have very few forms, we simply list the alternatives in the lexicon
-for these categories.  For this paper, we are only concerned with the roots of
-words in our corpora, so we ignore the grammatical features that are output
-with each word.
-
-
-\footnote{Michael Gasser's morphological analyzers for Guarani, Quechua,
-Spanish, and other languages are available at
-\url{http://www.cs.indiana.edu/~gasser/Research/software.html} }
-
-\section{Measuring MT Improvements}
-
-
+Our text from Europarl is in a significantly different domain, as we can see by
+plotting the most common words from that bitext.
 
 \section{Baseline System}
 
