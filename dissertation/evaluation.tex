@@ -10,6 +10,7 @@ examining for the rest of the dissertation, as well as the basic version of the
 Chipa software, which will be extended in subsequent chapters.
 
 \section{Measuring CL-WSD Classification Accuracy}
+%% XXX
 One clear \emph{in vitro} approach for measuring the success of a CL-WSD system
 is to report its classification accuracy on pre-labeled data. Strictly
 speaking, we do not have pre-labeled data: our bitext does not
@@ -51,23 +52,110 @@ Chapter~\ref{chap:integration}, where I also discuss how to integrate Chipa
 into machine translation software.
 
 \section{Data Sets and Preprocessing}
-%% XXX
-The largest corpus that we have available for all of the languages is the
-Bible. It has been translated into many different languages...
+The largest corpus that we have available for all of our source and target
+languages is the Bible. There are translations available for many different
+languages, and while the translations are not always done by native speakers,
+the translators are often driven by missionary zeal to get the best possible
+translation~\cite{DBLP:journals/lre/ResnikOD99}, so we can be confident that
+our Bibles are at least fairly good examples of our under-resourced languages.
 
-We got the Quechua Bible from Chris Loza and Rada Mihalcea; the preparation
-of the Quechua corpus is described in Loza's masters thesis \cite{chrisloza}.
+Our text came from a number of different sources. For Spanish, we use the
+Reina-Valera translation (1995 edition), which we were able to scrape from a
+Bible study website.
+Our Guarani translation, \emph{Ñandejara Ñe'e} (1997 edition) was scraped from
+the same website.
+For our Quechua Bible (XXX: what's the name of the translation?) was provided
+by Chris Loza and Rada Mihalcea; the preparation of the Quechua corpus is
+described in Loza's masters thesis \cite{chrisloza}.
+For English, we use the public domain World English Bible translation, which
+seems tailor-made for exactly this sort of application.
 
 \subsection{Preprocessing}
 %% XXX
+There is a nontrivial amount of preprocessing that must be done in order to get
+our Bible text into a format usable by our tools.
+This is largely due to the various markup formats used for different
+translations in different languages. For each of the formats and translations,
+we need to understand the markup format enough to know which text comes from
+which book, chapter, and verse number. This triple uniquely identifies a
+unit of text, and verse numbers are nearly standardized across translations.
+There are a few exceptions, however: translations produced by different
+religious traditions may include different books (modern Catholic editions have
+a superset of the books found in most Protestant editions, for example), and
+slightly different chapters. Additionally, in some translations, such as our
+Guarani edition, a few verses have been combined into a single segment for a
+more natural translation.
 
-There's a fair amount of work in extracting the text of the verses from the
-Bible in the various formats it's distributed in...
+In any case, if a particular book/chapter/verse is present in two Bible
+corpora, then the two verses can safely be considered to be translations of one
+another.  Once we find the matching verses, we can build a bitext corpus
+formats amenable to the rest of our tools.
+
+Our English translation is distributed in a format called USFM (Unified
+Standard Format Markers), which is a markup language developed by a working
+group of Bible translators and used widely by the Bible-related software
+community.
+\footnote{See \url{http://paratext.org/about/usfm} for more about USFM. USFM is
+widely deployed; the website from which we scraped the Spanish and Guarani
+corpora appears to render its HTML from a USFM source. 
+There is an entire community of Bible software developers, and it has a wing
+that advocates Open Source and translations unencumbered by copyright.  One
+could delve arbitrarily deeply into the history of religious-text translators
+and their relationships with technology and copyright, but one has an NLP
+dissertation to write.}
+While there are a number of tools that consume this format, I did not find one
+that handles our particular use case of stripping metadata and simply mapping
+from verses to flat text, so I wrote a short script to parse USFM and produce
+text in an easily-alignable format.
+
+%% SECTIONGOODTOHERE
+In either case, we do lowercasing, tokenization and lemmatization on the input
+text. For lemmatization, we use Mike's morphological analyzer from Paramorfo.  
+
+For Spanish, 
+bible chopping: Spanish
+For Spanish text, we can try several different Bible translations, all of which
+are available electronically.
+We have the Traducción en Lenguaje Actual (TLA), and the Reina Valeria (1995
+edition), which were both found on the web.
+
+
+In both cases, we change them into a single standard format, which is used by
+scripts further down the pipeline.
 
 
 
-\subsection{Morphological Analysis for Guarani}
+
+
+bible chopping: Guarani
+Our Guarani text is spidered from the web. We use beautifulsoup to pull out the
+flat text from the HTML.
+
+Guarani text requires morphological analysis: we want to pick lemmas rather
+than fully inflected forms.
+
+
+bible chopping: Quechua
+
+* We have a Quechua translation of the Catholic Bible, provided by Rada's group.
+
+* We also have a pre-preprocessed version from SQUOIA group.
+
+Using MA from Mike's AntiMorfo.
+
+producing bitext
+
+We just take all the verse numbers that line up and call those matching
+sentences. Should we do some heuristic to check to see that they're about the
+same length? Probably. Moses and cdec have something like that, yeah?  
+
+
+\subsection{Morphological Analysis}
+%% XXX
 \label{sec:guaranima}
+Lemmatized with NLTK's wordnet lemmatizer.
+
+
 We analyze the Spanish and Guarani Bible using our in-house morphological
 analyzer, originally developed for Ethiopian Semitic languages 
 \cite{gasser:eacl09}.
@@ -104,10 +192,30 @@ with each word.
 
 \footnote{Michael Gasser's morphological analyzers for Guarani, Quechua,
 Spanish, and other languages are available at
-\url{http://www.cs.indiana.edu/~gasser/Research/software.html} }
+\url{http://www.cs.indiana.edu/~gasser/Research/software.html}}
 
 
-\section{Exploration on the Bitext}
+
+\subsection{Alignment}
+%% XXX
+To get one-to-many word alignments, we use the \texttt{fast\_align} tool from
+cdec \cite{dyer-EtAl:2010:Demos}, with its default settings
+\footnote{With the command given at
+\url{http://www.cdec-decoder.org/guide/fast_align.html} }
+, which runs several
+iterations of a Bayesian variant of IBM Models 1 and 2, with a prior
+encouraging diagonal alignments. During training, it tunes the parameters on
+the priors, %% XXX check up about this
+
+where each source word is aligned to 0 or more target words.
+
+Note that when working with Bible text, we use verses rather than sentences as
+the basic unit of text.
+
+
+
+\section{Exploring the Bitext}
+%% XXX
 Even using only the Bible, we can find a usefully large number of training
 examples for many common word types. Some of these most common words are proper
 names or exhibit only one translation in the other language, but for the most
@@ -275,8 +383,7 @@ in-vocabulary if they appear at least fifty times in the training corpus.
     \hline
   \end{tabular}
   \end{centering}
-  \caption{Most common (lemmatized, non-stopword) word types in our English and
-  Spanish Bibles}
+  \caption{Common Spanish word types with their associated translations.}
   \label{fig:mostcommon-es-translations}
 \end{figure*}
 
@@ -289,6 +396,7 @@ Our text from Europarl is in a significantly different domain, as we can see by
 plotting the most common words from that bitext.
 
 \section{Baseline System}
+%% XXX
 
 At its heart, the Chipa software takes in a bitext corpus and the associated
 alignments and then, on demand, trains classifiers for words types from the
@@ -334,6 +442,7 @@ programs can request CL-WSD decisions over RPC.
 \end{figure*}
 
 \section{Classification Results for the Baseline System}
+%% XXX
 
 \begin{itemize}
 \item en-es
