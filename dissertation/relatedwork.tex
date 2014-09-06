@@ -12,7 +12,12 @@ highlighted as we get to them.
 
 \section{CL-WSD \emph{in vitro}}
 Some of the related work on CL-WSD has studied the CL-WSD task in isolation, 
-without being embedded into a machine translation system as such.
+without being embedded into a machine translation system or other NLP
+application.\footnote{Such as cross-language information retrieval (CLIR);
+CL-WSD has broader applications aside from its clear use in lexical selection
+for MT. When retrieving documents in some target language based on a
+source-language query, we might want to first disambiguate the user's query
+with respect to target-language terms.}
 It is sensible to explore CL-WSD on its own for several reasons. Firstly, even
 if our motivation for developing CL-WSD is to improve machine translation
 output, from an engineering perspective, we still want to get a sense of
@@ -213,7 +218,9 @@ which the probabilities of target-language phrases are conditioned not only on
 the source-language phrase, but also on features extracted from the broader
 source-language context; their approach is ``omnivorous" in that it can include
 any number of features based on source-language analysis. They tune feature
-weights directly with MERT to produce a linear model for the contextual
+weights directly with MERT (Minimum Error Rate Training \cite{och:2003:ACL}, a
+widely used optimization technique from the SMT literature)
+to produce a linear model for the contextual
 probability of the target-language phrase. Features used here include the
 n-grams in the surrounding context, the parts of speech of the focus word and
 the surrounding context, a number of syntactic features based on a parse of
@@ -334,7 +341,7 @@ sentences in a second language but facing gaps in their vocabulary.
 
 \section{Translation into Morphologically Rich Languages}
 In Section \ref{sec:terere}, we describe a complete, if elementary, MT system
-for the Spanish-Guarani language pair. As Guarani has a very rich morphology,
+for the Spanish-Guarani language pair. Guarani has a very rich morphology,
 which we will need to predict and synthesize. As such, here we will quickly
 mention some of the work on morphological prediction and generation for
 statistical and hybrid MT systems.
@@ -372,7 +379,7 @@ improvements for both phrase-based and tree-based SMT.
 
 Chahuneau et al. have recently presented yet another method for SMT into
 morphologically rich languages \cite{chahuneau-EtAl:2013:EMNLP}. Here they
-also uses discriminative models to predict target-language inflections based on
+also use discriminative models to predict target-language inflections based on
 the available source-language annotations, but instead of inflecting the text
 after the decoder has been run, their system generates new phrase-table entries
 with the appropriate inflections included, just before the decoder executes,
