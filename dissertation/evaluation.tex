@@ -10,13 +10,12 @@ examining for the rest of the dissertation, as well as the basic version of the
 Chipa software, which will be extended in subsequent chapters.
 
 \section{Measuring CL-WSD Classification Accuracy}
-%% XXX
 One clear \emph{in vitro} approach for measuring the success of a CL-WSD system
 is to report its classification accuracy on pre-labeled data. Strictly
 speaking, we do not have pre-labeled data: our bitext does not
-come with sub-sentential alignments, but automatic word alignments will provide
+come with sub-sentential alignments. But automatic word alignments provide
 a good approximation, as long as our sentence (or verse, for Bible text)
-alignments are accurate. For the purposes of this work, we will assume that our
+alignments are accurate. For the purposes of this work, we will assume that the
 automatic alignments are correct, putting in our best effort preprocessing
 the available text so that the aligner can produce sensible output.
 
@@ -24,15 +23,15 @@ Using our automatically-aligned bitext as labeled data allows us to approximate
 the task faced by an MT system trying to do lexical selection for running text,
 since we can train our classifiers for many different word types. We do not
 have sufficient training data to build classifiers for every possible word, but
-this is a problem faced by NLP systems broadly.
+this is a problem faced by data-driven NLP systems broadly.
 
 For comparison with other work, we can also run our systems on the SemEval
 shared task test sets, which are publicly available. Our task here is framed in
-the same way as the CL-WSD shared tasks from 2010 and 2013, so measuring our
+the same way as the CL-WSD shared tasks from 2010 and 2013, so measuring
 performance on these test sets will provide a straightforward comparison
-between this work, its variations, and several other CL-WSD systems from recent
-years.  These test sets are limited in scope, however, and will only
-demonstrate Chipa's performance for translating individual English nouns.
+between the variations explored in this work and several other CL-WSD systems
+from recent years.  These test sets are limited in scope, however, and will
+only demonstrate Chipa's performance for translating individual English nouns.
 It is also worth noting that our more immediate practical goal is to aid
 translation from Spanish into lower-resourced languages, and the resources that
 we can use to analyze an input English sentence will be different from those
@@ -40,56 +39,56 @@ for Spanish.
 
 \section{Measuring MT Improvements}
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
-techniques while they are in use for lexical selection in running MT systems.
-Here we can use standard approaches for evaluating MT, such as BLEU and METEOR
-scores.
+techniques as applied to lexical selection in running MT systems.  Here we can
+use standard approaches for evaluating MT, such as BLEU and METEOR scores.
 
 For these experiments, we sample sentences from the available bitext --
 particularly ones that contain polysemous words for which we can train
 classifiers! -- and run the MT systems both with and without Chipa enabled.
 These experiments are described in more detail in
 Chapter~\ref{chap:integration}, where I also discuss how to integrate Chipa
-into machine translation software.
+into the different machine translation packages.
 
 \section{Data Sets and Preprocessing}
 The largest corpus that we have available for all of our source and target
 languages is the Bible. There are translations available for many different
-languages, and while the translations are not always done by native speakers,
+languages, and while these are not always done by native speakers,
 the translators are often driven by missionary zeal to get the best possible
 translation~\cite{DBLP:journals/lre/ResnikOD99}, so we can be confident that
-our Bibles are at least fairly good examples of our under-resourced languages.
+our Bibles are at least fairly good examples of our target languages.
 
-Our text came from a number of different sources. For Spanish, we use the
-Reina-Valera translation (1995 edition), which we were able to scrape from a
-Bible study website.
-Our Guarani translation, \emph{Ñandejara Ñe'e} (1997 edition) was scraped from
-the same website.
-For our Quechua Bible (XXX: what's the name of the translation?) was provided
-by Chris Loza and Rada Mihalcea; the preparation of the Quechua corpus is
-described in Loza's masters thesis \cite{chrisloza}.
-For English, we use the public domain World English Bible translation, which
-seems tailor-made for exactly this sort of application.
+Our corpora came from a number of different sources. For Spanish, we use the
+Reina-Valera translation (1995 edition), which I was able to scrape from a
+Bible study website. Our Guarani translation, \emph{Ñandejara Ñe'e} (1997
+edition) was scraped from the same site.  Our Quechua version (the 2004
+translation published by the Peruvian Bible Society) was provided by Chris Loza
+and Rada Mihalcea; the preparation of the Quechua corpus is described in Loza's
+masters thesis \cite{chrisloza}. For English, we use the public domain World
+English Bible translation.
+While there are a large number of translations available online, different
+``Bible societies" own the associated copyrights and thus redistribution of the
+complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 
 \subsection{Preprocessing}
 %% XXX
 There is a nontrivial amount of preprocessing that must be done in order to get
-our Bible text into a format usable by our tools.
+our Bible text into a format suitable for our tools.
 This is largely due to the various markup formats used for different
 translations in different languages. For each of the formats and translations,
-we need to understand the markup format enough to know which text comes from
+we need to understand its formatting enough to know which text comes from
 which book, chapter, and verse number. This triple uniquely identifies a
 unit of text, and verse numbers are nearly standardized across translations.
 There are a few exceptions, however: translations produced by different
-religious traditions may include different books (modern Catholic editions have
-a superset of the books found in most Protestant editions, for example), and
-slightly different chapters. Additionally, in some translations, such as our
-Guarani edition, a few verses have been combined into a single segment for a
-more natural translation.
+religious traditions may include different books (Catholic editions have
+a superset of the books found in most modern Protestant editions, for example),
+and slightly different chapters. Additionally, in some translations, such as
+our Guarani edition, a few verses have been combined into a single segment for
+a more natural translation.
 
-In any case, if a particular book/chapter/verse is present in two Bible
-corpora, then the two verses can safely be considered to be translations of one
-another.  Once we find the matching verses, we can build a bitext corpus
-formats amenable to the rest of our tools.
+In any case, if a particular book/chapter/verse is present in two Bibles, then
+the two verses can safely be considered to be translations of one
+another. Once we find all of the matching verses, we can build a bitext corpus
+suitable for use in our pipeline.
 
 Our English translation is distributed in a format called USFM (Unified
 Standard Format Markers), which is a markup language developed by a working
@@ -108,9 +107,7 @@ that handles our particular use case of stripping metadata and simply mapping
 from verses to flat text, so I wrote a short script to parse USFM and produce
 text in an easily-alignable format.
 
-%% SECTIONGOODTOHERE
-In either case, we do lowercasing, tokenization and lemmatization on the input
-text. For lemmatization, we use Mike's morphological analyzer from Paramorfo.  
+%% XXX GOODUPTOHERE
 
 For Spanish, 
 bible chopping: Spanish
@@ -119,29 +116,14 @@ are available electronically.
 We have the Traducción en Lenguaje Actual (TLA), and the Reina Valeria (1995
 edition), which were both found on the web.
 
-
-In both cases, we change them into a single standard format, which is used by
-scripts further down the pipeline.
-
-
-
-
-
-bible chopping: Guarani
 Our Guarani text is spidered from the web. We use beautifulsoup to pull out the
 flat text from the HTML.
 
-Guarani text requires morphological analysis: we want to pick lemmas rather
-than fully inflected forms.
-
-
 bible chopping: Quechua
-
 * We have a Quechua translation of the Catholic Bible, provided by Rada's group.
 
 * We also have a pre-preprocessed version from SQUOIA group.
 
-Using MA from Mike's AntiMorfo.
 
 producing bitext
 
@@ -149,11 +131,18 @@ We just take all the verse numbers that line up and call those matching
 sentences. Should we do some heuristic to check to see that they're about the
 same length? Probably. Moses and cdec have something like that, yeah?  
 
-
 \subsection{Morphological Analysis}
 %% XXX
 \label{sec:guaranima}
 Lemmatized with NLTK's wordnet lemmatizer.
+
+
+In either case, we do lowercasing, tokenization and lemmatization on the input
+text. For lemmatization, we use Mike's morphological analyzer from Paramorfo.  
+
+Guarani text requires morphological analysis: we want to pick lemmas rather
+than fully inflected forms.
+
 
 
 We analyze the Spanish and Guarani Bible using our in-house morphological
@@ -161,6 +150,8 @@ analyzer, originally developed for Ethiopian Semitic languages
 \cite{gasser:eacl09}.
 
 For this work, I used ParaMorfo 1.1 and AntiMorfo 1.2.
+
+Using MA from Mike's AntiMorfo.
 
 As in other, more familiar, modern
 morphological analyzers such as \cite{beesley+karttunen}, analysis in our
@@ -430,10 +421,12 @@ programs can request CL-WSD decisions over RPC.
   \begin{centering}
   \begin{tabular}{|r|c|}
     \hline
-    name      & description  \\
+    name          & description  \\
     \hline
-    what      & what is this \\
-    no really & please tell me \\
+    \texttt{bagofwords}    & a binary feature for each lemma present in the source sentence \\
+    \texttt{bagofsurface}  & like \texttt{bagofwords}, but with surface forms \\
+    \texttt{window}       & a binary feature for each of the lemmas in the immediately surrounding three-word context window \\
+    \texttt{surfacewindow} & like \texttt{window}, but with surface forms \\
     \hline
   \end{tabular}
   \end{centering}
