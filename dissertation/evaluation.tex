@@ -70,7 +70,6 @@ While there are a large number of translations available online, different
 complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 
 \subsection{Preprocessing}
-%% XXX
 There is a nontrivial amount of preprocessing that must be done in order to get
 our Bible text into a format suitable for our tools.
 This is largely due to the various markup formats used for different
@@ -107,35 +106,36 @@ that handles our particular use case of stripping metadata and simply mapping
 from verses to flat text, so I wrote a short script to parse USFM and produce
 text in an easily-alignable format.
 
-%% XXX GOODUPTOHERE
+Our Spanish and Guarani corpora are extracted from HTML pages scraped from an
+online Bible study website. In practice, the scraping was done by predicting
+the URLs for each chapter of each book and requesting those URLs
+programmatically. We then extract the text from the saved HTML pages with a
+Python script and the BeautifulSoup library for HTML parsing (XXX cite
+beautifulsoup). As a side note, since websites change over time and we
+downloaded the Guarani translation at an earlier date (from a mobile version of
+the site that is no longer available), the HTML takes a significantly different
+structure in the Spanish and Guarani editions, so they require different
+versions of the script for preprocessing.
 
-For Spanish, 
-bible chopping: Spanish
-For Spanish text, we can try several different Bible translations, all of which
-are available electronically.
-We have the Traducción en Lenguaje Actual (TLA), and the Reina Valeria (1995
-edition), which were both found on the web.
+Our Quechua translation came in a straightforward format, with individual
+verses already identified and ready for alignment.
 
-Our Guarani text is spidered from the web. We use beautifulsoup to pull out the
-flat text from the HTML.
+Each of the different formatting schemes uses its own coding to identify the
+different books of the Bible, so when producing output for alignment, we must
+map to a standard encoding. For example, our Quechua edition marks the book of
+Lamentations with the numerical code $31$ (it is the thirty-first book in
+modern Catholic editions), but in the USFM markup for the English translation,
+we find a header with the string ``Lamentations". For our Spanish and Quechua
+editions from the web, we find the code ``LAM" in the markup. In any case, all
+of these encodings are mapped to a single code ``Lam", so that we can match
+books, chapters and verses across translations.
 
-bible chopping: Quechua
-* We have a Quechua translation of the Catholic Bible, provided by Rada's group.
-
-* We also have a pre-preprocessed version from SQUOIA group.
-
-
-producing bitext
-
-We just take all the verse numbers that line up and call those matching
-sentences. Should we do some heuristic to check to see that they're about the
-same length? Probably. Moses and cdec have something like that, yeah?  
+%% GOODUPTOHERE
 
 \subsection{Morphological Analysis}
 %% XXX
 \label{sec:guaranima}
 Lemmatized with NLTK's wordnet lemmatizer.
-
 
 In either case, we do lowercasing, tokenization and lemmatization on the input
 text. For lemmatization, we use Mike's morphological analyzer from Paramorfo.  
