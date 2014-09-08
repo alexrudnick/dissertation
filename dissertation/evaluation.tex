@@ -130,62 +130,46 @@ editions from the web, we find the code ``LAM" in the markup. In any case, all
 of these encodings are mapped to a single code ``Lam", so that we can match
 books, chapters and verses across translations.
 
-%% GOODUPTOHERE
-
 \subsection{Morphological Analysis}
-%% XXX
 \label{sec:guaranima}
-Lemmatized with NLTK's wordnet lemmatizer.
 
-In either case, we do lowercasing, tokenization and lemmatization on the input
-text. For lemmatization, we use Mike's morphological analyzer from Paramorfo.  
+For each of our languages, after tokenizing, lowercasing and verse-alignment,
+we extract the lemmas (citation forms) for both source and target languages.
+Especially when working with smaller data sets, this is an important step;
+working primarily with lemmas rather than surface-form words allows us to
+group, for example, the plural form of a word with the singular.
 
-Guarani text requires morphological analysis: we want to pick lemmas rather
-than fully inflected forms.
+For English, we use the WordNet lemmatizer, coupled with the default NLTK
+part-of-speech tagger. This maps any word type found in WordNet to its citation
+form; if a word is not found, or is not a noun, verb, or adjective, we simply
+return its surface form.
 
+We analyze the other three languages with Michael Gasser's ParaMorfo and
+AntiMorfo analyzers.\footnote{Morphology software for Guarani, Quechua,
+Spanish, and other languages is available at
+\url{http://www.cs.indiana.edu/~gasser/Research/software.html}} Spanish and
+Guarani are analyzed with ParaMorfo 1.1, and Quechua with AntiMorfo 1.2. These
+packages are based on software that Gasser originally developed for Ethiopian
+Semitic languages \cite{gasser:eacl09}, and use cascades of finite-state
+transducers (FSTs), which is a common approach in morphological analysis
+\cite{beesley+karttunen}. This software uses weighted FSTs to handle
+long-distance dependencies between morphemes, but rather than having weights
+correspond to probabilities to be combined with multiplication, these FSTs are
+weighted with feature structures that are combined via unification.  This
+approach was originally introduced by Amtrup \cite{amtrup:03}. In an FST
+weighted with feature structures, the result of a successful traversal is the
+unification of the feature structure ``weights'' on the traversed arcs, as well
+as an output string. Because a feature structure is accumulated during the
+process of transduction, the transducer retains a memory of where it has been,
+permitting the incorporation of long-distance constraints such as those
+relating the negative prefix and suffix of Guarani verbs.
 
+Here the output of the morphological analysis of a word is a root and a feature
+structure representing the grammatical features of the word.  For the basic
+version of Chipa, we are only concerned with the lemmatized forms of the words
+in our corpora, so we ignore the grammatical features for now.
 
-We analyze the Spanish and Guarani Bible using our in-house morphological
-analyzer, originally developed for Ethiopian Semitic languages 
-\cite{gasser:eacl09}.
-
-For this work, I used ParaMorfo 1.1 and AntiMorfo 1.2.
-
-Using MA from Mike's AntiMorfo.
-
-As in other, more familiar, modern
-morphological analyzers such as \cite{beesley+karttunen}, analysis in our
-system is modeled by cascades of finite-state transducers (FSTs).  To solve the
-problem of long-distance dependencies, we extend the basic FST framework using
-an idea introduced by Amtrup \cite{amtrup:03}.  Amtrup starts with the
-well-understood framework of weighted FSTs, familiar from speech recognition.
-For speech recognition, FST arcs are weighted with probabilities, and a
-successful traversal of a path through a transducer results in a probability
-that is the product of the probabilities on the arcs that are traversed, as
-well as an output string as in conventional transducers.  Amtrup showed that
-probabilities could be replaced by feature structures and multiplication by
-unification.  In an FST weighted with feature structures, the result of a
-successful traversal is the unification of the feature structure ``weights'' on
-the traversed arcs, as well as an output string.  Because a feature structure
-is accumulated during the process of transduction, the transducer retains a
-sort of memory of where it has been, permitting the incorporation of
-long-distance constraints such as those relating the negative prefix and suffix
-of Guarani verbs.
-
-In our system, the output of the morphological analysis of a word is a root and
-a feature structure representing the grammatical features of the word.  We
-implemented separate FSTs for Spanish verbs, for Guarani nouns, and for the two
-main categories of Guarani verbs and adjectives.  Since Spanish nouns and
-adjectives have very few forms, we simply list the alternatives in the lexicon
-for these categories.  For this paper, we are only concerned with the roots of
-words in our corpora, so we ignore the grammatical features that are output
-with each word.
-
-\footnote{Michael Gasser's morphological analyzers for Guarani, Quechua,
-Spanish, and other languages are available at
-\url{http://www.cs.indiana.edu/~gasser/Research/software.html}}
-
-
+%% GOODUPTOHERE
 
 \subsection{Alignment}
 %% XXX
