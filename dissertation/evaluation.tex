@@ -169,26 +169,21 @@ structure representing the grammatical features of the word.  For the basic
 version of Chipa, we are only concerned with the lemmatized forms of the words
 in our corpora, so we ignore the grammatical features for now.
 
-%% GOODUPTOHERE
-
 \subsection{Alignment}
-%% XXX
-To get one-to-many word alignments, we use the \texttt{fast\_align} tool from
-cdec \cite{dyer-EtAl:2010:Demos}, with its default settings
-\footnote{With the command given at
-\url{http://www.cdec-decoder.org/guide/fast_align.html} }
-, which runs several
-iterations of a Bayesian variant of IBM Models 1 and 2, with a prior
-encouraging diagonal alignments. During training, it tunes the parameters on
-the priors, %% XXX check up about this
+Having tokenized, lowercased, lemmatized, and verse-aligned our corpora, we
+are ready to extract word-level alignments.
+For this we use the \texttt{fast\_align} tool from cdec
+\cite{dyer-EtAl:2010:Demos}, with its default settings\footnote{With the
+command given at \url{http://www.cdec-decoder.org/guide/fast_align.html}} and
+the lemmatized text as input.
+\texttt{fast\_align} runs several iterations of a variant of IBM
+Models 1 and 2, with a prior encouraging diagonal alignments. While running, it
+tunes the parameters on the priors, and having learned a translation model,
+outputs the single most likely one-to-many word alignments, such that each
+source language token is linked with zero or more target-language tokens in the
+corresponding verse.
 
-where each source word is aligned to 0 or more target words.
-
-Note that when working with Bible text, we use verses rather than sentences as
-the basic unit of text.
-
-
-
+%% GOODUPTOHERE
 \section{Exploring the Bitext}
 %% XXX
 Even using only the Bible, we can find a usefully large number of training
