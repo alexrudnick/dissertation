@@ -183,6 +183,9 @@ outputs the single most likely one-to-many word alignments, such that each
 source language token is linked with zero or more target-language tokens in the
 corresponding verse.
 
+%% XXX: it would be cool to have an example alignment here, maybe a word
+%% aligned to a multi-word expression
+
 \section{Exploring the Bitext}
 Even using only the Bible as bitext, we can find a substantial number of
 training examples for many common word types. Some of these most common words
@@ -382,32 +385,31 @@ words already present. However even when working with the Bible, we
 have at least fifty uses of over a thousand different lemmas, for English and
 Spanish, as shown in Figure \ref{fig:mostcommon-en-es}.
 
-%% GOODUPTOHERE
-
-Our text from Europarl is in a significantly different domain, as we can see by
-plotting the most common words from that bitext.
-%% XXX: do we want to include the stats for Europarl here too?
+%% XXX: do we want to include the stats for Europarl here too? Probably put
+%% that in the monolingual and multilingual chapters.
 
 \section{Baseline System}
-%% XXX:SECTIONNEEDSWORK
+At its heart, the Chipa software takes in a bitext corpus, the associated
+automatic alignments, and optionally other annotations, and then, trains CL-WSD
+classifiers for word types from the source language on demand. 
 
-At its heart, the Chipa software takes in a bitext corpus and the associated
-alignments and then, on demand, trains classifiers for words types from the
-source language in order to determine their translations.
-
-The software holds all of the available bitext in memory, retrieving the
-relevant training sentences as necessary.
-If a source word has been seen with multiple different translations, then a
-classifier will be trained for it. If it has been seen aligned to only one
-target-language type, then this is simply noted, and if the source word is not
-present in the training data, then that word is marked out-of-vocabulary.
-
-%% XXX: it would be cool to have an example alignment here, maybe a word
-%% aligned to a multi-word expression
+The software holds all of the available bitext in memory. On request, it
+retrieves the relevant training sentences for the word we want to disambiguate,
+finds the instances of the word and its aligned translations, and extracts
+features (see Figure~\ref{fig:baselinefeatures}) from the source side to
+produce the training set for that classifier.  If it has been seen aligned to
+only one target-language type, then this is simply noted, and if the source
+word is not present in the training data, then that word is marked
+out-of-vocabulary. In these latter two cases, we skip building a classifier for
+that word, since there is no ambiguity present in our examples.
 
 Classifiers are trained with the scikit-learn machine learning toolkit
 \cite{scikit-learn} for Python and its associated NLTK interface, though in
 earlier versions, we used megam \cite{daume04cg-bfgs}, also through NLTK.
+By default, we use Logistic Regression classifiers (also known as Maximum
+Entropy), with the default settings, and the regularization parameter set to
+$C=0.1$ to discourage overfitting.
+%% XXX: try it with a few different settings!
 
 Since source-language tokens may be NULL-aligned (i.e., not all words in the
 source text will have corresponding words in the target text), both in the
@@ -415,9 +417,9 @@ training data and in translations, we allow users to request classifiers that
 consider NULL as a valid label for classification, or not, as appropriate for
 the application. We report classification accuracies for both settings.
 
-Memory permitting, these classifiers and annotations are kept cached for later
-usage. Chipa can also be run as a server, providing an interface whereby client
-programs can request CL-WSD decisions over RPC.
+Memory permitting, these classifiers are kept cached for later usage. Chipa can
+also be run as a server, providing an interface whereby client programs can
+request CL-WSD decisions over RPC.
 
 \begin{figure*}
   \begin{centering}
@@ -425,7 +427,7 @@ programs can request CL-WSD decisions over RPC.
     \hline
     name          & description  \\
     \hline
-    \texttt{bagofwords}    & a binary feature for each lemma present in the source sentence \\
+    \texttt{bagofwords}    & a feature counting each lemma in the source sentence \\
     \texttt{bagofsurface}  & like \texttt{bagofwords}, but with surface forms \\
     \texttt{window}       & a binary feature for each of the lemmas in the immediately surrounding three-word context window \\
     \texttt{surfacewindow} & like \texttt{window}, but with surface forms \\
@@ -437,7 +439,8 @@ programs can request CL-WSD decisions over RPC.
 \end{figure*}
 
 \section{Classification Results for the Baseline System}
-%% XXX
+%% XXX SECTIONNEEDSWORK
+%% GOODUPTOHERE
 
 \begin{itemize}
 \item en-es
