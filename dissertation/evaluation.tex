@@ -183,16 +183,15 @@ outputs the single most likely one-to-many word alignments, such that each
 source language token is linked with zero or more target-language tokens in the
 corresponding verse.
 
-%% GOODUPTOHERE
 \section{Exploring the Bitext}
-%% XXX
-Even using only the Bible, we can find a usefully large number of training
-examples for many common word types. Some of these most common words are proper
-names or exhibit only one translation in the other language, but for the most
-part, we can see with bitext that they are polysemous.
+Even using only the Bible as bitext, we can find a substantial number of
+training examples for many common word types. Some of these most common words
+in the text are proper names or exhibit only one translation in the target
+language, but for the most part we see, through the aligned bitext, that
+the most common words are polysemous.
 
-In Figure~\ref{fig:mostcommon-en-es}, we see the most common lemmas used in our
-Bible bitext for our languages, along with their counts. In
+Figure~\ref{fig:mostcommon-en-es} gives the most common lemmas used in our
+corpus for the four languages, along with their counts. In
 Figure~\ref{fig:mostcommon-es-translations}, we see the most common lemmas from
 Spanish, along with their most likely translations into English, Guarani and
 Quechua. For the purposes of this work, we will consider words to be
@@ -353,20 +352,44 @@ in-vocabulary if they appear at least fifty times in the training corpus.
     \hline
   \end{tabular}
   \end{centering}
+  %% XXX: fill this table in
   \caption{Common Spanish word types with their associated translations.}
   \label{fig:mostcommon-es-translations}
 \end{figure*}
 
-Using larger bitexts of course allows us to construct training and test sets
-for a broader vocabulary, however even when working with the Bible, we have
-at least fifty uses of over a thousand different lemmas, for English and
-Spanish, as we see in Figure \ref{fig:mostcommon-en-es}.
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|c|c|c|c|}
+    \hline
+    rank & word type (es) & entropy (en) & entropy (gn) & entropy (qu) \\
+    \hline
+    1    & dios   & 3 bits  &  &  \\
+    2    & pelear & 15 bits &  &  \\
+    \multicolumn{5}{|c|}{...} \\ 
+    500 &  & & & \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  %% XXX: fill this table in
+  \caption{Common Spanish word types and the entropy, in bits, faced by a
+  system that must choose among the possible alternatives} 
+  \label{fig:mostcommon-es-entropy}
+\end{figure*}
+
+Using larger bitexts of course will allow us to construct training and test
+sets for a broader vocabulary, and with better statistical support for the
+words already present. However even when working with the Bible, we
+have at least fifty uses of over a thousand different lemmas, for English and
+Spanish, as shown in Figure \ref{fig:mostcommon-en-es}.
+
+%% GOODUPTOHERE
 
 Our text from Europarl is in a significantly different domain, as we can see by
 plotting the most common words from that bitext.
+%% XXX: do we want to include the stats for Europarl here too?
 
 \section{Baseline System}
-%% XXX
+%% XXX:SECTIONNEEDSWORK
 
 At its heart, the Chipa software takes in a bitext corpus and the associated
 alignments and then, on demand, trains classifiers for words types from the
