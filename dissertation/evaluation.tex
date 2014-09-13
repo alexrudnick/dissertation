@@ -85,9 +85,9 @@ our Guarani edition, a few verses have been combined into a single segment for
 a more natural translation.
 
 In any case, if a particular book/chapter/verse is present in two Bibles, then
-the two verses can safely be considered to be translations of one
-another. Once we find all of the matching verses, we can build a bitext corpus
-suitable for use in our pipeline.
+the two verses are very likely translations of one another. Once we find all of
+the matching verses, we can build a bitext corpus suitable for use in our
+pipeline.
 
 Our English translation is distributed in a format called USFM (Unified
 Standard Format Markers), which is a markup language developed by a working
@@ -171,8 +171,16 @@ version of Chipa, we are only concerned with the lemmatized forms of the words
 in our corpora, so we ignore the grammatical features for now.
 
 \subsection{Alignment}
-Having tokenized, lowercased, lemmatized, and verse-aligned our corpora, we
-are ready to extract word-level alignments.
+As a precaution against verses that are not close translations, or perhaps have
+combined several parts of the text together into one verse on only one side, we
+run the cdec filtering tool (\texttt{filter-length.pl}) with its default
+settings, which checks for unusual length disparities in the bitext. This ends
+up removing roughly 7\% of the verses, but manual inspection shows that these
+are often very loose translations, or that additional material is present on
+one side.
+
+Having tokenized, lowercased, verse-aligned and lemmatized, our corpora, we are
+ready to extract word-level alignments.
 For this we use the \texttt{fast\_align} tool from cdec
 \cite{dyer-EtAl:2010:Demos}, with its default settings\footnote{With the
 command given at \url{http://www.cdec-decoder.org/guide/fast_align.html}} and
@@ -193,13 +201,23 @@ training examples for many common word types. Some of these most common words
 in the text are proper names or exhibit only one translation in the target
 language, but for the most part we see, through the aligned bitext, that
 the most common words are polysemous.
+To take a few salient examples from the Spanish-English aligned text,
+the verb \emph{hacer} can translate in a number of different ways: 'do',
+'make', 'cause'; for \emph{decir}, we must choose between 'say', 'tell' or
+'speak'; \emph{mujer} can mean either 'wife' or 'woman'; and \emph{reina} can
+translate to 'reign' or 'queen'.  
+
+There are analogous lexical ambiguities when translating from Spanish to
+Guarani and Quechua. %% XXX
 
 Figure~\ref{fig:mostcommon-en-es} gives the most common lemmas used in our
 corpus for the four languages, along with their counts. In
 Figure~\ref{fig:mostcommon-es-translations}, we see the most common lemmas from
 Spanish, along with their most likely translations into English, Guarani and
 Quechua. For the purposes of this work, we will consider words to be
-in-vocabulary if they appear at least fifty times in the training corpus.
+in-vocabulary if they appear at least fifty times in the training corpus; we
+also do not include punctuation marks and stopwords (as defined by the default
+NLTK stopword lists for English and Spanish) other than common verbs.
 %% XXX: magic number. Do we need to argue about fifty? What if we went down to
 %% forty? Lower than that and this looks pretty ridiculous.
 
@@ -210,64 +228,56 @@ in-vocabulary if they appear at least fifty times in the training corpus.
     \hline
     rank & word type & count \\
     \hline
-1 & say & 6992 \\
-2 & yahweh & 6833 \\
-3 & shall & 4802 \\
-4 & god & 4340 \\
-5 & come & 3820 \\
-6 & son & 3490 \\
-7 & go & 3198 \\
-8 & king & 2875 \\
-9 & one & 2700 \\
-10 & israel & 2581 \\
-11 & make & 2520 \\
-12 & day & 2373 \\
-13 & man & 2332 \\
-14 & people & 2149 \\
-15 & house & 2130 \\
-16 & give & 2115 \\
-17 & child & 1981 \\
-18 & take & 1938 \\
-19 & father & 1913 \\
-20 & hand & 1874 \\
-21 & land & 1818 \\
-22 & men & 1615 \\
-23 & also & 1556 \\
-24 & let & 1508 \\
-25 & thing & 1479 \\
-26 & bring & 1467 \\
-27 & lord & 1434 \\
-28 & us & 1407 \\
-29 & know & 1401 \\
-30 & may & 1351 \\
-31 & behold & 1342 \\
-32 & therefore & 1310 \\
-33 & city & 1288 \\
-34 & speak & 1271 \\
-35 & word & 1261 \\
-36 & like & 1179 \\
-37 & even & 1177 \\
-38 & servant & 1129 \\
-39 & name & 1117 \\
-40 & see & 1106 \\
-    \multicolumn{3}{|c|}{...} \\ 
-1029 & preserve & 50 \\
-1030 & calf & 50 \\
-1031 & prey & 50 \\
-1032 & blue & 50 \\
-1033 & ephod & 50 \\
-1034 & repent & 50 \\
-1035 & hearing & 50 \\
-1036 & basket & 50 \\
-1037 & circumcise & 50 \\
-1038 & veil & 50 \\
-1039 & weak & 50 \\
-1040 & scripture & 50 \\
-1041 & milk & 50 \\
-1042 & ought & 50 \\
-1043 & wheat & 50 \\
-1044 & justify & 50 \\
-1045 & engrave & 50 \\
+1 & be & 23542 \\
+2 & have & 9389 \\
+3 & say & 6664 \\
+4 & yahweh & 6508 \\
+5 & shall & 4413 \\
+6 & god & 4112 \\
+7 & come & 3603 \\
+8 & son & 3303 \\
+9 & go & 2985 \\
+10 & do & 2799 \\
+11 & king & 2744 \\
+12 & one & 2547 \\
+13 & israel & 2476 \\
+14 & make & 2349 \\
+15 & day & 2246 \\
+16 & man & 2190 \\
+17 & people & 2052 \\
+18 & house & 2050 \\
+19 & give & 1997 \\
+20 & child & 1902 \\
+21 & take & 1843 \\
+22 & hand & 1793 \\
+23 & father & 1782 \\
+24 & land & 1758 \\
+25 & men & 1518 \\
+26 & also & 1456 \\
+27 & let & 1386 \\
+28 & bring & 1384 \\
+29 & thing & 1375 \\
+30 & lord & 1374 \\
+31 & know & 1328 \\
+32 & us & 1326 \\
+33 & may & 1290 \\
+34 & behold & 1289 \\
+35 & city & 1233 \\
+36 & therefore & 1220 \\
+37 & word & 1195 \\
+38 & speak & 1187 \\
+39 & even & 1107 \\
+40 & like & 1106 \\
+41 & servant & 1073 \\
+42 & name & 1060 \\
+43 & see & 1037 \\
+44 & offering & 1000 \\
+45 & away & 1000 \\
+46 & place & 993 \\
+47 & david & 992 \\
+48 & great & 936 \\
+49 & among & 932 \\
+50 & jesus & 930 \\
     \hline
   \end{tabular}
   \quad
@@ -275,66 +285,57 @@ in-vocabulary if they appear at least fifty times in the training corpus.
     \hline
     rank & word type & count \\
     \hline
-1 & ser & 8994 \\
-2 & haber & 8812 \\
-3 & jehová & 6839 \\
-4 & decir & 6324 \\
-5 & hijo & 5136 \\
-6 & dios & 4399 \\
-7 & hacer & 4092 \\
-8 & tierra & 2944 \\
-9 & rey & 2807 \\
-10 & hombre & 2554 \\
-11 & israel & 2549 \\
-12 & tener & 2411 \\
-13 & día & 2263 \\
-14 & dar & 2197 \\
-15 & casa & 2145 \\
-16 & entonces & 2138 \\
-17 & ir/ser & 2110 \\
-18 & pues & 2038 \\
-19 & pueblo & 2007 \\
-20 & si & 1804 \\
-21 & vosotros & 1709 \\
-22 & así & 1692 \\
-23 & mano & 1606 \\
-24 & padre & 1587 \\
-25 & señor & 1478 \\
-26 & delante & 1360 \\
-27 & ver & 1326 \\
-28 & ciudad & 1317 \\
-29 & poner & 1316 \\
-30 & palabra & 1246 \\
-31 & venir & 1244 \\
-32 & tomar & 1150 \\
-33 & david & 1045 \\
-34 & cosa & 1044 \\
-35 & responder & 1024 \\
-36 & mujer & 1010 \\
-37 & volver & 1009 \\
-38 & poder & 1005 \\
-39 & ir & 985 \\
-40 & grande & 965 \\
-    \multicolumn{3}{|c|}{...} \\ 
-1030 & parábola & 51 \\
-1031 & tropezar & 51 \\
-1032 & plaza & 51 \\
-1033 & mancha & 51 \\
-1034 & necesitar & 51 \\
-1035 & cabrío & 51 \\
-1036 & espalda & 51 \\
-1037 & rescatar & 50 \\
-1038 & adversario & 50 \\
-1039 & preso & 50 \\
-1040 & recompensa & 50 \\
-1041 & dirigir & 50 \\
-1042 & dedo & 50 \\
-1043 & banquete & 50 \\
-1044 & circuncidar & 50 \\
-1045 & engaño & 50 \\
-1046 & simeón & 50 \\
+1 & ser & 8436 \\
+2 & haber & 8418 \\
+3 & jehová & 6515 \\
+4 & decir & 6006 \\
+5 & hijo & 4955 \\
+6 & dios & 4164 \\
+7 & estar & 3925 \\
+8 & hacer & 3872 \\
+9 & tierra & 2832 \\
+10 & rey & 2676 \\
+11 & israel & 2445 \\
+12 & hombre & 2418 \\
+13 & tener & 2276 \\
+14 & día & 2146 \\
+15 & casa & 2056 \\
+16 & dar & 2053 \\
+17 & entonces & 2026 \\
+18 & ir/ser & 1967 \\
+19 & pueblo & 1918 \\
+20 & pues & 1909 \\
+21 & si & 1690 \\
+22 & vosotros & 1623 \\
+23 & así & 1597 \\
+24 & mano & 1535 \\
+25 & padre & 1521 \\
+26 & señor & 1411 \\
+27 & delante & 1292 \\
+28 & ciudad & 1259 \\
+29 & ver & 1241 \\
+30 & poner & 1238 \\
+31 & venir & 1182 \\
+32 & palabra & 1178 \\
+33 & tomar & 1105 \\
+34 & cosa & 992 \\
+35 & david & 976 \\
+36 & responder & 957 \\
+37 & mujer & 950 \\
+38 & volver & 944 \\
+39 & poder & 939 \\
+40 & grande & 926 \\
+41 & hermano & 912 \\
+42 & ir & 904 \\
+43 & corazón & 883 \\
+44 & sacerdote & 873 \\
+45 & lugar & 868 \\
+46 & nombre & 867 \\
+47 & salir & 833 \\
+48 & sino & 831 \\
+49 & hablar & 829 \\
+50 & año & 823 \\
     \hline
-
   \end{tabular}
   \end{centering}
   \end{tiny}
@@ -344,20 +345,71 @@ in-vocabulary if they appear at least fifty times in the training corpus.
 \end{figure*}
 
 \begin{figure*}
+  \begin{tiny}
   \begin{centering}
-  \begin{tabular}{|r|c|c|c|c|}
+  \begin{tabular}{|r|p{4.2cm}|p{4.2cm}|p{4.2cm}|}
     \hline
-    rank & word type (es) & translations (en) & translations (gn) & translations (qu) \\
+    es & translations (en)                    & translations (gn) & translations (qu) \\
     \hline
-    1    & dios   &  god, the management, the lord & guarani & quechua \\
-    2    & pelear &  hit, smack, smite             & guarani & quechua \\
-    \multicolumn{5}{|c|}{...} \\ 
-    500 &  & & & \\
+ser & be,  will be, it be, shall be              &   hína, niko, mba'e, ramo                                                              &  ka, kanqa, chayqa, kanki \\
+haber & have,  there, i have, i                  &   vaekue, {\textlangle}hague, che, {\textlangle}ha'e                                   &  qan, chay, ma/mana, ni \\
+%jehová & yahweh,  yahweh s, to, s                &  ñandejára,  jára, tupã, opa/pa                                                        & señor,  señor diosqa, señor diosmi, señor diospa \\
+decir & say,  tell, speak, say to                &  'e,  'e ha'e, ha'e, 'e/ha'e                                                           &  ni, chaymi, hina/hinan, ni/nina/ninaku \\
+dios & god,  lord, gods, yahweh                  &  tupã,  jára, momba'e, tupã jára                                                       &  diospa, diosqa, dios, diosmi \\
+estar & be,  stand, now, behold                  &   \~{i}{i}, ime, hína, iko/ko                                                          &  ka/kasha, kasha, ka, kaq \\
+hacer &  do, make, cause, he                     &   {\textlangle}japo, mba'e, haguã, japouka                                             &  ruwa, chay, ruwa/ruway, ruwa/ruwana \\
+tierra & land, earth, ground,  country           &   yvy, {\textlangle}hetã, ko yvy, yvy ári                                              &  suyu, hallp'a, ka/kay pacha \\ %% , ka/kay \\
+ir/ser & be,  go, come, depart                   &   ha, vaekue, upe, kuéra                                                               &  karqan, ri, ripu, hina/hinan \\
+pueblo & people, among,  nation, multitude       &   {\textlangle}hetã, {\textlangle}hetã gua, opavave, israelgua                         & llaqta,  runa, llaq/llaqta, israel runa \\
+pues &  for, therefore, so, then                 &   upe, niko, aipórõ, che                                                               &  chay, chaymi, chay hinaqa, chhaynaqa \\
+si & if,  if you, but if, whether                &  ramo,  rire, ime, pende                                                               &  chayqa, ma/mana, chaypas, icha \\
+así &  so, thus, this, therefore                 &   upe, péicha, kóicha, avei                                                            &  chay, ahi/ahina, chay hina, hina \\
+%%padre & father,  parent, his father, father s    &  ru,  ru ypy, ypy, vaekue                                                              & tayta,  yaya, ñawpa tayta, tayta/taytay \\
+padre & father,  parent, his father              &  ru,  ru ypy, ypy, vaekue                                                              & tayta,  yaya, ñawpa tayta, tayta/taytay \\
+señor & lord, master,  sir, ruler                &  ñandejára,  jára, karai, che jára                                                     &  señor, apu, señorpa, señorníy \\
+poner &  put, set, lay, make                     &   mo\~{i}{i}/\~{i}{i}, mo\~{i}{i}, mo\~{i}{i}/ñemo\~{i}{i}/\~{i}{i}, upéi              &  chura, hina, hinaspa, chay \\
+%venir & come,  will come, behold, will           &   ju, guah\~{i}{i}{e}, aju/ju, rendápe                                                 &  hamu, chaya/chayamu, hamu/hamuq, chaya \\
+%tomar & take,  shall take, took, he take         &   raha, momba'e, {\textlangle}hupi, japyhy                                             &  hap'i, hina, hina/hinan, apa \\
+%responder & answer,  say, then, but              &  'e,  'e ha'e, katu, katu 'e                                                           &  kuti/kutichi, ni, chaymi, hina/hinan \\
+mujer & woman, wife,  a wife, a woman            &  kuña, {\textlangle}hembireko,  menda, kuñakarai                                       & warmi,  war, warmi/warmiy, qhari \\
+volver & return,  turn, again, back              &   jey, jeýta, ju jey, jere                                                             &  kutipu, wakmanta, kuti, kuti/kutimu \\
+poder & can,  power, able, could                 &  katu,  pu'aka, ndaikatu, mbarete                                                      &  ati, ati/atiy, ma/mana, atiyniyoq \\
+ir & go,  come, will, let                        &   ha, s\~{i}{i}{e}, ha ha, {\textlangle}hasa                                           &  ri, ripu, ri/rina, ri/risa \\
+%% lugar & place,  instead, in, place where         &   {\textlangle}henda, {\textlangle}hendague/{\textlangle}hendaguépe/hendague, {\textlangle}henda/ha'e, {\textlangle}hendague/{\textlangle}hendaguépe/rendague  &  ranti, cheqasta, ma, cheqasman \\
+salir & go out, come out,  out, go               &  s\~{i}{i}{e},  upe, ha, s\~{i}{i}{e} okápe                                            &  ri, lloqsispa, puriri, hina/hinan \\
+%siervo & servant,  slave, male servant, young    &  {\textlangle}hembiguái,  mburuvicha, che, {\textlangle}huvicha                        &  kamachi, kama/kamachi, kama/kamachi/kamachiy, kama \\
+judá & judah, jew,  belongs, of judah            &  judá, judagua,  judápe, judágui                                                       & judá, judá suyu,  judapi, judá ayllu \\
+mismo &  same, himself, own, myself              &   voi, avei, upe, pete\~{i}{i}                                                         &  kikin, kaq, chay, hina/hinalla \\
+% oír & hear, heard, listen,  when                 &  {\textlangle}hendu,  kuaa, {\textlangle}hendu/ndu, japysaka                           & uyari,  uya, uyari/uyarina, uyari/uyariqkuna \\
+llevar & bring,  carry, take, bear               &  raha,  {\textlangle}hupi, raha hikuái, hikuái                                         &  apa, pusa, apa/apamu, apari/apariku \\
+% hecho & do,  make, done, work                    &   {\textlangle}japo, {\textlangle}japo vaekue, {\textlangle}hembiapo, mba'e            &  ruwa, ru, kama, allinta \\
+dicho & say, speak,  tell, word                  &  'e,  'e/ha'e, kóicha 'e, {\textlangle}he'ika                                          & ni,  diosmi ni, apu, diosmi \\
+cielo & heaven, sky,  heavens, cloud             &  yvága,  ára, yvate, yvága pe/pegua                                                    & hana/hanaq pacha,  pacha, hana/hanaq, hana/hanaq pa \\
+ojo & eye, sight,  in, his eye                   &   {\textlangle}hesa, {\textlangle}hecha, ma'\~{i}{i}{e}, che                           &  ñawi, qhawari, ri/riku, ruwa \\
+llegar & come,  have come, reach, when           &  guah\~{i}{i}{e},  guah\~{i}{i}{e} hikuái, ke, ja/mboja/ñemboja                        &  chaya, chaya/chayamu, hamu, cha \\
+%quedar & be,  stay, remain, be leave             &   pyta, {\textlangle}hemby, {\textlangle}heja, ndopyta                                 &  kapu/kapun, kanqa, qhepaq, qhepakurqan \\
+%aquel & that,  him, will, everyone               &  upe,  pe, upe upe, umiha                                                              & chay,  pipas, haqay, chaypachan \\
+%% cada & each, every,  everyone, every man         &   te\~{i}{i}, opa/pa, {\textlangle}he\~{i}{i}/{\textlangle}he\~{i}{i}me/te\~{i}{i}, pete\~{i}{i} te\~{i}{i}    &  sapanka, sapa, sapa/sapan, sapankanku \\
+% medio &  middle, among, through, within          &   rupi, mbytépe, apytépe, pende                                                        &  ukhu, ukhupi, chawpi, qankuna \\
+entrar & enter into, come, come into, go into, go&  ke,  guah\~{i}{i}{e}, ndoike, hikuái                                                  & hayku,  hayku/haykuna, ri, hay \\
+%% llamar & call, name,  whose name, summon         &  {\textlangle}héra, {\textlangle}henói,  {\textlangle}henoika/henoika, {\textlangle}henói/nói                                          &  waq/waqya, sutiyoq, waqya, suti/suticha \\
+llamar & call, name, summon                      &  {\textlangle}héra, {\textlangle}henói,  {\textlangle}henoika/henoika, {\textlangle}henói/nói                                          &  waq/waqya, sutiyoq, waqya, suti/suticha \\
+%espíritu & spirit,  breath, by, trouble          &  espíritu,  espíritu santo, py'a, pu'aka                                               &  santo espirituq, santo, espiritun, santo espirituqa \\
+%monte & mountain, on,  mount, hill country       &  yvyty,  yvyty {\textlangle}hu'ã, ka'aguy, yvyty rupi                                  & orqo,  orqopi, orqoman, orqokuna \\
+subir & go up, come up, up,  ascend              &   jupi, ha, s\~{i}{i}{e}, ju                                                           &  wicha, ri, wichari, chay/chayman \\
+obra & work, do,  deed, doings                   &   {\textlangle}hembiapo, {\textlangle}japo, mba'e, mba'e {\textlangle}japo             & ruwa,  llank'a, ruwa/ruwana, ruwa/ruway \\
+%% puerta & gate, door, at,  threshold              &  {\textlangle}hok\~{i}{i}{e},  k\~{i}{i}{e}, táva {\textlangle}hok\~{i}{i}{e}, {\textlangle}hok\~{i}{i}{e} nguéra          & punku,  hayku/haykuna, punku/punkuta, pun \\
+% pecado & sin, iniquity, trespass,  transgression &  angaipa,  {\textlangle}hembiapo vai, vai, {\textlangle}heja rei                       & hucha, huchalli/huchalliku,  hucha/huchaku, hu \\
+hija & daughter,  her, her daughter, woman       &  rajy,  kuña, memby, táva                                                              & ususi,  warmi, warmi wawa, llaq/llaqta \\
+% junto & by,  together, beside, at                &   {\textlangle}hembe'y, ypýpe, ykére, \~{i}{i}                                         &  qaylla, patapi, kuska, qayllapi \\
+dejar & leave,  let, allow, they                 &   {\textlangle}heja, poi, ja, jei                                                      &  kachari, ama, ma/mana, maña/mañana \\
     \hline
   \end{tabular}
   \end{centering}
-  %% XXX: fill this table in
-  \caption{Common Spanish word types with their associated translations.}
+  \end{tiny}
+  \caption{Selected common Spanish word types with their most likely
+translations. These were picked for interesting polysemy from the 100 most
+common word types.}
   \label{fig:mostcommon-es-translations}
 \end{figure*}
 
@@ -406,11 +458,23 @@ that word, since there is no ambiguity present in our examples.
 
 Classifiers are trained with the scikit-learn machine learning toolkit
 \cite{scikit-learn} for Python and its associated NLTK interface, though in
-earlier versions, we used megam \cite{daume04cg-bfgs}, also through NLTK.
-By default, we use Logistic Regression classifiers (also known as Maximum
-Entropy), with the default settings, and the regularization parameter set to
-$C=0.1$ to discourage overfitting.
+earlier versions, we used megam \cite{daume04cg-bfgs}, also through NLTK.  By
+default, we use Logistic Regression classifiers (also known as Maximum
+Entropy), with the default settings.  Maximum entropy classifiers are
+well-suited to this sort of classification task, as they are robust to adding
+large numbers of features, even highly-correlated ones \cite{nigam1999using}.
+Furthermore, because we have a large number of features but a relatively small
+number of samples per classifier, we train with L1 regularization rather than
+L2~\cite{ng2004feature}.
+We can also set a regularization parameter during training, to encourage
+sparser solutions and thus avoid overfitting.  Here by default we set the
+regularization parameter to $C=1.0$ ...
+
 %% XXX: try it with a few different settings!
+%% XXX also we should probably use L1 regularization, because we've got lots of
+%% features and many may be irrelevant.
+%% XXX: Also try some other classifier! Maybe an SVM or random forests or
+%% something.
 
 Since source-language tokens may be NULL-aligned (i.e., not all words in the
 source text will have corresponding words in the target text), both in the
@@ -451,4 +515,4 @@ request CL-WSD decisions over RPC.
 \end{itemize}
 
 Words in Spanish for which we gain the most by training a classifier --
-measured as the difference in accuracy between
+measured as the difference in accuracy between MFS 
