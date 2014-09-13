@@ -219,21 +219,19 @@ There are analogous lexical ambiguities when translating from Spanish to
 Guarani and Quechua.
 For example, the Spanish \emph{pueblo} 'town' or 'people' can translate to
 \emph{llaqta} 'town/city', or \emph{runa} 'person'.
-%% For Guarani, \emph{estar} 'to be' is translated as \emph{iko} 'to dwell'
-For Guarani, we see the verb \emph{volver} 'turn/return' translated as
-\emph{jey} 'again', but also as \emph{jere} 'turn', which nicely exhibits the
-...
-
-%% XXX
+For translating from Spanish to Guarani, we see the verb \emph{volver}
+'turn/return/repeat' translated as \emph{jey} 'again', but also as \emph{jere}
+'turn'.
 
 Figure~\ref{fig:mostcommon-en-es} gives the most common lemmas used in our
 corpus for the four languages, along with their counts. In
-Figure~\ref{fig:mostcommon-es-translations}, we see the most common lemmas from
-Spanish, along with their most likely translations into English, Guarani and
-Quechua. For the purposes of this work, we will consider words to be
-in-vocabulary if they appear at least fifty times in the training corpus; we
-also do not include punctuation marks and stopwords (as defined by the default
-NLTK stopword lists for English and Spanish) other than common verbs.
+Figure~\ref{fig:mostcommon-es-translations}, we see common lemmas from
+Spanish along with their most likely translations into English, Guarani and
+Quechua (as extracted from the bitext). For the purposes of this work, we will
+consider words to be in-vocabulary if they appear at least fifty times in the
+training corpus; we also do not include punctuation marks and stopwords (as
+defined by the default NLTK stopword lists for English and Spanish) other than
+common verbs.
 %% XXX: magic number. Do we need to argue about fifty? What if we went down to
 %% forty? Lower than that and this looks pretty ridiculous.
 
