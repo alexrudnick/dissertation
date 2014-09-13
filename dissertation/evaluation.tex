@@ -169,6 +169,13 @@ Here the output of the morphological analysis of a word is a root and a feature
 structure representing the grammatical features of the word.  For the basic
 version of Chipa, we are only concerned with the lemmatized forms of the words
 in our corpora, so we ignore the grammatical features for now.
+In cases of morphological ambiguity, which is to say cases where a surface form
+could be an inflection of two different lemmas, we maintain this ambiguity
+rather than trying to do morphological disambiguation and deciding from context
+which lemma was in use. The different possible lemmas are separated by a slash;
+there are examples of this in Section~\ref{sec:exploring}. A familiar example
+of morphological ambiguity in Spanish is that \emph{ir} 'to go' and \emph{ser}
+'to be' share their preterite-tense forms; this is a fairly common phenomenon.
 
 \subsection{Alignment}
 As a precaution against verses that are not close translations, or perhaps have
@@ -196,6 +203,7 @@ corresponding verse.
 %% aligned to a multi-word expression
 
 \section{Exploring the Bitext}
+\label{sec:exploring}
 Even using only the Bible as bitext, we can find a substantial number of
 training examples for many common word types. Some of these most common words
 in the text are proper names or exhibit only one translation in the target
@@ -208,7 +216,15 @@ the verb \emph{hacer} can translate in a number of different ways: 'do',
 translate to 'reign' or 'queen'.  
 
 There are analogous lexical ambiguities when translating from Spanish to
-Guarani and Quechua. %% XXX
+Guarani and Quechua.
+For example, the Spanish \emph{pueblo} 'town' or 'people' can translate to
+\emph{llaqta} 'town/city', or \emph{runa} 'person'.
+%% For Guarani, \emph{estar} 'to be' is translated as \emph{iko} 'to dwell'
+For Guarani, we see the verb \emph{volver} 'turn/return' translated as
+\emph{jey} 'again', but also as \emph{jere} 'turn', which nicely exhibits the
+...
+
+%% XXX
 
 Figure~\ref{fig:mostcommon-en-es} gives the most common lemmas used in our
 corpus for the four languages, along with their counts. In
