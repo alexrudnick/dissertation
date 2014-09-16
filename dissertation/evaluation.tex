@@ -428,19 +428,49 @@ common word types.}
 \end{figure*}
 
 \begin{figure*}
+  \begin{tiny}
   \begin{centering}
   \begin{tabular}{|r|c|c|c|c|}
     \hline
-    rank & word type (es) & entropy (en) & entropy (gn) & entropy (qu) \\
+    es & entropy (en) & entropy (gn) & entropy (qu) \\
     \hline
-    1    & dios   & 3 bits  &  &  \\
-    2    & pelear & 15 bits &  &  \\
-    \multicolumn{5}{|c|}{...} \\ 
-    500 &  & & & \\
+ser    &     2.49         &      3.90        &       3.25       \\  
+haber  &     2.88         &      3.57        &       2.70       \\
+decir  &     1.57         &      2.05        &       1.82       \\
+dios   &     0.33         &      1.56        &       3.99       \\
+estar  &     2.07         &      3.01        &       2.61       \\
+hacer  &     4.07         &      2.68        &       2.67       \\
+tierra &     2.00         &      2.96        &       3.58       \\
+ir/ser &     2.65         &      3.19        &       2.92       \\
+pueblo &     0.56         &      3.36        &       3.21       \\
+pues   &     3.18         &      3.73        &       2.90       \\
+si     &     2.68         &      3.06        &       2.91       \\
+así    &     2.95         &      2.73        &       3.27       \\
+padre  &     0.53         &      1.48        &       2.60       \\
+señor  &     0.78         &      3.15        &       3.38       \\
+poner  &     4.32         &      3.05        &       2.93       \\
+mujer  &     2.11         &      2.28        &       1.88       \\
+volver &     3.89         &      3.59        &       3.65       \\
+poder  &     3.51         &      3.12        &       3.36       \\
+ir     &     3.49         &      2.96        &       2.77       \\
+salir  &     3.43         &      2.40        &       3.91       \\
+judá   &     0.23         &      2.07        &       2.81       \\
+mismo  &     3.27         &      2.94        &       2.87       \\
+llevar &     3.70         &      1.81        &       2.79       \\
+dicho  &     1.91         &      2.60        &       2.99       \\
+cielo  &     1.32         &      2.21        &       2.13       \\
+ojo    &     2.03         &      2.52        &       2.57       \\
+llegar &     3.23         &      2.76        &       3.27       \\
+entrar &     3.77         &      1.88        &       2.71       \\
+llamar &     1.64         &      2.69        &       3.49       \\
+subir  &     2.85         &      3.39        &       3.19       \\
+obra   &     1.99         &      3.27        &       3.42       \\
+hija   &     0.35         &      2.33        &       2.29       \\
+dejar  &     4.03         &      2.67        &       2.80       \\
     \hline
   \end{tabular}
   \end{centering}
-  %% XXX: fill this table in
+  \end{tiny}
   \caption{Common Spanish word types and the entropy, in bits, faced by a
   system that must choose among the possible alternatives} 
   \label{fig:mostcommon-es-entropy}
@@ -502,13 +532,16 @@ request CL-WSD decisions over RPC.
 
 \begin{figure*}
   \begin{centering}
-  \begin{tabular}{|r|c|}
+  \begin{tabular}{|r|p{11cm}|}
     \hline
     name          & description  \\
     \hline
     \texttt{bagofwords}    & a feature counting each lemma in the source sentence \\
+    \hline
     \texttt{bagofsurface}  & like \texttt{bagofwords}, but with surface forms \\
+    \hline
     \texttt{window}       & a binary feature for each of the lemmas in the immediately surrounding three-word context window \\
+    \hline
     \texttt{surfacewindow} & like \texttt{window}, but with surface forms \\
     \hline
   \end{tabular}
