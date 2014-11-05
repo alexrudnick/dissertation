@@ -5,12 +5,14 @@ language resources available for the source language. We would like to use
 these to make better sense of the input text, giving our classifiers clearer
 signals for lexical selection in the target language.
 
-One resource for Spanish is its abundant monolingual text. Given
-large amounts of Spanish-language text, we can use unsupervised methods to
-discover semantic regularities. In this work we apply Brown clustering
+For Spanish, we have not only off-the-shelf NLP tools, but also abundant
+monolingual text. Given large amounts of Spanish-language text, we can use
+unsupervised methods to discover regularities that will give additional
+purchase to our classifiers.
+In this work we apply Brown clustering
 \cite{brown1992class}, which has been used successfully in a variety
 of text classification tasks \cite{turian-ratinov-bengio:2010:ACL} and provides
-a straightforward mechanism to add features learned from monolingual text.
+a straightforward mechanism to add annotations to our source-language text.
 %% we can also try topic models (say with MALLET) and word2vec representations
 
 In this chapter, we want to write about all of the things that we can do with
@@ -36,11 +38,12 @@ Liang \cite{Liang05semi-supervisedlearning}, running on both the Spanish
 side of our bitext corpus and on the Europarl corpus \cite{europarl} for
 Spanish.
 
+%% XXX Write about how Brown clustering works
+%% XXX it's hierarchical too, so we don't have to use the leaf clusters...
 
 So far, we have really good evidence that we can learn, in an unsupervised way,
-with Brown Clustering 
-coarse-grained categories for word types in the source language that help us
-make lexical selection distinctions.
+with Brown Clustering coarse-grained categories for word types in the source
+language that help us make lexical selection distinctions.
 
 There are actually several open questions here, though:
 
@@ -102,3 +105,10 @@ We can try applying the other stuff in the Turian et al Word Representations
 paper, and also we can try using word2vec!
 
 And topic models with MALLET.
+
+\section{Monolingual features from other NLP tools}
+
+In the Chipa software, we can make use of all kinds of annotations for our
+text, so adding more features is straightforward...
+
+Notably, we can use POS tags, features extracted from parsers...
