@@ -145,17 +145,26 @@ part-of-speech tagger. This maps any word type found in WordNet to its citation
 form; if a word is not found, or is not a noun, verb, or adjective, we simply
 return its surface form.
 
-We analyze the other three languages with Michael Gasser's ParaMorfo and
-AntiMorfo analyzers.\footnote{Morphology software for Guarani, Quechua,
+We can use the FreeLing analysis tools for Spanish, ... %% XXX(cite FreeLing)
+which provides tokenization, sentence splitting, multi-word expression and
+named entity detection, part-of-speech tagging and parsing. We start out with a
+few of these functions at a basic level, and can add in more in Chapter
+\ref{chap:monolingual}, making use of the quality NLP tools that we have for
+Spanish in our multilingual task.
+
+%% XXX working here
+
+For Guarani and Quechua, we use Michael Gasser's 
+ParaMorfo and AntiMorfo analyzers.\footnote{Morphology software for Guarani, Quechua,
 Spanish, and other languages is available at
-\url{http://www.cs.indiana.edu/~gasser/Research/software.html}} Spanish and
-Guarani are analyzed with ParaMorfo 1.1, and Quechua with AntiMorfo 1.2. These
-packages are based on software that Gasser originally developed for Ethiopian
+\url{http://www.cs.indiana.edu/~gasser/Research/software.html}} 
+Guarani text is analyzed with ParaMorfo 1.1, and Quechua with AntiMorfo 1.2.
+These packages are based on software originally developed for Ethiopian
 Semitic languages \cite{gasser:eacl09}, and use cascades of finite-state
 transducers (FSTs), which is a common approach in morphological analysis
 \cite{beesley+karttunen}. This software uses weighted FSTs to handle
 long-distance dependencies between morphemes, but rather than having weights
-correspond to probabilities to be combined with multiplication, these FSTs are
+correspond to probabilities to be combined with multiplication, the FSTs are
 weighted with feature structures that are combined via unification.  This
 approach was originally introduced by Amtrup \cite{amtrup:03}. In an FST
 weighted with feature structures, the result of a successful traversal is the
@@ -173,9 +182,13 @@ In cases of morphological ambiguity, which is to say cases where a surface form
 could be an inflection of two different lemmas, we maintain this ambiguity
 rather than trying to do morphological disambiguation and deciding from context
 which lemma was in use. The different possible lemmas are separated by a slash;
-there are examples of this in Section~\ref{sec:exploring}. A familiar example
-of morphological ambiguity in Spanish is that \emph{ir} 'to go' and \emph{ser}
-'to be' share their preterite-tense forms; this is a fairly common phenomenon.
+there are examples of this in Section~\ref{sec:exploring}.
+
+A familiar example of morphological ambiguity in Spanish is that \emph{ir} 'to
+go' and \emph{ser} 'to be' share their preterite-tense forms; this is a fairly
+common phenomenon. The FreeLing analysis tools can resolve these ambiguities
+for us...
+%% XXX
 
 \subsection{Alignment}
 As a precaution against verses that are not close translations, or perhaps have
