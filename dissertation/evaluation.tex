@@ -70,19 +70,18 @@ While there are a large number of translations available online, different
 complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 
 \subsection{Preprocessing}
-There is a nontrivial amount of preprocessing that must be done in order to get
-our Bible text into a format suitable for our tools.
-This is largely due to the various markup formats used for different
-translations in different languages. For each of the formats and translations,
-we need to understand its formatting enough to know which text comes from
-which book, chapter, and verse number. This triple uniquely identifies a
-unit of text, and verse numbers are nearly standardized across translations.
-There are a few exceptions, however: translations produced by different
-religious traditions may include different books (Catholic editions have
-a superset of the books found in most modern Protestant editions, for example),
-and slightly different chapters. Additionally, in some translations, such as
-our Guarani edition, a few verses have been combined into a single segment for
-a more natural translation.
+There is a nontrivial amount of preprocessing required in order to get our
+Bible text into a format suitable for our tools.  This is largely due to the
+various markup formats used for different translations in different languages.
+For each of the formats and translations, we need to understand its formatting
+enough to know which text comes from which book, chapter, and verse number.
+This triple uniquely identifies a unit of text, and verse numbers are nearly
+standardized across translations.  There are a few exceptions, however:
+translations produced by different religious traditions may include different
+books. Most notably, Catholic editions have a superset of the books found in
+most modern Protestant editions, and include slightly different chapters.
+Additionally, in some translations, such as our Guarani edition, a few verses
+have been combined into a single segment for a more natural translation.
 
 In any case, if a particular book/chapter/verse is present in two Bibles, then
 the two verses are very likely translations of one another. Once we find all of
@@ -119,7 +118,8 @@ structure in the Spanish and Guarani editions, so they require different
 versions of the script for preprocessing.
 
 Our Quechua translation came in a straightforward format, with individual
-verses already identified and ready for alignment.
+verses already identified by Loza and Mihalcea; it came basically ready for
+alignment.
 
 Each of the different formatting schemes uses its own coding to identify the
 different books of the Bible, so when producing output for alignment, we must
@@ -138,19 +138,22 @@ For each of our languages, after tokenizing, lowercasing and verse-alignment,
 we extract the lemmas (citation forms) for both source and target languages.
 Especially when working with smaller data sets, this is an important step;
 working primarily with lemmas rather than surface-form words allows us to
-group, for example, the plural form of a word with the singular.
+group, for example, the plural form of a word with its singular.
 
-For English, we use the WordNet lemmatizer, coupled with the default NLTK
-part-of-speech tagger. This maps any word type found in WordNet to its citation
-form; if a word is not found, or is not a noun, verb, or adjective, we simply
-return its surface form.
+For both English and Spanish, we can use the FreeLing suite of NLP tools
+\cite{padro12}, which provides a variety of analyses, including tokenization,
+sentence splitting, multi-word expression and named entity detection,
+part-of-speech tagging and parsing.
+We start out with a few of these tools -- initially just tokenization and
+lemmatization, and discuss making use of more of them
+in Chapter \ref{chap:monolingual}, leveraging the quality NLP tools that we
+have for our resource-rich source languages.
 
-We can use the FreeLing analysis tools for Spanish, ... %% XXX(cite FreeLing)
-which provides tokenization, sentence splitting, multi-word expression and
-named entity detection, part-of-speech tagging and parsing. We start out with a
-few of these functions at a basic level, and can add in more in Chapter
-\ref{chap:monolingual}, making use of the quality NLP tools that we have for
-Spanish in our multilingual task.
+The use of FreeLing for English is a noted improvement over initial
+experiments, which used the WordNet lemmatizer and the default NLTK
+part-of-speech tagger. The WordNet lemmatizer especially has a fairly small
+vocabulary, did not provide a good strategy for dealing with unknown words, and
+could only address nouns, verbs, and adjectives.
 
 %% XXX working here
 
@@ -186,9 +189,9 @@ there are examples of this in Section~\ref{sec:exploring}.
 
 A familiar example of morphological ambiguity in Spanish is that \emph{ir} 'to
 go' and \emph{ser} 'to be' share their preterite-tense forms; this is a fairly
-common phenomenon. The FreeLing analysis tools can resolve these ambiguities
-for us...
-%% XXX
+common phenomenon. However, the FreeLing analysis tools can typically
+(heuristically) resolve these ambiguities for us. When analyzing Guarani and
+Quechua, however, the ambiguities are maintained.
 
 \subsection{Alignment}
 As a precaution against verses that are not close translations, or perhaps have
