@@ -134,20 +134,21 @@ books, chapters and verses across translations.
 \subsection{Morphological Analysis}
 \label{sec:guaranima}
 
-For each of our languages, after tokenizing, lowercasing and verse-alignment,
-we extract the lemmas (citation forms) for both source and target languages.
+For each of our languages, whether on the source or target side, in addition to
+tokenizing, lowercasing and verse-alignment, we extract the lemmas (the
+citation forms, normalized with respect to inflection) from each surface word.
 Especially when working with smaller data sets, this is an important step;
 working primarily with lemmas rather than surface-form words allows us to
 group, for example, the plural form of a word with its singular.
 
-For both English and Spanish, we can use the FreeLing suite of NLP tools
-\cite{padro12}, which provides a variety of analyses, including tokenization,
-sentence splitting, multi-word expression and named entity detection,
-part-of-speech tagging and parsing.
-We start out with a few of these tools -- initially just tokenization and
-lemmatization, and discuss making use of more of them
-in Chapter \ref{chap:monolingual}, leveraging the quality NLP tools that we
-have for our resource-rich source languages.
+For English and Spanish, we can use the FreeLing suite of NLP tools
+\cite{padro12} to extract lemmas. FreeLing provides a variety of analyses,
+including tokenization, sentence splitting, multi-word expression and named
+entity detection, part-of-speech tagging and parsing.  We start out using just
+a few of these tools -- initially only tokenization and lemmatization. We
+discuss making use of more of them in Chapter \ref{chap:monolingual},
+leveraging the quality NLP tools that we have for our resource-rich source
+languages.
 
 The use of FreeLing for English is a noted improvement over initial
 experiments, which used the WordNet lemmatizer and the default NLTK
@@ -155,29 +156,29 @@ part-of-speech tagger. The WordNet lemmatizer especially has a fairly small
 vocabulary, did not provide a good strategy for dealing with unknown words, and
 could only address nouns, verbs, and adjectives.
 
-%% XXX working here
+For Guarani and Quechua, we use Michael Gasser's ParaMorfo and AntiMorfo
+analyzers.\footnote{Morphology software for Guarani, Quechua, Spanish, and
+other languages is available at
+\url{http://www.cs.indiana.edu/~gasser/Research/software.html}} Guarani text is
+analyzed with ParaMorfo 1.1, and Quechua with AntiMorfo 1.2.  These packages
+are based on software originally developed for Ethiopian Semitic languages
+\cite{gasser:eacl09}, and use cascades of finite-state transducers (FSTs),
+which is a common approach in morphological analysis \cite{beesley+karttunen}.
+ParaMorfo and AntiMorfo use weighted FSTs to handle long-distance dependencies
+between morphemes, but rather than having weights correspond to probabilities
+to be combined with multiplication, the FSTs are weighted with feature
+structures that are combined via unification. This approach was originally
+introduced by Amtrup \cite{amtrup:03}. In an FST weighted with feature
+structures, the result of a successful traversal is the unification of the
+feature structure ``weights'' on the traversed arcs, as well as an output
+string. All possible paths through the FST are searched, though many of these
+paths will not lead to accepting states, or will fail due to unification
+conflicts.  Because a feature structure is accumulated during the process of
+transduction, each traversal through the transducer retains a memory of where
+it has been, permitting the incorporation of long-distance constraints such as
+those relating the negative prefix and suffix of Guarani verbs.
 
-For Guarani and Quechua, we use Michael Gasser's 
-ParaMorfo and AntiMorfo analyzers.\footnote{Morphology software for Guarani, Quechua,
-Spanish, and other languages is available at
-\url{http://www.cs.indiana.edu/~gasser/Research/software.html}} 
-Guarani text is analyzed with ParaMorfo 1.1, and Quechua with AntiMorfo 1.2.
-These packages are based on software originally developed for Ethiopian
-Semitic languages \cite{gasser:eacl09}, and use cascades of finite-state
-transducers (FSTs), which is a common approach in morphological analysis
-\cite{beesley+karttunen}. This software uses weighted FSTs to handle
-long-distance dependencies between morphemes, but rather than having weights
-correspond to probabilities to be combined with multiplication, the FSTs are
-weighted with feature structures that are combined via unification.  This
-approach was originally introduced by Amtrup \cite{amtrup:03}. In an FST
-weighted with feature structures, the result of a successful traversal is the
-unification of the feature structure ``weights'' on the traversed arcs, as well
-as an output string. Because a feature structure is accumulated during the
-process of transduction, the transducer retains a memory of where it has been,
-permitting the incorporation of long-distance constraints such as those
-relating the negative prefix and suffix of Guarani verbs.
-
-Here the output of the morphological analysis of a word is a root and a feature
+Here the result of morphologically analyzing a word is a root and a feature
 structure representing the grammatical features of the word.  For the basic
 version of Chipa, we are only concerned with the lemmatized forms of the words
 in our corpora, so we ignore the grammatical features for now.
@@ -502,33 +503,42 @@ Spanish, as shown in Figure \ref{fig:mostcommon-en-es}.
 %% that in the monolingual and multilingual chapters.
 
 \section{Baseline System}
-At its heart, the Chipa software takes in a bitext corpus, the associated
-automatic alignments, and optionally other annotations, and then trains CL-WSD
-classifiers for word types from the source language on demand. 
+At its heart, the Chipa software takes in a bitext corpus, marked up with
+annotations for the source side, and the associated word alignments for the
+bitext. It then trains CL-WSD classifiers for word types from the source
+language on demand. 
 
 The software holds all of the available bitext in memory. On request, it
 retrieves the relevant training sentences for the word we want to disambiguate,
 finds the instances of the word and its aligned translations, and extracts
-features (see Figure~\ref{fig:baselinefeatures}) from the source side to
-produce the training set for that classifier.  If it has been seen aligned to
-only one target-language type, then this is simply noted, and if the source
-word is not present in the training data, then that word is marked as
-out-of-vocabulary. In these latter two cases, we skip building a classifier for
-that word, since there is no ambiguity present in our examples.
+features (see Figure~\ref{fig:baselinefeatures}) from the source side and its
+annotations to produce the training set for that classifier.  If it has been
+seen aligned to only one target-language type, then this is simply noted, and
+if the source word is not present in the training data, then that word is
+marked as out-of-vocabulary. In these latter two cases, we skip building a
+classifier for that word, since there is no ambiguity present in our examples.
 
 Classifiers are trained with the scikit-learn machine learning toolkit
 \cite{scikit-learn} for Python and its associated NLTK interface, though in
 earlier versions, we used megam \cite{daume04cg-bfgs}, also through NLTK.  By
 default, we use Logistic Regression classifiers (also known as Maximum
-Entropy), with the default settings.  Maximum entropy classifiers are
-well-suited to this sort of classification task, as they are robust to adding
-large numbers of features, even highly-correlated ones \cite{nigam1999using}.
+Entropy), with the default settings.
+Maximum entropy classifiers are well-suited to this sort of classification
+task, as they are robust to adding large numbers of features, even
+highly-correlated ones \cite{nigam1999using}.
 Furthermore, because we have a large number of features but a relatively small
 number of samples per classifier, we train with L1 regularization rather than
 L2~\cite{ng2004feature}.
 We can also set a regularization parameter during training, to encourage
-sparser solutions and thus avoid overfitting.  Here by default we set the
-regularization parameter to $C=1.0$ ...
+sparser solutions and thus avoid overfitting.
+Here by default we set the regularization parameter to $C=1.0$ ...
+
+%% XXX working here
+
+We have also tried a variety of classification algorithms; scikit-learn makes
+experimentation with different classifiers and parameter settings
+straightforward. We have tried random forests and linear support vector
+machines, and of course compare these to the most-frequent-sense baseline.
 
 %% XXX: try it with a few different settings!
 %% XXX also we should probably use L1 regularization, because we've got lots of
