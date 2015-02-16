@@ -1,17 +1,33 @@
 \chapter{Sequence Models}
 \label{chap:sequence}
 
-\section{CL-WSD as a Sequence Labeling Problem}
-We will also investigate the use of sequence models for CL-WSD.
-The intuition behind the sequence labeling approach is that machine translation
-implies an ``all-words" WSD task, in that we need to choose a translation for
-each word in the source sentence, and that the sequence of translations chosen
-should make sense when taken together.
+Here we will investigate the use of sequence models for CL-WSD. The intuition
+behind the sequence labeling approach is that machine translation implies an
+``all-words" WSD task, in that we need to choose a translation for each word in
+the source sentence, and that the sequence of translations chosen should make
+sense when taken together. Thus, rather than making a series of independent WSD
+decisions, we would like to find labels for each word in the input jointly.
+Given infinite time and resources, this could be done exhaustively, but that
+would be prohibitively expensive for even very short sentences, since the
+search space grows exponentially with the length of the sentence.  Heuristic
+search approaches that limit dependencies will have to do; thankfully, these
+are also plausibly trainable with limited resources.
 
+One question is whether, and under which circumstances, it is appropriate
+for an MT system to make use of sequence information during cross-lingual word
+sense disambiguation, or whether this should simply be done at decoding time.
+One suspects that the answer depends on the architecture of the MT system and
+how strong of a language model we have available for the target language.
+
+\section{CL-WSD as a Sequence Labeling Problem}
+
+
+\section{software or whatever}
 We have developed a prototype CL-WSD system based on sequence labeling and
 applied it to both English-Spanish and Spanish-Guarani translation tasks.
 Concretely in this case, we want to label each source language word with a
 target language word or phrase, or \emph{NULL}.
+
 This work was presented at the HyTra workshop in August
 \cite{rudnick-gasser:2013:HyTra-2013}.
 
@@ -76,6 +92,7 @@ inference time.
 %%this is not necessary, since the source word is fixed; we can simply use the
 %%negative log of that joint probability as-is.
 
+%% XXX
 We have yet to explore what the best approaches are for choosing which, and how
 many, words should be modeled with classifiers for best results, but this will
 be an important question to address.
@@ -462,38 +479,32 @@ most frequent label was correct about 60\% of the time.
 %% accuracy: 0.668169014084507
 
 \section{Conclusions and Future Work}
-We have described a work-in-progress lexical selection system that takes a
-sequence labeling approach, and shown some initial successes in using it for
-cross-language word sense disambiguation tasks for English to Spanish and
-Spanish to Guarani.  We have demonstrated a hybrid sequence labeling strategy
+
+We have demonstrated a hybrid sequence labeling strategy
 that combines MEMMs and HMMs, which will allow users to set parameters sensibly
 for their computational resources and available training data.
 
 In future work, we will continue to refine the approach, exploring different
 parameter settings, such as beam widths, numbers of classifiers for the MEMM
 component, and the effects of different features as input to the classifiers.
-We are also interested in making use of multilingual information sources,
-as in the work of Lefever and Hoste
-\cite{lefever-hoste-decock:2011:ACL-HLT2011}. We may also consider more
-sophisticated sequence tagging models, such as CRFs
+
+We may also consider more sophisticated sequence tagging models, such as CRFs
 \cite{DBLP:conf/icml/LaffertyMP01}, although we may not have enough training
 data to make use of richer models.
 
-Our goal for this work is practical; we are trying to produce a hybrid
-Spanish-Guarani MT system that can be used in Paraguay. We have a small amount
-of Guarani training data available, and plan to collect more.  At the time of
-writing, our lexical selection system is a prototype and not yet integrated
-with our RBMT engine, but this integration is among our near-term goals.
-
 A limitation of the current design is that we do not yet have a good way to
-make use of monolingual training data. In SMT, it is common practice to train a
+make use of monolingual training data.
+
+In SMT, it is common practice to train a
 language model for the target language from a monolingual corpus that is much
 larger than the available bitext. There is a substantial amount of available
 Guarani text on the Web, but our current
-model can only be trained on aligned bitext. Given Guarani text that had been
-rearranged into a Spanish-like word order, we could build a better model for
-the transition probabilities in the HMM component of the system. It might be
-feasible to use a Guarani-language parser and some linguistic knowledge for
-this purpose.
+model can only be trained on aligned bitext.
+
+Given Guarani text that had been rearranged into a Spanish-like word order, we
+could build a better model for the transition probabilities in the HMM
+component of the system.
+It might be feasible to use a Guarani-language parser and some linguistic
+knowledge for this purpose.
 We will also investigate ways to translate multiword expressions as a unit
 rather than word-by-word.
