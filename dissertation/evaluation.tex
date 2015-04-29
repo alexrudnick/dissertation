@@ -1,13 +1,12 @@
 \chapter{Data Sets, Tasks, Software and Evaluation}
 \label{chap:evaluation}
 In order to evaluate our CL-WSD approaches and their effects on translation
-systems, we will need to have some basis for comparison between the various
-techniques that we would like to evaluate, sensible baselines, and results
-reported by other researchers.
+systems, we will need to have a basis for comparison between our proposed
+techniques, sensible baselines, and results reported by other researchers.
 
-So in this chapter, I describe the tasks and data sets that we will be
-examining for the rest of the dissertation, as well as the basic version of the
-Chipa software, which will be extended in subsequent chapters.
+In this chapter, I describe the tasks and data sets that we examine for the
+rest of the dissertation, as well as the basic version of the Chipa software,
+which will be extended in subsequent chapters.
 
 \section{Measuring CL-WSD Classification Accuracy}
 One clear \emph{in vitro} approach for measuring the success of a CL-WSD system
@@ -20,15 +19,16 @@ automatic alignments are correct, putting in our best effort preprocessing
 the available text so that the aligner can produce sensible output.
 
 Using our automatically-aligned bitext as labeled data allows us to approximate
-the task faced by an MT system trying to do lexical selection for running text,
-since we can train our classifiers for many different word types. We do not
-have sufficient training data to build classifiers for every possible word, but
-this is a problem faced by data-driven NLP systems broadly.
+the task faced by an MT system trying to perform lexical selection while
+translating running text. We can train our classifiers for many different word
+types, but We do not have sufficient training data to build classifiers for
+every possible word. But this is a problem faced by data-driven NLP systems
+broadly.
 
 For comparison with other work, we can also run our systems on the SemEval
 shared task test sets, which are publicly available. Our task here is framed in
 the same way as the CL-WSD shared tasks from 2010 and 2013, so measuring
-performance on these test sets will provide a straightforward comparison
+performance on these test sets provides a straightforward comparison
 between the variations explored in this work and several other CL-WSD systems
 from recent years.  These test sets are limited in scope, however, and will
 only demonstrate Chipa's performance for translating individual English nouns.
@@ -36,6 +36,8 @@ It is also worth noting that our more immediate practical goal is to aid
 translation from Spanish into lower-resourced languages, and the resources that
 we can use to analyze an input English sentence will be different from those
 for Spanish.
+
+%% XXX this means we have to actually run Chipa on the SemEval test sets too.
 
 \section{Measuring MT Improvements}
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
