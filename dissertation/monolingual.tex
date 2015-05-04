@@ -3,24 +3,34 @@
 While in this work, our target languages are under-resourced, we have many
 language resources available for the source language. We would like to use
 these to make better sense of the input text, giving our classifiers clearer
-signals for lexical selection in the target language.
+signals for lexical selection in the target language. The approaches considered
+in this chapter, in general, make additional features available to the CL-WSD
+classifiers.
 
-For Spanish, we have not only off-the-shelf NLP tools, but also abundant
-monolingual text. Given large amounts of Spanish-language text, we can use
+For Spanish, perhaps most saliently, we have abundant monolingual text
+available to us.
+Given large amounts of Spanish-language text, we can use
 unsupervised methods to discover regularities that will give additional
 purchase to our classifiers.
 In this work we apply Brown clustering
 \cite{brown1992class}, which has been used successfully in a variety
 of text classification tasks \cite{turian-ratinov-bengio:2010:ACL} and provides
 a straightforward mechanism to add annotations to our source-language text.
-%% we can also try topic models (say with MALLET) and word2vec representations
+We also try learning neural word embeddings (XXX citation needed), which map
+from individual word types to high-dimensional spaces in which similar word
+types are in some sense clustered. %% XXX explain better
+% we can also try topic models (say with MALLET)
+
+
+In addition to large quantities of monolingual text, we have available to us
+excellent off-the-shelf NLP tools such as POS taggers and syntactic parsers,
+which can be used to
 
 In this chapter, we want to write about all of the things that we can do with
 just monolingual data in the source language.
 This is probably going to be one of the most important chapters, and really one
 of the nicest results in the dissertation.
 We can probably integrate some text from the SALTMIL paper into this chapter.
-
 
 
 \section{Brown Clustering}
@@ -59,6 +69,7 @@ There are actually several open questions here, though:
   \item Does it matter if you lemmatize the Spanish first, or not? It seems
     like the point of Brown Clustering is that it's picking up on syntax in
     some sense.
+  \item Similar open questions for word2vec clusters.
 \end{itemize}
 
 It would be good to include some nice examples of the clusters that Brown
@@ -102,17 +113,35 @@ Not sure how important this is to the argument...
 
 \section{Other Unsupervised Word Representations}
 We can try applying the other stuff in the Turian et al Word Representations
-paper, and also we can try using word2vec!
+paper. Such as word2vec \cite{mikolovword2vec}
+
+Unlike Brown Clustering, which infers hierarchical clusters for each word type,
+word2vec results in high-dimensional representations for each word.
+
+Open question here:
+Can we reproduce that ``Learning to Understand Phrases by Embedding the
+Dictionary" paper too? Could we learn representations for the cross-language
+case too?
 
 Definitely try using word2vec. We want to train word2vec on Spanish wikipedia,
 and maybe that's going to give us useful features.
 
-
-And topic models with MALLET.
+\section{Topic models with MALLET}
 
 \section{Monolingual features from other NLP tools}
-
 In the Chipa software, we can make use of all kinds of annotations for our
-text, so adding more features is straightforward...
+text (see Section \ref{sec:annotations}), so adding more features is
+straightforward.
 
-Notably, we can use POS tags, features extracted from parsers...
+Notably, we can use POS tags, features extracted from parsers... we could even
+use sense annotations from a monolingual WSD system, if we had a good one on
+hand.
+
+For POS tagging and parsing, we run the open source FreeLing text analysis
+suite \cite{padro12} on both the training data and the text input sentences.
+FreeLing can perform a number of analysis tasks for Spanish, including
+lemmatization, POS tagging, named entity recognition, and dependency parsing.
+
+\section{Experiments}
+Here we repeat the experiments from Chapter \ref{chap:evaluation}
+As described in the previous
