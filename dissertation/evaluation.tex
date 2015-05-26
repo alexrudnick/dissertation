@@ -6,43 +6,44 @@ techniques, sensible baselines, and results reported by other researchers.
 
 In this chapter, I describe the tasks and data sets that we examine for the
 rest of the dissertation, as well as the basic version of the Chipa software,
-which will be extended in subsequent chapters.
+which are extended in a variety of directions in subsequent chapters.
 
 \section{Measuring CL-WSD Classification Accuracy}
-One clear \emph{in vitro} approach for measuring the success of a CL-WSD system
-is to report its classification accuracy on pre-labeled data. Strictly
-speaking, we do not have pre-labeled data: our bitext does not
-come with sub-sentential alignments. But automatic word alignments provide
-a good approximation, as long as our sentence (or verse, for Bible text)
-alignments are accurate. For the purposes of this work, we will assume that the
-automatic alignments are correct, putting in our best effort preprocessing
-the available text so that the aligner can produce sensible output.
+One straightforward \emph{in vitro} approach for evaluating a CL-WSD system is
+to measure classification accuracy over pre-labeled data. Strictly speaking, we
+do not have pre-labeled data: our bitext does not come with sub-sentential
+alignments. But automatic word alignments provide a good approximation, as long
+as our sentence alignments (or verse alignments, for Bible text) are accurate.
+For the purposes of this work, we will assume that the automatic word-level
+alignments are correct, putting in our best effort preprocessing the available
+text so that the aligner can produce useful output.
 
-Using our automatically-aligned bitext as labeled data allows us to approximate
-the task faced by an MT system trying to perform lexical selection while
-translating running text. We can train our classifiers for many different word
-types, but We do not have sufficient training data to build classifiers for
-every possible word. But this is a problem faced by data-driven NLP systems
-broadly.
+Using our automatically-aligned bitext as labeled data allows us to closely
+mirror the lexical selection task faced by an MT system while translating
+running text. We can train our classifiers for many different word types, but
+we will generally not have training examples available for all words in the
+input at test time. This is a problem faced by data-driven NLP systems broadly.
 
 For comparison with other work, we can also run our systems on the SemEval
 shared task test sets, which are publicly available. Our task here is framed in
 the same way as the CL-WSD shared tasks from 2010 and 2013, so measuring
-performance on these test sets provides a straightforward comparison
+performance on these test sets allows a straightforward comparison
 between the variations explored in this work and several other CL-WSD systems
-from recent years.  These test sets are limited in scope, however, and will
+from recent years. These test sets are limited in scope, however, and will
 only demonstrate Chipa's performance for translating individual English nouns.
 It is also worth noting that our more immediate practical goal is to aid
 translation from Spanish into lower-resourced languages, and the resources that
 we can use to analyze an input English sentence will be different from those
 for Spanish.
 
-%% XXX this means we have to actually run Chipa on the SemEval test sets too.
+\TODO{this means we have to actually run the latest Chipa on the SemEval test sets too}
 
 \section{Measuring MT Improvements}
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
-techniques as applied to lexical selection in running MT systems.  Here we can
-use standard approaches for evaluating MT, such as BLEU and METEOR scores.
+techniques as applied to running MT systems.  Here we can use standard
+approaches for evaluating MT, such as BLEU and METEOR scores, or simply show
+that where word choices differ from the application of CL-WSD, the changes are
+improvements.
 
 For these experiments, we sample sentences from the available bitext --
 particularly ones that contain polysemous words for which we can train
@@ -54,15 +55,15 @@ into the different machine translation packages.
 \section{Data Sets and Preprocessing}
 The largest corpus that we have available for all of our source and target
 languages is the Bible. There are translations available for many different
-languages, and while these are not always done by native speakers,
-the translators are often driven by missionary zeal to get the best possible
-translation~\cite{DBLP:journals/lre/ResnikOD99}, so we can be confident that
-our Bibles are at least fairly good examples of our target languages.
+languages, and while these were not always produced by native speakers, the
+translators are often driven by missionary zeal to produce high-quality
+translations~\cite{DBLP:journals/lre/ResnikOD99}, so we can be reasonably
+confident of the (linguistic) accuracy of our text.
 
-Our corpora came from a number of different sources. For Spanish, we use the
-Reina-Valera translation (1995 edition), which I was able to scrape from a
-Bible study website. Our Guarani translation, \emph{Ñandejara Ñe'e} (1997
-edition) was scraped from the same site.  Our Quechua version (the 2004
+In this work, we focus on one Bible translation per language. For Spanish, we
+use the Reina-Valera translation (1995 edition), which I was able to scrape
+from a Bible study website. Our Guarani translation, \emph{Ñandejara Ñe'e}
+(1997 edition) was scraped from the same site. Our Quechua version (the 2004
 translation published by the Peruvian Bible Society) was provided by Chris Loza
 and Rada Mihalcea; the preparation of the Quechua corpus is described in Loza's
 masters thesis \cite{chrisloza}. For English, we use the public domain World
@@ -74,14 +75,14 @@ complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 \subsection{Preprocessing}
 There is a nontrivial amount of preprocessing required in order to get our
 Bible text into a format suitable for our tools.  This is largely due to the
-various markup formats used for different translations in different languages.
+varying markup formats used by different translation groups.
 For each of the formats and translations, we need to understand its formatting
 enough to know which text comes from which book, chapter, and verse number.
 This triple uniquely identifies a unit of text, and verse numbers are nearly
 standardized across translations.  There are a few exceptions, however:
 translations produced by different religious traditions may include different
 books. Most notably, Catholic editions have a superset of the books found in
-most modern Protestant editions, and include slightly different chapters.
+modern Protestant editions, and include slightly different chapters.
 Additionally, in some translations, such as our Guarani edition, a few verses
 have been combined into a single segment for a more natural translation.
 
@@ -96,12 +97,12 @@ group of Bible translators and used widely by the Bible-related software
 community.
 \footnote{See \url{http://paratext.org/about/usfm} for more about USFM. USFM is
 widely deployed; the website from which we scraped the Spanish and Guarani
-corpora appears to render its HTML from a USFM source. 
-There is an entire community of Bible software developers, and it has a wing
-that advocates Open Source and translations unencumbered by copyright.  One
-could delve arbitrarily deeply into the history of religious-text translators
-and their relationships with technology and copyright, but one has an NLP
-dissertation to write.}
+corpora appears to render its HTML from a USFM source.  There is an entire
+community of Bible software developers, and it has a wing that advocates Open
+Source software and translations unencumbered by copyright.  One could delve
+arbitrarily deeply into the history of religious-text translators and their
+relationships with technology and copyright, but one has an NLP dissertation to
+write.}
 While there are a number of tools that consume this format, I did not find one
 that handles our particular use case of stripping metadata and simply mapping
 from verses to flat text, so I wrote a short script to parse USFM and produce
@@ -119,9 +120,9 @@ the site that is no longer available), the HTML takes a significantly different
 structure in the Spanish and Guarani editions, so they require different
 versions of the script for preprocessing.
 
-Our Quechua translation came in a straightforward format, with individual
-verses already identified by Loza and Mihalcea; it came basically ready for
-alignment.
+Our Quechua translation came in an easily parseable format, with individual
+verses already identified by Loza and Mihalcea; for this corpus, very little
+preprocessing was necessary before word-level alignment.
 
 Each of the different formatting schemes uses its own coding to identify the
 different books of the Bible, so when producing output for alignment, we must
@@ -129,8 +130,8 @@ map to a standard encoding. For example, our Quechua edition marks the book of
 Lamentations with the numerical code $31$ (it is the thirty-first book in
 modern Catholic editions), but in the USFM markup for the English translation,
 we find a header with the string ``Lamentations". For our Spanish and Quechua
-editions from the web, we find the code ``LAM" in the markup. In any case, all
-of these encodings are mapped to a single code ``Lam", so that we can match
+editions from the web, we find the code ``LAM" in the markup. In any case, we
+map each of these identifiers to a single code ``Lam", so that we can match
 books, chapters and verses across translations.
 
 \subsection{Morphological Analysis}
@@ -139,11 +140,12 @@ books, chapters and verses across translations.
 For each of our languages, whether on the source or target side, in addition to
 tokenizing, lowercasing and verse-alignment, we extract the lemmas (the
 citation forms, normalized with respect to inflection) from each surface word.
-Especially when working with smaller data sets, this is an important step;
-working primarily with lemmas rather than surface-form words allows us to
-group, for example, the plural form of a word with its singular.
+Especially when working with smaller data sets and morphologically rich
+languages, this is an important step; working primarily with lemmas rather than
+surface-form words allows us to group, for example, the plural form of a word
+with its singular.
 
-For English and Spanish, we can use the FreeLing suite of NLP tools
+For English and Spanish, we use the FreeLing suite of NLP tools
 \cite{padro12} to extract lemmas. FreeLing provides a variety of analyses,
 including tokenization, sentence splitting, multi-word expression and named
 entity detection, part-of-speech tagging and parsing.  We start out using just
@@ -183,12 +185,12 @@ those relating the negative prefix and suffix of Guarani verbs.
 Here the result of morphologically analyzing a word is a root and a feature
 structure representing the grammatical features of the word.  For the basic
 version of Chipa, we are only concerned with the lemmatized forms of the words
-in our corpora, so we ignore the grammatical features for now.
-In cases of morphological ambiguity, which is to say cases where a surface form
-could be an inflection of two different lemmas, we maintain this ambiguity
-rather than trying to do morphological disambiguation and deciding from context
-which lemma was in use. The different possible lemmas are separated by a slash;
-there are examples of this in Section~\ref{sec:exploring}.
+in our corpora, so we ignore the grammatical features for now.  In cases of
+morphological ambiguity, which is to say cases where a surface form could be an
+inflection of multiple distinct lemmas, we maintain this ambiguity rather than
+trying to disambiguate from context.  The different possible lemmas are
+separated by a slash; there are examples of this in
+Section~\ref{sec:exploring}.
 
 A familiar example of morphological ambiguity in Spanish is that \emph{ir} 'to
 go' and \emph{ser} 'to be' share their preterite-tense forms; this is a fairly
@@ -204,6 +206,7 @@ settings, which checks for unusual length disparities in the bitext. This ends
 up removing roughly 7\% of the verses, but manual inspection shows that these
 are often very loose translations, or that additional material is present on
 one side.
+\TODO{7\% of the verses for which languages?}
 
 Having tokenized, lowercased, verse-aligned and lemmatized, our corpora, we are
 ready to extract word-level alignments.
@@ -218,8 +221,8 @@ outputs the single most likely one-to-many word alignments, such that each
 source language token is linked with zero or more target-language tokens in the
 corresponding verse.
 
-%% XXX: it would be cool to have an example alignment here, maybe a word
-%% aligned to a multi-word expression
+\TODO{add a clear example alignment here, maybe a word aligned to a multi-word
+expression}
 
 \section{Exploring the Bitext}
 \label{sec:exploring}
@@ -253,6 +256,8 @@ defined by the default NLTK stopword lists for English and Spanish) other than
 common verbs.
 %% XXX: magic number. Do we need to argue about fifty? What if we went down to
 %% forty? Lower than that and this looks pretty ridiculous.
+
+\TODO{update based on most recent preprocessing pipeline}
 
 \begin{figure*}
   \begin{tiny}
@@ -501,14 +506,13 @@ words already present. However even when working with the Bible, we
 have at least fifty uses of over a thousand different lemmas, for English and
 Spanish, as shown in Figure \ref{fig:mostcommon-en-es}.
 
-%% XXX: do we want to include the stats for Europarl here too? Probably put
-%% that in the monolingual and multilingual chapters.
+\TODO{For comparison, do we want to include the stats for Europarl here too? Or
+maybe we could put that in the ``multilingual" chapter?}
 
-\section{Baseline System}
-At its heart, the Chipa software takes in a bitext corpus, marked up with
-annotations for the source side, and the associated word alignments for that
-bitext. It then trains CL-WSD classifiers for word types from the source
-language on demand. 
+\section{Baseline Chipa System}
+At its core, the Chipa software takes in a word-aligned bitext corpus, with
+annotations for the source tokens. It then trains CL-WSD classifiers for
+source-language word types on demand. 
 
 The software holds all of the available bitext in memory. On request, it
 constructs a training set for learning to disambiguate a given word
@@ -522,11 +526,22 @@ training data, then that word is marked as out-of-vocabulary. In these latter
 two cases, we skip building a classifier for that word, since there is no
 ambiguity present in our examples.
 
-Classifiers are trained with the scikit-learn machine learning toolkit
+Since source-language tokens may be NULL-aligned (i.e., not all words in the
+source text will have corresponding words in the target text), both in the
+training data and in translations, chipa provides the option to request
+classifiers that consider NULL as a valid label for classification, or not, as
+appropriate for the translation application. We here report classification
+accuracies for both settings.
+
+Memory permitting, Chipa classifiers are kept cached for later usage. Chipa can
+also be run as a server, providing an interface whereby client programs can
+request CL-WSD decisions over remote procedure calls (RPC).
+
+Chipa's classifiers are trained with the scikit-learn machine learning toolkit
 \cite{scikit-learn} for Python and its associated NLTK interface, though in
-earlier versions, we used megam \cite{daume04cg-bfgs}, also through NLTK.  By
-default, we use Logistic Regression classifiers (also known as Maximum
-Entropy), with the default scikit-learn settings.
+earlier versions, we used the megam package \cite{daume04cg-bfgs}, also through
+NLTK.  By default, we use Logistic Regression classifiers (also known as
+Maximum Entropy), with the default scikit-learn settings.
 Maximum entropy classifiers are well-suited to this sort of classification
 task, as they are robust to adding large numbers of features, even
 highly-correlated ones \cite{nigam1999using}.
@@ -534,8 +549,8 @@ Furthermore, because we have a large number of features but a relatively small
 number of samples per classifier, we train with L1 regularization rather than
 L2~\cite{ng2004feature}.
 We can also set a regularization parameter during training, to encourage
-sparser solutions and thus avoid overfitting.
-Here by default we set the regularization parameter to $C=1.0$ ...
+more parsimonious solutions and thus avoid overfitting.
+Here by default we set the regularization parameter to $C=1.0$.
 
 %% XXX working here
 
@@ -544,22 +559,8 @@ experimentation with different classifiers and parameter settings
 straightforward. We have tried random forests and linear support vector
 machines, and of course compare these to the most-frequent-sense baseline.
 
-%% XXX: try it with a few different settings!
-%% XXX also we should probably use L1 regularization, because we've got lots of
-%% features and many may be irrelevant.
-%% XXX: Also try some other classifier! Maybe an SVM or random forests or
-%% something.
-
-Since source-language tokens may be NULL-aligned (i.e., not all words in the
-source text will have corresponding words in the target text), both in the
-training data and in translations, chipa provides the option to request
-classifiers that consider NULL as a valid label for classification, or not, as
-appropriate for the application. We report classification accuracies for both
-settings.
-
-Memory permitting, these classifiers are kept cached for later usage. Chipa can
-also be run as a server, providing an interface whereby client programs can
-request CL-WSD decisions over RPC.
+\TODO{Report results with a few different regularization settings}
+\TODO{Report results with SVMs and random forests too.}
 
 \begin{figure*}
   \begin{centering}
@@ -583,31 +584,31 @@ request CL-WSD decisions over RPC.
 
 \section{Source-side annotations}
 \label{sec:annotations}
-In order to gracefully include a variety of features and omnivorously consume
-any available NLP tools for the source language, Chipa's input format and
+In order to gracefully include a variety of features and build on
+any available analysis tools for the source language, Chipa's input format and
 feature functions allow for arbitrary annotations on source-language tokens.
 
-Our input file format is one token per line, with fields split by tabs, and the
-lemma of the token as the first field, the surface form of the token as the
-second field. Following this are an arbitrary number of annotations for that
-token, which may encode things such as part-of-speech, dependency relations,
-Sentence boundaries are indicated by blank lines. An annotated sentence may
-look like this, for example:
+Chipa's input file format describes one token per line, with fields split by
+tabs.  The first field of a line is a token's lemma, and the second field is
+its surface form.  Following this are an arbitrary number of annotations for
+that token, which may encode things such as part-of-speech, dependency
+relations, Sentence boundaries are indicated by blank lines. An annotated
+sentence with only one annotation per token might look like this, for example:
 
 \begin{figure*}
-  \begin{texttt}
-  the	The	pos=DET \\
-  quick	quick	pos=ADJ \\
-  brown	brown	pos=ADJ \\
-  fox	fox	pos=NOUN \\
-  jump	jumped	pos=VERB \\
-  over	over	POS=ADP \\
-  the	the	POS=DET \\
-  lazy	lazy	POS=ADJ \\
-  sleep sleeping	POS=VERB \\
-  dog	dog	POS=NOUN \\
-  .	.	POS=. \\
-  \end{texttt}
+\raggedright \texttt{\\
+the	The	pos=DET \\
+quick	quick	pos=ADJ \\
+brown	brown	pos=ADJ \\
+fox	fox	pos=NOUN \\
+jump	jumped	pos=VERB \\
+over	over	POS=ADP \\
+the	the	POS=DET \\
+lazy	lazy	POS=ADJ \\
+sleep sleeping	POS=VERB \\
+dog	dog	POS=NOUN \\
+.	.	POS=. \\
+  }
   \caption{Example annotated sentence.}
   \label{fig:quickbrownfox}
 \end{figure*}
@@ -618,8 +619,8 @@ another NLP tool to generate more annotations, and then adding the results to
 those annotations already present.
 
 \section{Classification Results for the Baseline System}
-%% XXX SECTIONNEEDSWORK
-%% GOODUPTOHERE
+
+\TODO{insert a bunch of numbers here}
 
 \begin{itemize}
 \item en-es
@@ -628,5 +629,5 @@ those annotations already present.
 \item es-qu
 \end{itemize}
 
-Words in Spanish for which we gain the most by training a classifier --
-measured as the difference in accuracy between MFS 
+\TODO{Words in Spanish for which we gain the most by training a classifier --
+measured as the difference in accuracy between MFS}
