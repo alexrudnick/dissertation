@@ -40,10 +40,12 @@ for Spanish.
 
 \section{Measuring MT Improvements}
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
-techniques as applied to running MT systems.  Here we can use standard
+techniques as applied to running MT systems. Here we can use standard
 approaches for evaluating MT, such as BLEU and METEOR scores, or simply show
-that where word choices differ from the application of CL-WSD, the changes are
-improvements.
+that where word choices differ from the application of CL-WSD, the changes are,
+for the most part, improvements.
+These experiments will be carried out in Chapter \ref{chap:integration}, in
+which we integrate the Chipa software with running MT systems.
 
 For these experiments, we sample sentences from the available bitext --
 particularly ones that contain polysemous words for which we can train
@@ -90,6 +92,41 @@ In any case, if a particular book/chapter/verse is present in two Bibles, then
 the two verses are very likely translations of one another. Once we find all of
 the matching verses, we can build a bitext corpus suitable for use in our
 pipeline.
+
+
+\begin{figure*}
+\raggedright \begin{verbatim}
+\id LAM 25-LAM-web.sfm World English Bible (WEB) 
+\ide UTF-8
+\h Lamentations 
+\toc1 The Lamentations of Jeremiah 
+\toc2 Lamentations 
+\toc3 Lam 
+\mt2 The 
+\mt Lamentations 
+\mt2 of Jeremiah 
+\c 1  
+\p
+\v 1 How the city sits solitary, 
+\q2 that was full of people! 
+\q She has become as a widow, 
+\q2 who was great among the nations! 
+\q She who was a princess among the provinces 
+\q2 has become a slave! 
+\b
+\q
+\v 2 She weeps bitterly in the night. 
+\q2 Her tears are on her cheeks. 
+\q Among all her lovers 
+\q2 she has no one to comfort her. 
+\q All her friends have dealt treacherously with her. 
+\q2 They have become her enemies. 
+\end{verbatim}
+  \caption{The first two verses of the Book of Lamentations (World English
+  Bible translation) in USFM format.}
+  \label{fig:usfmsample}
+\end{figure*}
+
 
 Our English translation is distributed in a format called USFM (Unified
 Standard Format Markers), which is a markup language developed by a working
@@ -239,8 +276,8 @@ translate to 'reign' or 'queen'.
 
 There are analogous lexical ambiguities when translating from Spanish to
 Guarani and Quechua.
-For example, the Spanish \emph{pueblo} 'town' or 'people' can translate to
-\emph{llaqta} 'town/city', or \emph{runa} 'person'.
+For example, the Spanish \emph{pueblo} 'town' or 'people' can translate into
+Quechua as \emph{llaqta} 'town/city', or \emph{runa} 'person'.
 For translating from Spanish to Guarani, we see the verb \emph{volver}
 'turn/return/repeat' translated as \emph{jey} 'again', but also as \emph{jere}
 'turn'.
@@ -528,7 +565,7 @@ ambiguity present in our examples.
 
 Since source-language tokens may be NULL-aligned (i.e., not all words in the
 source text will have corresponding words in the target text), both in the
-training data and in translations, chipa provides the option to request
+training data and in translations, Chipa provides the option to request
 classifiers that consider NULL as a valid label for classification, or not, as
 appropriate for the translation application. We here report classification
 accuracies for both settings.
@@ -593,7 +630,8 @@ tabs.  The first field of a line is a token's lemma, and the second field is
 its surface form.  Following this are an arbitrary number of annotations for
 that token, which may encode things such as part-of-speech, dependency
 relations, Sentence boundaries are indicated by blank lines. An annotated
-sentence with only one annotation per token might look like this, for example:
+sentence with one annotation per token might look like Figure
+\ref{fig:quickbrownfox}, for example:
 
 \begin{figure*}
 \raggedright \texttt{\\
@@ -613,7 +651,7 @@ dog	dog	POS=NOUN \\
   \label{fig:quickbrownfox}
 \end{figure*}
 
-Chipa has been developed with a number of tooks that both consume and produce
+Chipa has been developed with a number of tools that both consume and produce
 this format, typically taking in sentences annotated in this way, calling
 another NLP tool to generate more annotations, and then adding the results to
 those annotations already present.
