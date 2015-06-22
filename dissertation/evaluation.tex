@@ -8,9 +8,48 @@ In this chapter, I describe the tasks and data sets that we examine for the
 rest of the dissertation, as well as the basic version of the Chipa software,
 which are extended in a variety of directions in subsequent chapters.
 
+%% TODO: Definitely say something (at least a paragraph) about how WSD is
+%% typically evaluated in the standalone/monolingual case. Probably reference
+%% previous chapter about this.
+%% ""and how you do it -- WSD normally has some intricate decisions about
+%what counts as correct whether there are coarse and/or fine-grained senses,
+%multiple correct answers ""
+
+%% There are three different kinds of evaluation that one *could* do here.
+%% There's the typical kind of monolingual evaluation, with predefined sense
+%% inventories. There's the semeval-style classification accuracy, and then
+%% there's MT evaluation, in-vivo on a real task that we care about.
+%% ""consider fine-grained vs coarse-grained evaluation
+%% coarse/fine was manually chosen ""
+
+
+%% TODO: be careful about explaining about how we can sometimes make errors
+%% that will harm the translation.
+
+%% TODO: give more detail about the preprocessing. Enough so that you could
+%% almost replicate it from the text. Sandra says this is not enough detail
+%% yet.
+
+%% TODO: Drop in examples of all the different Bible formats as figures.
+
+%% NB: it's OK for this chapter to get pretty long. 40 pages isn't too long.
+
+%% TODO Write a bit more about how we'll use cdec later on.
+
+%% TODO Write more about how annotations get added, and how we'll add various
+%% features with our cool annotation scheme. Be explicit, and call out which
+%% annotations will be added. Add references to other chapters.
+
 \section{Measuring CL-WSD Classification Accuracy}
 One straightforward \emph{in vitro} approach for evaluating a CL-WSD system is
-to measure classification accuracy over pre-labeled data. Strictly speaking, we
+to measure classification accuracy over pre-labeled data. Here by
+classification accuracy, we mean measuring how often the system is able to
+correctly choose the appropriate translation of the focus word in a given
+context.
+%% XXX: we should adopt consistent terminology for the focus word. ``target
+% word" is probably confusing in a translation context.
+%% TODO: expand a bit about what we mean by classification accuracy.
+Strictly speaking, we
 do not have pre-labeled data: our bitext does not come with sub-sentential
 alignments. But automatic word alignments provide a good approximation, as long
 as our sentence alignments (or verse alignments, for Bible text) are accurate.
@@ -37,6 +76,9 @@ we can use to analyze an input English sentence will be different from those
 for Spanish.
 
 \TODO{this means we have to actually run the latest Chipa on the SemEval test sets too}
+%% """if you end up using these data set for evaluation, I'd like to see
+%information here about how the data were annotated, where the translation
+%candidates came form, how big the data sets were ""
 
 \section{Measuring MT Improvements}
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
@@ -44,6 +86,7 @@ techniques as applied to running MT systems. Here we can use standard
 approaches for evaluating MT, such as BLEU and METEOR scores, or simply show
 that where word choices differ from the application of CL-WSD, the changes are,
 for the most part, improvements.
+%% TODO "how do you know, the changes don't make the translation worse?"
 These experiments will be carried out in Chapter \ref{chap:integration}, in
 which we integrate the Chipa software with running MT systems.
 
@@ -55,6 +98,9 @@ Chapter~\ref{chap:integration}, where I also discuss how to integrate Chipa
 into the different machine translation packages.
 
 \section{Data Sets and Preprocessing}
+%% TODO "If you use europarl, it should be mentioned throughout the chapter,
+%% under data, here ..."
+
 The largest corpus that we have available for all of our source and target
 languages is the Bible. There are translations available for many different
 languages, and while these were not always produced by native speakers, the
@@ -75,6 +121,16 @@ While there are a large number of translations available online, different
 complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 
 \subsection{Preprocessing}
+
+%% TODO "This whole section sounds like a text I would use for teaching. You
+%explain all the fundamental problems on a very general level. What I would
+%expect form a thesis is that you tell the reader what exactly you did, or at
+%least what the major steps are. Examples would help, too. I mean, I don't need
+%to know the exact regular expressions how you identified corresponding verses,
+%but I would like to know what kind of segmentation you did, how you dealt with
+%run-on verses in Guarani, if you split punctuation from words, cases of
+%discrepancies and how you dealt with them ..  "
+
 There is a nontrivial amount of preprocessing required in order to get our
 Bible text into a format suitable for our tools.  This is largely due to the
 varying markup formats used by different translation groups.
@@ -87,6 +143,10 @@ books. Most notably, Catholic editions have a superset of the books found in
 modern Protestant editions, and include slightly different chapters.
 Additionally, in some translations, such as our Guarani edition, a few verses
 have been combined into a single segment for a more natural translation.
+
+%% TODO "so how many books did you map between languages? Did all the language
+%pairs have the same final set, or are there differences between pairs? how
+%many verses did match, how many did you kick out per pair?"
 
 In any case, if a particular book/chapter/verse is present in two Bibles, then
 the two verses are very likely translations of one another. Once we find all of
@@ -145,6 +205,10 @@ that handles our particular use case of stripping metadata and simply mapping
 from verses to flat text, so I wrote a short script to parse USFM and produce
 text in an easily-alignable format.
 
+%% TODO "Does that mean, the extraction could potentially have introduced
+%inconsistencies? If so, which ones?"
+% (regarding the HTML extraction for the Spanish/Guarani editions)
+
 Our Spanish and Guarani corpora are extracted from HTML pages scraped from an
 online Bible study website. In practice, the scraping was done by predicting
 the URLs for each chapter of each book and requesting those URLs
@@ -182,6 +246,7 @@ languages, this is an important step; working primarily with lemmas rather than
 surface-form words allows us to group, for example, the plural form of a word
 with its singular.
 
+%% TODO "I see from the next sentence that you tokenized. How?"
 For English and Spanish, we use the FreeLing suite of NLP tools
 \cite{padro12} to extract lemmas. FreeLing provides a variety of analyses,
 including tokenization, sentence splitting, multi-word expression and named
@@ -196,6 +261,10 @@ experiments, which used the WordNet lemmatizer and the default NLTK
 part-of-speech tagger. The WordNet lemmatizer especially has a fairly small
 vocabulary, did not provide a good strategy for dealing with unknown words, and
 could only address nouns, verbs, and adjectives.
+%% TODO "hm, this is again more anecdotal. Can you give any numbers for
+%coverage and accuracy? E.g. take a few verses and check manually how many
+%words were recognized and if so correctly analyzed What happens if a word is
+%not recognized?"
 
 For Guarani and Quechua, we use Michael Gasser's ParaMorfo and AntiMorfo
 analyzers.\footnote{Morphology software for Guarani, Quechua, Spanish, and
@@ -229,6 +298,14 @@ trying to disambiguate from context.  The different possible lemmas are
 separated by a slash; there are examples of this in
 Section~\ref{sec:exploring}.
 
+%% TODO "Did you run / are you planning to run another experiment where you
+%force disambiguation? Either use the highest weights, or the first analysis
+%..."
+%% Force morphological disambiguation on the gn side, not a bad idea.
+
+%% TODO "why not give a few here?"
+%% Examples of morphological ambiguity in gn/qu.
+
 A familiar example of morphological ambiguity in Spanish is that \emph{ir} 'to
 go' and \emph{ser} 'to be' share their preterite-tense forms; this is a fairly
 common phenomenon. However, the FreeLing analysis tools can typically
@@ -257,6 +334,7 @@ tunes the parameters on the priors, and having learned a translation model,
 outputs the single most likely one-to-many word alignments, such that each
 source language token is linked with zero or more target-language tokens in the
 corresponding verse.
+%% TODO "explain? example?"
 
 \TODO{add a clear example alignment here, maybe a word aligned to a multi-word
 expression}
@@ -536,6 +614,8 @@ dejar  &     4.03         &      2.67        &       2.80       \\
   system that must choose among the possible alternatives} 
   \label{fig:mostcommon-es-entropy}
 \end{figure*}
+%% TODO "I did not find a mention / explanation of this figure in the text."
+
 
 Using larger bitexts of course will allow us to construct training and test
 sets for a broader vocabulary, and with better statistical support for the
@@ -550,6 +630,8 @@ maybe we could put that in the ``multilingual" chapter?}
 At its core, the Chipa software takes in a word-aligned bitext corpus, with
 annotations for the source tokens. It then trains CL-WSD classifiers for
 source-language word types on demand. 
+
+%% TODO "But what happens in case of OOV words?"
 
 The software holds all of the available bitext in memory. On request, it
 constructs a training set for learning to disambiguate a given word
@@ -582,12 +664,17 @@ Maximum Entropy), with the default scikit-learn settings.
 Maximum entropy classifiers are well-suited to this sort of classification
 task, as they are robust to adding large numbers of features, even
 highly-correlated ones \cite{nigam1999using}.
+%% TODO ""Explain for CS committee members that that is often the case when you
+%% use words as features?"
+%% regarding correlated BOW features
+
 Furthermore, because we have a large number of features but a relatively small
 number of samples per classifier, we train with L1 regularization rather than
 L2~\cite{ng2004feature}.
 We can also set a regularization parameter during training, to encourage
 more parsimonious solutions and thus avoid overfitting.
 Here by default we set the regularization parameter to $C=1.0$.
+%% TODO "If the results were worse, you can just report this in one sentence."
 
 %% XXX working here
 
@@ -650,6 +737,10 @@ dog	dog	POS=NOUN \\
   \caption{Example annotated sentence.}
   \label{fig:quickbrownfox}
 \end{figure*}
+
+%% TODO: "Where do you discuss the features and tools? We need at least a
+%reference here, potentially also what is generally used as features for CL
+%WSD. "
 
 Chipa has been developed with a number of tools that both consume and produce
 this format, typically taking in sentences annotated in this way, calling
