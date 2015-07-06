@@ -8,20 +8,25 @@ In this chapter, I describe the tasks and data sets that we examine for the
 rest of the dissertation, as well as the basic version of the Chipa software,
 which are extended in a variety of directions in subsequent chapters.
 
+
+%% TODO: Definitely say something (at least a paragraph) about how WSD is
+%% typically evaluated in the standalone/monolingual case. Probably reference
+%% previous chapter about this.
 As discussed in Section \ref{sec:background-wsd}, for most of the history of
 WSD, systems have been evaluated \emph{in vitro}, on test sets in which
 sentences were hand-annotated with monolingual word senses, such as (typically)
 the WordNet sense inventory. These senses were chosen fairly arbitrarily by
 human lexicographers, and contain many useful and interesting distinctions, but
-they are not necessarily the distinctions necessary for every task. Monolingual
-WSD evaluations also often include both coarse-grained and fine-grained
-distinctions ...
+they do not necessarily make the appropriate distinctions for a given task.
+Monolingual WSD evaluations also often include both coarse-grained and
+fine-grained distinctions ...
 
 %% XXX: working here.
+Here in fact we want to make the argument
+that classification accuracy on CL-WSD tasks directly correlates with improved
+translation results ...
 
-%% TODO: Definitely say something (at least a paragraph) about how WSD is
-%% typically evaluated in the standalone/monolingual case. Probably reference
-%% previous chapter about this.
+
 
 %% ""and how you do it -- WSD normally has some intricate decisions about
 %what counts as correct whether there are coarse and/or fine-grained senses,
@@ -38,9 +43,6 @@ distinctions ...
 %% TODO: be careful about explaining about how we can sometimes make errors
 %% that will harm the translation.
 
-%% TODO: give more detail about the preprocessing. Enough so that you could
-%% almost replicate it from the text. Sandra says this is not enough detail
-%% yet.
 
 %% TODO: Drop in examples of all the different Bible formats as figures.
 
@@ -113,6 +115,10 @@ into the different machine translation packages.
 %% TODO "If you use europarl, it should be mentioned throughout the chapter,
 %% under data, here ..."
 
+%% TODO: give more detail about the preprocessing. Enough so that you could
+%% almost replicate it from the text. Sandra says this is not enough detail
+%% yet.
+
 The largest corpus that we have available for all of our source and target
 languages is the Bible. There are translations available for many different
 languages, and while these were not always produced by native speakers, the
@@ -133,15 +139,6 @@ While there are a large number of translations available online, different
 complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 
 \subsection{Preprocessing}
-
-%% TODO "This whole section sounds like a text I would use for teaching. You
-%explain all the fundamental problems on a very general level. What I would
-%expect form a thesis is that you tell the reader what exactly you did, or at
-%least what the major steps are. Examples would help, too. I mean, I don't need
-%to know the exact regular expressions how you identified corresponding verses,
-%but I would like to know what kind of segmentation you did, how you dealt with
-%run-on verses in Guarani, if you split punctuation from words, cases of
-%discrepancies and how you dealt with them ..  "
 
 There is a nontrivial amount of preprocessing required in order to get our
 Bible text into a format suitable for our tools.  This is largely due to the
@@ -350,6 +347,69 @@ corresponding verse.
 
 \TODO{add a clear example alignment here, maybe a word aligned to a multi-word
 expression}
+
+
+%% TODO "This whole section sounds like a text I would use for teaching. You
+%explain all the fundamental problems on a very general level. What I would
+%expect form a thesis is that you tell the reader what exactly you did, or at
+%least what the major steps are. Examples would help, too. I mean, I don't need
+%to know the exact regular expressions how you identified corresponding verses,
+%but I would like to know what kind of segmentation you did, how you dealt with
+%run-on verses in Guarani, if you split punctuation from words, cases of
+%discrepancies and how you dealt with them ..  "
+
+\subsection{A deeper dive: producing Spanish-Guarani bitext}
+To get a very concrete idea about the process of producing our bitext and our
+annotated source corpus, we will now step through the bitext production process
+for our Spanish-Guarani language pair.
+
+We consider the ``raw materials" for this process to be the scraped Spanish and
+Guarani bibles -- in order to replicate this work, or to extend it to other,
+similar languages, you may have to acquire Bible text for your preferred
+language. There are translations in many different languages available on
+various Bible websites, however.
+
+The result of the scraping process is a directory full of HTML files, the raw
+HTML served by  ...
+
+\begin{figure*}
+\raggedright \begin{verbatim}
+<div id="reader" class="content text_ltr">
+  <a name="1"></a>
+  <a href="/bible/more/Lam.1.1"
+     style="color:black;text-decoration:none">
+    <h2>El profeta </h2>
+    <span class="verse" id="Lam_1_1">
+    <strong class="verseno">1</strong>
+    &nbsp;¡Pobrecita de ti, Jerusalén! <br />
+    Antes eras la más famosa <br />
+    de todas las ciudades. <br />
+    ¡Antes estabas llena de gente, <br />
+    pero te has quedado muy sola, <br />
+    te has quedado viuda!  <br />
+    ¡Fuiste la reina de las naciones, <br />
+    pero hoy eres esclava de ellas! <br /> <p> </p></span>
+  </a>
+  <a name="2"></a>
+  <a href="/bible/more/Lam.1.2"
+     style="color:black;text-decoration:none">
+  <span class="verse" id="Lam_1_2">
+  <strong class="verseno">2</strong>
+  &nbsp;Olvidada y bañada en lágrimas <br />
+  pasas todas las noches. <br />
+  Muchos decían que te amaban, <br />
+  pero hoy nadie te consuela. <br />
+  Los que se decían tus amigos <br />
+  hoy son tus enemigos. <br />
+  <p> </p></span>            </a>
+\end{verbatim}
+  \caption{The first two verses of the Book of Lamentations, \emph{Traducción en
+  Lenguaje Actual} (TLA) version, in HTML as scraped from the web. Whitespace
+  changes added here for readability.}
+  \label{fig:usfmsample}
+\end{figure*}
+
+
 
 \section{Exploring the Bitext}
 \label{sec:exploring}
