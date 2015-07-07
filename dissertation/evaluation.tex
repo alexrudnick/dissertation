@@ -138,6 +138,52 @@ While there are a large number of translations available online, different
 ``Bible societies" own the associated copyrights and thus redistribution of the
 complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 
+\subsection{Source-side annotations}
+\label{sec:annotations}
+In order to gracefully include a variety of features and build on
+any available analysis tools for the source language, Chipa's input format and
+feature functions allow for arbitrary annotations on source-language tokens.
+
+Chipa's input file format describes one token per line, with fields split by
+tabs.  The first field of a line is a token's lemma, and the second field is
+its surface form.  Following this are an arbitrary number of annotations for
+that token, which may encode things such as part-of-speech, dependency
+relations, Sentence boundaries are indicated by blank lines. An annotated
+sentence with one annotation per token might look like Figure
+\ref{fig:quickbrownfox}, for example:
+
+\begin{figure*}
+\raggedright \texttt{\\
+the	The	pos=DET \\
+quick	quick	pos=ADJ \\
+brown	brown	pos=ADJ \\
+fox	fox	pos=NOUN \\
+jump	jumped	pos=VERB \\
+over	over	POS=ADP \\
+the	the	POS=DET \\
+lazy	lazy	POS=ADJ \\
+sleep sleeping	POS=VERB \\
+dog	dog	POS=NOUN \\
+.	.	POS=. \\
+  }
+  \caption{Example annotated sentence.}
+  \label{fig:quickbrownfox}
+\end{figure*}
+
+%% TODO: "Where do you discuss the features and tools? We need at least a
+%reference here, potentially also what is generally used as features for CL
+%WSD. "
+
+The Chipa software has been developed with a number of tools that consume and
+produce this format, typically taking in sentences annotated in this way,
+calling another NLP tool to generate more annotations, and then adding the new
+annotations to those already present. In the following chapters, we will make
+use of these tools and the extra information they make available to our
+classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable
+with monolingual resources, and in Chapter \ref{chap:multilingual} we describe
+tools and annotations that require parallel data.
+
+
 \subsection{Preprocessing}
 
 There is a nontrivial amount of preprocessing required in order to get our
@@ -831,51 +877,6 @@ machines, and of course compare these to the most-frequent-sense baseline.
   \caption{Features for the baseline Chipa system}
   \label{fig:baselinefeatures}
 \end{figure*}
-
-\section{Source-side annotations}
-\label{sec:annotations}
-In order to gracefully include a variety of features and build on
-any available analysis tools for the source language, Chipa's input format and
-feature functions allow for arbitrary annotations on source-language tokens.
-
-Chipa's input file format describes one token per line, with fields split by
-tabs.  The first field of a line is a token's lemma, and the second field is
-its surface form.  Following this are an arbitrary number of annotations for
-that token, which may encode things such as part-of-speech, dependency
-relations, Sentence boundaries are indicated by blank lines. An annotated
-sentence with one annotation per token might look like Figure
-\ref{fig:quickbrownfox}, for example:
-
-\begin{figure*}
-\raggedright \texttt{\\
-the	The	pos=DET \\
-quick	quick	pos=ADJ \\
-brown	brown	pos=ADJ \\
-fox	fox	pos=NOUN \\
-jump	jumped	pos=VERB \\
-over	over	POS=ADP \\
-the	the	POS=DET \\
-lazy	lazy	POS=ADJ \\
-sleep sleeping	POS=VERB \\
-dog	dog	POS=NOUN \\
-.	.	POS=. \\
-  }
-  \caption{Example annotated sentence.}
-  \label{fig:quickbrownfox}
-\end{figure*}
-
-%% TODO: "Where do you discuss the features and tools? We need at least a
-%reference here, potentially also what is generally used as features for CL
-%WSD. "
-
-The Chipa software has been developed with a number of tools that consume and
-produce this format, typically taking in sentences annotated in this way,
-calling another NLP tool to generate more annotations, and then adding the new
-annotations to those already present. In the following chapters, we will make
-use of these tools and the extra information they make available to our
-classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable
-with monolingual resources, and in Chapter \ref{chap:multilingual} we describe
-tools and annotations that require parallel data.
 
 \section{Classification Results for the Baseline System}
 
