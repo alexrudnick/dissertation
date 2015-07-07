@@ -370,7 +370,59 @@ language. There are translations in many different languages available on
 various Bible websites, however.
 
 The result of the scraping process is a directory full of HTML files, the raw
-HTML served by  ...
+HTML served by the Bible study websites. For the sites that we scraped, each
+chapter is served as an individual HTML file.
+
+** outline this stuff **
+- extract bible.es from raw HTML.
+- extract bible.gn from raw HTML
+  Chipa comes with a tool, \textt{get\_verses.py}, which uses BeautifulSoup to
+  parse the input HTML and navigate its structure, extracting the verse
+  identifiers and verse text as it goes.
+  In both of these cases, we produce a simple tab-separated file in which the
+  verse tuples are listed with the text of those verses.
+
+- then we call the \texttt{print\_bitext.pl} , which finds matching verses
+  (book, chapter, verse tuples) and produces bitext files in the format
+  expected by the cdec alignment tools. source ||| target.
+
+- At this point, we have bible.es-gn.unfiltered, which contains some
+  non-parallel "sentences" and is untokenized. Individual sentences have not
+  been preprocessed at all.
+
+- Then we run cdec's length filtering script, filter-length.pl . It filters out
+  sentences where either side is too long, or where there is a very large
+  mismatch in length ratios between source length and target length.
+
+- At this point, we have produced the bitext from which we'll train Chipa.
+
+Producing the annotated source text.
+- Now we use cdec's \texttt{cut-corpus.pl} to select just the source side of
+  the bitext, in this case the Spanish. Preprocessing and analysis can begin in
+  earnest now.
+- We use Freeling to do basic analysis on the input Spanish text,
+tokenizing it, lemmatizing and tagging.
+- Then we call our script to convert the FreeLing output format into Chipa's
+  input format.
+
+Now on the target language side, we need to do a similar thing.
+We use \texttt{cut-corpus.pl} to select just the target side, in this case the
+Guarani.
+%% XXX: make sure we're tokenizing and lowercasing the Guarani side properly.
+Then we run Chipa's lemmatizer script over the Guarani text. It calls the
+Paramorfo morphological analyzer on the Guarani tokens and produces lemmas. In
+cases of morphological ambiguity, we maintain that ambiguity.
+
+The end result of all of this processing is three files.
+Firstly, we have produced the tokenized, lowercased, lemmatized bitext.
+
+Secondly, we have generated the one-to-many word alignments between the two
+sides of the bitext. These two files taken together constitute the raw 
+
+The third file contains the annotated version of the source text, which
+includes all of the information of the source side of the preprocessed bitext,
+in addition to the original surface forms and the annotations extracted from
+FreeLing analysis. (Further annotations can be added by other tools.)
 
 \begin{figure*}
 \raggedright \begin{verbatim}
