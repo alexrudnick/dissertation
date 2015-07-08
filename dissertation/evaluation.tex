@@ -411,22 +411,23 @@ for our Spanish-Guarani language pair.
 
 We consider the ``raw materials" for this process to be the scraped Spanish and
 Guarani bibles -- in order to replicate this work, or to extend it to other,
-similar languages, you may have to acquire Bible text for your preferred
+similar languages, one may have to acquire Bible text for one's preferred
 language. There are translations in many different languages available on
 various Bible websites, however.
 
 The result of the scraping process is a directory full of HTML files, the raw
-HTML served by the Bible study websites. For the sites that we scraped, each
+HTML that was served by the Bible websites. For the sites that we scraped, each
 chapter is served as an individual HTML file.
 
 ** outline this stuff **
 - extract bible.es from raw HTML.
 - extract bible.gn from raw HTML
-  Chipa comes with a tool, \textt{get\_verses.py}, which uses BeautifulSoup to
-  parse the input HTML and navigate its structure, extracting the verse
-  identifiers and verse text as it goes.
-  In both of these cases, we produce a simple tab-separated file in which the
-  verse tuples are listed with the text of those verses.
+To support this work, we've developed \texttt{get\_verses.py}, a tool that uses
+BeautifulSoup to parse the input HTML and navigate its structure, extracting
+the verse identifiers and verse text as it goes. The output of
+\texttt{get\_verses.py} we call a ``Bible file", which is full of tab-separated
+values, one per line, in which (book, chapter, verse) tuples are paired with
+the text of those verses.
 
 - then we call the \texttt{print\_bitext.pl} , which finds matching verses
   (book, chapter, verse tuples) and produces bitext files in the format
@@ -451,24 +452,40 @@ tokenizing it, lemmatizing and tagging.
 - Then we call our script to convert the FreeLing output format into Chipa's
   input format.
 
-Now on the target language side, we need to do a similar thing.
-We use \texttt{cut-corpus.pl} to select just the target side, in this case the
-Guarani.
-%% XXX: make sure we're tokenizing and lowercasing the Guarani side properly.
-Then we run Chipa's lemmatizer script over the Guarani text. It calls the
-Paramorfo morphological analyzer on the Guarani tokens and produces lemmas. In
-cases of morphological ambiguity, we maintain that ambiguity.
+Now on the target language side, we need to do a similar thing.  We use
+\texttt{cut-corpus.pl} to select just the target side, in this case the
+Guarani, and cdec's \texttt{tokenize-anything.sh} and \texttt{lowercase.pl} to
+tokenize and lowercase the Guarani text.  Then we run Chipa's lemmatizer script
+over the Guarani text. It calls the Paramorfo morphological analyzer on the
+Guarani tokens, producing Guarani lemmas. In cases of morphological ambiguity,
+we produce tokens that maintain that ambiguity, simply joining the possible
+lemmas with a slash.
+Once lemmatization is complete, we have produced the target-language lemmatized
+text.
+
+Then we join together each line of the source-language lemmatized text with its
+corresponding target-language lemmatized text, using cdec's
+\texttt{paste-files.pl} script. The output of this is the sentence-aligned,
+tokenized, lowercased, lemmatized bitext corpus, which is ready for word
+alignment. To generate the word alignments, we call cdec's \texttt{fast\_align}
+tool.
+
+%% TODO: put an example here.
 
 The end result of all of this processing is three files.
-Firstly, we have produced the tokenized, lowercased, lemmatized bitext.
-
-Secondly, we have generated the one-to-many word alignments between the two
-sides of the bitext. These two files taken together constitute the raw 
+First, we have produced the lemmatized bitext corpus.
+Second, we have generated the one-to-many word alignments between the two
+sides of the bitext. These two files taken together constitute the ground truth
+for the Chipa system -- the source words, and the subsequences of the target
+text that are considered to be their translations. At test time, we will want
+to predict those translations.
 
 The third file contains the annotated version of the source text, which
 includes all of the information of the source side of the preprocessed bitext,
 in addition to the original surface forms and the annotations extracted from
-FreeLing analysis. (Further annotations can be added by other tools.)
+FreeLing analysis. Further annotations can be added by other tools; in general,
+this annotated source-language corpus can contain all kinds of useful signals
+for predicting translations.
 
 \begin{figure*}
 \raggedright \begin{verbatim}
@@ -506,8 +523,6 @@ FreeLing analysis. (Further annotations can be added by other tools.)
   changes added here for readability.}
   \label{fig:usfmsample}
 \end{figure*}
-
-
 
 \section{Exploring the Bitext}
 \label{sec:exploring}
