@@ -405,43 +405,43 @@ expression}
 %discrepancies and how you dealt with them ..  "
 
 \subsection{A deeper dive: producing Spanish-Guarani bitext}
-To get a very concrete idea about the process of producing our bitext and our
+To get a concrete idea about the process of producing our bitext and our
 annotated source corpus, we will now step through the bitext production process
-for our Spanish-Guarani language pair.
+for our Spanish-Guarani language pair. For the precise process, please see the
+source code
+\footnote{\url{https://github.com/alexrudnick/terere/tree/master/bibletools}}.
 
 We consider the ``raw materials" for this process to be the scraped Spanish and
 Guarani bibles -- in order to replicate this work, or to extend it to other,
-similar languages, one may have to acquire Bible text for one's preferred
+similar languages, one will have to acquire Bible text for one's preferred
 language. There are translations in many different languages available on
 various Bible websites, however.
 
 The result of the scraping process is a directory full of HTML files, the raw
 HTML that was served by the Bible websites. For the sites that we scraped, each
-chapter is served as an individual HTML file.
+chapter is served as an individual HTML file. From these HTML files, we must
+extract the flat text of all of the available Bible verses.  We do this with
+the \texttt{get\_verses.py}, a tool that uses BeautifulSoup to parse the input
+HTML and navigate its structure, extracting the verse identifiers and verse
+text as it goes. We call the output of \texttt{get\_verses.py} a ``Bible file";
+it consists of tab-separated values, one per line, in which (book, chapter,
+verse) tuples are paired with the text of those verses.
 
-** outline this stuff **
-- extract bible.es from raw HTML.
-- extract bible.gn from raw HTML
-To support this work, we've developed \texttt{get\_verses.py}, a tool that uses
-BeautifulSoup to parse the input HTML and navigate its structure, extracting
-the verse identifiers and verse text as it goes. The output of
-\texttt{get\_verses.py} we call a ``Bible file", which is full of tab-separated
-values, one per line, in which (book, chapter, verse) tuples are paired with
-the text of those verses.
+We then call the \texttt{print\_bitext.py} on pairs of Bible files. This script
+finds matching verses (book, chapter, verse tuples) and produces bitext files
+in the format expected by the cdec alignment tools, which is simply
+source-language segments and target-language segments, separated by
+\texttt{|||}. The output of \texttt{print\_bitext.py} is called
+\texttt{bible.es-gn.unfiltered}, which contains some non-parallel "sentences"
+and is untokenized. Individual sentences have not been preprocessed at all.
 
-- then we call the \texttt{print\_bitext.pl} , which finds matching verses
-  (book, chapter, verse tuples) and produces bitext files in the format
-  expected by the cdec alignment tools. source ||| target.
+To achieve well-aligned verses, we then run cdec's length filtering script,
+\texttt{filter-length.pl}. It filters out segments where either side is too
+long, or where there is a very large mismatch in length ratios between source
+length and target length (which indicates poor alignments between verses). Now
+we have produced the bitext from which we will train Chipa.
 
-- At this point, we have bible.es-gn.unfiltered, which contains some
-  non-parallel "sentences" and is untokenized. Individual sentences have not
-  been preprocessed at all.
-
-- Then we run cdec's length filtering script, filter-length.pl . It filters out
-  sentences where either side is too long, or where there is a very large
-  mismatch in length ratios between source length and target length.
-
-- At this point, we have produced the bitext from which we'll train Chipa.
+%% TODO: add an example of bad alignments here.
 
 Producing the annotated source text.
 - Now we use cdec's \texttt{cut-corpus.pl} to select just the source side of
