@@ -12,22 +12,6 @@ which are extended in a variety of directions in subsequent chapters.
 %% TODO: Definitely say something (at least a paragraph) about how WSD is
 %% typically evaluated in the standalone/monolingual case. Probably reference
 %% previous chapter about this.
-As discussed in Section \ref{sec:background-wsd}, for most of the history of
-WSD, systems have been evaluated \emph{in vitro}, on test sets in which
-sentences were hand-annotated with monolingual word senses, such as (typically)
-the WordNet sense inventory. These senses were chosen fairly arbitrarily by
-human lexicographers, and contain many useful and interesting distinctions, but
-they do not necessarily make the appropriate distinctions for a given task.
-Monolingual WSD evaluations also often include both coarse-grained and
-fine-grained distinctions ...
-
-%% XXX: working here.
-Here in fact we want to make the argument
-that classification accuracy on CL-WSD tasks directly correlates with improved
-translation results ...
-
-
-
 %% ""and how you do it -- WSD normally has some intricate decisions about
 %what counts as correct whether there are coarse and/or fine-grained senses,
 %multiple correct answers ""
@@ -38,10 +22,31 @@ translation results ...
 %% there's MT evaluation, in-vivo on a real task that we care about.
 %% ""consider fine-grained vs coarse-grained evaluation
 %% coarse/fine was manually chosen ""
+As discussed in Section \ref{sec:background-wsd}, for many years WSD systems
+have been evaluated \emph{in vitro}, on test sets in which sentences are
+hand-annotated with monolingual word senses, such as (typically) the WordNet
+sense inventory. These senses were chosen fairly arbitrarily by human
+lexicographers, and contain many useful and interesting distinctions, but they
+do not necessarily make the distinctions most appropriate for a given task.
+Monolingual WSD evaluations also often include both coarse-grained and
+fine-grained distinctions, as some word senses identified by lexicographers are
+more closely related than others.
+
+This style of evaluation relies on a fairly scarce resource: sentences
+hand-annotated with a particular sense inventory.
+In the CL-WSD setting, where we consider target-language lexical items to be
+the salient senses of source-language words, we could also ask annotators to
+hand-label our test sentences.
+But for language pairs where we already have translated documents, this task
+has in a sense already been performed by the translators.
+%% XXX: working here.
 
 
 %% TODO: be careful about explaining about how we can sometimes make errors
 %% that will harm the translation.
+Here in fact we want to make the argument
+that classification accuracy on CL-WSD tasks directly correlates with improved
+translation results ...
 
 
 %% TODO: Drop in examples of all the different Bible formats as figures.
@@ -49,10 +54,6 @@ translation results ...
 %% NB: it's OK for this chapter to get pretty long. 40 pages isn't too long.
 
 %% TODO Write a bit more about how we'll use cdec later on.
-
-%% TODO Write more about how annotations get added, and how we'll add various
-%% features with our cool annotation scheme. Be explicit, and call out which
-%% annotations will be added. Add references to other chapters.
 
 \section{Measuring CL-WSD Classification Accuracy}
 One straightforward \emph{in vitro} approach for evaluating a CL-WSD system is
@@ -182,7 +183,6 @@ use of these tools and the extra information they make available to our
 classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable
 with monolingual resources, and in Chapter \ref{chap:multilingual} we describe
 tools and annotations that require parallel data.
-
 
 \subsection{Preprocessing}
 
@@ -412,10 +412,10 @@ source code
 \footnote{\url{https://github.com/alexrudnick/terere/tree/master/bibletools}}.
 
 We consider the ``raw materials" for this process to be the scraped Spanish and
-Guarani bibles -- in order to replicate this work, or to extend it to other,
-similar languages, one will have to acquire Bible text for one's preferred
-language. There are translations in many different languages available on
-various Bible websites, however.
+Guarani bibles; see Figure \ref{fig:es-html-sample} for an example.  In order
+to replicate this work, or to extend it to more languages, one will have to
+acquire bitext covering one's preferred language. There are translations in
+many different languages available on various Bible websites, however.
 
 The result of the scraping process is a directory full of HTML files, the raw
 HTML that was served by the Bible websites. For the sites that we scraped, each
@@ -439,29 +439,33 @@ To achieve well-aligned verses, we then run cdec's length filtering script,
 \texttt{filter-length.pl}. It filters out segments where either side is too
 long, or where there is a very large mismatch in length ratios between source
 length and target length (which indicates poor alignments between verses). Now
-we have produced the bitext from which we will train Chipa.
+we have selected the bitext from which we will train Chipa.
 
 %% TODO: add an example of bad alignments here.
 
-Producing the annotated source text.
-- Now we use cdec's \texttt{cut-corpus.pl} to select just the source side of
-  the bitext, in this case the Spanish. Preprocessing and analysis can begin in
-  earnest now.
-- We use Freeling to do basic analysis on the input Spanish text,
-tokenizing it, lemmatizing and tagging.
-- Then we call our script to convert the FreeLing output format into Chipa's
-  input format.
+Given the sentence-aligned bitext corpus, which contains only the subset of the
+source and target Bibles that we were able to verse-align (roughly, ``sentence
+align", in more common MT terms, though a verse need not be a single sentence),
+we now want to preprocess the source text to produce the annotated version used
+for training. We call cdec's \texttt{cut-corpus.pl} to select just the source
+side of the bitext, in this case the Spanish.  Then we call Freeling to do
+basic analysis on the input Spanish text: we use Freeling for tokenizing,
+lemmatizing and tagging \footnote{See the checked-in Freeling configuration
+file for the exact settings used:
+\url{https://github.com/alexrudnick/terere/blob/master/bibletools/freeling-config/es.cfg}}.
+Then we run a Python script, \texttt{freeling\_to\_annotated.py}, to convert
+the FreeLing output format into Chipa's input format.
 
-Now on the target language side, we need to do a similar thing.  We use
-\texttt{cut-corpus.pl} to select just the target side, in this case the
-Guarani, and cdec's \texttt{tokenize-anything.sh} and \texttt{lowercase.pl} to
-tokenize and lowercase the Guarani text.  Then we run Chipa's lemmatizer script
-over the Guarani text. It calls the Paramorfo morphological analyzer on the
-Guarani tokens, producing Guarani lemmas. In cases of morphological ambiguity,
-we produce tokens that maintain that ambiguity, simply joining the possible
-lemmas with a slash.
-Once lemmatization is complete, we have produced the target-language lemmatized
-text.
+Now on the target language side, we do something analogous, although less
+analysis of the target text is required, and Freeling does not support our
+target languages. We again use \texttt{cut-corpus.pl} to select just the target
+side, in this case the Guarani, and cdec's \texttt{tokenize-anything.sh} and
+\texttt{lowercase.pl} to tokenize and lowercase the Guarani text. Then we run
+Chipa's lemmatizer script over the Guarani text. It calls the Paramorfo
+morphological analyzer on the Guarani tokens, producing Guarani lemmas. In
+cases of morphological ambiguity, we produce tokens that maintain that
+ambiguity, simply joining the possible lemmas with a slash.  Once lemmatization
+is complete, we have produced the target-language lemmatized text.
 
 Then we join together each line of the source-language lemmatized text with its
 corresponding target-language lemmatized text, using cdec's
@@ -472,13 +476,15 @@ tool.
 
 %% TODO: put an example here.
 
-The end result of all of this processing is three files.
-First, we have produced the lemmatized bitext corpus.
-Second, we have generated the one-to-many word alignments between the two
-sides of the bitext. These two files taken together constitute the ground truth
-for the Chipa system -- the source words, and the subsequences of the target
-text that are considered to be their translations. At test time, we will want
-to predict those translations.
+After all of this preprocessing and alignment, we have produced three files of
+interest to Chipa: first, we have the lemmatized bitext corpus. Second, we have
+the one-to-many word alignments between the two sides of the bitext. These two
+files taken together constitute the ground truth for the Chipa system -- the
+source lemmas, and the subsequences of the target text that are considered to
+be their translations. Note that these alignments could be NULL -- a source
+word could correspond with an empty subsequence of target-language tokens. At
+test time, we will want to predict those translations, whatever they happen to
+be.
 
 The third file contains the annotated version of the source text, which
 includes all of the information of the source side of the preprocessed bitext,
@@ -486,6 +492,10 @@ in addition to the original surface forms and the annotations extracted from
 FreeLing analysis. Further annotations can be added by other tools; in general,
 this annotated source-language corpus can contain all kinds of useful signals
 for predicting translations.
+
+%% TODO Write more about how annotations get added, and how we'll add various
+%% features with our cool annotation scheme. Be explicit, and call out which
+%% annotations will be added. Add references to other chapters.
 
 \begin{figure*}
 \raggedright \begin{verbatim}
@@ -521,7 +531,7 @@ for predicting translations.
   \caption{The first two verses of the Book of Lamentations, \emph{Traducción en
   Lenguaje Actual} (TLA) version, in HTML as scraped from the web. Whitespace
   changes added here for readability.}
-  \label{fig:usfmsample}
+  \label{fig:es-html-sample}
 \end{figure*}
 
 \section{Exploring the Bitext}
