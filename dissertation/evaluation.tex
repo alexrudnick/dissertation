@@ -44,10 +44,18 @@ has in a sense already been performed by the translators.
 
 %% TODO: be careful about explaining about how we can sometimes make errors
 %% that will harm the translation.
-Here in fact we want to make the argument
-that classification accuracy on CL-WSD tasks directly correlates with improved
-translation results ...
-
+We want to make the argument that higher classification accuracy on CL-WSD
+tasks leads to improved translation results. It seems intuitive that a
+classifier producing correct word choices would lead an MT system to produce
+better results. But we do not have a system that always indicates correct word
+choices, nor are we likely to have one in the near future. What we need to
+decide empirically is whether the suggestions made by the CL-WSD system,
+imperfect as they are sure to be, will improve translation results. We could
+imagine these gains failing to materialize, for example, if the CL-WSD system's
+correct choices are mostly those that the MT system would have made on its own
+-- say, with the guidance of a language model and phrase-table probabilities --
+and its incorrect choices are misleading to the point of doing harm to our
+translation quality.
 
 %% TODO: Drop in examples of all the different Bible formats as figures.
 
