@@ -285,8 +285,27 @@ structure in the Spanish and Guarani editions, so they require different
 versions of the script for preprocessing.
 
 Our Quechua translation came in an easily parseable format, with individual
-verses already identified by Loza and Mihalcea; for this corpus, very little
-preprocessing was necessary before word-level alignment.
+verses already identified by Loza and Mihalcea; for this corpus, relatively
+little preprocessing was necessary since lines begin with the book, chapter,
+and verse already labeled. See Figure \ref{fig:loza} for a sample of the input
+format.
+
+\begin{figure*}
+\raggedright \begin{verbatim}
+[999,31,1,1] ¡Ay, imaraqmi Jerusalenqa sapan kapushan, haqay hina
+  askha runakunayoq llaqta! ¡Ay, imaraqmi viuda warmi hina kapushan,
+  lliw suyukunaq uman kashaqqa! Mit'anipina llank'apushan, lliw
+  llaqtakunaq ñust'an kashaqqa.
+[999,31,1,2] Tutan-tutanmi unuy-parata waqayku- shan, uyapas
+  p'aspay-p'aspallaña. Llapan munaqninkunamanta manan hukllapas kanchu
+  sonqochay- kuqnin. Llapan reqsinakuq-masinkunapas manan rikuqpas
+  tukupunkuchu, llapallanmi awqanman tukupunku.
+\end{verbatim}
+  \caption{The first two verses of the Book of Lamentations in Quechua, from
+  the 2004 Peruvian Bible Society translation. Whitespace changes added here
+  for readability.}
+  \label{fig:es-html-sample}
+\end{figure*}
 
 Each of the different formatting schemes uses its own coding to identify the
 different books of the Bible, so when producing output for alignment, we must
