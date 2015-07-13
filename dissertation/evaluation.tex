@@ -328,7 +328,6 @@ languages, this is an important step; working primarily with lemmas rather than
 surface-form words allows us to group, for example, the plural form of a word
 with its singular.
 
-%% TODO "I see from the next sentence that you tokenized. How?"
 For English and Spanish, we use the FreeLing suite of NLP tools
 \cite{padro12} to extract lemmas. FreeLing provides a variety of analyses,
 including tokenization, sentence splitting, multi-word expression and named
@@ -475,10 +474,11 @@ source and target Bibles that we were able to verse-align (roughly, ``sentence
 align", in more common MT terms, though a verse need not be a single sentence),
 we now want to preprocess the source text to produce the annotated version used
 for training. We call cdec's \texttt{cut-corpus.pl} to select just the source
-side of the bitext, in this case the Spanish.  Then we call Freeling to do
-basic analysis on the input Spanish text: we use Freeling for tokenizing,
-lemmatizing and tagging \footnote{See the checked-in Freeling configuration
-file for the exact settings used:
+side of the bitext, in this case the Spanish. Then we call Freeling to do basic
+analysis on the input Spanish text: it provides tokenizing (for example,
+splitting out punctuation adjacent to words), lemmatizing and tagging
+\footnote{See the checked-in Freeling configuration file for the exact settings
+used:
 \url{https://github.com/alexrudnick/terere/blob/master/bibletools/freeling-config/es.cfg}}.
 Then we run a Python script, \texttt{freeling\_to\_annotated.py}, to convert
 the FreeLing output format into Chipa's input format.
@@ -517,10 +517,17 @@ The third file contains the annotated version of the source text, which
 includes all of the information of the source side of the preprocessed bitext,
 in addition to the original surface forms and the annotations extracted from
 FreeLing analysis. Further annotations can be added by other tools; in general,
-this annotated source-language corpus can contain all kinds of useful signals
-for predicting translations.
+annotated source-language corpora could contain whatever kinds of signals we
+might like to add to aid classifiers in predicting translations. In Chapter
+\ref{chap:monolingual}, for example, we discuss features learnable with
+monolingual resources such as part of speech tags, Brown clusters, and
+embeddings learned with neural networks. In Chapter \ref{chap:multilingual}, we
+discuss features that require parallel corpora, such as CL-WSD predictions into
+languages other than the current target language. But in all of these cases,
+the additional features are passed to the classifiers via this
+corpus-annotation approach.
 
-%% TODO Write more about how annotations get added, and how we'll add various
+%% DONE Write more about how annotations get added, and how we'll add various
 %% features with our cool annotation scheme. Be explicit, and call out which
 %% annotations will be added. Add references to other chapters.
 
