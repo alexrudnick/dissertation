@@ -570,8 +570,13 @@ corpus-annotation approach.
 
 \section{Exploring the Bitext}
 \label{sec:exploring}
-Even using only the Bible as bitext, we can find a substantial number of
-training examples for many common word types. Some of these most common words
+Even using only the Bible as bitext, we find a substantial number of
+training examples for many of the most common word types, which, due to the
+Zipfian distribution of word types in most texts, constitute a significant
+fraction of the tokens exhibited. See Figures \ref{fig:mostcommon-lemmas} and
+\ref{fig:mostcommon-surface} for more detail.
+%% TODO: quantify this, per language!!
+Some of these most common words
 in the text are proper names or exhibit only one translation in the target
 language, but for the most part we see, through the aligned bitext, that
 the most common words are polysemous.
@@ -580,6 +585,23 @@ the verb \emph{hacer} can translate in a number of different ways: 'do',
 'make', 'cause'; for \emph{decir}, we must choose between 'say', 'tell' or
 'speak'; \emph{mujer} can mean either 'wife' or 'woman'; and \emph{reina} can
 translate to 'reign' or 'queen'.  
+
+\begin{figure*}
+TODO: plot of rank of each word type versus the cumulative fraction of the text
+covered by that word type. Do this for both surface forms and lemmas, for each
+of en, es, qu, gn.
+  \caption{Word ranks versus fraction of Bible tokens covered, for lemmas.}
+  \label{fig:mostcommon-lemmas}
+\end{figure*}
+
+\begin{figure*}
+TODO: plot of rank of each word type versus the cumulative fraction of the text
+covered by that word type. Do this for both surface forms and lemmas, for each
+of en, es, qu, gn.
+  \caption{Word ranks versus fraction of Bible tokens covered, for
+  (case-insensitive) surface forms.}
+  \label{fig:mostcommon-lemmas}
+\end{figure*}
 
 There are analogous lexical ambiguities when translating from Spanish to
 Guarani and Quechua.
