@@ -1,20 +1,14 @@
 \chapter{Data Sets, Tasks, Software and Evaluation}
 \label{chap:evaluation}
 In order to evaluate our CL-WSD approaches and their effects on translation
-systems, we will need to have a basis for comparison between our proposed
-techniques, sensible baselines, and results reported by other researchers.
+quality, we will need to have a basis for comparison between our proposed
+techniques and sensible baselines, including results reported by other
+researchers.
 
-In this chapter, I describe the tasks and data sets that we examine for the
-rest of the dissertation, as well as the basic version of the Chipa software,
-which are extended in a variety of directions in subsequent chapters.
-
-
-%% TODO: Definitely say something (at least a paragraph) about how WSD is
-%% typically evaluated in the standalone/monolingual case. Probably reference
-%% previous chapter about this.
-%% ""and how you do it -- WSD normally has some intricate decisions about
-%what counts as correct whether there are coarse and/or fine-grained senses,
-%multiple correct answers ""
+In this chapter, I describe the tasks and data sets that we will investigate for
+the rest of the dissertation, as well as the basic version of the Chipa
+software, which will be extended in a variety of directions in the following
+chapters.
 
 %% There are three different kinds of evaluation that one *could* do here.
 %% There's the typical kind of monolingual evaluation, with predefined sense
@@ -22,15 +16,20 @@ which are extended in a variety of directions in subsequent chapters.
 %% there's MT evaluation, in-vivo on a real task that we care about.
 %% ""consider fine-grained vs coarse-grained evaluation
 %% coarse/fine was manually chosen ""
-As discussed in Section \ref{sec:background-wsd}, for many years WSD systems
-have been evaluated \emph{in vitro}, on test sets in which sentences are
-hand-annotated with monolingual word senses, such as (typically) the WordNet
-sense inventory. These senses were chosen fairly arbitrarily by human
-lexicographers, and contain many useful and interesting distinctions, but they
-do not necessarily make the distinctions most appropriate for a given task.
-Monolingual WSD evaluations also often include both coarse-grained and
-fine-grained distinctions, as some word senses identified by lexicographers are
-more closely related than others.
+As discussed in Section \ref{sec:background-wsd}, for many years word sense
+disambiguation systems have been evaluated \emph{in vitro} and in a monolingual
+setting. The test sets for such WSD evaluations include sentences that were
+hand-annotated with a word senses from a particular sense inventory, such as
+(typically) the WordNet senses. These monolingual WSD evaluations often include
+both coarse-grained and fine-grained distinctions and allow for several possible
+correct answers; some word senses identified by lexicographers are more closely
+related than others.  While the senses in a sense inventory will contain many
+useful and interesting distinctions, they do not necessarily make the
+distinctions most appropriate for a given task, and the necessary distinctions
+will vary by application. As such, accuracy improvements on these tasks do not
+necessarily lead to performance gains in the broader NLP system making use of
+the proposed WSD technique.
+%% XXX citation about this: maybe from the WSD special issue?
 
 This style of evaluation relies on a fairly scarce resource: sentences
 hand-annotated with a particular sense inventory.
@@ -40,7 +39,6 @@ hand-label our test sentences.
 But for language pairs where we already have translated documents, this task
 has in a sense already been performed by the translators.
 %% XXX: working here.
-
 
 We want to make the argument that higher classification accuracy on CL-WSD
 tasks leads to improved translation results. It seems intuitive that a
