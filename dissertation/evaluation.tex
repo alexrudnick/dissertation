@@ -401,12 +401,13 @@ For this we use the \texttt{fast\_align} tool from cdec
 \cite{dyer-EtAl:2010:Demos}, with its default settings\footnote{With the
 command given at \url{http://www.cdec-decoder.org/guide/fast_align.html}} and
 the lemmatized text as input.
-\texttt{fast\_align} runs several iterations of a variant of IBM
-Models 1 and 2, with a prior encouraging diagonal alignments. While running, it
-tunes the parameters on the priors, and having learned a translation model,
-outputs the single most likely one-to-many word alignments, such that each
-source language token is linked with zero or more target-language tokens in the
-corresponding verse.
+\texttt{fast\_align} runs several iterations of a variant of IBM Models 1 and
+2, with a prior encouraging diagonal alignments
+\cite{dyer-EtAl:2011:ACL-HLT2011}. While running, it tunes the parameters on
+the priors, and having learned a translation model, outputs the single most
+likely one-to-many word alignments, such that each source language token is
+linked with zero or more target-language tokens in the corresponding verse.
+
 %% TODO "explain? example?"
 
 \TODO{add a clear example alignment here, maybe a word aligned to a multi-word
