@@ -392,10 +392,12 @@ As a precaution against verses that are not close translations, or perhaps have
 combined several parts of the text together into one verse on only one side, we
 run the cdec filtering tool (\texttt{filter-length.pl}) with its default
 settings, which checks for unusual length disparities in the bitext. This ends
-up removing roughly 7\% of the verses, but manual inspection shows that these
-are often very loose translations, or that additional material is present on
-one side.
-\TODO{7\% of the verses for which languages?}
+up removing roughly 7\% of the verses\footnote{Specifically, length filtering
+removes $7.12\%$ of the verse pairs for Spanish-English and thus
+English-Spanish, $6.69\%$ for Spanish-Guarani, and $6.72\%$ for
+Spanish-Quechua.}, but manual inspection shows that those verses removed are in
+general very loose translations, or that additional material is present on one
+side.
 
 Having tokenized, lowercased, verse-aligned and lemmatized, our corpora, we are
 ready to extract word-level alignments.
@@ -411,6 +413,7 @@ likely one-to-many word alignments, such that each source language token is
 linked with zero or more target-language tokens in the corresponding verse.
 
 %% TODO "explain? example?"
+%% XXX: working here
 
 \TODO{add a clear example alignment here, maybe a word aligned to a multi-word
 expression}
