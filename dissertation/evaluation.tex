@@ -5,10 +5,9 @@ quality, we will need to have a basis for comparison between our proposed
 techniques and sensible baselines, including results reported by other
 researchers.
 
-In this chapter, I describe the tasks and data sets that we will investigate for
-the rest of the dissertation, as well as the basic version of the Chipa
-software, which will be extended in a variety of directions in the following
-chapters.
+In this chapter, I describe the tasks and data sets that we will investigate
+for the rest of the dissertation, as well as the basic version of the Chipa
+software, which we extend in a variety of directions in the following chapters.
 
 %% There are three different kinds of evaluation that one *could* do here.
 %% There's the typical kind of monolingual evaluation, with predefined sense
@@ -18,7 +17,7 @@ chapters.
 %% coarse/fine was manually chosen ""
 As discussed in Section \ref{sec:background-wsd}, for many years word sense
 disambiguation systems have been evaluated \emph{in vitro} and in a monolingual
-setting. The test sets for such WSD evaluations include sentences that were
+setting. The test sets for such WSD evaluations include sentences
 hand-annotated with a word senses from a particular sense inventory, such as
 (typically) the WordNet senses. These monolingual WSD evaluations often include
 both coarse-grained and fine-grained distinctions and allow for several possible
@@ -27,17 +26,19 @@ related than others.  While the senses in a sense inventory will contain many
 useful and interesting distinctions, they do not necessarily make the
 distinctions most appropriate for a given task, and the necessary distinctions
 will vary by application. As such, accuracy improvements on these tasks do not
-necessarily lead to performance gains in the broader NLP system making use of
-the proposed WSD technique.
-%% XXX citation about this: maybe from the WSD special issue?
+necessarily lead to performance gains for an NLP system making use of
+word-sense disambiguations \cite{resnikwsdapplications}.
 
 This style of evaluation relies on a fairly scarce resource: sentences
 hand-annotated with a particular sense inventory.
 In the CL-WSD setting, where we consider target-language lexical items to be
 the salient senses of source-language words, we could also ask annotators to
-hand-label our test sentences.
-But for language pairs where we already have translated documents, this task
-has in a sense already been performed by the translators.
+hand-label each word of our test sentences with their translations.
+For many language pairs, however, this annotation task has nearly been
+performed by translators. We do not strictly have the labels for each token in
+the source document, but with automatic word alignment techniques, we can infer
+these labels with high confidence.
+
 %% XXX: working here.
 
 We want to make the argument that higher classification accuracy on CL-WSD
@@ -296,7 +297,7 @@ format.
   \caption{The first two verses of the Book of Lamentations in Quechua, from
   the 2004 Peruvian Bible Society translation. Whitespace changes added here
   for readability.}
-  \label{fig:es-html-sample}
+  \label{fig:loza}
 \end{figure*}
 
 Each of the different formatting schemes uses its own coding to identify the
@@ -331,17 +332,18 @@ languages.
 
 The use of FreeLing for English is a noted improvement over initial
 experiments, which used the WordNet lemmatizer and the default NLTK
-part-of-speech tagger. The WordNet lemmatizer especially has a fairly small
-vocabulary, did not provide a good strategy for dealing with unknown words, and
-could only address nouns, verbs, and adjectives.
+part-of-speech tagger.
+The WordNet lemmatizer especially has a fairly small vocabulary, did not
+provide a good strategy for dealing with unknown words, and could only address
+nouns, verbs, and adjectives.
 %% TODO "hm, this is again more anecdotal. Can you give any numbers for
 %coverage and accuracy? E.g. take a few verses and check manually how many
 %words were recognized and if so correctly analyzed What happens if a word is
 %not recognized?"
 
 For Guarani and Quechua, we use Michael Gasser's ParaMorfo and AntiMorfo
-analyzers.\footnote{Morphology software for Guarani, Quechua, Spanish, and
-other languages is available at
+analyzers.\footnote{Prof. Gasser's morphology software for Guarani, Quechua,
+Spanish, and other languages is available at
 \url{http://www.cs.indiana.edu/~gasser/Research/software.html}} Guarani text is
 analyzed with ParaMorfo 1.1, and Quechua with AntiMorfo 1.2.  These packages
 are based on software originally developed for Ethiopian Semitic languages
