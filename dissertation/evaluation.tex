@@ -9,12 +9,6 @@ In this chapter, I describe the tasks and data sets that we will investigate
 for the rest of the dissertation, as well as the basic version of the Chipa
 software, which we extend in a variety of directions in the following chapters.
 
-%% There are three different kinds of evaluation that one *could* do here.
-%% There's the typical kind of monolingual evaluation, with predefined sense
-%% inventories. There's the semeval-style classification accuracy, and then
-%% there's MT evaluation, in-vivo on a real task that we care about.
-%% ""consider fine-grained vs coarse-grained evaluation
-%% coarse/fine was manually chosen ""
 As discussed in Section \ref{sec:background-wsd}, for many years word sense
 disambiguation systems have been evaluated \emph{in vitro} and in a monolingual
 setting. The test sets for such WSD evaluations include sentences
@@ -30,34 +24,21 @@ necessarily lead to performance gains for an NLP system making use of
 word-sense disambiguations \cite{resnikwsdapplications}.
 
 This style of evaluation relies on a fairly scarce resource: sentences
-hand-annotated with a particular sense inventory.
-In the CL-WSD setting, where we consider target-language lexical items to be
-the salient senses of source-language words, we could also ask annotators to
-hand-label each word of our test sentences with their translations.
-For many language pairs, however, this annotation task has nearly been
-performed by translators. We do not strictly have the labels for each token in
-the source document, but with automatic word alignment techniques, we can infer
-these labels with high confidence.
+hand-annotated with a particular sense inventory.  In the CL-WSD setting, where
+we consider target-language lexical items to be the salient senses of
+source-language words, we could also ask annotators to hand-label each word of
+our test sentences with their translations.  For many language pairs, however,
+this annotation task has nearly been performed by translators. Though we do not
+have the target-language labels for each token in the source document, with
+automatic word alignment techniques, we can infer these labels with high
+confidence.
 
-%% XXX: working here.
 
-We want to make the argument that higher classification accuracy on CL-WSD
-tasks leads to improved translation results. It seems intuitive that a
-classifier producing correct word choices would lead an MT system to produce
-better results. But we do not have a system that always indicates correct word
-choices, nor are we likely to have one in the near future. What we need to
-decide empirically is whether the suggestions made by the CL-WSD system,
-imperfect as they are sure to be, will improve translation results. We could
-imagine these gains failing to materialize, for example, if the CL-WSD system's
-correct choices are mostly those that the MT system would have made on its own
--- say, with the guidance of a language model and phrase-table probabilities --
-and its incorrect choices are misleading to the point of doing harm to our
-translation quality.
+Later on in the 
+%% XXX working here
 
 %% TODO: Drop in examples of all the different Bible formats as figures.
-
 %% NB: it's OK for this chapter to get pretty long. 40 pages isn't too long.
-
 %% TODO Write a bit more about how we'll use cdec later on.
 
 \section{Measuring CL-WSD Classification Accuracy}
@@ -69,13 +50,14 @@ context.
 %% XXX: we should adopt consistent terminology for the focus word. ``target
 % word" is probably confusing in a translation context.
 %% TODO: expand a bit about what we mean by classification accuracy.
-Strictly speaking, we
-do not have pre-labeled data: our bitext does not come with sub-sentential
-alignments. But automatic word alignments provide a good approximation, as long
-as our sentence alignments (or verse alignments, for Bible text) are accurate.
-For the purposes of this work, we will assume that the automatic word-level
-alignments are correct, putting in our best effort preprocessing the available
-text so that the aligner can produce useful output.
+
+As mentioned earlier, we do not, strictly speaking, have pre-labeled data since
+our bitext does not come with sub-sentential alignments. But automatic word
+alignments provide a good approximation, as long as our sentence alignments (or
+verse alignments, for Bible text) are accurate.  For the purposes of this work,
+we will assume that the automatic word-level alignments are correct, putting in
+our best effort preprocessing the available text so that the aligner can produce
+useful output.
 
 Using our automatically-aligned bitext as labeled data allows us to closely
 mirror the lexical selection task faced by an MT system while translating
@@ -106,9 +88,24 @@ techniques as applied to running MT systems. Here we can use standard
 approaches for evaluating MT, such as BLEU and METEOR scores, or simply show
 that where word choices differ from the application of CL-WSD, the changes are,
 for the most part, improvements.
+
+We want to make the argument that higher classification accuracy on CL-WSD
+tasks leads to improved translation results. It seems intuitive that a
+classifier producing correct word choices would lead an MT system to produce
+better results. But we do not have a system that always indicates correct word
+choices, nor are we likely to have one in the near future. What we need to
+decide empirically is whether the suggestions made by the CL-WSD system,
+imperfect as they are sure to be, will improve translation results. We could
+imagine these gains failing to materialize, for example, if the CL-WSD system's
+correct choices are mostly those that the MT system would have made on its own
+-- say, with the guidance of a language model and phrase-table probabilities --
+and its incorrect choices are misleading to the point of doing harm to our
+translation quality.
+
 %% TODO "how do you know, the changes don't make the translation worse?"
 These experiments will be carried out in Chapter \ref{chap:integration}, in
 which we integrate the Chipa software with running MT systems.
+
 
 For these experiments, we sample sentences from the available bitext --
 particularly ones that contain polysemous words for which we can train
@@ -905,12 +902,12 @@ request CL-WSD decisions over remote procedure calls (RPC).
 Chipa's classifiers are trained with the scikit-learn machine learning toolkit
 \cite{scikit-learn} for Python and its associated NLTK interface, though in
 earlier versions, we used the megam package \cite{daume04cg-bfgs}, also through
-NLTK.  By default, we use Logistic Regression classifiers (also known as
-Maximum Entropy), with the default scikit-learn settings.
-Maximum entropy classifiers are well-suited to this sort of classification
-task, as they are robust to adding large numbers of features, even
-highly-correlated ones \cite{nigam1999using}.
-Classifiers relying on bag-of-words 
+NLTK.  By default, we use Logistic Regression classifiers (also known as Maximum
+Entropy), with the default scikit-learn settings.  Maximum entropy classifiers
+are well-suited to this sort of classification task, as they are robust to
+adding large numbers of features, even highly-correlated ones
+\cite{nigam1999using}. Classifiers relying on bag-of-words features 
+
 %% TODO ""Explain for CS committee members that that is often the case when you
 %% use words as features?"
 %% regarding correlated BOW features
