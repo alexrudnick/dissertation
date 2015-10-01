@@ -172,18 +172,16 @@ dog	dog	POS=NOUN \\
   \label{fig:quickbrownfox}
 \end{figure*}
 
-%% TODO: "Where do you discuss the features and tools? We need at least a
-%reference here, potentially also what is generally used as features for CL
-%WSD. "
-
 The Chipa software has been developed with a number of tools that consume and
 produce this format, typically taking in sentences annotated in this way,
 calling another NLP tool to generate more annotations, and then adding the new
-annotations to those already present. In the following chapters, we will make
-use of these tools and the extra information they make available to our
-classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable
-with monolingual resources, and in Chapter \ref{chap:multilingual} we describe
-tools and annotations that require parallel data.
+annotations to those already present. The experiments in this chapter only use
+one of these tools, \texttt{freeling\_to\_annotated.py}, which produces Chipa's
+input format given output from Freeling.  In the following chapters, we will
+make use of these tools and the extra information they make available to our
+classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable with
+monolingual resources, and in Chapter \ref{chap:multilingual} we describe tools
+and annotations that require parallel data.
 
 \subsection{Preprocessing}
 
@@ -200,15 +198,18 @@ modern Protestant editions, and include slightly different chapters.
 Additionally, in some translations, such as our Guarani edition, a few verses
 have been combined into a single segment for a more natural translation.
 
-%% TODO "so how many books did you map between languages? Did all the language
-%pairs have the same final set, or are there differences between pairs? how
-%many verses did match, how many did you kick out per pair?"
-
 In any case, if a particular book/chapter/verse is present in two Bibles, then
 the two verses are very likely translations of one another. Once we find all of
 the matching verses, we can build a bitext corpus suitable for use in our
-pipeline.
-
+pipeline.  In all four of our translations, we find all 66 books of the
+Protestant Bible. Furthermore, we find matches for nearly all of the verses
+across all of the language pairs considered. For English/Spanish and
+Spanish/Quechua, the intersection of book/chapter/verse tuples across Bibles
+contains over 99\% of the verses in any given Bible. For the Guarani
+translation, however, we are only able to match 95.2\% of the verses. The
+Guarani text contains fewer verses, $29,867$ versus the $31,104$ in Spanish,
+showing that the translators were more willing here to combine verses and that
+the translations may be more interpretive.
 
 \begin{figure*}
 \raggedright \begin{verbatim}
@@ -479,7 +480,7 @@ splitting out punctuation adjacent to words), lemmatizing and tagging
 used:
 \url{https://github.com/alexrudnick/terere/blob/master/bibletools/freeling-config/es.cfg}}.
 Then we run a Python script, \texttt{freeling\_to\_annotated.py}, to convert
-the FreeLing output format into Chipa's input format.
+the FreeLing output format into Chipa's source-language input format.
 
 Now on the target language side, we do something analogous, although less
 analysis of the target text is required, and Freeling does not support our
