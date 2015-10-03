@@ -45,16 +45,20 @@ We want to make the argument that higher classification accuracy on CL-WSD
 tasks leads to improved translation results. It seems intuitive that a
 classifier producing correct word choices would lead an MT system to produce
 better results. But we do not have a system that always indicates correct word
-choices, nor are we likely to have one in the near future. What we need to
-decide empirically is whether the suggestions made by the CL-WSD system,
+choices, nor are we likely to have one in the near future. And it is an
+empirical question, whether the suggestions made by the CL-WSD system,
 imperfect as they are sure to be, will improve translation results. We could
 imagine these gains failing to materialize, for example, if the CL-WSD system's
-correct choices are mostly those that the MT system would have made on its own
--- say, with the guidance of a language model and phrase-table probabilities --
-and its incorrect choices are misleading to the point of doing harm to our
-translation quality.
+correct choices are mostly those that the MT system would have made on its own,
+say with the guidance of a language model and phrase-table probabilities. 
+We could even imagine its incorrect choices being misleading to the point of
+doing harm to our translation quality.
+In general, the addition of CL-WSD has not been an overwhelming success in
+statistical machine translation, especially when we have large corpora
+available for language modeling \cite{carpuatpsd}.
 
 %% TODO: Drop in examples of all the different Bible formats as figures.
+%% which ones do we have already?
 
 %% NB: it's OK for this chapter to get pretty long. 40 pages isn't too long.
 
@@ -565,6 +569,9 @@ corpus-annotation approach.
   changes added here for readability.}
   \label{fig:es-html-sample}
 \end{figure*}
+
+%% TODO: add Guarani Lamentations figure here.
+
 
 \section{Exploring the Bitext}
 \label{sec:exploring}
