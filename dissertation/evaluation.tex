@@ -174,7 +174,6 @@ monolingual resources, and in Chapter \ref{chap:multilingual} we describe tools
 and annotations that require parallel data.
 
 \subsection{Preprocessing}
-
 There is a nontrivial amount of preprocessing required in order to get our
 Bible text into a format suitable for our tools.  This is largely due to the
 varying markup formats used by different translation groups.
@@ -200,6 +199,52 @@ translation, however, we are only able to match 95.2\% of the verses. The
 Guarani text contains fewer verses, $29,867$ versus the $31,104$ in Spanish,
 showing that the translators were more willing here to combine verses and that
 the translations may be more interpretive.
+
+Our English translation is distributed in a format called USFM (Unified
+Standard Format Markers), which is a markup language developed by a working
+group of Bible translators and used widely by the Bible-related software
+community; see Figure \ref{fig:usfmsample} for some sample input text in this
+format.
+\footnote{See \url{http://paratext.org/about/usfm} for more about USFM. USFM is
+widely deployed; the website from which we scraped the Spanish and Guarani
+corpora appears to render its HTML from a USFM source.  There is an entire
+community of Bible software developers, and it has a wing that advocates Open
+Source software and translations unencumbered by copyright.  One could delve
+arbitrarily deeply into the history of religious-text translators and their
+relationships with technology and copyright, but one has an NLP dissertation to
+write.}
+While there are a number of tools that consume USFM, I did not find one that
+handles our particular use case of stripping metadata and simply mapping from
+verses to flat text, so I wrote a short script to parse USFM and produce text
+in an easily-alignable format.
+
+Our Spanish and Guarani corpora are extracted from HTML pages scraped from an
+online Bible study website. In practice, the scraping was done by predicting
+the URLs for each chapter of each book and requesting those URLs
+programmatically. We then extract the text from the saved HTML pages with a
+Python script and the BeautifulSoup library for HTML parsing.
+\footnote{\url{http://www.crummy.com/software/BeautifulSoup/}}
+As a side note, since websites change over time and we
+downloaded the Guarani translation at an earlier date (from a mobile version of
+the site that is no longer available), the HTML takes a significantly different
+structure in the Spanish and Guarani editions, so they require different
+versions of the script for preprocessing; see Figures \ref{fig:es-html-sample}
+and \ref{fig:gn-html-sample} respectively for representative Spanish and
+Guarani input.
+
+Our Quechua translation came in an easily parseable format, with individual
+verses already identified by Loza and Mihalcea; for this corpus, relatively
+little preprocessing was necessary since lines begin with the book, chapter,
+and verse already labeled. See Figure \ref{fig:loza} for a sample of the input
+format.
+It is conceivable that there are inconsistencies introduced by the
+text-extraction processes for these different data sources, but in general they
+seem fairly reliable, since they result in approximately the same number of
+verses and tokens for our different languages, and the great majority of the
+sentences are alignable (see subsequent discussion on bitext alignment).
+Additionally, hand inspection of the text for the languages that I can
+personally read (English and Spanish) show that the text contains fairly close
+translations.
 
 \begin{figure*}
 \raggedright \begin{verbatim}
@@ -234,46 +279,6 @@ the translations may be more interpretive.
   \label{fig:usfmsample}
 \end{figure*}
 
-
-Our English translation is distributed in a format called USFM (Unified
-Standard Format Markers), which is a markup language developed by a working
-group of Bible translators and used widely by the Bible-related software
-community.
-\footnote{See \url{http://paratext.org/about/usfm} for more about USFM. USFM is
-widely deployed; the website from which we scraped the Spanish and Guarani
-corpora appears to render its HTML from a USFM source.  There is an entire
-community of Bible software developers, and it has a wing that advocates Open
-Source software and translations unencumbered by copyright.  One could delve
-arbitrarily deeply into the history of religious-text translators and their
-relationships with technology and copyright, but one has an NLP dissertation to
-write.}
-While there are a number of tools that consume this format, I did not find one
-that handles our particular use case of stripping metadata and simply mapping
-from verses to flat text, so I wrote a short script to parse USFM and produce
-text in an easily-alignable format.
-
-%% TODO "Does that mean, the extraction could potentially have introduced
-%inconsistencies? If so, which ones?"
-% (regarding the HTML extraction for the Spanish/Guarani editions)
-
-Our Spanish and Guarani corpora are extracted from HTML pages scraped from an
-online Bible study website. In practice, the scraping was done by predicting
-the URLs for each chapter of each book and requesting those URLs
-programmatically. We then extract the text from the saved HTML pages with a
-Python script and the BeautifulSoup library for HTML parsing.
-\footnote{\url{http://www.crummy.com/software/BeautifulSoup/}}
-As a side note, since websites change over time and we
-downloaded the Guarani translation at an earlier date (from a mobile version of
-the site that is no longer available), the HTML takes a significantly different
-structure in the Spanish and Guarani editions, so they require different
-versions of the script for preprocessing.
-
-Our Quechua translation came in an easily parseable format, with individual
-verses already identified by Loza and Mihalcea; for this corpus, relatively
-little preprocessing was necessary since lines begin with the book, chapter,
-and verse already labeled. See Figure \ref{fig:loza} for a sample of the input
-format.
-
 \begin{figure*}
 \raggedright \begin{verbatim}
 [999,31,1,1] ¡Ay, imaraqmi Jerusalenqa sapan kapushan, haqay hina
@@ -289,6 +294,80 @@ format.
   the 2004 Peruvian Bible Society translation. Whitespace changes added here
   for readability.}
   \label{fig:loza}
+\end{figure*}
+
+\begin{figure*}
+\raggedright \begin{verbatim}
+<div id="reader" class="content text_ltr">
+  <a name="1"></a>
+  <a href="/bible/more/Lam.1.1"
+     style="color:black;text-decoration:none">
+    <h2>El profeta </h2>
+    <span class="verse" id="Lam_1_1">
+    <strong class="verseno">1</strong>
+    &nbsp;¡Pobrecita de ti, Jerusalén! <br />
+    Antes eras la más famosa <br />
+    de todas las ciudades. <br />
+    ¡Antes estabas llena de gente, <br />
+    pero te has quedado muy sola, <br />
+    te has quedado viuda!  <br />
+    ¡Fuiste la reina de las naciones, <br />
+    pero hoy eres esclava de ellas! <br /> <p> </p></span>
+  </a>
+  <a name="2"></a>
+  <a href="/bible/more/Lam.1.2"
+     style="color:black;text-decoration:none">
+    <span class="verse" id="Lam_1_2">
+  <strong class="verseno">2</strong>
+    &nbsp;Olvidada y bañada en lágrimas <br />
+    pasas todas las noches. <br />
+    Muchos decían que te amaban, <br />
+    pero hoy nadie te consuela. <br />
+    Los que se decían tus amigos <br />
+    hoy son tus enemigos. <br />
+    <p> </p></span>            </a>
+\end{verbatim}
+  \caption{The first two verses of the Book of Lamentations, \emph{Traducción en
+  Lenguaje Actual} (TLA) version, in HTML as scraped from the web. Whitespace
+  changes added here for readability.}
+  \label{fig:es-html-sample}
+\end{figure*}
+
+\begin{figure*}
+\raggedright \begin{verbatim}
+<div class="ltr" data-abbreviation="gdc" data-reference="lam.1.gdc"
+     data-usfm="LAM.1" id="version_primary">
+    <div class="version vid66 iso6393nhd" data-vid="66"
+         data-iso6393="nhd">
+        <div class="book bkLAM">
+            <div class="chapter ch1" data-usfm="LAM.1">
+                <div class="label">1</div>
+                <div class="s">
+                    <span class="heading">Ñembyasy Jerusalén oñehundi
+                    haguére</span>
+                </div>
+                <div class="q1">
+                    <span class="content" />
+                    <span class="verse v1" data-usfm="LAM.1.1">
+                        <span class="label">1</span>
+                        <span class="content">Ajépa ha'eño
+                        ajejuhu</span>
+                    </span>
+                </div>
+                <div class="q1">
+                    <span class="verse v1" data-usfm="LAM.1.1">
+                        <span class="content">upe táva
+                        guasuete,</span>
+                    </span>
+                </div>
+    ...
+\end{verbatim}
+  \caption{The beginning of the Book of Lamentations in Guarani,
+  \emph{Ñandejara Ñe'e} version, in HTML as scraped from the web. Whitespace
+  changes added here for readability. Note the metadata included here,
+  suggesting that the HTML is generated programmatically from an underlying
+  USFM document.}
+  \label{fig:gn-html-sample}
 \end{figure*}
 
 Each of the different formatting schemes uses its own coding to identify the
@@ -453,13 +532,31 @@ source-language segments and target-language segments, separated by
 \texttt{bible.es-gn.unfiltered}, which contains some non-parallel "sentences"
 and is untokenized. Individual sentences have not been preprocessed at all.
 
-To achieve well-aligned verses, we then run cdec's length filtering script,
-\texttt{filter-length.pl}. It filters out segments where either side is too
-long, or where there is a very large mismatch in length ratios between source
-length and target length (which indicates poor alignments between verses). Now
-we have selected the bitext from which we will train Chipa.
+We then a filtering script from cdec, \texttt{filter-length.pl}, which filters
+out segments where either side is too long, or where there is a large disparity
+in length between source and target text, which indicates input segments that
+are not close translations. After this filtering step, we have selected the
+bitext from which we will train Chipa. See Sentences \ref{sent:wood-en} and
+\ref{sent:wood-es} for an example of a pair of segments that is filtered by
+this step. This is 1 Kings 18:33, and the beginnings of these segments clearly
+have the same meaning; for the Spanish translation, though, the material in the
+second sentence of the English text has simply been moved into the subsequent
+verse (1 Kings 18:34) for whatever reason.
 
-%% TODO: add an example of bad alignments here.
+\begin{figure}
+\enumsentence{
+He put the wood in order, and cut the bull in pieces, and laid it on the wood.
+He said, “Fill four jars with water, and pour it on the burnt offering, and on
+the wood.”}
+\label{sent:wood-en}
+\enumsentence{
+ Preparó la leña, cortó el buey en pedazos, lo puso sobre la leña,
+}
+\label{sent:wood-es}
+  \caption{Segments filtered due to length disparity. Our English and Spanish
+  versions of 1 Kings 18:33.}
+  \label{fig:length-disparity}
+\end{figure}
 
 Given the sentence-aligned bitext corpus, which contains only the subset of the
 source and target Bibles that we were able to verse-align (roughly, ``sentence
@@ -518,80 +615,6 @@ discuss features that require parallel corpora, such as CL-WSD predictions into
 languages other than the current target language. But in all of these cases,
 the additional features are passed to the classifiers via this
 corpus-annotation approach.
-
-\begin{figure*}
-\raggedright \begin{verbatim}
-<div id="reader" class="content text_ltr">
-  <a name="1"></a>
-  <a href="/bible/more/Lam.1.1"
-     style="color:black;text-decoration:none">
-    <h2>El profeta </h2>
-    <span class="verse" id="Lam_1_1">
-    <strong class="verseno">1</strong>
-    &nbsp;¡Pobrecita de ti, Jerusalén! <br />
-    Antes eras la más famosa <br />
-    de todas las ciudades. <br />
-    ¡Antes estabas llena de gente, <br />
-    pero te has quedado muy sola, <br />
-    te has quedado viuda!  <br />
-    ¡Fuiste la reina de las naciones, <br />
-    pero hoy eres esclava de ellas! <br /> <p> </p></span>
-  </a>
-  <a name="2"></a>
-  <a href="/bible/more/Lam.1.2"
-     style="color:black;text-decoration:none">
-    <span class="verse" id="Lam_1_2">
-  <strong class="verseno">2</strong>
-    &nbsp;Olvidada y bañada en lágrimas <br />
-    pasas todas las noches. <br />
-    Muchos decían que te amaban, <br />
-    pero hoy nadie te consuela. <br />
-    Los que se decían tus amigos <br />
-    hoy son tus enemigos. <br />
-    <p> </p></span>            </a>
-\end{verbatim}
-  \caption{The first two verses of the Book of Lamentations, \emph{Traducción en
-  Lenguaje Actual} (TLA) version, in HTML as scraped from the web. Whitespace
-  changes added here for readability.}
-  \label{fig:es-html-sample}
-\end{figure*}
-
-\begin{figure*}
-\raggedright \begin{verbatim}
-<div class="ltr" data-abbreviation="gdc" data-reference="lam.1.gdc"
-     data-usfm="LAM.1" id="version_primary">
-    <div class="version vid66 iso6393nhd" data-vid="66"
-         data-iso6393="nhd">
-        <div class="book bkLAM">
-            <div class="chapter ch1" data-usfm="LAM.1">
-                <div class="label">1</div>
-                <div class="s">
-                    <span class="heading">Ñembyasy Jerusalén oñehundi
-                    haguére</span>
-                </div>
-                <div class="q1">
-                    <span class="content" />
-                    <span class="verse v1" data-usfm="LAM.1.1">
-                        <span class="label">1</span>
-                        <span class="content">Ajépa ha'eño
-                        ajejuhu</span>
-                    </span>
-                </div>
-                <div class="q1">
-                    <span class="verse v1" data-usfm="LAM.1.1">
-                        <span class="content">upe táva
-                        guasuete,</span>
-                    </span>
-                </div>
-    ...
-\end{verbatim}
-  \caption{The beginning of the Book of Lamentations in Guarani,
-  \emph{Ñandejara Ñe'e} version, in HTML as scraped from the web. Whitespace
-  changes added here for readability. Note the metadata included here,
-  suggesting that the HTML is generated programmatically from an underlying
-  USFM document.}
-  \label{fig:gn-html-sample}
-\end{figure*}
 
 
 \section{Exploring the Bitext}
