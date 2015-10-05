@@ -1,10 +1,10 @@
 NAME=dissertation
 
 $(NAME).pdf: *.tex *.bib is-abbrv.bst figures
-	pdflatex $(NAME).tex
+	xelatex $(NAME).tex
 	bibtex $(NAME)
-	pdflatex $(NAME).tex
-	pdflatex $(NAME).tex
+	xelatex $(NAME).tex
+	xelatex $(NAME).tex
 
 figures: pentagram.pdf
 

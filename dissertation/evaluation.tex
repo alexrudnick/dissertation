@@ -57,11 +57,6 @@ In general, the addition of CL-WSD has not been an overwhelming success in
 statistical machine translation, especially when we have large corpora
 available for language modeling \cite{carpuatpsd}.
 
-%% TODO: Drop in examples of all the different Bible formats as figures.
-%% which ones do we have already?
-
-%% NB: it's OK for this chapter to get pretty long. 40 pages isn't too long.
-
 %% TODO Write a bit more about how we'll use cdec later on.
 
 \section{Measuring CL-WSD Classification Accuracy}
@@ -554,15 +549,15 @@ corpus-annotation approach.
   <a name="2"></a>
   <a href="/bible/more/Lam.1.2"
      style="color:black;text-decoration:none">
-  <span class="verse" id="Lam_1_2">
+    <span class="verse" id="Lam_1_2">
   <strong class="verseno">2</strong>
-  &nbsp;Olvidada y bañada en lágrimas <br />
-  pasas todas las noches. <br />
-  Muchos decían que te amaban, <br />
-  pero hoy nadie te consuela. <br />
-  Los que se decían tus amigos <br />
-  hoy son tus enemigos. <br />
-  <p> </p></span>            </a>
+    &nbsp;Olvidada y bañada en lágrimas <br />
+    pasas todas las noches. <br />
+    Muchos decían que te amaban, <br />
+    pero hoy nadie te consuela. <br />
+    Los que se decían tus amigos <br />
+    hoy son tus enemigos. <br />
+    <p> </p></span>            </a>
 \end{verbatim}
   \caption{The first two verses of the Book of Lamentations, \emph{Traducción en
   Lenguaje Actual} (TLA) version, in HTML as scraped from the web. Whitespace
@@ -570,7 +565,42 @@ corpus-annotation approach.
   \label{fig:es-html-sample}
 \end{figure*}
 
-%% TODO: add Guarani Lamentations figure here.
+\begin{figure*}
+\raggedright \begin{verbatim}
+<div class="ltr" data-abbreviation="gdc" data-reference="lam.1.gdc"
+     data-usfm="LAM.1" id="version_primary">
+    <div class="version vid66 iso6393nhd" data-vid="66"
+         data-iso6393="nhd">
+        <div class="book bkLAM">
+            <div class="chapter ch1" data-usfm="LAM.1">
+                <div class="label">1</div>
+                <div class="s">
+                    <span class="heading">Ñembyasy Jerusalén oñehundi
+                    haguére</span>
+                </div>
+                <div class="q1">
+                    <span class="content" />
+                    <span class="verse v1" data-usfm="LAM.1.1">
+                        <span class="label">1</span>
+                        <span class="content">Ajépa ha'eño
+                        ajejuhu</span>
+                    </span>
+                </div>
+                <div class="q1">
+                    <span class="verse v1" data-usfm="LAM.1.1">
+                        <span class="content">upe táva
+                        guasuete,</span>
+                    </span>
+                </div>
+    ...
+\end{verbatim}
+  \caption{The beginning of the Book of Lamentations in Guarani,
+  \emph{Ñandejara Ñe'e} version, in HTML as scraped from the web. Whitespace
+  changes added here for readability. Note the metadata included here,
+  suggesting that the HTML is generated programmatically from an underlying
+  USFM document.}
+  \label{fig:gn-html-sample}
+\end{figure*}
 
 
 \section{Exploring the Bitext}
