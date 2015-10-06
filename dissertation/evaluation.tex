@@ -408,11 +408,11 @@ provide a good strategy for dealing with unknown words, and could only address
 nouns, verbs, and adjectives.
 There are a very large number of named entities in the source text, most of
 which are not present in WordNet. It cannot, by itself, help us know that
-``Zebulonites" is the plural of "Zebulonite".
-%% TODO "hm, this is again more anecdotal. Can you give any numbers for
-%coverage and accuracy? E.g. take a few verses and check manually how many
-%words were recognized and if so correctly analyzed What happens if a word is
-%not recognized?"
+``Zebulonites" is the plural of "Zebulonite". 
+37\% of the tokens in our English translation of the Bible are not present in
+WordNet; a great number of these are function words. However, there are quite a
+few named entities in the Bible: 33\% of the word types are not covered by
+WordNet either.
 
 For Guarani and Quechua, we use Michael Gasser's ParaMorfo and AntiMorfo
 analyzers.\footnote{Prof. Gasser's morphology software for Guarani, Quechua,
