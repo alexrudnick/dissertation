@@ -590,7 +590,30 @@ tokenized, lowercased, lemmatized bitext corpus, which is ready for word
 alignment. To generate the word alignments, we call cdec's \texttt{fast\_align}
 tool.
 
-%% TODO: put an example here.
+\begin{figure*}
+\begin{tikzpicture}[scale=0.7]
+  \tikzstyle{vertex}=[rectangle,rounded corners, fill=gray!80!white,draw=gray!70!black,
+  minimum size=0.6cm,line width=1]
+  \draw[step=1cm,draw=gray] (0,0) grid (5,7);
+
+  \foreach \y/\f in {0/foo, 1/bar, 2/baz, 3/qux, 4/quux, 5/quuux, 6/quuuux} {
+    \node[left] at (-.2,6.5-\y) {{\raggedleft \f }};
+  }
+
+  \foreach \x/\e in {0/she, 1/broke, 2/the, 3/school, 4/windows} {
+    \node[rotate=60,right] at (\x+.4,7.2) {{\raggedright \e}};
+  }
+
+  % draw word alignment
+  \foreach \x/\y in {0/0, 1/6, 3/2, 4/4} {
+    \node[vertex] at (\x+.5, 6.5-\y) {};
+  }
+\end{tikzpicture}
+  \caption{A sample word alignment. Lamentations 1:1, mapping from Spanish to
+  Guarani. Alignment produced with \texttt{fast\_align}.}
+  \label{fig:example-word-alignment}
+\end{figure*}
+
 
 After all of this preprocessing and alignment, we have produced three files of
 interest to Chipa: first, we have the lemmatized bitext corpus. Second, we have
