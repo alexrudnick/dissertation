@@ -485,21 +485,13 @@ the priors, and having learned a translation model, outputs the single most
 likely one-to-many word alignments, such that each source language token is
 linked with zero or more target-language tokens in the corresponding verse.
 
+%% XXX: should explain the difference between what fast_align is doing and the
+%% basic Models 1 & 2.
 %% TODO "explain? example?"
 %% XXX: working here
 
 \TODO{add a clear example alignment here, maybe a word aligned to a multi-word
 expression}
-
-
-%% TODO "This whole section sounds like a text I would use for teaching. You
-%explain all the fundamental problems on a very general level. What I would
-%expect form a thesis is that you tell the reader what exactly you did, or at
-%least what the major steps are. Examples would help, too. I mean, I don't need
-%to know the exact regular expressions how you identified corresponding verses,
-%but I would like to know what kind of segmentation you did, how you dealt with
-%run-on verses in Guarani, if you split punctuation from words, cases of
-%discrepancies and how you dealt with them ..  "
 
 \subsection{A deeper dive: producing Spanish-Guarani bitext}
 To get a concrete idea about the process of producing our bitext and our
@@ -1005,8 +997,6 @@ We can also set a regularization parameter during training, to encourage
 more parsimonious solutions and thus avoid overfitting.
 Here by default we set the regularization parameter to $C=1.0$.
 %% TODO "If the results were worse, you can just report this in one sentence."
-
-%% XXX working here
 
 We have also tried a variety of classification algorithms; scikit-learn makes
 experimentation with different classifiers and parameter settings
