@@ -9,25 +9,19 @@ In this chapter, I describe the tasks and data sets that we will investigate
 for the rest of the dissertation, as well as the basic version of the Chipa
 software, which we extend in a variety of directions in the following chapters.
 
-%% There are three different kinds of evaluation that one *could* do here.
-%% There's the typical kind of monolingual evaluation, with predefined sense
-%% inventories. There's the semeval-style classification accuracy, and then
-%% there's MT evaluation, in-vivo on a real task that we care about.
-%% ""consider fine-grained vs coarse-grained evaluation
-%% coarse/fine was manually chosen ""
 As discussed in Section \ref{sec:background-wsd}, for many years word sense
 disambiguation systems have been evaluated \emph{in vitro} and in a monolingual
 setting. The test sets for such WSD evaluations include sentences
-hand-annotated with a word senses from a particular sense inventory, such as
-(typically) the WordNet senses. These monolingual WSD evaluations often include
-both coarse-grained and fine-grained distinctions and allow for several possible
-correct answers; some word senses identified by lexicographers are more closely
-related than others.  While the senses in a sense inventory will contain many
-useful and interesting distinctions, they do not necessarily make the
-distinctions most appropriate for a given task, and the necessary distinctions
-will vary by application. As such, accuracy improvements on these tasks do not
-necessarily lead to performance gains for an NLP system making use of
-word-sense disambiguations \cite{resnikwsdapplications}.
+hand-annotated with a word senses from a particular sense inventory, such as,
+typically, the WordNet senses. These monolingual WSD evaluations often include
+both coarse-grained and fine-grained distinctions and allow for several
+possible correct answers; some word senses identified by lexicographers are
+more closely related than others.  While the senses in a sense inventory will
+contain many useful and interesting distinctions, they do not necessarily make
+the distinctions most appropriate for a given task, wich will vary by
+application. As such, accuracy improvements on these tasks do not necessarily
+lead to performance gains for an NLP system making use of word-sense
+disambiguations \cite{resnikwsdapplications}.
 
 This style of evaluation relies on a fairly scarce resource: sentences
 hand-annotated with a particular sense inventory.
@@ -43,8 +37,8 @@ these labels with high confidence.
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
 techniques as applied to running MT systems. Here we can use standard
 approaches for evaluating MT, such as BLEU and METEOR scores, or simply show
-that where word choices differ from the application of CL-WSD, the changes are,
-for the most part, improvements. For these experiments, we sample sentences
+that where word choices differ with the application of CL-WSD, the changes are
+for the most part improvements. For these experiments, we sample sentences
 from the available bitext -- particularly sentences that contain polysemous
 words for which we can train classifiers -- and run the MT systems both with
 and without Chipa enabled.
@@ -90,27 +84,18 @@ running text. We can train classifiers for many different word types, but we
 will generally not have training examples available for all words in the input
 at test time. This is a problem faced by data-driven NLP systems broadly.
 
-For comparison with other work, we can also run our systems on the SemEval
-shared task test sets, which are publicly available. Our task here is framed in
-the same way as the CL-WSD shared tasks from 2010 and 2013, so measuring
-performance on these test sets allows a straightforward comparison
-between the variations explored in this work and several other CL-WSD systems
-from recent years. These test sets are limited in scope, however, and will
-only demonstrate Chipa's performance for translating individual English nouns.
-It is also worth noting that our more immediate practical goal is to aid
-translation from Spanish into lower-resourced languages, and the resources that
-we can use to analyze an input English sentence will be different from those
-for Spanish.
-
-\TODO{this means we have to actually run the latest Chipa on the SemEval test sets too}
-%% """if you end up using these data set for evaluation, I'd like to see
-%information here about how the data were annotated, where the translation
-%candidates came form, how big the data sets were ""
+For comparison with other work, in Section \ref{sec:baseline-semeval} we run
+our systems on the SemEval CL-WSD shared task test sets, which are publicly
+available.  Our larger task here is framed in the same way as the CL-WSD shared
+tasks from 2010 and 2013, so measuring performance on these test sets allows a
+straightforward comparison between the variations explored in this work and
+several other CL-WSD systems from recent years. These test sets are limited in
+scope, however, and will only demonstrate Chipa's performance for translating
+individual English nouns. It is also worth noting that our more immediate
+practical goal is to aid translation from Spanish into lower-resourced
+languages. 
 
 \section{Data Sets and Preprocessing}
-%% TODO "If you use europarl, it should be mentioned throughout the chapter,
-%% under data, here ..."
-
 The largest corpus that we have available for all of our source and target
 languages is the Bible. There are translations available for many different
 languages, and while these were not always produced by native speakers, the
@@ -127,8 +112,8 @@ and Rada Mihalcea; the preparation of the Quechua corpus is described in Loza's
 masters thesis \cite{chrisloza}. For English, we use the public domain World
 English Bible translation.
 While there are a large number of translations available online, different
-``Bible societies" own the associated copyrights and thus redistribution of the
-complete texts is often restricted \cite{MAYER14.220.L14-1215}.
+``Bible societies" often own the associated copyrights and thus redistribution
+of the complete texts is often restricted \cite{MAYER14.220.L14-1215}.
 
 \subsection{Source-side annotations}
 \label{sec:annotations}
@@ -138,10 +123,10 @@ feature functions allow for arbitrary annotations on source-language tokens.
 
 Chipa's input file format describes one token per line, with fields split by
 tabs.  The first field of a line is a token's lemma, and the second field is
-its surface form.  Following this are an arbitrary number of annotations for
-that token, which may encode things such as part-of-speech, dependency
-relations, Sentence boundaries are indicated by blank lines. An annotated
-sentence with one annotation per token might look like Figure
+its surface form. Following this are an arbitrary number of annotations for
+that token, which may encode information such as part-of-speech, dependency
+relations, or similar.  Sentence boundaries are indicated by blank lines. An
+annotated sentence with one annotation per token might look like Figure
 \ref{fig:quickbrownfox}, for example:
 
 \begin{figure*}
@@ -169,15 +154,15 @@ annotations to those already present. The experiments in this chapter only use
 one of these tools, \texttt{freeling\_to\_annotated.py}, which produces Chipa's
 input format given output from Freeling.  In the following chapters, we will
 make use of these tools and the extra information they make available to our
-classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable with
-monolingual resources, and in Chapter \ref{chap:multilingual} we describe tools
-and annotations that require parallel data.
+classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable
+with monolingual resources, and in Chapter \ref{chap:multilingual} we describe
+tools and annotations that require parallel data.
 
 \subsection{Preprocessing}
 There is a nontrivial amount of preprocessing required in order to get our
 Bible text into a format suitable for our tools.  This is largely due to the
-varying markup formats used by different translation groups.
-For each of the formats and translations, we need to understand its formatting
+varying markup formats used by different translation publishers.
+For each of the available translations, we need to understand its formatting
 enough to know which text comes from which book, chapter, and verse number.
 This triple uniquely identifies a unit of text, and verse numbers are nearly
 standardized across translations.  There are a few exceptions, however:
@@ -215,8 +200,8 @@ relationships with technology and copyright, but one has an NLP dissertation to
 write.}
 While there are a number of tools that consume USFM, I did not find one that
 handles our particular use case of stripping metadata and simply mapping from
-verses to flat text, so I wrote a short script to parse USFM and produce text
-in an easily-alignable format.
+verses to flat text, so I wrote a short script, \texttt{parse\_usfm.py}, to
+parse USFM and produce text in an easily-alignable format.
 
 Our Spanish and Guarani corpora are extracted from HTML pages scraped from an
 online Bible study website. In practice, the scraping was done by predicting
@@ -1039,3 +1024,12 @@ machines, and of course compare these to the most-frequent-sense baseline.
 
 \TODO{Words in Spanish for which we gain the most by training a classifier --
 measured as the difference in accuracy between MFS}
+
+\section{For Comparison: the Baseline Chipa System On the SemEval 2010 and 2013
+Shared Tasks}
+\label{sec:baseline-semeval}
+\TODO{this means we have to actually run the latest Chipa on the SemEval test sets too}
+%% """if you end up using these data set for evaluation, I'd like to see
+%information here about how the data were annotated, where the translation
+%candidates came form, how big the data sets were ""
+
