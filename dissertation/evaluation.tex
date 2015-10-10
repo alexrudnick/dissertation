@@ -223,13 +223,14 @@ little preprocessing was necessary since lines begin with the book, chapter,
 and verse already labeled. See Figure \ref{fig:loza} for a sample of the input
 format.
 It is conceivable that there are inconsistencies introduced by the
-text-extraction processes for these different data sources, but in general they
-seem fairly reliable, since they result in approximately the same number of
-verses and tokens for our different languages, and the great majority of the
-sentences are alignable (see subsequent discussion on bitext alignment).
+text-extraction processes for these different data sources, but for the most
+part the scripts seem reliable, since they result in approximately the same
+number of verses and tokens for our different languages, and the great majority
+of the sentences are alignable (see subsequent discussion on bitext alignment).
 Additionally, hand inspection of the text for the languages that I can
 personally read (English and Spanish) show that the text contains fairly close
-translations.
+translations, and loan words and similar named entities appear in the Quechua
+and Guarani texts.
 
 \begin{figure*}
 \raggedright \begin{verbatim}
@@ -355,7 +356,7 @@ translations.
   \label{fig:gn-html-sample}
 \end{figure*}
 
-Each of the different formatting schemes uses its own coding to identify the
+Each of the different formatting schemes uses its own encoding to identify the
 different books of the Bible, so when producing output for alignment, we must
 map to a standard encoding. For example, our Quechua edition marks the book of
 Lamentations with the numerical code $31$ (it is the thirty-first book in
@@ -387,17 +388,16 @@ languages.
 
 The use of FreeLing for English is a noted improvement over initial
 experiments, which used the WordNet lemmatizer and the default NLTK
-part-of-speech tagger.
-The WordNet lemmatizer especially has a fairly small vocabulary, did not
+part-of-speech tagger; these tools do not, as distributed, support Spanish.
+The WordNet lemmatizer has a fairly small vocabulary, did not
 provide a good strategy for dealing with unknown words, and could only address
 nouns, verbs, and adjectives.
 There are a very large number of named entities in the source text, most of
 which are not present in WordNet. It cannot, by itself, help us know that
-``Zebulonites" is the plural of "Zebulonite". 
-37\% of the tokens in our English translation of the Bible are not present in
-WordNet; a great number of these are function words. However, there are quite a
-few named entities in the Bible: 33\% of the word types are not covered by
-WordNet either.
+``Zebulonites" is the plural of "Zebulonite".  37\% of the tokens in our
+English translation of the Bible are not present in WordNet, and many of these
+tokens are function words. However, there are quite a few named entities in the
+Bible: 33\% of the word types are not covered by WordNet either.
 
 For Guarani and Quechua, we use Michael Gasser's ParaMorfo and AntiMorfo
 analyzers.\footnote{Prof. Gasser's morphology software for Guarani, Quechua,
@@ -421,7 +421,7 @@ transduction, each traversal through the transducer retains a memory of where
 it has been, permitting the incorporation of long-distance constraints such as
 those relating the negative prefix and suffix of Guarani verbs.
 
-Here the result of morphologically analyzing a word is a root and a feature
+Here the result of morphological analysis of a word is a root and a feature
 structure representing the grammatical features of the word.  For the basic
 version of Chipa, we are only concerned with the lemmatized forms of the words
 in our corpora, so we ignore the grammatical features for now.  In cases of
@@ -429,15 +429,30 @@ morphological ambiguity, which is to say cases where a surface form could be an
 inflection of multiple distinct lemmas, we maintain this ambiguity rather than
 trying to disambiguate from context.  The different possible lemmas are
 separated by a slash; there are examples of this in
-Section~\ref{sec:exploring}.
+Figure ~\ref{fig:gn-qu-morpho-ambiguity}.
+
+\begin{figure*}
+\begin{itemize}
+  \item 
+  %% TODO: examples from Lamentations 1:2 in Quechua go here
+  Quechua
+Llapan munaqninkunamanta manan hukllapas kanchu sonqochay- kuqnin.
+Llapan reqsinakuq-masinkunapas manan rikuqpas tukupunkuchu, llapallanmi awqanman tukupunku.
+
+llapan munaqninkunamanta ma/mana huk/huklla ka/kanchu sonqochay - kuqnin .
+  llapan reqsinakuq - masi ma/mana ri/riku tukupu , llapallanmi awqa tukupu .
+  \item TODO: pick out nice Guarani example too.
+\end{itemize}
+\caption{Examples of morphological ambiguity in Quechua and Guarani, after
+having run AntiMorfo and ParaMorfo.}
+\label{fig:gn-qu-morpho-ambiguity}
+\end{figure*}
 
 %% TODO "Did you run / are you planning to run another experiment where you
 %force disambiguation? Either use the highest weights, or the first analysis
 %..."
 %% Force morphological disambiguation on the gn side, not a bad idea.
 
-%% TODO "why not give a few here?"
-%% Examples of morphological ambiguity in gn/qu.
 
 A familiar example of morphological ambiguity in Spanish is that \emph{ir} 'to
 go' and \emph{ser} 'to be' share their preterite-tense forms; this is a fairly
