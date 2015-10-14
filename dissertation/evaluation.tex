@@ -488,18 +488,39 @@ systems \cite{dyer-chahuneau-smith:2013:NAACL-HLT}. It improves on Model 1 by
 encouraging diagonal alignments, rather than Model 1's simplistic view that any
 token in the source might be just as well be aligned to token in the target,
 and on Model 2 in having fewer parameters to fit. In any case, it is the
-default aligner for use with cdec. \texttt{fast_align} produces the single most
+default aligner for use with cdec. \texttt{fast\_align} produces the single most
 likely one-to-many word alignment for each verse, such that each source
 language token is linked with zero or more target-language tokens in the
-corresponding verse.
+corresponding verse. For a visualization of \texttt{fast\_align}'s output, see
+Figure~\ref{fig:example-word-alignment}.
 
-%% XXX: should explain the difference between what fast_align is doing and the
-%% basic Models 1 & 2.
-%% TODO "explain? example?"
-%% XXX: working here
+\begin{figure*}
+\begin{tikzpicture}[scale=0.7]
+  \tikzstyle{vertex}=[rectangle,rounded corners, fill=gray!80!white,draw=gray!70!black,
+  minimum size=0.6cm,line width=1]
+  \draw[step=1cm,draw=gray] (0,0) grid (10,13);
 
-\TODO{add a clear example alignment here, maybe a word aligned to a multi-word
-expression}
+  \foreach \y/\f in {0/Amargamente, 1/llora, 2/en, 3/la, 4/noche, 5/y, 6/las,
+  7/lagrimas, 8/corren, 9/por, 10/sus, 11/mejillas, 12/.} {
+    \node[left] at (-.2,12.5-\y) {{\raggedleft \f }};
+  }
+  \foreach \x/\e in {
+  0/Pyhare, 1/pukukue, 2/hasẽ, 3/{,}, 4/ha, 5/hesay, 6/mante, 7/hováre,
+  8/osyry, 9/. } {
+    \node[rotate=60,right] at (\x+.4,13.2) {{\raggedright \e}};
+  }
+
+  % draw word alignment
+  \foreach \y/\x in {
+  4/0, 4/1, 1/2, 3/3, 5/4, 7/5, 9/6, 11/7, 8/8, 12/9
+  } {
+    \node[vertex] at (\x+.5, 12.5-\y) {};
+  }
+\end{tikzpicture}
+  \caption{A sample word alignment. The beginning of Lamentations 1:2, mapping
+  from Spanish to Guarani. Alignment produced with \texttt{fast\_align}.}
+  \label{fig:example-word-alignment}
+\end{figure*}
 
 \subsection{A deeper dive: producing Spanish-Guarani bitext}
 To get a concrete idea about the process of producing our bitext and our
@@ -589,34 +610,6 @@ corresponding target-language lemmatized text, using cdec's
 tokenized, lowercased, lemmatized bitext corpus, which is ready for word
 alignment. To generate the word alignments, we call cdec's \texttt{fast\_align}
 tool.
-
-\begin{figure*}
-\begin{tikzpicture}[scale=0.7]
-  \tikzstyle{vertex}=[rectangle,rounded corners, fill=gray!80!white,draw=gray!70!black,
-  minimum size=0.6cm,line width=1]
-  \draw[step=1cm,draw=gray] (0,0) grid (10,13);
-
-  \foreach \y/\f in {0/Amargamente, 1/llora, 2/en, 3/la, 4/noche, 5/y, 6/las,
-  7/lagrimas, 8/corren, 9/por, 10/sus, 11/mejillas, 12/.} {
-    \node[left] at (-.2,12.5-\y) {{\raggedleft \f }};
-  }
-  \foreach \x/\e in {
-  0/Pyhare, 1/pukukue, 2/hasẽ, 3/{,}, 4/ha, 5/hesay, 6/mante, 7/hováre,
-  8/osyry, 9/. } {
-    \node[rotate=60,right] at (\x+.4,13.2) {{\raggedright \e}};
-  }
-
-  % draw word alignment
-  \foreach \y/\x in {
-  4/0, 4/1, 1/2, 3/3, 5/4, 7/5, 9/6, 11/7, 8/8, 12/9
-  } {
-    \node[vertex] at (\x+.5, 12.5-\y) {};
-  }
-\end{tikzpicture}
-  \caption{A sample word alignment. The beginning of Lamentations 1:2, mapping
-  from Spanish to Guarani. Alignment produced with \texttt{fast\_align}.}
-  \label{fig:example-word-alignment}
-\end{figure*}
 
 After all of this preprocessing and alignment, we have produced three files of
 interest to Chipa: first, we have the lemmatized bitext corpus. Second, we have
