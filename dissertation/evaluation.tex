@@ -644,15 +644,34 @@ Zipfian distribution of word types in most texts, constitute a significant
 fraction of the tokens exhibited. See Figures \ref{fig:mostcommon-lemmas} and
 \ref{fig:mostcommon-surface} for more detail.
 %% TODO: quantify this, per language!!
-Some of these most common words
-in the text are proper names or exhibit only one translation in the target
-language, but for the most part we see, through the aligned bitext, that
-the most common words are polysemous.
+
+%% XXX: need some good examples of this.
+Some of these most common words in the text are proper names or exhibit only
+one translation in the target language, but for the most part we see, through
+the aligned bitext, that the most common words are polysemous.
+
 To take a few salient examples from the Spanish-English aligned text,
 the verb \emph{hacer} can translate in a number of different ways: 'do',
 'make', 'cause'; for \emph{decir}, we must choose between 'say', 'tell' or
 'speak'; \emph{mujer} can mean either 'wife' or 'woman'; and \emph{reina} can
-translate to 'reign' or 'queen'.  
+translate to 'reign' or 'queen'.
+
+In the English-Spanish direction, we see that the 'be' can be translated as
+either \emph{ser} or \emph{estar}\footnote{This distinction is often somewhat
+vexing to second-language learners of Spanish; both verbs roughly correspond
+with 'to be' in English, but \emph{ser} is generally for more permanent states
+of being, rather than the more fleeting \emph{estar}. The particularities are
+fairly idiomatic.}. The English verb 'have' can be translated as \emph{haber}
+(an auxiliary verb in Spanish, very much like the 'have' in ``I have often
+thought..."), or as \emph{tener} ('to have (something)'). Notably 'shall' is
+typically translated as NULL, since Spanish can form a future tense with a verb
+conjugation rather than an auxiliary verb. In the English text, when we see
+'woman', this is usually translated as \emph{mujer}, although \emph{esposo} (in
+the text, surely \emph{esposa} -- morphological analysis normalizes to
+masculine gender) is also seen.
+
+For Spanish-Quechua and Spanish-Guarani, we see...
+%% XXX: working here
 
 \begin{figure*}
 TODO: plot of rank of each word type versus the cumulative fraction of the text
@@ -690,6 +709,20 @@ defined by the default NLTK stopword lists for English and Spanish) other than
 common verbs.
 %% XXX: magic number. Do we need to argue about fifty? What if we went down to
 %% forty? Lower than that and this looks pretty ridiculous.
+
+
+To get a sense about the difficulty of the classification task faced by a
+classifier addressing these ambiguities, we can take a look at the number of
+bits of entropy for some of the most common Spanish word types; this is shown
+in Figure \ref{fig:mostcommon-es-entropy}. Here one bit of entropy corresponds
+between a choice between two a priori equally likely options. Two bits of
+entropy corresponds to choosing between four equally likely options, and so on.
+
+$$
+  H(X) = -\displaystyle\sum_{x} p(x)\log_{2}{p(x)}
+$$
+
+%% XXX working here.
 
 \TODO{update based on most recent preprocessing pipeline}
 
