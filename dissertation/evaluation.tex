@@ -718,9 +718,18 @@ One bit of entropy corresponds to a choice between two a priori equally likely
 options. For example, if a given source word can be translated in four
 different ways, and they are equiprobable, this will be two bits of entropy. Of
 course in practice, some translations will be much more common than others.
-Some concrete examples of this are in Figure \ref{fig:mostcommon-es-entropy}.
+Some concrete examples of this are in Figure \ref{fig:mostcommon-es-entropy};
+a few words, such as \emph{dios} and \emph{pueblo}, seem straightforward to
+translate into English. Here we have less than 1 bit of uncertainty about the
+translation a priori. But verbs often used in idiomatic expressions like
+\emph{hacer} and \emph{poner} introduce much more uncertainty. Some of these
+numbers are higher than they would be without the morphological
+analysis process normalizing gender; here both \emph{hijo} 'son' and
+\emph{hija} 'daughter' have been normalized to the masculine form, and a
+classifier with access to the surface form and its gender will have a much
+easier time than the entropy value here suggests.
 
-These values are calculated with the familiar formula for entropy:
+The values in this table are calculated with the familiar formula for entropy:
 $$
   H(X) = -\displaystyle\sum_{x} p(x)\log_{2}{p(x)}
 $$
@@ -932,39 +941,38 @@ common word types.}
     \hline
     es & entropy (en) & entropy (gn) & entropy (qu) \\
     \hline
-ser    &     2.49         &      3.90        &       3.25       \\  
-haber  &     2.88         &      3.57        &       2.70       \\
-decir  &     1.57         &      2.05        &       1.82       \\
-dios   &     0.33         &      1.56        &       3.99       \\
-estar  &     2.07         &      3.01        &       2.61       \\
-hacer  &     4.07         &      2.68        &       2.67       \\
-tierra &     2.00         &      2.96        &       3.58       \\
-ir/ser &     2.65         &      3.19        &       2.92       \\
-pueblo &     0.56         &      3.36        &       3.21       \\
-pues   &     3.18         &      3.73        &       2.90       \\
-si     &     2.68         &      3.06        &       2.91       \\
-así    &     2.95         &      2.73        &       3.27       \\
-padre  &     0.53         &      1.48        &       2.60       \\
-señor  &     0.78         &      3.15        &       3.38       \\
-poner  &     4.32         &      3.05        &       2.93       \\
-mujer  &     2.11         &      2.28        &       1.88       \\
-volver &     3.89         &      3.59        &       3.65       \\
-poder  &     3.51         &      3.12        &       3.36       \\
-ir     &     3.49         &      2.96        &       2.77       \\
-salir  &     3.43         &      2.40        &       3.91       \\
-judá   &     0.23         &      2.07        &       2.81       \\
-mismo  &     3.27         &      2.94        &       2.87       \\
-llevar &     3.70         &      1.81        &       2.79       \\
-dicho  &     1.91         &      2.60        &       2.99       \\
-cielo  &     1.32         &      2.21        &       2.13       \\
-ojo    &     2.03         &      2.52        &       2.57       \\
-llegar &     3.23         &      2.76        &       3.27       \\
-entrar &     3.77         &      1.88        &       2.71       \\
-llamar &     1.64         &      2.69        &       3.49       \\
-subir  &     2.85         &      3.39        &       3.19       \\
-obra   &     1.99         &      3.27        &       3.42       \\
-hija   &     0.35         &      2.33        &       2.29       \\
-dejar  &     4.03         &      2.67        &       2.80       \\
+ser    &     2.11         &      3.79        &       3.29       \\  
+haber  &     2.89         &      3.69        &       2.75       \\
+decir  &     1.74         &      2.19        &       1.81       \\
+dios   &     0.50         &      1.67        &       3.90       \\
+estar  &     2.02         &      3.14        &       2.69       \\
+hacer  &     3.93         &      2.57        &       2.66       \\
+tierra &     1.93         &      2.89        &       3.51       \\
+ir     &     2.61         &      2.91        &       2.87       \\
+pueblo &     0.54         &      3.31        &       3.09       \\
+pues   &     3.28         &      3.74        &       2.97       \\
+si     &     2.82         &      3.17        &       2.97       \\
+así    &     2.94         &      3.12        &       3.55       \\
+padre  &     0.64         &      1.64        &       2.74       \\
+señor  &     1.70         &      3.20        &       3.60       \\
+poner  &     4.07         &      2.91        &       2.79       \\
+mujer  &     2.09         &      2.30        &       1.88       \\
+volver &     3.86         &      3.53        &       3.57       \\
+poder  &     3.22         &      3.04        &       3.30       \\
+ir     &     2.61         &      2.91        &       2.87       \\
+salir  &     3.13         &      2.43        &       4.05       \\
+judá   &     0.29         &      2.12        &       2.77       \\
+mismo  &     3.36         &      2.98        &       2.77       \\
+llevar &     3.46         &      1.75        &       2.72       \\
+cielo  &     1.49         &      2.27        &       2.12       \\
+ojo    &     1.81         &      2.51        &       2.67       \\
+llegar &     3.04         &      2.72        &       3.32       \\
+entrar &     3.54         &      2.06        &       2.56       \\
+llamar &     1.82         &      2.56        &       3.32       \\
+subir  &     2.64         &      3.50        &       3.20       \\
+obra   &     2.02         &      3.25        &       3.25       \\
+hijo   &     1.72         &      2.66        &       2.63       \\
+dejar  &     3.53         &      2.49        &       2.77       \\
     \hline
   \end{tabular}
   \end{centering}
@@ -973,8 +981,6 @@ dejar  &     4.03         &      2.67        &       2.80       \\
   system that must choose among the possible alternatives} 
   \label{fig:mostcommon-es-entropy}
 \end{figure*}
-%% TODO "I did not find a mention / explanation of this figure in the text."
-
 
 Using larger bitexts of course will allow us to construct training and test
 sets for a broader vocabulary, and with better statistical support for the
