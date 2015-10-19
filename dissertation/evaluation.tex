@@ -711,16 +711,23 @@ common verbs.
 %% forty? Lower than that and this looks pretty ridiculous.
 
 
-To get a sense about the difficulty of the classification task faced by a
-classifier addressing these ambiguities, we can take a look at the number of
-bits of entropy for some of the most common Spanish word types; this is shown
-in Figure \ref{fig:mostcommon-es-entropy}. Here one bit of entropy corresponds
-between a choice between two a priori equally likely options. Two bits of
-entropy corresponds to choosing between four equally likely options, and so on.
+As an approximation of the difficulty of the classification task we face when
+addressing these ambiguities, we can take a look at the entropy of the possible
+translations for various source word types.
+One bit of entropy corresponds to a choice between two a priori equally likely
+options. For example, if a given source word can be translated in four
+different ways, and they are equiprobable, this will be two bits of entropy. Of
+course in practice, some translations will be much more common than others.
+Some concrete examples of this are in Figure \ref{fig:mostcommon-es-entropy}.
 
+These values are calculated with the familiar formula for entropy:
 $$
   H(X) = -\displaystyle\sum_{x} p(x)\log_{2}{p(x)}
 $$
+
+The entropy of the set of possible translations (of a given source-language
+term) $X$ is the sum, over all individual translations $x$, of the negative
+log-probability of that translation, weighted by its probability.
 
 %% XXX working here.
 
