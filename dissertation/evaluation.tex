@@ -452,7 +452,7 @@ sentence of Lamentations 1:2; the Guarani is Lamentations 3:4.}
 \label{fig:gn-qu-morpho-ambiguity}
 \end{figure*}
 
-%% TODO "Did you run / are you planning to run another experiment where you
+%% NOTE "Did you run / are you planning to run another experiment where you
 %force disambiguation? Either use the highest weights, or the first analysis
 %..."
 %% Force morphological disambiguation on the gn side, not a bad idea.
@@ -707,9 +707,6 @@ consider words to be in-vocabulary if they appear at least fifty times in the
 training corpus; we also do not include punctuation marks and stopwords (as
 defined by the default NLTK stopword lists for English and Spanish) other than
 common verbs.
-%% XXX: magic number. Do we need to argue about fifty? What if we went down to
-%% forty? Lower than that and this looks pretty ridiculous.
-
 
 As an approximation of the difficulty of the classification task we face when
 addressing these ambiguities, we can take a look at the entropy of the possible
@@ -1054,8 +1051,6 @@ machines, and of course compare these to the most-frequent-sense baseline.
 
 \section{Classification Results for the Baseline System}
 
-\TODO{insert a bunch of numbers here}
-
 \begin{itemize}
 \item en-es
 \item es-en
@@ -1069,7 +1064,6 @@ measured as the difference in accuracy between MFS}
 \section{For Comparison: the Baseline Chipa System On the SemEval 2010 and 2013
 Shared Tasks}
 \label{sec:baseline-semeval}
-\TODO{this means we have to actually run the latest Chipa on the SemEval test sets too}
 %% """if you end up using these data set for evaluation, I'd like to see
 %information here about how the data were annotated, where the translation
 %candidates came form, how big the data sets were ""
