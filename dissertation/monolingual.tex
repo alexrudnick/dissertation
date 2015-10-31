@@ -5,26 +5,30 @@ language resources available for the source language. We would like to use
 these to make better sense of the input text, giving our classifiers clearer
 signals for lexical selection in the target language. The approaches considered
 in this chapter, in general, make additional features available to the CL-WSD
-classifiers.
+classifiers. In short, since we have relatively little bitext available for
+Spanish-Guarani and Spanish-Quechua, we will make use of the resources available
+to improve understanding of the nuances of Spanish.
 
-For Spanish, perhaps most saliently, we have abundant monolingual text
-available to us.
-Given large amounts of Spanish-language text, we can use
-unsupervised methods to discover regularities that will give additional
-purchase to our classifiers.
+Perhaps most saliently for Spanish, we have abundant monolingual text available.
+Given large amounts of Spanish-language text, we can use unsupervised methods to
+discover regularities that will hopefully purchase to our classifiers.
 In this work we apply Brown clustering
 \cite{brown1992class}, which has been used successfully in a variety
 of text classification tasks \cite{turian-ratinov-bengio:2010:ACL} and provides
 a straightforward mechanism to add annotations to our source-language text.
-We also try learning neural word embeddings (XXX citation needed), which map
-from individual word types to high-dimensional spaces in which similar word
-types are in some sense clustered. %% XXX explain better
-% we can also try topic models (say with MALLET)
+We also try learning neural word embeddings \cite{mikolovword2vec}, which map
+individual word types into multidimensional spaces in which words with similar
+co-occurrence patterns, and thus similar meanings, have similar representations.
 
+%% XXX explain better
+% we can also try topic models (say with MALLET)
 
 In addition to large quantities of monolingual text, we have available to us
 excellent off-the-shelf NLP tools such as POS taggers and syntactic parsers,
-which can be used to
+which both capture abstractions about particular word types (e.g., perhaps a
+noun in the window surrounding a focus word is indicative of some particular
+meaning) and help us disambiguate based on the structure of the current
+sentence.
 
 In this chapter, we want to write about all of the things that we can do with
 just monolingual data in the source language.
