@@ -713,9 +713,10 @@ addressing these ambiguities, we can take a look at the entropy of the possible
 translations for various source word types.
 One bit of entropy corresponds to a choice between two a priori equally likely
 options. For example, if a given source word can be translated in four
-different ways, and they are equiprobable, this will be two bits of entropy. Of
-course in practice, some translations will be much more common than others.
-Some concrete examples of this are in Figure \ref{fig:mostcommon-es-entropy};
+different ways, and they are all equiprobable, this will be two bits of entropy.
+Of course in practice, some translations will be much more common than others.
+Some concrete examples of Spanish-language words with their entropy scores from
+the source text are presented in Figure \ref{fig:mostcommon-es-entropy};
 a few words, such as \emph{dios} and \emph{pueblo}, seem straightforward to
 translate into English. Here we have less than 1 bit of uncertainty about the
 translation a priori. But verbs often used in idiomatic expressions like
@@ -726,16 +727,14 @@ analysis process normalizing gender; here both \emph{hijo} 'son' and
 classifier with access to the surface form and its gender will have a much
 easier time than the entropy value here suggests.
 
-The values in this table are calculated with the familiar formula for entropy:
-$$
-  H(X) = -\displaystyle\sum_{x} p(x)\log_{2}{p(x)}
-$$
-
-The entropy of the set of possible translations (of a given source-language
+The values in this table are calculated with the familiar formula for entropy;
+the entropy of the set of possible translations (of a given source-language
 term) $X$ is the sum, over all individual translations $x$, of the negative
 log-probability of that translation, weighted by its probability.
 
-%% XXX working here.
+$$
+  H(X) = -\displaystyle\sum_{x} p(x)\log_{2}{p(x)}
+$$
 
 \begin{figure*}
   \begin{tiny}
