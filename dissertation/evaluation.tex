@@ -641,21 +641,18 @@ corpus-annotation approach.
 Even using only the Bible as bitext, we find a substantial number of
 training examples for many of the most common word types, which, due to the
 Zipfian distribution of word types in most texts, constitute a significant
-fraction of the tokens exhibited. See Figures \ref{fig:mostcommon-lemmas} and
-\ref{fig:mostcommon-surface} for more detail.
+fraction of the tokens exhibited.
+See Figures \ref{fig:mostcommon-lemmas} and \ref{fig:mostcommon-surface} for more detail.
 %% TODO: quantify this, per language!!
-%% TODO: we actually need to make fig:mostcommon-surface
 
-%% XXX: need some good examples of this.
-Some of these most common words in the text are proper names or exhibit only
-one translation in the target language, but for the most part we see, through
-the aligned bitext, that the most common words are polysemous.
-
-To take a few salient examples from the Spanish-English aligned text,
-the verb \emph{hacer} can translate in a number of different ways: 'do',
-'make', 'cause'; for \emph{decir}, we must choose between 'say', 'tell' or
-'speak'; \emph{mujer} can mean either 'wife' or 'woman'; and \emph{reina} can
-translate to 'reign' or 'queen'.
+Some of these most common words in the text are proper names (place names,
+personal names, names referring to God) or exhibit very few translations in the
+target language, but for the most part we see, through the aligned bitext, that
+the most common words are largely polysemous.  To take a few salient examples
+from the Spanish-English aligned text, the verb \emph{hacer} can translate in a
+number of different ways: 'do', 'make', 'cause'; for \emph{decir}, we must
+choose between 'say', 'tell' or 'speak'; \emph{mujer} can mean either 'wife' or
+'woman'; and \emph{reina} can translate to 'reign' or 'queen'.
 
 In the English-Spanish direction, we see that the 'be' can be translated as
 either \emph{ser} or \emph{estar}\footnote{This distinction is often somewhat
@@ -671,24 +668,20 @@ conjugation rather than an auxiliary verb. In the English text, when we see
 the text, surely \emph{esposa} -- morphological analysis normalizes to
 masculine gender) is also seen.
 
-For Spanish-Quechua and Spanish-Guarani, we see...
-%% XXX: working here
 
 \begin{figure*}
-TODO: plot of rank of each word type versus the cumulative fraction of the text
-covered by that word type. Do this for both surface forms and lemmas, for each
-of en, es, qu, gn.
+TODO: plot of rank of each lemma type versus the cumulative fraction of the text
+covered by that type. Do this for each of en, es, qu, gn.
   \caption{Word ranks versus fraction of Bible tokens covered, for lemmas.}
   \label{fig:mostcommon-lemmas}
 \end{figure*}
 
 \begin{figure*}
-TODO: plot of rank of each word type versus the cumulative fraction of the text
-covered by that word type. Do this for both surface forms and lemmas, for each
-of en, es, qu, gn.
+TODO: plot of rank of each surface type versus the cumulative fraction of the text
+covered by that type. Do this for each of en, es, qu, gn.
   \caption{Word ranks versus fraction of Bible tokens covered, for
   (case-insensitive) surface forms.}
-  \label{fig:mostcommon-lemmas}
+  \label{fig:mostcommon-surface}
 \end{figure*}
 
 There are analogous lexical ambiguities when translating from Spanish to
@@ -698,6 +691,7 @@ Quechua as \emph{llaqta} 'town/city', or \emph{runa} 'person'.
 For translating from Spanish to Guarani, we see the verb \emph{volver}
 'turn/return/repeat' translated as \emph{jey} 'again', but also as \emph{jere}
 'turn'.
+%% XXX: working here
 
 Figure~\ref{fig:mostcommon-en-es} gives the most common lemmas used in our
 corpus for the four languages, along with their counts. In
