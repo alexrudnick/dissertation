@@ -24,6 +24,15 @@ applied to a large number of language pairs.
 \end{itemize}
 
 
+A hyperparameter that we need to check is: what's the minimum number of tokens
+we train a classifier, before it does us any good?
+More common word types are going to be both easier to train and have more
+impact on the test sentences that we want to translate, presumably. But if our
+classifiers are in fact helpful, then having classifications for more input
+tokens is going to be helpful.
+So we should try a number of settings for this parameter.
+
+
 \section{Tereré}
 \label{sec:terere}
 Since we hope that our ideas about lexical selection will make sense in several
