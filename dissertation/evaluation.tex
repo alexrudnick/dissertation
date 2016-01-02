@@ -96,6 +96,7 @@ practical goal is to aid translation from Spanish into lower-resourced
 languages. 
 
 \section{Data Sets and Preprocessing}
+\label{sec:datasetsandpreprocessing}
 The largest corpus that we have available for all of our source and target
 languages is the Bible. There are translations available for many different
 languages, and while these were not always produced by native speakers, the
@@ -1311,15 +1312,19 @@ Shared Tasks}
 \label{sec:baseline-semeval}
 
 In order to situate these techniques with other recent approaches in CL-WSD, we
-additionally ran the baseline Chipa system on the SemEval CL-WSD test sets from
-2010 and 2013. No particular additional effort was made to tune the system for
-these tasks, although the Chipa system is derived from the system we built for
-the 2013 task.
+ran the baseline Chipa system on the SemEval CL-WSD test sets from 2010 and
+2013. No particular additional effort was made to tune the system for these
+tasks, although the Chipa system is descended from a system originally built
+for the 2013 task.
 
 The training data here was considerably larger than the Bibles; we trained on
 the Europarl V7 bitext for English and Spanish, using English as the source
 language. This mirrors part of the 2010 and 2013 shared tasks, which all used
-English as a source language.
+English as a source language. We applied the preprocessing steps described in
+Section \ref{sec:datasetsandpreprocessing} to the English-Spanish Europarl
+bitext, which consists of nearly 2 million parallel sentences, and use the
+Chipa system with no modifications to train classifiers to solve the SemEval
+test problems.
 
 %% XXX: add citations
 
