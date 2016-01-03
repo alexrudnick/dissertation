@@ -1313,20 +1313,29 @@ Shared Tasks}
 
 In order to situate these techniques with other recent approaches in CL-WSD, we
 ran the baseline Chipa system on the SemEval CL-WSD test sets from 2010 and
-2013. No particular additional effort was made to tune the system for these
-tasks, although the Chipa system is descended from a system originally built
-for the 2013 task.
+2013, for English-Spanish. Here for simplicity, we focus on the this language
+pair's CL-WSD tasks, since our preprocessing pipeline already handles these
+languages; in the full 2010 and 2013 tasks, systems were also asked to
+translate into four other European languages.  In this task, we are presented
+with sentences in English, with a particular focus word marked, and the lemma
+of the contextually appropriate translation must be selected
+\cite{lefever-hoste:2010:SemEval,task10}. The task here guarantees that the
+appropriate translations are only those present in the Europarl bitext corpus
+\cite{europarl}. No particular additional effort was made to tune the system
+for these tasks, although the Chipa software is descended from a system
+originally built for the 2013 task.
 
-The training data here was considerably larger than the Bibles; we trained on
-the Europarl V7 bitext for English and Spanish, using English as the source
-language. This mirrors part of the 2010 and 2013 shared tasks, which all used
-English as a source language. We applied the preprocessing steps described in
-Section \ref{sec:datasetsandpreprocessing} to the English-Spanish Europarl
-bitext, which consists of nearly 2 million parallel sentences, and use the
-Chipa system with no modifications to train classifiers to solve the SemEval
-test problems.
-
-%% XXX: add citations
+The training data here is considerably larger than the Bible text used for the
+main CL-WSD task described in this work; Europarl bitext corpora contain nearly
+2 million parallel sentences. We applied the preprocessing steps described in
+Section \ref{sec:datasetsandpreprocessing} to the Europarl bitext, with the
+simplification that the individual sentences need not be extracted from the
+various distribution formats used for Bibles.
+Here we use only a very small modification to the Chipa system in order to
+address the larger training data size; rather than holding the entire corpus in
+memory, the corpus is kept on disk and scanned for sentences that contain the
+current focus word just before we want to train classifiers to perform CL-WSD
+for a given lemma. Otherwise, the Chipa software is unmodified for this task.
 
 %% """if you end up using these data set for evaluation, I'd like to see
 %information here about how the data were annotated, where the translation
