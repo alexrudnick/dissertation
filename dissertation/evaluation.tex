@@ -1337,6 +1337,127 @@ memory, the corpus is kept on disk and scanned for sentences that contain the
 current focus word just before we want to train classifiers to perform CL-WSD
 for a given lemma. Otherwise, the Chipa software is unmodified for this task.
 
+\begin{figure*}[t!]
+\begin{subfigure}[t]{0.4\textwidth}
+  \begin{tabular}{|r|r|}
+    \hline
+    system   & es \\
+    \hline
+ MFS  & 23.23     \\
+ best & 32.16     \\
+   PS & 31.72     \\
+    \hline
+          L1 & 29.01    \\
+          L2 & 28.49    \\
+         MRF & \textbf{29.36} \\
+    \hline
+  \end{tabular}
+\caption{\emph{best}: precision}
+\label{table:resultsbest}
+\end{subfigure}
+\hspace{-2em}
+\begin{subfigure}[t]{0.4\textwidth}
+    \begin{tabular}{|r|r|}
+      \hline
+      system   & es   \\
+      \hline
+    MFS & 53.07    \\
+   best & 62.21    \\
+      \hline
+           L1  & 61.69  \\
+           L2  & 59.51  \\
+           MRF & \textit{\textbf{62.21}} \\
+      \hline
+    \end{tabular}
+\caption{\emph{oof}: precision}
+\label{table:resultsoof}
+\end{subfigure}
+
+\bigskip
+
+\begin{subfigure}[t]{0.4\textwidth}
+    \begin{tabular}{|r|r|}
+      \hline
+system & es  \\
+      \hline
+MFS    & 27.48 \\
+best   & 37.11 \\
+PS     & 40.26 \\
+      \hline
+L1  & 36.32    \\
+L2  & \textit{\textbf{37.11}}  \\
+MRF & 36.57     \\
+      \hline
+    \end{tabular}
+\caption{\emph{best}: mode precision}
+\label{table:resultsmodebest}
+\end{subfigure}
+\hspace{-2em}
+\begin{subfigure}[t]{0.4\textwidth}
+    \begin{tabular}{|r|r|}
+      \hline
+system  & es \\
+      \hline
+MFS & 57.35 \\
+best& 65.10 \\
+      \hline
+L1  & 64.65 \\
+L2  & 62.52 \\
+MRF & \textit{\textbf{65.10}} \\
+      \hline
+    \end{tabular}
+\caption{\emph{oof}: mode precision}
+\label{table:resultsoof}
+\end{subfigure}
+
+\caption{Task results for our systems. Scores in \textbf{bold} are the best
+result for that language and evaluation out of our systems, and those in
+\textbf{\textit{bold italics}} are the best posted in the competition. For
+comparison, we also give scores for the most-frequent-sense baseline (``MFS"),
+ParaSense (``PS"), the system developed by Lefever and Hoste, and the best
+posted score for competing systems this year (``best").}
+\label{fig:semeval:theresults}
+\end{figure*}
+
+There were two settings for the evaluation, \emph{best} and \emph{oof}. In
+either case, systems may present multiple possible answers for a given
+translation, although in the \emph{best} setting, the first answer is given
+more weight in the evaluation, and the scoring encourages only returning the
+top answer. In the \emph{oof} setting, systems are asked to return the top-five
+most likely translations. In both settings, the answers are compared against
+translations provided by several human annotators for each test sentence, who
+provided a number of possible target-language translations in lemmatized form,
+and more points are given for matching the more popular translations given by
+the annotators. In the ``mode" variant of scoring, only the one most common
+answer for a given test sentence is considered valid. For a complete
+explanation of the evaluation and its scoring, please see the shared task
+descriptions \cite{task10}. 
+
+The scores for our systems are reported in Figure \ref{fig:semeval:theresults}.
+In all of the settings, our systems posted some of the top results among
+entrants in the shared task, achieving the best scores for some evaluations and
+some languages.  For every setting and language, our systems beat the
+most-frequent sense baseline, and our best results usually came from either the
+L2 or MRF system, which suggests that there is some benefit in using
+multilingual information from the parallel corpora, even without translating
+the whole source sentence.
+
+For the \emph{best} evaluation, considering only the mode gold-standard
+answers, our L2 system achieved the highest scores in the competition for
+Spanish and German. For the \emph{oof} evaluation, our MRF system -- with its
+post-competition bug fix -- posted the best results for Spanish, German and
+Italian in both complete and mode variants. Also, curiously, our L1 system
+posted the best results in the competition for Dutch in the \emph{oof} variant.
+
+For the \emph{best} evaluation, our results were lower than those posted by
+ParaSense, and in the standard \emph{best} setting, they were also lower than
+those from the \emph{c1lN} system \cite{maarten} and \emph{adapt1}
+\cite{marine}. This, combined with the relatively small difference between our
+simplest system and the more sophisticated ones, suggests that there are many
+improvements that could be made to our system; perhaps we could integrate ideas
+from the other entries in the shared task this year.
+
+
 %% """if you end up using these data set for evaluation, I'd like to see
 %information here about how the data were annotated, where the translation
 %candidates came form, how big the data sets were ""
