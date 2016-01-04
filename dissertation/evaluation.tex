@@ -643,17 +643,20 @@ Even using only the Bible as bitext, we find a substantial number of
 training examples for many of the most common word types, which, due to the
 Zipfian distribution of word types in most texts, constitute a significant
 fraction of the tokens exhibited.
-See Figures \ref{fig:mostcommon-lemmas} and \ref{fig:mostcommon-surface} for more detail.
-%% TODO: quantify this, per language!!
+The most common lemmas and surface forms found in the text are shown in Figures
+\ref{fig:mostcommon-lemmas} and \ref{fig:mostcommon-surface}, but here we see
+that the most common few dozen types cover the majority of the text, though
+they are likely, as we will discuss later, to exhibit substantial ambiguity.
 
-Some of these most common words in the text are proper names (place names,
-personal names, names referring to God) or exhibit very few translations in the
-target language, but for the most part we see, through the aligned bitext, that
-the most common words are largely polysemous.  To take a few salient examples
-from the Spanish-English aligned text, the verb \emph{hacer} can translate in a
-number of different ways: 'do', 'make', 'cause'; for \emph{decir}, we must
-choose between 'say', 'tell' or 'speak'; \emph{mujer} can mean either 'wife' or
-'woman'; and \emph{reina} can translate to 'reign' or 'queen'.
+Once we skip past stop words, we also see that some of the most common word
+types in the text are proper names (place names, personal names, names
+referring to God) or exhibit very few translations in the target language, but
+for the most part we see, through the aligned bitext, that the most common
+words are polysemous.  To take a few salient examples from the Spanish-English
+aligned text, the verb \emph{hacer} can translate in a number of different
+ways: 'do', 'make', 'cause'; for \emph{decir}, we must choose between 'say',
+'tell' or 'speak'; \emph{mujer} can mean either 'wife' or 'woman'; and
+\emph{reina} can translate to 'reign' or 'queen'.
 
 In the English-Spanish direction, we see that the 'be' can be translated as
 either \emph{ser} or \emph{estar}\footnote{This distinction is often somewhat
@@ -669,12 +672,7 @@ conjugation rather than an auxiliary verb. In the English text, when we see
 the text, surely \emph{esposa} -- morphological analysis normalizes to
 masculine gender) is also seen.
 
-
 \begin{figure*}
-TODO: plot of rank of each lemma type versus the cumulative fraction of the text
-covered by that type. Do this for each of en, es, qu, gn.
-
-
   \begin{tiny}
   \begin{centering}
   \begin{tabular}{|r|c|c|c|}
@@ -735,17 +733,11 @@ si & 1685 & 0.25 & 57.84 \\
 \end{tabular}
 \end{centering}
 \end{tiny}
-
   \caption{Word ranks versus fraction of Bible tokens covered, for lemmas.}
   \label{fig:mostcommon-lemmas}
 \end{figure*}
 
 \begin{figure*}
-TODO: plot of rank of each surface type versus the cumulative fraction of the text
-covered by that type. Do this for each of en, es, qu, gn.
-
-
-
 %%%% surface
 \begin{tiny}
 \begin{centering}
@@ -1210,15 +1202,13 @@ words already present. However even when working with the Bible, we
 have at least fifty uses of over a thousand different lemmas, for English and
 Spanish, as shown in Figure \ref{fig:mostcommon-en-es}.
 
-\TODO{For comparison, do we want to include the stats for Europarl here too? Or
-maybe we could put that in the ``multilingual" chapter?}
-
-\section{Baseline Chipa System}
+\section{The Baseline Chipa System}
 At its core, the Chipa software takes in a word-aligned bitext corpus, with
 annotations for the source tokens. It then trains CL-WSD classifiers for
 source-language word types on demand. 
 
-The software holds all of the available bitext in memory. On request, it
+By default, the software holds all of the available bitext in memory, or
+optionally on disk, when training from larger corpora. On request, it
 constructs a training set for learning to disambiguate a given word
 by retrieving all sentences that contain that word,
 finding the instances of that word and its aligned translations, and extracting
