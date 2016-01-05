@@ -1301,32 +1301,36 @@ measured as the difference in accuracy between MFS}
 Shared Tasks}
 \label{sec:baseline-semeval}
 
-In order to situate these techniques with other recent approaches in CL-WSD, we
-ran the baseline Chipa system on the SemEval CL-WSD test sets from 2010 and
+In order to situate this baseline Chipa system among other recent approaches to CL-WSD, we
+ran Chipa on the SemEval CL-WSD test sets from 2010 and
 2013, for English-Spanish. Here for simplicity, we focus on the this language
-pair's CL-WSD tasks, since our preprocessing pipeline already handles these
-languages; in the full 2010 and 2013 tasks, systems were also asked to
-translate into four other European languages.  In this task, we are presented
-with sentences in English, with a particular focus word marked, and the lemma
-of the contextually appropriate translation must be selected
-\cite{lefever-hoste:2010:SemEval,task10}. The task here guarantees that the
-appropriate translations are only those present in the Europarl bitext corpus
-\cite{europarl}. No particular additional effort was made to tune the system
-for these tasks, although the Chipa software is descended from a system
-originally built for the 2013 task.
+pairs for the CL-WSD tasks, since our preprocessing pipeline already handles these
+languages. In the full 2010 and 2013 tasks, systems were also asked to
+translate into four other European languages: German, Dutch, French and
+Italian. In this task, we are presented with sentences in English, with a
+particular focus word marked, and the goal is to select the lemma of a
+contextually appropriate translation \cite{lefever-hoste:2010:SemEval,task10}.
+The task here guarantees that the appropriate translations are only those
+present in the Europarl bitext, and several possible gold-standard translations
+are provided by human annotators.  We made no particular additional effort to
+tune Chipa for these tasks -- it was run here with the same settings used for
+the Spanish-Guarani and Spanish-Quechua CL-WSD tasks, although the Chipa
+codebase is descended from a system originally built for the 2013 task
+\cite{rudnick-liu-gasser:2013:SemEval-2013}.
 
-The training data here is considerably larger than the Bible text used for the
-main CL-WSD task described in this work; Europarl bitext corpora contain nearly
-2 million parallel sentences. We applied the preprocessing steps described in
-Section \ref{sec:datasetsandpreprocessing} to the Europarl bitext, with the
-simplification that the individual sentences need not be extracted from the
-various distribution formats used for Bibles.
+The training data for this task is considerably larger than the Bible text used
+for the main CL-WSD task described in this work; Europarl bitext corpora
+contain nearly 2 million parallel sentences. We applied the preprocessing steps
+described in Section \ref{sec:datasetsandpreprocessing} to the Europarl bitext,
+with the simplification that the individual sentences need not be extracted
+from the various distribution formats used for Bibles.
 Here we use only a very small modification to the Chipa system in order to
 address the larger training data size; rather than holding the entire corpus in
 memory, the corpus is kept on disk and scanned for sentences that contain the
 current focus word just before we want to train classifiers to perform CL-WSD
-for a given lemma. Otherwise, the Chipa software is unmodified for this task.
+for a given lemma.
 
+%% TODO: put in numbers for this.
 \begin{figure*}[t!]
 \begin{subfigure}[t]{0.4\textwidth}
   \begin{tabular}{|r|r|}
@@ -1337,9 +1341,9 @@ for a given lemma. Otherwise, the Chipa software is unmodified for this task.
  best & 32.16     \\
    PS & 31.72     \\
     \hline
-          L1 & 29.01    \\
-          L2 & 28.49    \\
-         MRF & \textbf{29.36} \\
+  L1 & 29.01    \\
+  L2 & 28.49    \\
+ MRF & \textbf{29.36} \\
     \hline
   \end{tabular}
 \caption{\emph{best}: precision}
@@ -1413,20 +1417,20 @@ There were two settings for the evaluation, \emph{best} and \emph{oof}. In
 either case, systems may present multiple possible answers for a given
 translation, although in the \emph{best} setting, the first answer is given
 more weight in the evaluation, and the scoring encourages only returning the
-top answer. In the \emph{oof} setting, systems are asked to return the top-five
+top answer.
+In the \emph{oof} setting, systems are asked to return the top-five
 most likely translations. In both settings, the answers are compared against
 translations provided by several human annotators for each test sentence, who
 provided a number of possible target-language translations in lemmatized form,
 and more points are given for matching the more popular translations given by
-the annotators. In the ``mode" variant of scoring, only the one most common
-answer for a given test sentence is considered valid. For a complete
-explanation of the evaluation and its scoring, please see the shared task
-descriptions \cite{task10}. 
+the annotators. For a complete explanation of the evaluation and its scoring,
+please see the shared task descriptions.
 
 The scores for our systems are reported in Figure \ref{fig:semeval:theresults}.
 In all of the settings, our systems posted some of the top results among
 entrants in the shared task, achieving the best scores for some evaluations and
-some languages.  For every setting and language, our systems beat the
+some languages.
+For every setting and language, our systems beat the
 most-frequent sense baseline, and our best results usually came from either the
 L2 or MRF system, which suggests that there is some benefit in using
 multilingual information from the parallel corpora, even without translating
@@ -1451,4 +1455,3 @@ from the other entries in the shared task this year.
 %% """if you end up using these data set for evaluation, I'd like to see
 %information here about how the data were annotated, where the translation
 %candidates came form, how big the data sets were ""
-
