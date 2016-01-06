@@ -30,7 +30,8 @@ ax.set_xticks(ind + width * 3.0)
 ax.set_xticklabels(('best', 'oof'))
 
 ax.legend((rects1[0], rects2[0], rects3[0], rects4[0], rects5[0], rects6[0]),
-          ('mfs', 'chipa', 'uvt', 't3', 'uhd', 'fcc'))
+          ('mfs', 'chipa', 'uvt', 't3', 'uhd', 'fcc'),
+          loc='upper left')
 
 ## based on autolabel by Lindsey Kuper
 ## http://composition.al/blog/2015/11/29/a-better-way-to-add-labels-to-bar-charts-with-matplotlib/

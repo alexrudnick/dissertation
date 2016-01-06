@@ -30,12 +30,13 @@ rects8 = ax.bar(ind + 7 * width, psScores, width, color='#6666FF')
 # add some text for labels, title and axes ticks
 ax.set_ylabel('Scores')
 ax.set_title('SemEval Precision scores: 2013 task')
-ax.set_xticks(ind + width * 3.5)
+ax.set_xticks(ind + width * 4.0)
 ax.set_xticklabels(('best', 'oof'))
 
 ax.legend((rects1[0], rects2[0], rects3[0], rects4[0], rects5[0], rects6[0], 
            rects7[0], rects8[0]),
-          ('mfs', 'chipa', 'hltdi', 'xling', 'limsi', 'nrc', 'wsd2', 'ps'))
+          ('mfs', 'chipa', 'hltdi', 'xling', 'limsi', 'nrc', 'wsd2', 'ps'),
+          loc='upper left')
 
 ## based on autolabel by Lindsey Kuper
 ## http://composition.al/blog/2015/11/29/a-better-way-to-add-labels-to-bar-charts-with-matplotlib/
