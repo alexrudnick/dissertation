@@ -1330,88 +1330,23 @@ memory, the corpus is kept on disk and scanned for sentences that contain the
 current focus word just before we want to train classifiers to perform CL-WSD
 for a given lemma.
 
-%% TODO: put in numbers for this.
-\begin{figure*}[t!]
-\begin{subfigure}[t]{0.4\textwidth}
-  \begin{tabular}{|r|r|}
-    \hline
-    system   & es \\
-    \hline
- MFS  & 23.23     \\
- best & 32.16     \\
-   PS & 31.72     \\
-    \hline
-  L1 & 29.01    \\
-  L2 & 28.49    \\
- MRF & \textbf{29.36} \\
-    \hline
-  \end{tabular}
-\caption{\emph{best}: precision}
-\label{table:resultsbest}
-\end{subfigure}
-\hspace{-2em}
-\begin{subfigure}[t]{0.4\textwidth}
-    \begin{tabular}{|r|r|}
-      \hline
-      system   & es   \\
-      \hline
-    MFS & 53.07    \\
-   best & 62.21    \\
-      \hline
-           L1  & 61.69  \\
-           L2  & 59.51  \\
-           MRF & \textit{\textbf{62.21}} \\
-      \hline
-    \end{tabular}
-\caption{\emph{oof}: precision}
-\label{table:resultsoof}
-\end{subfigure}
+%%% SemEval scores.
 
-\bigskip
+\begin{figure}
+  \includegraphics[width=\textwidth]{semeval-2010-ch4.png}
+  \caption{Scores on the SemEval 2010 test set, including results posted in
+  the shared task and the baseline Chipa system running on the same test set.}
+  \label{fig:semeval2010:ch4}
+\end{figure}
 
-\begin{subfigure}[t]{0.4\textwidth}
-    \begin{tabular}{|r|r|}
-      \hline
-system & es  \\
-      \hline
-MFS    & 27.48 \\
-best   & 37.11 \\
-PS     & 40.26 \\
-      \hline
-L1  & 36.32    \\
-L2  & \textit{\textbf{37.11}}  \\
-MRF & 36.57     \\
-      \hline
-    \end{tabular}
-\caption{\emph{best}: mode precision}
-\label{table:resultsmodebest}
-\end{subfigure}
-\hspace{-2em}
-\begin{subfigure}[t]{0.4\textwidth}
-    \begin{tabular}{|r|r|}
-      \hline
-system  & es \\
-      \hline
-MFS & 57.35 \\
-best& 65.10 \\
-      \hline
-L1  & 64.65 \\
-L2  & 62.52 \\
-MRF & \textit{\textbf{65.10}} \\
-      \hline
-    \end{tabular}
-\caption{\emph{oof}: mode precision}
-\label{table:resultsoof}
-\end{subfigure}
-
-\caption{Task results for our systems. Scores in \textbf{bold} are the best
-result for that language and evaluation out of our systems, and those in
-\textbf{\textit{bold italics}} are the best posted in the competition. For
-comparison, we also give scores for the most-frequent-sense baseline (``MFS"),
-ParaSense (``PS"), the system developed by Lefever and Hoste, and the best
-posted score for competing systems this year (``best").}
-\label{fig:semeval:theresults}
-\end{figure*}
+\begin{figure}
+  \includegraphics[width=\textwidth]{semeval-2013-ch4.png}
+  \caption{Scores on the SemEval 2013 test set, including results posted in
+  the shared task and the baseline Chipa system running on the same test set.
+  When one team presented multiple results, here we take the best results from
+  that team.}
+  \label{fig:semeval2013:ch4}
+\end{figure}
 
 There were two settings for the evaluation, \emph{best} and \emph{oof}. In
 either case, systems may present multiple possible answers for a given
@@ -1446,12 +1381,8 @@ posted the best results in the competition for Dutch in the \emph{oof} variant.
 For the \emph{best} evaluation, our results were lower than those posted by
 ParaSense, and in the standard \emph{best} setting, they were also lower than
 those from the \emph{c1lN} system \cite{maarten} and \emph{adapt1}
-\cite{marine}. This, combined with the relatively small difference between our
-simplest system and the more sophisticated ones, suggests that there are many
-improvements that could be made to our system; perhaps we could integrate ideas
-from the other entries in the shared task this year.
-
-
-%% """if you end up using these data set for evaluation, I'd like to see
-%information here about how the data were annotated, where the translation
-%candidates came form, how big the data sets were ""
+\cite{marine}.
+This, combined with the relatively small difference between our simplest system
+and the more sophisticated ones, suggests that there are many improvements that
+could be made to our system; perhaps we could integrate ideas from the other
+entries in the shared task this year.
