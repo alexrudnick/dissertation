@@ -1303,13 +1303,15 @@ Shared Tasks}
 
 In order to situate this baseline Chipa system among other recent approaches to CL-WSD, we
 ran Chipa on the SemEval CL-WSD test sets from 2010 and
-2013, for English-Spanish. Here for simplicity, we focus on the this language
-pairs for the CL-WSD tasks, since our preprocessing pipeline already handles these
-languages. In the full 2010 and 2013 tasks, systems were also asked to
-translate into four other European languages: German, Dutch, French and
-Italian. In this task, we are presented with sentences in English, with a
-particular focus word marked, and the goal is to select the lemma of a
-contextually appropriate translation \cite{lefever-hoste:2010:SemEval,task10}.
+2013, for English-Spanish.
+In the full 2010 and 2013 tasks, systems were also asked to translate into four
+other European languages: German, Dutch, French and Italian. 
+Here for simplicity, we focus on English-Spanish, since Chipa's preprocessing
+pipeline already handles these languages, and the results across languages were
+not drastically different.
+In this task, we are presented with sentences in English, with a particular
+focus word marked, and the goal is to select the lemma of a contextually
+appropriate translation for that word\cite{lefever-hoste:2010:SemEval,task10}.
 The task here guarantees that the appropriate translations are only those
 present in the Europarl bitext, and several possible gold-standard translations
 are provided by human annotators.  We made no particular additional effort to
@@ -1327,10 +1329,8 @@ from the various distribution formats used for Bibles.
 Here we use only a very small modification to the Chipa system in order to
 address the larger training data size; rather than holding the entire corpus in
 memory, the corpus is kept on disk and scanned for sentences that contain the
-current focus word just before we want to train classifiers to perform CL-WSD
-for a given lemma.
-
-%%% SemEval scores.
+current focus word before we need to train the CL-WSD classifier for a given
+lemma.
 
 \begin{figure}
   \includegraphics[width=\textwidth]{semeval-2010-ch4.png}
@@ -1343,7 +1343,7 @@ for a given lemma.
   \includegraphics[width=\textwidth]{semeval-2013-ch4.png}
   \caption{Scores on the SemEval 2013 test set, including results posted in
   the shared task and the baseline Chipa system running on the same test set.
-  When one team presented multiple results, here we take the best results from
+  When one team presented multiple results, here we take the best result from
   that team.}
   \label{fig:semeval2013:ch4}
 \end{figure}
@@ -1353,36 +1353,30 @@ either case, systems may present multiple possible answers for a given
 translation, although in the \emph{best} setting, the first answer is given
 more weight in the evaluation, and the scoring encourages only returning the
 top answer.
-In the \emph{oof} setting, systems are asked to return the top-five
-most likely translations. In both settings, the answers are compared against
-translations provided by several human annotators for each test sentence, who
-provided a number of possible target-language translations in lemmatized form,
-and more points are given for matching the more popular translations given by
-the annotators. For a complete explanation of the evaluation and its scoring,
+In the \emph{oof} setting, systems are asked to return the top-five most likely
+translations. In both settings, the answers are compared against translations
+provided by several human annotators for each test sentence, who provided a
+number of possible target-language translations in lemmatized form.  More
+points are given for matching the more popular translations given by the
+annotators. For a complete explanation of the evaluation and its scoring,
 please see the shared task descriptions.
 
-The scores for our systems are reported in Figure \ref{fig:semeval:theresults}.
-In all of the settings, our systems posted some of the top results among
-entrants in the shared task, achieving the best scores for some evaluations and
-some languages.
-For every setting and language, our systems beat the
-most-frequent sense baseline, and our best results usually came from either the
-L2 or MRF system, which suggests that there is some benefit in using
-multilingual information from the parallel corpora, even without translating
-the whole source sentence.
+The scores for the baseline Chipa system, as well as some other our systems
+entered in the 2010 and 2013 competitions, are reported in Figures
+\ref{fig:semeval2010:ch4} and \ref{fig:semeval2013:ch4}.
+In the 2010 competition, none of the posted systems were able to beat the
+simple most-frequent-sense baseline for the out-of-five setting, but Chipa
+surpasses it handily. Chipa also does better than all but one of the posted
+systems in the one-best setting. On the 2013 test set, Chipa also did fairly
+well, scoring better than all but three of the posted systems in the one-best
+setting, and all but one of the posted systems in the best-of-five. 
+It should be noted that in the 2013 competitions, one of the posted systems
+showing higher scores than the Chipa baseline was ``HLTDI", developed by myself
+and Can Liu\cite{rudnick-liu-gasser:2013:SemEval-2013}, which made use of early
+versions of some of the techniques described in subsequent chapters.
 
-For the \emph{best} evaluation, considering only the mode gold-standard
-answers, our L2 system achieved the highest scores in the competition for
-Spanish and German. For the \emph{oof} evaluation, our MRF system -- with its
-post-competition bug fix -- posted the best results for Spanish, German and
-Italian in both complete and mode variants. Also, curiously, our L1 system
-posted the best results in the competition for Dutch in the \emph{oof} variant.
-
-For the \emph{best} evaluation, our results were lower than those posted by
-ParaSense, and in the standard \emph{best} setting, they were also lower than
-those from the \emph{c1lN} system \cite{maarten} and \emph{adapt1}
-\cite{marine}.
-This, combined with the relatively small difference between our simplest system
-and the more sophisticated ones, suggests that there are many improvements that
-could be made to our system; perhaps we could integrate ideas from the other
-entries in the shared task this year.
+But we see here that this straightforward approach, using a maximum entropy
+classifier with features extracted from the words and lemmas surrounding the
+focus word, works quite well compared with the other systems in the shared
+task, and so I claim that this is a sensible baseline on top of which we can
+build more advanced approaches.
