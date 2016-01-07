@@ -812,7 +812,6 @@ Quechua as \emph{llaqta} 'town/city', or \emph{runa} 'person'.
 For translating from Spanish to Guarani, we see the verb \emph{volver}
 'turn/return/repeat' translated as \emph{jey} 'again', but also as \emph{jere}
 'turn'.
-%% XXX: working here
 
 Figure~\ref{fig:mostcommon-en-es} gives the most common lemmas used in our
 corpus for the four languages, along with their counts. In
@@ -1249,22 +1248,6 @@ forms, and the presence of a word in the window surrounding the focus word
 guarantees its presence in the bag of words representing the entire sentence.
 This is fairly typical of text classification problems.
 
-Furthermore, because we have a large number of features but a relatively small
-number of samples per classifier, we train with L1 regularization rather than
-L2~\cite{ng2004feature}.
-We can also set a regularization parameter during training, to encourage
-more parsimonious solutions and thus avoid overfitting.
-Here by default we set the regularization parameter to $C=1.0$.
-%% TODO "If the results were worse, you can just report this in one sentence."
-
-We have also tried a variety of classification algorithms; scikit-learn makes
-experimentation with different classifiers and parameter settings
-straightforward. We have tried random forests and linear support vector
-machines, and of course compare these to the most-frequent-sense baseline.
-
-\TODO{Report results with a few different regularization settings}
-\TODO{Report results with SVMs and random forests too.}
-
 \begin{figure*}
   \begin{centering}
   \begin{tabular}{|r|p{11cm}|}
@@ -1285,25 +1268,56 @@ machines, and of course compare these to the most-frequent-sense baseline.
   \label{fig:baselinefeatures}
 \end{figure*}
 
+Because we have a large number of features but a relatively small
+number of samples per classifier, the literature would encourage us to train
+with L1 regularization rather than L2 \cite{ng2004feature}, but we found that
+the results are consistently slightly better when using L2. We could also
+search for an optimal regularization hyperparameter -- the number that controls
+the tradeoff between simple solutions and ones that closely fit the input,
+perhaps at the risk of overfitting. We did try a few different values for the
+regularization parameter, but found that the results were not dramatically
+different; furthermore, we don't want to overfit our corpus by tuning
+parameters too much after running tests. Here we will keep the default
+regulaization setting of $C=1.0$.
+
+We have also tried a variety of classification algorithms; scikit-learn makes
+experimentation with different classifiers and parameter settings
+straightforward. In particular, we tried random forests and linear support
+vector machines, as well as the familiar ``most frequent sense" baseline.
+
 \section{Classification Results for the Baseline System}
 
-\begin{itemize}
-\item en-es
-\item es-en
-\item es-gn
-\item es-qu
-\end{itemize}
+\begin{figure}
+  \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
+  \caption{Baseline Chipa scores for Spanish-Guarani, by classifier.}
+  \label{fig:esgnresults:ch4}
+\end{figure}
 
-\TODO{Words in Spanish for which we gain the most by training a classifier --
-measured as the difference in accuracy between MFS}
+\begin{figure}
+  \includegraphics[width=\textwidth]{baseline-esqu-ch4.png}
+  \caption{Baseline Chipa scores for Spanish-Quechua, by classifier.}
+  \label{fig:esquresults:ch4}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{baseline-esen-ch4.png}
+  \caption{Baseline Chipa scores for Spanish-English, by classifier.}
+  \label{fig:esenresults:ch4}
+\end{figure}
+
+\begin{figure}
+  \includegraphics[width=\textwidth]{baseline-enes-ch4.png}
+  \caption{Baseline Chipa scores for English-Spanish, by classifier.}
+  \label{fig:enesresults:ch4}
+\end{figure}
 
 \section{For Comparison: the Baseline Chipa System On the SemEval 2010 and 2013
 Shared Tasks}
 \label{sec:baseline-semeval}
 
-In order to situate this baseline Chipa system among other recent approaches to CL-WSD, we
-ran Chipa on the SemEval CL-WSD test sets from 2010 and
-2013, for English-Spanish.
+In order to situate this baseline Chipa system among other recent approaches to
+CL-WSD, we ran Chipa on the SemEval CL-WSD test sets from 2010 and 2013, for
+English-Spanish.
 In the full 2010 and 2013 tasks, systems were also asked to translate into four
 other European languages: German, Dutch, French and Italian. 
 Here for simplicity, we focus on English-Spanish, since Chipa's preprocessing
