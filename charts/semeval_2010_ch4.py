@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 N = 2
 
 mfsScores = (18.36, 48.41)
-chipaScores = (22.36, 59.11)
+chipaScores = (22.91, 59.53)
 uvtScores = (23.42, 43.12)
 t3Scores = (19.78, 35.84)
 uhdScores = (20.48, 38.78)

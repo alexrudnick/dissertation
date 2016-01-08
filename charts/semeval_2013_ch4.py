@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 N = 2
 
 mfsScores = (23.23, 53.07)
-chipaScores = (28.97, 58.73)
+chipaScores = (28.46, 58.80)
 hltdiScores = (29.36, 62.61)
 xlingScores = (19.59, 44.83)
 limsiScores = (24.70, 49.01)
