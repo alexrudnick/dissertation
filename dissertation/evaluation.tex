@@ -18,7 +18,7 @@ both coarse-grained and fine-grained distinctions and allow for several
 possible correct answers; some word senses identified by lexicographers are
 more closely related than others.  While the senses in a sense inventory will
 contain many useful and interesting distinctions, they do not necessarily make
-the distinctions most appropriate for a given task, wich will vary by
+the distinctions most appropriate for a given task, which will vary by
 application. As such, accuracy improvements on these tasks do not necessarily
 lead to performance gains for an NLP system making use of word-sense
 disambiguations \cite{resnikwsdapplications}.
@@ -41,7 +41,7 @@ that where word choices differ with the application of CL-WSD, the changes are
 for the most part improvements. For these experiments, we sample sentences
 from the available bitext -- particularly sentences that contain polysemous
 words for which we can train classifiers -- and run the MT systems both with
-and without Chipa enabled.
+and without the CL-WSD software enabled.
 
 We want to make the argument that improved classification accuracy on CL-WSD
 tasks leads to improved translation results.
@@ -128,7 +128,7 @@ its surface form. Following this are an arbitrary number of annotations for
 that token, which may encode information such as part-of-speech, dependency
 relations, or similar.  Sentence boundaries are indicated by blank lines. An
 annotated sentence with one annotation per token might look like Figure
-\ref{fig:quickbrownfox}, for example:
+\ref{fig:quickbrownfox}, for example.
 
 \begin{figure*}
 \raggedright \texttt{\\
@@ -396,9 +396,9 @@ nouns, verbs, and adjectives.
 There are a very large number of named entities in the source text, most of
 which are not present in WordNet. It cannot, by itself, help us know that
 ``Zebulonites" is the plural of "Zebulonite".  37\% of the tokens in our
-English translation of the Bible are not present in WordNet, and many of these
-tokens are function words. However, there are quite a few named entities in the
-Bible: 33\% of the word types are not covered by WordNet either.
+English translation of the Bible are not present in WordNet; and many of these
+tokens are function words and named entities. In any case, these words can
+often carry inflection.
 
 For Guarani and Quechua, we use Michael Gasser's ParaMorfo and AntiMorfo
 analyzers.\footnote{Prof. Gasser's morphology software for Guarani, Quechua,
@@ -554,7 +554,7 @@ source-language segments and target-language segments, separated by
 \texttt{bible.es-gn.unfiltered}, which contains some non-parallel "sentences"
 and is untokenized. Individual sentences have not been preprocessed at all.
 
-We then a filtering script from cdec, \texttt{filter-length.pl}, which filters
+We then run a script from cdec, \texttt{filter-length.pl}, which filters
 out segments where either side is too long, or where there is a large disparity
 in length between source and target text, which indicates input segments that
 are not close translations. After this filtering step, we have selected the
@@ -1199,7 +1199,7 @@ Using larger bitexts of course will allow us to construct training and test
 sets for a broader vocabulary, and with better statistical support for the
 words already present. However even when working with the Bible, we
 have at least fifty uses of over a thousand different lemmas, for English and
-Spanish, as shown in Figure \ref{fig:mostcommon-en-es}.
+Spanish.
 
 \section{The Baseline Chipa System}
 At its core, the Chipa software takes in a word-aligned bitext corpus, with
@@ -1213,10 +1213,10 @@ by retrieving all sentences that contain that word,
 finding the instances of that word and its aligned translations, and extracting
 features (see Figure~\ref{fig:baselinefeatures}) from the source side and its
 annotations.
-If a source-language word has been seen aligned to only one target-language
-type, then this is simply noted, and if the source word is not present in the
-training data, then that word is marked as out-of-vocabulary. In these two
-cases, we do not train a classifier for that word, since there is no
+If a source-language lemma has been seen aligned to only one target-language
+type, then this is simply noted, and if the lemma is not present in the
+training data, then it is marked as out-of-vocabulary. In these two
+cases, we do not train a classifier for that lemma, since there is no
 ambiguity present in our examples and the Chipa software cannot provide any
 useful guidance to its caller. A machine translation system may, for example,
 refuse to translate sentences with OOV words, or more likely, will simply
@@ -1276,9 +1276,9 @@ search for an optimal regularization hyperparameter -- the number that controls
 the tradeoff between simple solutions and ones that closely fit the input,
 perhaps at the risk of overfitting. We did try a few different values for the
 regularization parameter, but found that the results were not dramatically
-different; furthermore, we don't want to overfit our corpus by tuning
+different; furthermore, we do not want to overfit our corpus by tuning
 parameters too much after running tests. Here we will keep the default
-regulaization setting of $C=1.0$.
+regularization setting of $C=1.0$.
 
 We have also tried a variety of classification algorithms; scikit-learn makes
 experimentation with different classifiers and parameter settings
@@ -1329,7 +1329,7 @@ least one token in the target sentence. For most of the language pairs, we see
 that our results in the ``nonnull" setting are higher, which is not surprising,
 since there are fewer options to pick from. In Spanish-Quechua, however, we see
 that the scores are lower in the ``nonnull" setting. This seems to be due to
-the Spanish and Quechua text not being close translations of one another -- it
+the Spanish and Quechua texts not being close translations of one another -- it
 is fairly likely that words in the Spanish text are simply not present in the
 Quechua text, so when this possibility is eliminated, the classifier must make
 a more difficult choice from among the remaining options.
@@ -1343,8 +1343,9 @@ MFS baseline.
 
 So far, with commonly-used classifiers trained on commonly-used features, we
 achieve a substantial boost on our ability to translate common polysemous words
-from Spanish into two under-resourced languages; in subsequent chapters, we
-will see how to build on this baseline approach.
+from Spanish into two under-resourced languages, as well as between English and
+Spanish, over a simple baseline. In subsequent chapters, we will see how to
+build on this simple approach.
 
 \section{For Comparison: the Baseline Chipa System On the SemEval 2010 and 2013
 Shared Tasks}
@@ -1356,8 +1357,8 @@ English-Spanish.
 In the full 2010 and 2013 tasks, systems were also asked to translate into four
 other European languages: German, Dutch, French and Italian. 
 Here for simplicity, we focus on English-Spanish, since Chipa's preprocessing
-pipeline already handles these languages, and the results across languages were
-not drastically different.
+pipeline already handles these languages, and the results across language pairs
+were not drastically different in the original shared tasks.
 In this task, we are presented with sentences in English, with a particular
 focus word marked, and the goal is to select the lemma of a contextually
 appropriate translation for that word\cite{lefever-hoste:2010:SemEval,task10}.
@@ -1410,14 +1411,14 @@ points are given for matching the more popular translations given by the
 annotators. For a complete explanation of the evaluation and its scoring,
 please see the shared task descriptions.
 
-The scores for the baseline Chipa system, as well as some other our systems
+The scores for the baseline Chipa system, as well as for other systems
 entered in the 2010 and 2013 competitions, are reported in Figures
 \ref{fig:semeval2010:ch4} and \ref{fig:semeval2013:ch4}.
 In the 2010 competition, none of the posted systems were able to beat the
 simple most-frequent-sense baseline for the out-of-five setting, but Chipa
 surpasses it handily. Chipa also does better than all but one of the posted
 systems in the one-best setting. On the 2013 test set, Chipa also did fairly
-well, scoring better than all but three of the posted systems in the one-best
+well, scoring better than several of the posted systems in the one-best
 setting, and all but one of the posted systems in the best-of-five. 
 It should be noted that in the 2013 competitions, one of the posted systems
 showing higher scores than the Chipa baseline was ``HLTDI", developed by myself
