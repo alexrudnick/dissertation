@@ -1,40 +1,61 @@
 \chapter{Learning from Monolingual Data}
 \label{chap:monolingual}
 While in this work, our target languages are under-resourced, we have many
-language resources available for the source language. We would like to use
-these to make better sense of the input text, giving our classifiers clearer
-signals for lexical selection in the target language. The approaches considered
-in this chapter, in general, make additional features available to the CL-WSD
-classifiers. In short, since we have relatively little bitext available for
-Spanish-Guarani and Spanish-Quechua, we will make use of the resources available
-to improve understanding of the nuances of Spanish.
+resources available for the source languages. We would like to use these to
+make better sense of the input text, giving our classifiers clearer signals for
+lexical selection in the target language.
+The approaches considered in this chapter make additional features available to
+the CL-WSD classifiers, based on our knowledge of the source languages.
+In short, since we have relatively little bitext available for Spanish-Guarani
+and Spanish-Quechua, we will need to lean more on our resources for Spanish
+so that we can understand the nuances of the input text.
 
-Perhaps most saliently for Spanish, we have abundant monolingual text available.
-Given large amounts of Spanish-language text, we can use unsupervised methods to
-discover regularities that will hopefully purchase to our classifiers.
-In this work we apply Brown clustering
-\cite{brown1992class}, which has been used successfully in a variety
-of text classification tasks \cite{turian-ratinov-bengio:2010:ACL} and provides
-a straightforward mechanism to add annotations to our source-language text.
-We also try learning neural word embeddings \cite{mikolovword2vec}, which map
-individual word types into multidimensional spaces in which words with similar
-co-occurrence patterns, and thus similar meanings, have similar representations.
+Perhaps most saliently for Spanish, we have abundant monolingual text
+available.
+Given large amounts of Spanish-language text, we can use unsupervised methods
+to discover regularities useful for our purposes.
+In this work we apply Brown clustering \cite{brown1992class}, which has been
+used successfully in a variety of text classification tasks
+\cite{turian-ratinov-bengio:2010:ACL} and provides a straightforward mechanism
+to add annotations to our source-language text.  We also try learning neural
+word embeddings \cite{mikolovword2vec}, which map individual word types into a
+multidimensional, continuous space in which words with similar co-occurrence
+patterns, and thus similar meanings, have nearby representations.
+These approaches make use of the distributional hypothesis to 
 
-%% XXX explain better
 % we can also try topic models (say with MALLET)
 
-In addition to large quantities of monolingual text, we have available to us
-excellent off-the-shelf NLP tools such as POS taggers and syntactic parsers,
+In addition to large quantities of monolingual text, we have excellent
+off-the-shelf NLP tools for Spanish, such as POS taggers and syntactic parsers,
 which both capture abstractions about particular word types (e.g., perhaps a
 noun in the window surrounding a focus word is indicative of some particular
-meaning) and help us disambiguate based on the structure of the current
-sentence.
+meaning) and help us disambiguate meanings based on the structure of the
+current sentence.
+
+%% XXX: can we characterize "excellent" here? How good is FreeLing versus other
+%% off-the-shelf Spanish parsers?
 
 In this chapter, we want to write about all of the things that we can do with
 just monolingual data in the source language.
 This is probably going to be one of the most important chapters, and really one
 of the nicest results in the dissertation.
 We can probably integrate some text from the SALTMIL paper into this chapter.
+
+
+\section{Monolingual features from other NLP tools}
+In the Chipa software, we can make use of all kinds of annotations for our
+text (see Section \ref{sec:annotations}), so adding more features is
+straightforward.
+
+Notably, we can use POS tags, features extracted from parsers... we could even
+use sense annotations from a monolingual WSD system, if we had a good one on
+hand.
+
+For POS tagging and parsing, we run the open source FreeLing text analysis
+suite \cite{padro12} on both the training data and the text input sentences.
+FreeLing can perform a number of analysis tasks for Spanish, including
+lemmatization, POS tagging, named entity recognition, and dependency parsing.
+
 
 
 \section{Brown Clustering}
@@ -77,7 +98,7 @@ There are actually several open questions here, though:
 \end{itemize}
 
 It would be good to include some nice examples of the clusters that Brown
-Clustering learns, based on the different source-language corpora that we
+Clustering learns, based on the different source-language corpora that we could
 cluster on.
 
 
@@ -134,20 +155,6 @@ Definitely try using word2vec. We want to train word2vec on Spanish wikipedia,
 and maybe that's going to give us useful features.
 
 \section{Topic models with MALLET}
-
-\section{Monolingual features from other NLP tools}
-In the Chipa software, we can make use of all kinds of annotations for our
-text (see Section \ref{sec:annotations}), so adding more features is
-straightforward.
-
-Notably, we can use POS tags, features extracted from parsers... we could even
-use sense annotations from a monolingual WSD system, if we had a good one on
-hand.
-
-For POS tagging and parsing, we run the open source FreeLing text analysis
-suite \cite{padro12} on both the training data and the text input sentences.
-FreeLing can perform a number of analysis tasks for Spanish, including
-lemmatization, POS tagging, named entity recognition, and dependency parsing.
 
 \section{Experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}
