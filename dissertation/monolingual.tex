@@ -19,6 +19,25 @@ adapt some of the methods of Turian et al. to our particular task. Concretely,
 in this chapter we explore using Brown clustering \cite{brown1992class}, also
 known as IBM clustering, since it was developed by the Candide group at IBM.
 
+There are actually several open questions here, though:
+
+\begin{itemize}
+  \item Does more source-language text help us learn ``better" Brown clusters,
+    with respect to the CL-WSD task? It seems like it would, but we haven't
+    demonstrated that yet.
+  \item What's the relationship between the genre of the monolingual text we
+    use and the source-language side of the test set? It seems to help to have
+    in-domain text to train our clusters, but is there a size at which you
+    learn a ``better" clustering that overtakes the in-domain-ness?
+  \item How much does the size of the input text for clustering matter in the
+  downstream task?
+  \item Does it matter if you lemmatize the Spanish first, or not? It seems
+    like the point of Brown Clustering is that it's picking up on syntax in
+    some sense. But maybe lemmatizing is OK; we used the lemmatized version of
+    Europarl in the es-qu experiments for SALTMIL.
+  \item Similar open questions for word2vec.
+\end{itemize}
+
 used successfully in a variety of text classification tasks
 and provides a straightforward mechanism
 to add annotations to our source-language text.  We also try learning neural
@@ -62,6 +81,7 @@ lemmatization, POS tagging, named entity recognition, and dependency parsing.
 
 
 
+
 \section{Brown Clustering}
 The Brown clustering algorithm takes as input unannotated text and produces a
 mapping from word types in that text to clusters, such that words in the same
@@ -97,24 +117,10 @@ So far, we have really good evidence that we can learn, in an unsupervised way,
 with Brown Clustering coarse-grained categories for word types in the source
 language that help us make lexical selection distinctions.
 
-There are actually several open questions here, though:
+We can also try mkcls! Just Franz's word classes \cite{och1999efficient}.
+Interestingly, mkcls is optimizing the same thing as Brown Clustering
+approaches.
 
-\begin{itemize}
-  \item Does more source-language text help us learn ``better" Brown clusters,
-    with respect to the CL-WSD task? It seems like it would, but we haven't
-    demonstrated that yet.
-  \item What's the relationship between the genre of the monolingual text we
-    use and the source-language side of the test set? It seems to help to have
-    in-domain text to train our clusters, but is there a size at which you
-    learn a ``better" clustering that overtakes the in-domain-ness?
-  \item How much does the size of the input text for clustering matter in the
-  downstream task?
-  \item Does it matter if you lemmatize the Spanish first, or not? It seems
-    like the point of Brown Clustering is that it's picking up on syntax in
-    some sense. But maybe lemmatizing is OK; we used the lemmatized version of
-    Europarl in the es-qu experiments for SALTMIL.
-  \item Similar open questions for word2vec.
-\end{itemize}
 
 It would be good to include some nice examples of the clusters that Brown
 Clustering learns, based on the different source-language corpora that we could
@@ -151,19 +157,14 @@ clusters corresponding to the names of many countries, some nouns referring to
 people, and common transitive verbs. Note that the clustering is unsupervised,
 and the labels given are not produced by the algorithm.
 
-\subsection{Maybe explain how Brown Clustering works here?}
-Not sure how important this is to the argument...
 
-
-\section{Other Unsupervised Word Representations}
-We can also try mkcls! Just Franz's word classes \cite{och1999efficient}.
-
+\section{Neural Word Embeddings}
 
 We can try applying the other stuff in the Turian et al Word Representations
 paper. Such as word2vec \cite{mikolovword2vec}
 
 Unlike Brown Clustering, which infers hierarchical clusters for each word type,
-word2vec results in high-dimensional representations for each word.
+word2vec results in multidimensional representations for each word.
 
 Open question here:
 Can we reproduce that ``Learning to Understand Phrases by Embedding the
@@ -173,8 +174,38 @@ case too?
 Definitely try using word2vec. We want to train word2vec on Spanish wikipedia,
 and maybe that's going to give us useful features.
 
+We could also try some dimensionality reduction, other distributional semantics
+approach. LSA or something.
+
 \section{Topic models with MALLET}
+Maybe skip topic models?
 
 \section{Experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}
 As described in the previous
+
+There are lots of combinations here...
+
+\begin{itemize}
+  \item es-gn, es-qu with pos tags
+  \item es-gn, es-qu with syntactic heads
+  \item es-gn, es-qu with syntactic children
+  \item es-gn, es-qu with all syntactic features
+\end{itemize}
+
+\begin{itemize}
+  \item es-gn, es-qu with europarl brown clusters
+  \item es-gn, es-qu with wikipedia brown clusters
+  \item es-gn, es-qu with europarl and wikipedia brown clusters
+\end{itemize}
+
+\begin{itemize}
+  \item es-gn, es-qu with europarl embeddings
+  \item es-gn, es-qu with wikipedia embeddings
+  \item es-gn, es-qu with europarl and wikipedia embeddings
+  \item es-gn, es-qu with pos tags and syntactic heads
+\end{itemize}
+
+\begin{itemize}
+  \item COMBINE THEM ALL!!
+\end{itemize}
