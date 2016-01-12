@@ -5,18 +5,22 @@ resources available for the source languages. We would like to use these to
 make better sense of the input text, giving our classifiers clearer signals for
 lexical selection in the target language.
 The approaches considered in this chapter make additional features available to
-the CL-WSD classifiers, based on our knowledge of the source languages.
+the CL-WSD classifiers, based on our knowledge of the source language.
 In short, since we have relatively little bitext available for Spanish-Guarani
-and Spanish-Quechua, we will need to lean more on our resources for Spanish
-so that we can understand the nuances of the input text.
+and Spanish-Quechua, we will need to lean more on our resources, including
+tools and data, for Spanish so that we can better make sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
-available.
-Given large amounts of Spanish-language text, we can use unsupervised methods
-to discover regularities useful for our purposes.
-In this work we apply Brown clustering \cite{brown1992class}, which has been
+available. Given large amounts of Spanish-language text, we can use
+unsupervised methods to discover useful regularities and thus additional
+features for our text classification task. This has been a broadly successful
+approach in the literature \cite{turian-ratinov-bengio:2010:ACL}, and here we
+adapt some of the methods of Turian et al. to our particular task. Concretely,
+in this chapter we explore using Brown clustering \cite{brown1992class}, also
+known as IBM clustering, since it was developed by the Candide group at IBM.
+
 used successfully in a variety of text classification tasks
-\cite{turian-ratinov-bengio:2010:ACL} and provides a straightforward mechanism
+and provides a straightforward mechanism
 to add annotations to our source-language text.  We also try learning neural
 word embeddings \cite{mikolovword2vec}, which map individual word types into a
 multidimensional, continuous space in which words with similar co-occurrence
@@ -73,6 +77,19 @@ Liang \cite{Liang05semi-supervisedlearning}, running on both the Spanish
 side of our bitext corpus and on the Europarl corpus \cite{europarl} for
 Spanish.
 
+The Brown clustering algorithm uses greedy optimization to try to maximize the
+score for an assignment of all word types seen in the input text into a fixed
+number of word classes. As the original intention of the approach was for
+class-based language models, the scoring function is the mutual information
+between two immediately subsequent tokens (ie, a bigram).
+
+Concretely, the formula is...
+
+%% XXX insert the formula here
+
+Finding a globally optimal assignment for this would be computationally
+difficult. But we have a greedy approach for finding a local optimum.
+
 %% XXX Write about how Brown clustering works
 %% XXX it's hierarchical too, so we don't have to use the leaf clusters...
 
@@ -90,11 +107,13 @@ There are actually several open questions here, though:
     use and the source-language side of the test set? It seems to help to have
     in-domain text to train our clusters, but is there a size at which you
     learn a ``better" clustering that overtakes the in-domain-ness?
-  \item We tried clustering on (lemmatized) Europarl in the es-qu experiments for SALTMIL...
+  \item How much does the size of the input text for clustering matter in the
+  downstream task?
   \item Does it matter if you lemmatize the Spanish first, or not? It seems
     like the point of Brown Clustering is that it's picking up on syntax in
-    some sense.
-  \item Similar open questions for word2vec clusters.
+    some sense. But maybe lemmatizing is OK; we used the lemmatized version of
+    Europarl in the es-qu experiments for SALTMIL.
+  \item Similar open questions for word2vec.
 \end{itemize}
 
 It would be good to include some nice examples of the clusters that Brown
