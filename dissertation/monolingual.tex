@@ -38,6 +38,15 @@ There are actually several open questions here, though:
   \item Similar open questions for word2vec.
 \end{itemize}
 
+It's also important to consider *what kinds of features* we can extract from
+the brown clusters of the words in a sentence. We tried, for example, dropping
+a bag of all the clusters that occur in the sentence, and prefix features for
+all the clusters that appear too! This did not help classification results!
+That's probably too many extraneous features.
+It might be the case that we really just need to add the very local context --
+three words on a side? In Turian et al, they do two words on a side.
+
+
 used successfully in a variety of text classification tasks
 and provides a straightforward mechanism
 to add annotations to our source-language text.  We also try learning neural

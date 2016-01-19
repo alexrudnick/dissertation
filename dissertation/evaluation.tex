@@ -733,7 +733,8 @@ si & 1685 & 0.25 & 57.84 \\
 \end{tabular}
 \end{centering}
 \end{tiny}
-  \caption{Word ranks versus fraction of Bible tokens covered, for lemmas.}
+  \caption{Word ranks versus fraction of Spanish Bible tokens covered, for
+  lemmas.}
   \label{fig:mostcommon-lemmas}
 \end{figure*}
 
@@ -800,7 +801,7 @@ si & 1685 & 0.25 & 50.15 \\
 \end{centering}
 \end{tiny}
 
-  \caption{Word ranks versus fraction of Bible tokens covered, for
+  \caption{Word ranks versus fraction of Spanish Bible tokens covered, for
   (case-insensitive) surface forms.}
   \label{fig:mostcommon-surface}
 \end{figure*}
@@ -813,9 +814,10 @@ For translating from Spanish to Guarani, we see the verb \emph{volver}
 'turn/return/repeat' translated as \emph{jey} 'again', but also as \emph{jere}
 'turn'.
 
-Figure~\ref{fig:mostcommon-en-es} gives the most common lemmas used in our
-corpus for the four languages, along with their counts. In
-Figure~\ref{fig:mostcommon-es-translations}, we see common lemmas from
+Figures \ref{fig:mostcommon-en-es} and \ref{fig:mostcommon-gn-qu} give the most
+common lemmas used in our corpus for the four languages, along with their
+counts.
+In Figure~\ref{fig:mostcommon-es-translations}, we see common lemmas from
 Spanish along with their most likely translations into English, Guarani and
 Quechua (as extracted from the bitext). For the purposes of this work, we will
 consider words to be in-vocabulary if they appear at least fifty times in the
@@ -1283,7 +1285,11 @@ regularization setting of $C=1.0$.
 We have also tried a variety of classification algorithms; scikit-learn makes
 experimentation with different classifiers and parameter settings
 straightforward. In particular, we tried random forests and linear support
-vector machines, as well as the familiar ``most frequent sense" baseline.
+vector machines, as well as the familiar ``most frequent sense" baseline. For
+the baseline feature set, for the most part we see the the best performance
+from the logistic regression classifiers with L2 normalization, although the
+differences are not large; the other classification algorithms that we tried in
+these experiments did nearly as well.
 
 \section{Classification Results for the Baseline System}
 
@@ -1327,7 +1333,8 @@ represented in the target-language sentence. In the ``nonnull" setting, we only
 consider the instances where there is an alignment from the focus word to at
 least one token in the target sentence. For most of the language pairs, we see
 that our results in the ``nonnull" setting are higher, which is not surprising,
-since there are fewer options to pick from. In Spanish-Quechua, however, we see
+since there are fewer options to pick from. In Spanish-Quechua (Figure
+\ref{fig:esquresults:ch4}), however, we see
 that the scores are lower in the ``nonnull" setting. This seems to be due to
 the Spanish and Quechua texts not being close translations of one another -- it
 is fairly likely that words in the Spanish text are simply not present in the
