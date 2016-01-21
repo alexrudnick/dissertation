@@ -15,19 +15,28 @@ features (see Figure~\ref{fig:baselinefeatures}) from the source side and its
 annotations.
 If a source-language lemma has been seen aligned to only one target-language
 type, then this is simply noted, and if the lemma is not present in the
-training data, then it is marked as out-of-vocabulary. In these two
-cases, we do not train a classifier for that lemma, since there is no
-ambiguity present in our examples and the Chipa software cannot provide any
-useful guidance to its caller. A machine translation system may, for example,
-refuse to translate sentences with OOV words, or more likely, will simply
-assume the identity translation, effectively passing them through untranslted.
+training data, then it is marked as out-of-vocabulary. This situation will not
+arise in our \emph{in vitro} evaluation, but during \emph{in vivo} machine
+translation, OOV words will occur in practice.
+In either of these cases, we do not train a classifier for that lemma, since
+there is no ambiguity present in our examples and the Chipa software cannot
+provide any useful guidance to its caller. A machine translation system may,
+for example, refuse to translate sentences with OOV words, or more likely, will
+simply assume the identity translation, effectively passing them through
+untranslated.
 
 Since source-language tokens may be NULL-aligned (i.e., not all words in the
 source text will have corresponding words in the target text), both in the
 training data and in translations, Chipa provides the option to request
 classifiers that consider NULL as a valid label for classification, or not, as
-appropriate for the translation application. We here report classification
-accuracies for both settings.
+appropriate for the translation application. For example, function words found
+in one language may not need to have a surface representation in
+the target text\footnote{As one concrete example, the Spanish ``personal
+\emph{a}" typically gets no translation in any of the other languages addressed
+in this work. Spanish syntax requires \emph{a} before the object of a verb,
+but only when that object is a human being or (controversially) a beloved
+animal.}.
+We here report classification accuracies for both settings.
 
 Memory permitting, Chipa classifiers are kept cached for later usage. Chipa can
 also be run as a server, providing an interface whereby client programs can
