@@ -1,18 +1,18 @@
-\chapter{split out baseline chipa}
+\chapter{The Baseline Chipa System}
 \label{chap:baseline}
-
-\section{The Baseline Chipa System}
+Here we describe the baseline version of the Chipa software and evaluate its
+performance on the tasks described in the previous chapter.
 At its core, the Chipa software takes in a word-aligned bitext corpus, with
 annotations for the source tokens. It then trains CL-WSD classifiers for
 source-language word types on demand. 
 
 By default, the software holds all of the available bitext in memory, or
 optionally on disk, when training from larger corpora. On request, it
-constructs a training set for learning to disambiguate a given word
-by retrieving all sentences that contain that word,
-finding the instances of that word and its aligned translations, and extracting
-features (see Figure~\ref{fig:baselinefeatures}) from the source side and its
-annotations.
+constructs a training set for learning to disambiguate a particular lemma
+by retrieving all sentences that contain the lemma,
+finding the instances of that lemma and its aligned translations, and extracting
+features (see Figure~\ref{fig:baselinefeatures}) from the source sentence's
+surface text and annotations.
 If a source-language lemma has been seen aligned to only one target-language
 type, then this is simply noted, and if the lemma is not present in the
 training data, then it is marked as out-of-vocabulary. This situation will not
