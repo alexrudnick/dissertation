@@ -93,7 +93,7 @@ straightforward comparison between the variations explored in this work and
 several other CL-WSD systems from recent years. These test sets are limited in
 scope, however, and will only demonstrate Chipa's performance for translating
 individual English nouns. These comparisons are interesting in part because
-they show the strength of the ``most frequent sense" basline -- simply
+they show the strength of the ``most frequent sense" baseline -- simply
 returning the most common translation in the training data for a given focus
 word. Many of the posted results in the 2010 and 2013 SemEval competitions did
 not pass this bar; due to Zipfian distributions of words, the most common
@@ -615,7 +615,7 @@ analysis of the target text is required, and Freeling does not support our
 target languages. We again use \texttt{cut-corpus.pl} to select just the target
 side, in this case the Guarani, and cdec's \texttt{tokenize-anything.sh} and
 \texttt{lowercase.pl} to tokenize and lowercase the Guarani text. Then we run
-Chipa's lemmatizer script over the Guarani text. It calls the Paramorfo
+Chipa's lemmatizer script over the Guarani text. It calls the ParaMorfo
 morphological analyzer on the Guarani tokens, producing Guarani lemmas. In
 cases of morphological ambiguity, we produce tokens that maintain that
 ambiguity, simply joining the possible lemmas with a slash.  Once lemmatization
