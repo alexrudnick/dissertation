@@ -1,13 +1,14 @@
 \chapter{Data Sets, Tasks, Software and Evaluation}
 \label{chap:evaluation}
+In this chapter, I describe the tasks and data sets that we will investigate
+for the rest of the dissertation, so that we can measure performance in
+selecting translations for our source-language lexical items.
 In order to evaluate our CL-WSD approaches and their effects on translation
 quality, we will need to have a basis for comparison between our proposed
 techniques and sensible baselines, including results reported by other
-researchers.
-
-In this chapter, I describe the tasks and data sets that we will investigate
-for the rest of the dissertation, as well as the basic version of the Chipa
-software, which we extend in a variety of directions in the following chapters.
+researchers. Here we cover some \emph{in vivo} and \emph{in vitro} approaches
+for evaluating CL-WSD systems, then we characterize the corpus that we have
+available for the language pairs of interest.
 
 As discussed in Section \ref{sec:background-wsd}, for many years word sense
 disambiguation systems have been evaluated \emph{in vitro} and in a monolingual
@@ -86,14 +87,21 @@ at test time. This is a problem faced by data-driven NLP systems broadly.
 
 For comparison with other work, in Section \ref{sec:baseline-semeval} we run
 our systems on the SemEval CL-WSD shared task test sets, which are publicly
-available.  Our larger task here is framed in the same way as the CL-WSD shared
+available. Our larger task here is framed in the same way as the CL-WSD shared
 tasks from 2010 and 2013, so measuring performance on these test sets allows a
 straightforward comparison between the variations explored in this work and
 several other CL-WSD systems from recent years. These test sets are limited in
 scope, however, and will only demonstrate Chipa's performance for translating
-individual English nouns. It is also worth noting that our more immediate
-practical goal is to aid translation from Spanish into lower-resourced
-languages. 
+individual English nouns. These comparisons are interesting in part because
+they show the strength of the ``most frequent sense" basline -- simply
+returning the most common translation in the training data for a given focus
+word. Many of the posted results in the 2010 and 2013 SemEval competitions did
+not pass this bar; due to Zipfian distributions of words, the most common
+lexical items in the target language are quite common.
+In that section we can see how Chipa is situated among other recent CL-WSD
+systems on a that particular task, translating English nouns, but this cannot
+be the whole of our evaluation for Chipa; our more general goal for Chipa is to
+support MT from Spanish into lower-resourced languages. 
 
 \section{Data Sets and Preprocessing}
 \label{sec:datasetsandpreprocessing}
@@ -153,11 +161,13 @@ produce this format, typically taking in sentences annotated in this way,
 calling another NLP tool to generate more annotations, and then adding the new
 annotations to those already present. The experiments in this chapter only use
 one of these tools, \texttt{freeling\_to\_annotated.py}, which produces Chipa's
-input format given output from Freeling.  In the following chapters, we will
-make use of these tools and the extra information they make available to our
-classifiers; in Chapter \ref{chap:monolingual} we add annotations learnable
-with monolingual resources, and in Chapter \ref{chap:multilingual} we describe
-tools and annotations that require parallel data.
+input format given output from Freeling\cite{padro12}, a suite of text analysis
+tools that supports a variety of European languages, notably Spanish.
+In the following chapters, we will make use of these tools and the extra
+information they make available to our classifiers; in Chapter
+\ref{chap:monolingual} we add annotations learnable with monolingual resources,
+and in Chapter \ref{chap:multilingual} we describe tools and annotations that
+require parallel data.
 
 \subsection{Preprocessing}
 There is a nontrivial amount of preprocessing required in order to get our
@@ -184,7 +194,10 @@ contains over 99\% of the verses in any given Bible. For the Guarani
 translation, however, we are only able to match 95.2\% of the verses. The
 Guarani text contains fewer verses, $29,867$ versus the $31,104$ in Spanish,
 showing that the translators were more willing here to combine verses and that
-the translations may be more interpretive.
+the translations may be more interpretive. To filter out matched text where
+different amounts of material have been combined into the same verse number, we
+additionally use a sentence-alignment tool; see Section
+\ref{sec:preprocessing-alignment} for details.
 
 Our English translation is distributed in a format called USFM (Unified
 Standard Format Markers), which is a markup language developed by a working
@@ -367,11 +380,11 @@ editions from the web, we find the code ``LAM" in the markup. In any case, we
 map each of these identifiers to a single code ``Lam", so that we can match
 books, chapters and verses across translations.
 
-\subsection{Morphological Analysis}
+\subsection{Lemmatization}
 \label{sec:guaranima}
 
 For each of our languages, whether on the source or target side, in addition to
-tokenizing, lowercasing and verse-alignment, we extract the lemmas (the
+lowercasing and verse-alignment, we extract the lemmas (the
 citation forms, normalized with respect to inflection) from each surface word.
 Especially when working with smaller data sets and morphologically rich
 languages, this is an important step; working primarily with lemmas rather than
@@ -386,10 +399,17 @@ a few of these tools -- initially only tokenization and lemmatization. We
 discuss making use of more of them in Chapter \ref{chap:monolingual},
 leveraging the quality NLP tools that we have for our resource-rich source
 languages.
+While it is a more pressing problem in more morphologically rich languages,
+there are examples of morphological ambiguity in English and
+Spanish. A familiar example from Spanish is that \emph{ir} 'to
+go' and \emph{ser} 'to be' sharing their preterite-tense forms; this is a
+fairly common phenomenon. However, the FreeLing analysis tools can typically
+(heuristically) resolve these ambiguities for us, and in this work we assume
+that the Freeling output is correct, or at least correct enough.
 
 The use of FreeLing for English is a noted improvement over initial
-experiments, which used the WordNet lemmatizer and the default NLTK
-part-of-speech tagger; these tools do not, as distributed, support Spanish.
+experiments, which used NLTK's WordNet lemmatizer and default part-of-speech
+tagger \cite{nltkbook}; these tools do not, as distributed, support Spanish.
 The WordNet lemmatizer has a fairly small vocabulary, did not
 provide a good strategy for dealing with unknown words, and could only address
 nouns, verbs, and adjectives.
@@ -458,14 +478,8 @@ sentence of Lamentations 1:2; the Guarani is Lamentations 3:4.}
 %..."
 %% Force morphological disambiguation on the gn side, not a bad idea.
 
-There are, of course, examples of morphological ambiguity in English and
-Spanish. A familiar example from Spanish is that \emph{ir} 'to
-go' and \emph{ser} 'to be' sharing their preterite-tense forms; this is a
-fairly common phenomenon. However, the FreeLing analysis tools can typically
-(heuristically) resolve these ambiguities for us, and in this work we assume
-that the Freeling output is correct, or at least correct enough.
-
 \subsection{Alignment}
+\label{sec:preprocessing-alignment}
 As a precaution against verses that are not close translations, or perhaps have
 combined several parts of the text together into one verse on only one side, we
 run the cdec filtering tool (\texttt{filter-length.pl}) with its default
