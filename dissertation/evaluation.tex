@@ -402,10 +402,19 @@ languages.
 While it is a more pressing problem in more morphologically rich languages,
 there are examples of morphological ambiguity in English and
 Spanish. A familiar example from Spanish is that \emph{ir} 'to
-go' and \emph{ser} 'to be' sharing their preterite-tense forms; this is a
-fairly common phenomenon. However, the FreeLing analysis tools can typically
-(heuristically) resolve these ambiguities for us, and in this work we assume
-that the Freeling output is correct, or at least correct enough.
+go' and \emph{ser} 'to be' sharing their preterite-tense forms.
+However, the FreeLing analysis tools can typically resolve these ambiguities
+for us\footnote{FreeLing performs morphological analysis jointly with
+part-of-speech tagging. Concretely, the token \emph{fue} is given the tag
+\texttt{VSIS3S0} if it is deemed to be an inflection of \emph{ser}, and the tag
+\texttt{VMIS3S0} for an inflection of \emph{ir}. Here the `S' stands for
+``semiauxiliary". See
+\url{http://nlp.lsi.upc.edu/freeling/doc/tagsets/tagset-es.html} (page
+in Spanish) for more on the tagset used by FreeLing for Spanish.}, and in this
+work we assume that the Freeling output is correct, or at least correct enough.
+In effect, we here assume that this kind of ambiguity -- ambiguities about the
+appropriate lemma for a given token -- are satisfactorily resolved before the
+CL-WSD system itself comes into play.
 
 The use of FreeLing for English is a noted improvement over initial
 experiments, which used NLTK's WordNet lemmatizer and default part-of-speech
@@ -450,7 +459,12 @@ morphological ambiguity, which is to say cases where a surface form could be an
 inflection of multiple distinct lemmas, we maintain this ambiguity rather than
 trying to disambiguate from context.  The different possible lemmas are
 separated by a slash; there are examples of this in
-Figure ~\ref{fig:gn-qu-morpho-ambiguity}.
+Figure ~\ref{fig:gn-qu-morpho-ambiguity}. ParaMorfo and AntiMorfo, for many
+cases, treat verbs with derivational affixes as lemmas in their own right; here
+for simplicity we include both versions of the lemma\footnote{For example, in
+Guarani, \emph{ahechauka} 'I show (cause to see)' contains the causative suffix
+\emph{-uka}. In this case we treat both \emph{hechauka} 'show' and \emph{hecha}
+'see' as lemmas (Gasser 2016, personal communication).}.
 
 \begin{figure*}
 \begin{itemize}
