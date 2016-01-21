@@ -482,7 +482,8 @@ sentence of Lamentations 1:2; the Guarani is Lamentations 3:4.}
 \label{sec:preprocessing-alignment}
 As a precaution against verses that are not close translations, or perhaps have
 combined several parts of the text together into one verse on only one side, we
-run the cdec filtering tool (\texttt{filter-length.pl}) with its default
+run the cdec \cite{dyer-EtAl:2010:Demos} filtering tool
+(\texttt{filter-length.pl}) with its default
 settings, which checks for unusual length disparities in the bitext. This ends
 up removing roughly 7\% of the verses\footnote{Specifically, length filtering
 removes $7.12\%$ of the verse pairs for Spanish-English and thus
@@ -501,7 +502,8 @@ alignment algorithm, which is a variant of IBM Models 1 and 2, and was shown to
 provide both relatively fast training times and good results for downstream MT
 systems \cite{dyer-chahuneau-smith:2013:NAACL-HLT}. It improves on Model 1 by
 encouraging diagonal alignments, rather than Model 1's simplistic view that any
-token in the source might be just as well be aligned to token in the target,
+token in the source might be just as well be aligned to any token in the
+target,
 and on Model 2 in having fewer parameters to fit. In any case, it is the
 default aligner for use with cdec. \texttt{fast\_align} produces the single most
 likely one-to-many word alignment for each verse, such that each source
