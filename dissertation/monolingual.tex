@@ -11,13 +11,14 @@ and Spanish-Quechua, we will need to lean more on our resources, including
 tools and data, for Spanish so that we can better make sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
-available. Given large amounts of Spanish-language text, we can use
-unsupervised methods to discover useful regularities and thus additional
-features for our text classification task. This has been a broadly successful
+available, which suggests that we could use unsupervised methods to discover
+helpful regularities and make additional features available in our text
+classification task. This has been a broadly successful
 approach in the literature \cite{turian-ratinov-bengio:2010:ACL}, and here we
 adapt some of the methods of Turian et al. to our particular task. Concretely,
-in this chapter we explore using Brown clustering \cite{brown1992class}, also
-known as IBM clustering, since it was developed by the Candide group at IBM.
+in this chapter we explore using Brown clustering \cite{brown1992class} and the
+use of monolingual word embeddings.
+
 
 There are actually several open questions here, though:
 
@@ -92,7 +93,9 @@ lemmatization, POS tagging, named entity recognition, and dependency parsing.
 
 
 \section{Brown Clustering}
-The Brown clustering algorithm takes as input unannotated text and produces a
+The Brown clustering algorithm, also known as IBM clustering, since it was
+initially developed by the Candide group at IBM, takes as input unannotated
+text and produces a
 mapping from word types in that text to clusters, such that words in the same
 cluster have similar usage patterns according the corpus's bigram statistics.
 We can then use this mapping from words to clusters in our classifiers, adding
