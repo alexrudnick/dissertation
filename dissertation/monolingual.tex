@@ -82,22 +82,20 @@ straightforward.
 
 Notably, we can use POS tags, features extracted from parsers... we could even
 use sense annotations from a monolingual WSD system, if we had a good one on
-hand.
+hand. (nb: this is what we're going to do in the multilingual chapter, in some
+sense)
 
 For POS tagging and parsing, we run the open source FreeLing text analysis
 suite \cite{padro12} on both the training data and the text input sentences.
 FreeLing can perform a number of analysis tasks for Spanish, including
 lemmatization, POS tagging, named entity recognition, and dependency parsing.
 
-
-
-
 \section{Brown Clustering}
 The Brown clustering algorithm, also known as IBM clustering, since it was
 initially developed by the Candide group at IBM, takes as input unannotated
-text and produces a
-mapping from word types in that text to clusters, such that words in the same
-cluster have similar usage patterns according the corpus's bigram statistics.
+text and produces a mapping from word types in that text to clusters, such that
+words in the same cluster have similar usage patterns according the corpus's
+bigram statistics.
 We can then use this mapping from words to clusters in our classifiers, adding
 an additional annotation for each word that allow the classifiers to find
 higher-level abstractions than surface-level words or particular lemmas.
@@ -139,6 +137,7 @@ Clustering learns, based on the different source-language corpora that we could
 cluster on.
 
 
+\TODO{replace with current example}
 \begin{figure*}[t!]
   \begin{tabular}{|r|p{10cm}|}
     \hline
