@@ -115,14 +115,15 @@ between two immediately subsequent tokens (ie, a bigram).
 
 Concretely, the formula is...
 
-%% XXX insert the formula here
+\begin{equation} \label{eq:brownclassprob}
+P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
+\end{equation}
 
 Finding a globally optimal assignment for this would be computationally
 difficult. But we have a greedy approach for finding a local optimum.
 
-%% XXX Write about how Brown clustering works
-%% XXX it's hierarchical too, so we don't have to use the leaf clusters...
 
+\section{Clustering Spanish text for this work}
 So far, we have really good evidence that we can learn, in an unsupervised way,
 with Brown Clustering coarse-grained categories for word types in the source
 language that help us make lexical selection distinctions.
