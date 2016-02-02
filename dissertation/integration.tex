@@ -11,17 +11,21 @@ language pairs.  These will include, at least:
 \item Tereré, a hybrid SCFG-based system that makes use of both bilingual
 transfer rules and a monolingual language model, translating from Spanish to
 Guarani.
+
+\item A baseline phrase-based SMT system made with Moses
+\cite{koehn-EtAl:2007:PosterDemo}.
+
+%% Maybe in fact we won't do SQUOIA? Can we just do Apertium instead? Would
+%% that be easier to work with? Can we still run SQUOIA? Apertium is certainly
+%% a little more widely known.
+\item Apertium, a system based on shallow transfer, which has been
+applied to a large number of language pairs.
+
 \item SQUOIA, a classic transfer-based system translating Spanish to Quechua.
+
 \end{itemize}
 
 We would also like to integrate Chipa into:
-
-\begin{itemize}
-\item L3, a more sophisticated RBMT system based on constraint solving and
-synchronous dependency grammars 
-\item Apertium, a system based on shallow transfer, which has been
-applied to a large number of language pairs.
-\end{itemize}
 
 
 A hyperparameter that we need to check is: what's the minimum number of tokens
@@ -49,14 +53,18 @@ specifically Paraguayan specialty.}.
 Tereré will make use of modern hybrid MT techniques; our current design is
 fairly similar to the Stat-XFER approach \cite{DBLP:conf/cicling/Lavie08}
 developed by researchers at CMU.
+
+%% XXX: questionable.
 Like Stat-XFER, Tereré will make use of bilingual transfer rules, a lexical
 transfer stage, a target-language LM, and statistical decoding.
+
 
 While the initial transfer rules will likely be written by hand, based the
 respective grammars of Spanish and Guarani, we may also include
 automatically-extracted rules, perhaps via Thrax \cite{weese-EtAl:2011:WMT} or
 a forthcoming tool for extracting Inversion Transduction Grammars, from Dekai
 Wu's team at HKUST \cite{saers-addanki-wu:2013:HyTra}.
+
 The use of automatically-extracted transfer rules would make the system more
 similar to the SAMT approaches of Zollmann and Venugopal
 \cite{zollmann-venugopal:2006:WMT}.
@@ -69,6 +77,7 @@ probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned with
 MERT \cite{och:2003:ACL}, and the decoder will use these to search the space of
 licensed translations.
 
+%% Not relevant to the argument; don't do this.
 We will approach the rich morphology of Guarani and the associated data
 sparsity by having the system produce uninflected Guarani stems, which we will
 then inflect in a second pass.
