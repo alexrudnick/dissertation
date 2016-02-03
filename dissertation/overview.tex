@@ -16,11 +16,11 @@ this with translation experiments covering several language pairs focusing on
 Spanish-Guarani -- the co-official languages of Paraguay -- and including
 Quechua and English.
 
-I describe new CL-WSD approaches, including the use of unsupervised
-clustering on source-language text and multilingual corpora for the source
-language as a source of classification features and sequence-labeling
-techniques. I also evaluate their effectiveness in practice. All of these
-techniques have been implemented in a new CL-WSD software system called Chipa
+I describe new CL-WSD approaches, including the use of unsupervised clustering
+on source-language text and multilingual corpora for the source language as a
+source of classification features. I also evaluate their effectiveness in
+practice. All of these techniques have been implemented in a new CL-WSD
+software system called Chipa
 \footnote{Chipa the software is named for chipa the snack food, popular in many
   parts of South America. It is a cheesy bread made from cassava flour, often
   served in a bagel-like shape in Paraguay.  Also \emph{chipa} means 'rivet,
@@ -170,9 +170,6 @@ language pair with relatively modest resources.
 accuracy on the cross-lingual word sense disambiguation task?
 \item Can we use multilingual resources, such as bitext corpora pairing the
 source language with languages other than the current target language?
-\item Will sequence labeling techniques, in which we jointly model labeling
-source-language words with target-language labels, improve results for the
-CL-WSD task?
 \item Which kinds of machine translation systems can benefit from CL-WSD?
 \end{enumerate}
 
@@ -197,8 +194,6 @@ translating out of it.
 \item Chapter \ref{chap:multilingual} expands our approaches to include the
 multilingual resources for Spanish, integrating CL-WSD classifiers for
 languages other than Guarani and Quechua.
-\item Chapter \ref{chap:sequence} discusses approaches for jointly assigning
-target-language labels to an entire sentence at once with sequence models.
 \item Chapter \ref{chap:combinations} shows ways to combine the previous
 approaches ... %% XXX do we need this chapter?
 \item Chapter \ref{chap:integration} presents practical applications of Chipa;
