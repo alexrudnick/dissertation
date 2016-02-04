@@ -1,32 +1,23 @@
 \chapter{Integration Into Machine Translation Systems}
 \label{chap:integration}
 
-This can take a lot of text from the SALTMIL paper.
+In this chapter, I discuss how the Chipa software, along with its extensions
+developed in the previous chapters, can be integrated into running machine
+translation systems, with the goal of improving lexical selection in practice.
+Subsequently, we cover Chipa's effect on MT quality over a variety of test
+sets, translating from Spanish into Guarani, Quechua, and English.
 
-
-Concretely, we will apply the CL-WSD techniques we develop to a number of
-different MT systems with different designs, translating several different
-language pairs.  These will include, at least:
 \begin{itemize}
 \item Tereré, a hybrid SCFG-based system that makes use of both bilingual
 transfer rules and a monolingual language model, translating from Spanish to
 Guarani.
-
-\item A baseline phrase-based SMT system made with Moses
-\cite{koehn-EtAl:2007:PosterDemo}.
 
 %% Maybe in fact we won't do SQUOIA? Can we just do Apertium instead? Would
 %% that be easier to work with? Can we still run SQUOIA? Apertium is certainly
 %% a little more widely known.
 \item Apertium, a system based on shallow transfer, which has been
 applied to a large number of language pairs.
-
-\item SQUOIA, a classic transfer-based system translating Spanish to Quechua.
-
 \end{itemize}
-
-We would also like to integrate Chipa into:
-
 
 A hyperparameter that we need to check is: what's the minimum number of tokens
 we train a classifier, before it does us any good?
@@ -36,14 +27,19 @@ classifiers are in fact helpful, then having classifications for more input
 tokens is going to be helpful.
 So we should try a number of settings for this parameter.
 
+\section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
+Moses \cite{koehn-EtAl:2007:PosterDemo} is a mature, well-maintained, and
+popular statistical machine translation package, used by researchers and for
+practical purposes around the world.
+
+We built a baseline phrase-based SMT system with Moses.
 
 \section{Tereré}
 \label{sec:terere}
 Since we hope that our ideas about lexical selection will make sense in several
 different contexts, we will develop a new machine translation system out of
 open-source SMT components, particularly relying on the cdec decoder and its
-associated tools.
-\cite{dyer-EtAl:2010:Demos}
+associated tools. \cite{dyer-EtAl:2010:Demos}
 
 
 This new system is called ``Tereré"
@@ -77,37 +73,20 @@ probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned with
 MERT \cite{och:2003:ACL}, and the decoder will use these to search the space of
 licensed translations.
 
-%% Not relevant to the argument; don't do this.
-We will approach the rich morphology of Guarani and the associated data
-sparsity by having the system produce uninflected Guarani stems, which we will
-then inflect in a second pass.
-In the second pass, we will predict the appropriate morphological features will
-with a discriminative sequence-labeling approach based on work at Microsoft
-Research \cite{toutanova-suzuki-ruopp:2008:ACLMain}.
-Thus both the transfer rules and the language model will be in terms of stemmed
-Guarani.
-As an alternative, we could adapt the techniques in
-\cite{chahuneau:2013:emnlp} to generate translation rules that contain the
-appropriately inflected target forms, just before running the decoder.
-Rule-based approaches may also be sensible for generating Guarani morphology,
-in some cases, and these will have to be investigated. In any case, once the
-appropriate morphological features have been predicted, surface forms of
-Guarani words will be generated with the FST-based morphological analyzer and
-generator developed by Michael Gasser and described in
-\cite{rudnick-gasser:2013:HyTra}.
 
 \section{SQUOIA}
 SQUOIA\footnote{Described in detail at
 \url{http://www.cl.uzh.ch/research/maschinelleuebersetzung/hybridmt_en.html}; 
 Code available at \url{http://code.google.com/p/squoia/}}
-is a project for MT from Spanish to Quechua, another relatively large
-indigenous American language. SQUOIA is being developed by a team at the
-University of Zurich. For the most part, it is a classical rule-based transfer
-system, although the team has recently developed techniques for predicting verb
-morphology with machine learning methods, in cases when rules cannot reliably
-disambiguate \cite{riosgonzales-gohring:2013:HyTra}. It does not currently use
-machine learning for lexical selection, although we have been in contact with
-the team and are planning to collaborate to add CL-WSD features.
+is a project for MT from Spanish to Quechua.
+
+SQUOIA is being developed by a team at the University of Zurich. For the most
+part, it is a classical rule-based transfer system, although the team has
+recently developed techniques for predicting verb morphology with machine
+learning methods, in cases when rules cannot reliably disambiguate
+\cite{riosgonzales-gohring:2013:HyTra}. It does not currently use machine
+learning for lexical selection, although we have been in contact with the team
+and are planning to collaborate to add CL-WSD features.
 
 SQUOIA's architecture is based on the Matxin system \cite{matxin2005}, which
 was originally intended for translating from Spanish to Basque.
@@ -141,7 +120,6 @@ experiments.
 
 
 
-\section{Introduction}
 Here we report on the development of Chipa, a package for statistical
 lexical selection, and on integrating it into
 SQUOIA,\footnote{\url{http://code.google.com/p/squoia/}} a primarily rule-based
@@ -154,11 +132,6 @@ without significantly changing its design, and to improve its word choices as
 additional bitext becomes available. Our initial experiments also suggest that
 we are able to use unsupervised approaches on monolingual Spanish text to
 further improve results.
-
-In this paper, we describe the designs of the Chipa and SQUOIA systems, discuss
-the data sets used, and give results on both how well Chipa is able to learn
-lexical selection classifiers in isolation, and to what extent it is able to
-improve the output of SQUOIA on a full Spanish-to-Quechua translation task.
 
 In its current design, SQUOIA makes word choices based on its bilingual
 lexicon; the possible translations for a given word or multi-word expression
@@ -192,6 +165,9 @@ via UNIX pipes. Each module performs some transformation on its input and
 passes along the updated version to the next stage. Many modules focus on very
 particular parts of the representation, leaving most of their input unchanged.
 
+Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
+earlier work on extending the SQUOIA MT system with machine learning modules.
+
 In the first stages, Spanish source sentences are analyzed with off-the-shelf
 open-source NLP tools. To analyze the input Spanish text,
 SQUOIA uses FreeLing \cite{padro12} for morphological analysis and named-entity
@@ -221,19 +197,7 @@ finally, the tree is reordered according to the basic word order in the target
 language. In the last step, the Quechua surface forms are morphologically
 generated through a finite state transducer.
 
-\section{CL-WSD with Chipa}
-Chipa is a system for cross-lingual word sense disambiguation (CL-WSD).
-\footnote{Chipa the software is named for chipa the snack food, popular in many
-  parts of South America. It is a cheesy bread made from cassava flour, often
-  served in a bagel-like shape in Paraguay.  Also \emph{chipa} means 'rivet,
-  bolt, screw' in Quechua, something for holding things together.  The software
-is available at \\ \url{http://github.com/alexrudnick/chipa} under the GPL.} By
-CL-WSD, we mean the problem of assigning labels to polysemous words in
-source-language text, where each label is a word or phrase type in the target
-language.
-
-
-\subsection{System Integration}
+\section{Integration with SQUOIA}
 In order to integrate Chipa into SQUOIA, we added an additional lexical
 selection stage to the SQUOIA pipeline, occurring after the rule-based
 disambiguation modules. This new module connects to the Chipa server to request
@@ -342,10 +306,6 @@ architecture of SQUOIA, lexical selection modules may not make the decision to
 drop a word. In both cases, we show the average classification accuracy across
 all words and folds, weighted by the size of each test set.
 
-Here we compare the trained classifiers against the ``most-frequent sense"
-(MFS) baseline, which in this setting is the most common translation for a
-given lemma, as observed in the training data.
-
 We additionally show the effects on classification accuracy of adding features
 derived from Brown clusters, with clusters extracted from both the Europarl
 corpus and the Spanish side of our training data.
@@ -368,7 +328,7 @@ help, but the clusters learned in-domain, largely from the Bible, reflect
 usage distinctions in that domain. Here we are in fact cheating slightly, as
 information from the complete corpus is used to classify parts of that corpus.
 
-Figures XXX and XXX show summarized results of these first two experiments.
+
 
 \subsection{Translation Evaluation}
 In order to evaluate the effect of Chipa on lexical selection in a live
@@ -407,11 +367,6 @@ See Figure \ref{fig:translatioresults} for the numerical results.
 \label{fig:translatioresults}
 \end{figure*}
 
-On the web test set, unfortunately very few of the Spanish words used were both
-considered ambiguous by SQUOIA's lexicon and attested in our training corpus.
-Enabling Chipa during translation, classifiers are only called on six of the
-thirty-five sentences, and then the classifiers only disagree with the default
-entry from the lexicon in one case.
 
 We do see a slight improvement in lexical selection when enabling Chipa on the
 Bible test set; the three feature settings listed actually all produce
@@ -419,26 +374,20 @@ different translation output, but they are of equal quality. Here the in-domain
 training data allowed the classifiers to be used more often; 736 of the
 thousand sentences were influenced by the classifiers in this test set.
 
-\section{Related Work}
-Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
-earlier work on extending the SQUOIA MT system with machine learning modules.
+
+
 They used classifiers to predict the target forms of verbs in cases where the
 system's hand-crafted rules cannot make a decision based on the current
 context.
 
-\section{Conclusions and Future Work}
-We have described the Chipa CL-WSD system and its integration into SQUOIA,
-a machine translation system for Spanish-Quechua.
+
 Until this work, SQUOIA's lexical choices were based on a small number of
 hand-written lexical selection rules, or the default entries in a bilingual
 dictionary. 
 
-We have provided a means by which the system can make some use of
-the available training data, both bilingual and monolingual, with very few
-changes to SQUOIA itself. We have also shown how Brown clusters, either when
-learned from a large out-of-domain corpus or from a smaller in-domain corpus,
-provide useful features for a CL-WSD task, substantially improving
-classification accuracy.
+We have also shown how Brown clusters, either when learned from a large
+out-of-domain corpus or from a smaller in-domain corpus, provide useful
+features for a CL-WSD task, substantially improving classification accuracy.
 
 In order make better use of the suggestions from the CL-WSD module, we may
 need to expand the lexicon used by the translation system, so that mismatches
@@ -446,18 +395,3 @@ between the vocabulary of the available bitext, the translation system itself,
 and the input source text do not hamper our efforts at improved lexical
 selection. Finding more and larger sources of bitext for this language pair
 would of course help immensely.
-
-We would like to learn from the large amount of monolingual Spanish text
-available; while the Europarl corpus is nontrivial, there are much larger
-sources of Spanish text, such as the Spanish-language Wikipedia. We plan
-to apply more clustering approaches and other word-sense discrimination
-techniques to these resources, which will hopefully further improve CL-WSD
-across broader domains.
-
-Better feature engineering outside of unsupervised clusters may also be useful.
-In the future we we will extract features from the already-available POS tags
-and the syntactic structure of the input sentence.
-
-We also plan to apply the Chipa system to other machine translation systems and
-other language pairs, especially Spanish-Guarani, another important language
-pair for South America.

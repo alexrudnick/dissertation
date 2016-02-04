@@ -25,6 +25,25 @@ package for helping RBMT systems make appropriate lexical choices, and a freely
 available bitext corpus for a resource-poor language.
 
 \section{Future Work}
+
+\section{Morphological Generation}
+%% future work, necessary for a complete MT system into morphologically rich
+%% indigenous languages 
+In the second pass, we will predict the appropriate morphological features will
+with a discriminative sequence-labeling approach based on work at Microsoft
+Research \cite{toutanova-suzuki-ruopp:2008:ACLMain}.
+Thus both the transfer rules and the language model will be in terms of stemmed
+Guarani.
+As an alternative, we could adapt the techniques in
+\cite{chahuneau:2013:emnlp} to generate translation rules that contain the
+appropriately inflected target forms, just before running the decoder.
+Rule-based approaches may also be sensible for generating Guarani morphology,
+in some cases, and these will have to be investigated. In any case, once the
+appropriate morphological features have been predicted, surface forms of
+Guarani words will be generated with the FST-based morphological analyzer and
+generator developed by Michael Gasser and described in
+\cite{rudnick-gasser:2013:HyTra}.
+
 \section{Acquiring larger bitext corpora}
 \label{sec:crowdsourcing}
 As part of the ongoing work for the practical goal of building a useful
