@@ -174,21 +174,22 @@ and the labels given are not produced by the algorithm.
 
 
 \section{Neural Word Embeddings}
-
-We can try applying the other stuff in the Turian et al Word Representations
-paper. Such as word2vec \cite{mikolovword2vec}
+Another rich source of features that has been useful for many text
+classification problems in recent years is neural word embeddings, perhaps most
+famously embodied in the work of Mikolov et al. \cite{mikolovword2vec} and
+their associated open source implementation of the technique,
+word2vec\footnote{Available at
+\url{https://code.google.com/archive/p/word2vec/}}.
 
 Unlike Brown Clustering, which infers hierarchical clusters for each word type,
-word2vec results in multidimensional representations for each word.
+word2vec results in multidimensional representations for word types, turning
+the very sparse ``one hot" representation in which a words with similar uses or
+meanings do not have any obvious similarity into a much denser continuous space
+in which similar words are placed nearby. These ``embeddings", or placements of
+word types into a continuous space, are learned during some other
+classification task, and are performed by the early layers of a neural network.
 
-Open question here:
-Can we reproduce that ``Learning to Understand Phrases by Embedding the
-Dictionary" paper too? Could we learn representations for the cross-language
-case too?
-
-Definitely try using word2vec. We want to train word2vec on Spanish wikipedia,
-and maybe that's going to give us useful features.
-
+%% 
 We could also try some dimensionality reduction, other distributional semantics
 approach. LSA or something.
 
