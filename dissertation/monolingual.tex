@@ -126,20 +126,33 @@ answer several relevant questions.
   \item Does it matter if you lemmatize the Spanish first, or not? It seems
     like the point of Brown Clustering is that it's picking up on syntax in
     some sense. But maybe lemmatizing is OK; we used the lemmatized version of
-    Europarl in the es-qu experiments for SALTMIL.
+    Europarl in the es-qu experiments for SALTMIL. If it's true, that's a
+    worthwhile thing to note -- to use Brown clustering on Spanish text, maybe
+    you need to lemmatize it first.
   \item Similar open questions for word2vec.
 \end{itemize}
 
 
 \section{Clustering Spanish text for this work}
-So far, we have really good evidence that we can learn, in an unsupervised way,
-with Brown Clustering coarse-grained categories for word types in the source
-language that help us make lexical selection distinctions.
 
 It would be good to include some nice examples of the clusters that Brown
 Clustering learns, based on the different source-language corpora that we could
 cluster on.
 
+Here's an interesting thing to note: when we do clustering on lemmas, we seem
+to pick up more on ``semantic" categories of things. Note the ``infrastructure"
+cluster below -- it's got words that all pertain to infrastructure!
+
+When we don't use lemmas, the cluster that contains ``infraestructura" contains
+these words: \emph{formación educación tecnología infraestructura publicidad
+enseñanza ocupación religión vivienda ética propaganda banda fusión huelga
+creatividad medicina manipulación tribuna cualificación comida}. It seems like
+this is more about grammatical gender: those are all singular feminine nouns.
+
+In fact, the words in many of the clusters all seem to have the same
+grammatical gender and number. To get more semantic similarity, maybe we should
+cluster on lemmas -- otherwise the morphological features of Spanish could
+overwhelm the clustering approach.
 
 \TODO{replace with current example}
 \begin{figure*}[t!]
@@ -172,6 +185,9 @@ clusters corresponding to the names of many countries, some nouns referring to
 people, and common transitive verbs. Note that the clustering is unsupervised,
 and the labels given are not produced by the algorithm.
 
+\subsection{Learning Clusters from Europarl}
+
+\subsection{Learning Clusters from Wikipedia}
 
 \section{Neural Word Embeddings}
 Another rich source of features that has been useful for many text
