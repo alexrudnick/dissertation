@@ -12,69 +12,16 @@ tools and data, for Spanish so that we can better make sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
 available, which suggests that we could use unsupervised methods to discover
-helpful regularities and make additional features available in our text
-classification task.
+helpful regularities and thus good features for our classifiers. This approach
+has been broadly successful in the literature
+\cite{turian-ratinov-bengio:2010:ACL}
+%% XXX: add some more references
+, and here we adapt some of the methods explored in previous work on text
+classification to our particular task. Concretely, in this chapter we explore
+Brown clustering \cite{brown1992class}, neural word embeddings, and labels
+learned from other NLP tools such as off-the-shelf taggers and parsers for
+Spanish.
 
-This has been a broadly successful
-approach in the literature \cite{turian-ratinov-bengio:2010:ACL}
-%% XXX: add some more features
-, and here we
-adapt some of the methods explored in previous work on text classification
-problems to our particular task. Concretely, in this chapter we explore Brown
-clustering \cite{brown1992class}, neural word embeddings, and labels learned
-from other NLP tools such as off-the-shelf taggers and parsers for Spanish.
-
-
-It's also important to consider *what kinds of features* we can extract from
-the brown clusters of the words in a sentence. We tried, for example, dropping
-a bag of all the clusters that occur in the sentence, and prefix features for
-all the clusters that appear too! This did not help classification results!
-That's probably too many extraneous features.
-It might be the case that we really just need to add the very local context --
-three words on a side? In Turian et al, they do two words on a side.
-
-
-used successfully in a variety of text classification tasks
-and provides a straightforward mechanism
-to add annotations to our source-language text.  We also try learning neural
-word embeddings \cite{mikolovword2vec}, which map individual word types into a
-multidimensional, continuous space in which words with similar co-occurrence
-patterns, and thus similar meanings, have nearby representations.
-These approaches make use of the distributional hypothesis to 
-
-% we can also try topic models (say with MALLET)
-
-In addition to large quantities of monolingual text, we have excellent
-off-the-shelf NLP tools for Spanish, such as POS taggers and syntactic parsers,
-which both capture abstractions about particular word types (e.g., perhaps a
-noun in the window surrounding a focus word is indicative of some particular
-meaning) and help us disambiguate meanings based on the structure of the
-current sentence.
-
-%% XXX: can we characterize "excellent" here? How good is FreeLing versus other
-%% off-the-shelf Spanish parsers?
-
-In this chapter, we want to write about all of the things that we can do with
-just monolingual data in the source language.
-This is probably going to be one of the most important chapters, and really one
-of the nicest results in the dissertation.
-We can probably integrate some text from the SALTMIL paper into this chapter.
-
-
-\section{Monolingual features from other NLP tools}
-In the Chipa software, we can make use of all kinds of annotations for our
-text (see Section \ref{sec:annotations}), so adding more features is
-straightforward.
-
-Notably, we can use POS tags, features extracted from parsers... we could even
-use sense annotations from a monolingual WSD system, if we had a good one on
-hand. (nb: this is what we're going to do in the multilingual chapter, in some
-sense)
-
-For POS tagging and parsing, we run the open source FreeLing text analysis
-suite \cite{padro12} on both the training data and the text input sentences.
-FreeLing can perform a number of analysis tasks for Spanish, including
-lemmatization, POS tagging, named entity recognition, and dependency parsing.
 
 \section{Brown Clustering}
 The Brown clustering algorithm, also known as IBM clustering, since it was
@@ -92,6 +39,16 @@ We use a popular open source implementation of Brown clustering,
 Liang \cite{Liang05semi-supervisedlearning}, running on both the Spanish
 side of our bitext corpus and on the Europarl corpus \cite{europarl} for
 Spanish.
+
+It's also important to consider *what kinds of features* we can extract from
+the brown clusters of the words in a sentence. We tried, for example, dropping
+a bag of all the clusters that occur in the sentence, and prefix features for
+all the clusters that appear too! This did not help classification results!
+That's probably too many extraneous features.
+It might be the case that we really just need to add the very local context --
+three words on a side? In Turian et al, they do two words on a side.
+
+
 
 The Brown clustering algorithm uses greedy optimization to try to maximize the
 score for an assignment of all word types seen in the input text into a fixed
@@ -189,6 +146,7 @@ and the labels given are not produced by the algorithm.
 
 \subsection{Learning Clusters from Wikipedia}
 
+
 \section{Neural Word Embeddings}
 Another rich source of features that has been useful for many text
 classification problems in recent years is neural word embeddings, perhaps most
@@ -208,6 +166,38 @@ classification task, and are performed by the early layers of a neural network.
 %% 
 We could also try some dimensionality reduction, other distributional semantics
 approach. LSA or something.
+
+
+We also try learning neural word embeddings \cite{mikolovword2vec}, which map
+individual word types into a multidimensional, continuous space in which words
+with similar co-occurrence patterns, and thus similar meanings, have nearby
+representations.  These approaches make use of the distributional hypothesis to 
+
+\section{Monolingual features from other NLP tools}
+In the Chipa software, we can make use of all kinds of annotations for our
+text (see Section \ref{sec:annotations}), so adding more features is
+straightforward.
+
+
+%% XXX: can we characterize "excellent" here? How good is FreeLing versus other
+%% off-the-shelf Spanish parsers?
+In addition to large quantities of monolingual text, we have excellent
+off-the-shelf NLP tools for Spanish, such as POS taggers and syntactic parsers,
+which both capture abstractions about particular word types (e.g., perhaps a
+noun in the window surrounding a focus word is indicative of some particular
+meaning) and help us disambiguate meanings based on the structure of the
+current sentence.
+
+Notably, we can use POS tags, features extracted from parsers... we could even
+use sense annotations from a monolingual WSD system, if we had a good one on
+hand. (nb: this is what we're going to do in the multilingual chapter, in some
+sense)
+
+For POS tagging and parsing, we run the open source FreeLing text analysis
+suite \cite{padro12} on both the training data and the text input sentences.
+FreeLing can perform a number of analysis tasks for Spanish, including
+lemmatization, POS tagging, named entity recognition, and dependency parsing.
+
 
 \section{Experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}
