@@ -51,9 +51,6 @@ noun in the window surrounding a focus word is indicative of some particular
 meaning) and help us disambiguate meanings based on the structure of the
 current sentence.
 
-%% XXX: can we characterize "excellent" here? How good is FreeLing versus other
-%% off-the-shelf Spanish parsers?
-
 In this chapter, we want to write about all of the things that we can do with
 just monolingual data in the source language.
 This is probably going to be one of the most important chapters, and really one
@@ -62,14 +59,18 @@ We can probably integrate some text from the SALTMIL paper into this chapter.
 
 
 \section{Monolingual features from other NLP tools}
+%% XXX: can we characterize "excellent" here? How good is FreeLing versus other
+%% off-the-shelf Spanish parsers?
 In the Chipa software, we can make use of all kinds of annotations for our
 text (see Section \ref{sec:annotations}), so adding more features is
 straightforward.
 
-Notably, we can use POS tags, features extracted from parsers... we could even
-use sense annotations from a monolingual WSD system, if we had a good one on
-hand. (nb: this is what we're going to do in the multilingual chapter, in some
-sense)
+Most obviously, we can use part-of-speech tags and features extracted from
+parsers, such as the heads and children of the focus words.
+
+We could even use sense annotations from a monolingual WSD system, if we had a
+good one on hand. (nb: this is what we're going to do in the multilingual
+chapter, in some sense)
 
 For POS tagging and parsing, we run the open source FreeLing text analysis
 suite \cite{padro12} on both the training data and the text input sentences.
