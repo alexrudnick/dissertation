@@ -29,9 +29,9 @@ initially developed by the Candide group at IBM, takes as input unannotated
 text and produces a mapping from word types in that text to clusters, such that
 words in the same cluster have similar usage patterns according the corpus's
 bigram statistics.
-We can then use this mapping from words to clusters in our classifiers, adding
-an additional annotation for each word that allow the classifiers to find
-higher-level abstractions than surface-level words or particular lemmas.
+We can then use this clustering to extract features to our classifiers, adding
+an annotation to each token describing a more abstract, less sparse
+representation, than than surface-level words or even lemmas.
 The desired number of clusters must be set ahead of time, but is a tunable
 parameter.
 We use a popular open source implementation of Brown clustering,
@@ -40,15 +40,15 @@ Liang \cite{Liang05semi-supervisedlearning}, running on both the Spanish
 side of our bitext corpus and on the Europarl corpus \cite{europarl} for
 Spanish.
 
-It's also important to consider *what kinds of features* we can extract from
-the brown clusters of the words in a sentence. We tried, for example, dropping
-a bag of all the clusters that occur in the sentence, and prefix features for
-all the clusters that appear too! This did not help classification results!
+We can use these clusters to extract a number of different kinds of features,
+and we can use a variety of inputs to the clustering software in the first
+place.
+We tried, for example, dropping a bag of all the clusters that occur in the
+sentence, and prefix features for all the clusters that appear too!
+This did not help classification results!
 That's probably too many extraneous features.
 It might be the case that we really just need to add the very local context --
 three words on a side? In Turian et al, they do two words on a side.
-
-
 
 The Brown clustering algorithm uses greedy optimization to try to maximize the
 score for an assignment of all word types seen in the input text into a fixed
