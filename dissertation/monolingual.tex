@@ -25,20 +25,35 @@ Spanish.
 
 \section{Brown Clustering}
 The Brown clustering algorithm, also known as IBM clustering, since it was
-initially developed by the Candide group at IBM, takes as input unannotated
-text and produces a mapping from word types in that text to clusters, such that
-words in the same cluster have similar usage patterns according the corpus's
-bigram statistics.
+developed by the Candide group at IBM, takes an unannotated text corpus as
+input and assigns the word types in the corpus into hierarchical clusters such 
+that words in the same cluster have similar usage patterns according the
+corpus's bigram statistics.
+
 We can then use this clustering to extract features to our classifiers, adding
 an annotation to each token describing a more abstract, less sparse
-representation, than than surface-level words or even lemmas.
-The desired number of clusters must be set ahead of time, but is a tunable
-parameter.
-We use a popular open source implementation of Brown clustering,
-\footnote{\url{https://github.com/percyliang/brown-cluster}} described by
-Liang \cite{Liang05semi-supervisedlearning}, running on both the Spanish
-side of our bitext corpus and on the Europarl corpus \cite{europarl} for
-Spanish.
+representation, than than surface-level words or even lemmas. The desired
+number of clusters must be set ahead of time, but is a tunable parameter.
+
+In this work We use Percy Liang's popular open source implementation of Brown
+clustering, described in his masters work \cite{Liang05semi-supervisedlearning}
+\footnote{And available at \url{https://github.com/percyliang/brown-cluster}},
+running on the Europarl corpus \cite{europarl} for Spanish, and also on a dump
+of the entirety of the Spanish-language Wikipedia, taken in 2014.
+
+Brown clustering uses greedy optimization to try to maximize the
+score for an assignment of the word types present in the input text into a fixed
+number of word classes. As the original intention of the approach was for
+class-based language models, the scoring function is the mutual information
+between two immediately subsequent tokens (i.e., a bigram).
+
+Concretely, the optimization process is looking for a clustering $C$ that
+maximizes the probability of the corpus $\boldsymbol{w}$, according to the
+following formula.
+
+\begin{equation} \label{eq:brownclassprob}
+P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
+\end{equation}
 
 We can use these clusters to extract a number of different kinds of features,
 and we can use a variety of inputs to the clustering software in the first
@@ -50,17 +65,6 @@ That's probably too many extraneous features.
 It might be the case that we really just need to add the very local context --
 three words on a side? In Turian et al, they do two words on a side.
 
-The Brown clustering algorithm uses greedy optimization to try to maximize the
-score for an assignment of all word types seen in the input text into a fixed
-number of word classes. As the original intention of the approach was for
-class-based language models, the scoring function is the mutual information
-between two immediately subsequent tokens (ie, a bigram).
-
-Concretely, the formula is...
-
-\begin{equation} \label{eq:brownclassprob}
-P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
-\end{equation}
 
 Finding a globally optimal assignment for this would be computationally
 difficult. But we have a greedy approach for finding a local optimum.
