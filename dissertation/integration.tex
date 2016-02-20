@@ -28,38 +28,28 @@ tokens is going to be helpful.
 So we should try a number of settings for this parameter.
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
+\label{sec:terere}
 Moses \cite{koehn-EtAl:2007:PosterDemo} is a mature, well-maintained, and
 popular statistical machine translation package, used by researchers and for
 practical purposes around the world.
 
-We built a baseline phrase-based SMT system with Moses.
+We built a baseline phrase-based SMT system with Moses, for simplicity and
+comparability with other approaches. We had originally intended to use cdec,
+which in theory supports non-hierarchical phrase-based MT, but in practice
+Moses was a better-supported platform for simpler models. cdec remains an
+excellent tool for experiments with hierarchical, SCFG-based MT.
 
-\section{Tereré}
-\label{sec:terere}
-Since we hope that our ideas about lexical selection will make sense in several
-different contexts, we will develop a new machine translation system out of
-open-source SMT components, particularly relying on the cdec decoder and its
-associated tools. \cite{dyer-EtAl:2010:Demos}
-
-
-This new system is called ``Tereré"
-\footnote{\url{http://github.com/alexrudnick/terere}; 
+We refer to this combination of the Moses decoder with the Chipa CL-WSD
+software as Tereré \footnote{\url{http://github.com/alexrudnick/terere}; 
 Tereré is a cold variety of yerba mate brewed with ice water; it is a
 specifically Paraguayan specialty.}.
-Tereré will make use of modern hybrid MT techniques; our current design is
-fairly similar to the Stat-XFER approach \cite{DBLP:conf/cicling/Lavie08}
-developed by researchers at CMU.
 
-%% XXX: questionable.
-Like Stat-XFER, Tereré will make use of bilingual transfer rules, a lexical
-transfer stage, a target-language LM, and statistical decoding.
-
-
-While the initial transfer rules will likely be written by hand, based the
-respective grammars of Spanish and Guarani, we may also include
-automatically-extracted rules, perhaps via Thrax \cite{weese-EtAl:2011:WMT} or
-a forthcoming tool for extracting Inversion Transduction Grammars, from Dekai
-Wu's team at HKUST \cite{saers-addanki-wu:2013:HyTra}.
+% turns out not to be true.
+%% While the initial transfer rules will likely be written by hand, based the
+%% respective grammars of Spanish and Guarani, we may also include
+%% automatically-extracted rules, perhaps via Thrax \cite{weese-EtAl:2011:WMT} or
+%% a forthcoming tool for extracting Inversion Transduction Grammars, from Dekai
+%% Wu's team at HKUST \cite{saers-addanki-wu:2013:HyTra}.
 
 The use of automatically-extracted transfer rules would make the system more
 similar to the SAMT approaches of Zollmann and Venugopal
