@@ -86,7 +86,18 @@ system will involve adding another script somewhere in the pipeline that
 extracts features from the current annotated sentence, makes lexical choices,
 and then passes these choices to subsequent scripts.
 
-\section{Integrating into SQUOIA}
+The core system relies on a classical transfer approach and is mostly
+rule-based, with a few components based on machine learning.
+SQUOIA uses a pipeline approach, both in an abstract architectural sense and in
+the sense that its pieces are instantiated as a series of scripts that communicate
+via UNIX pipes. Each module performs some transformation on its input and
+passes along the updated version to the next stage. Many modules focus on very
+particular parts of the representation, leaving most of their input unchanged.
+
+Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
+earlier work on extending the SQUOIA MT system with machine learning modules.
+
+\section{Integrating Chipa into SQUOIA}
 
 Lexical ambiguity is a significant problem facing rule-based machine
 translation systems, as many words have several possible translations in a
@@ -108,20 +119,9 @@ make better lexical choices, with very few code changes to the base system. We
 also describe Chipa, the new open source CL-WSD software used for these
 experiments.
 
-
-
-Here we report on the development of Chipa, a package for statistical
-lexical selection, and on integrating it into
-SQUOIA,\footnote{\url{http://code.google.com/p/squoia/}} a primarily rule-based
-machine translation system for the Spanish-Quechua language pair.  With very
-few code changes to SQUOIA, we were able to make use of the lexical suggestions
-provided by Chipa.
-
 The integration enables SQUOIA to take advantage of any available bitext
 without significantly changing its design, and to improve its word choices as
-additional bitext becomes available. Our initial experiments also suggest that
-we are able to use unsupervised approaches on monolingual Spanish text to
-further improve results.
+additional bitext becomes available.
 
 In its current design, SQUOIA makes word choices based on its bilingual
 lexicon; the possible translations for a given word or multi-word expression
@@ -144,19 +144,6 @@ about 1.5 million speakers and some useful available linguistic resources,
 including a small treebank \cite{rios2009quechua}, also produced by the SQUOIA
 team.
 
-\section{SQUOIA}
-SQUOIA is a deep-transfer RBMT system based on the
-architecture of MATXIN \cite{matxin2005,matxin}.
-The core system relies on a classical transfer approach and is mostly
-rule-based, with a few components based on machine learning.
-SQUOIA uses a pipeline approach, both in an abstract architectural sense and in
-the sense that its pieces are instantiated as a series of scripts that communicate
-via UNIX pipes. Each module performs some transformation on its input and
-passes along the updated version to the next stage. Many modules focus on very
-particular parts of the representation, leaving most of their input unchanged.
-
-Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
-earlier work on extending the SQUOIA MT system with machine learning modules.
 
 In the first stages, Spanish source sentences are analyzed with off-the-shelf
 open-source NLP tools. To analyze the input Spanish text,
@@ -187,7 +174,6 @@ finally, the tree is reordered according to the basic word order in the target
 language. In the last step, the Quechua surface forms are morphologically
 generated through a finite state transducer.
 
-\section{Integration with SQUOIA}
 In order to integrate Chipa into SQUOIA, we added an additional lexical
 selection stage to the SQUOIA pipeline, occurring after the rule-based
 disambiguation modules. This new module connects to the Chipa server to request
@@ -206,96 +192,7 @@ SQUOIA dictionary may not be attested in the training data.
 
 
 
-
-
-
-
-\section{Experiments}
-Here we report on two basic experimental setups, including an \emph{in-vitro}
-evaluation of the CL-WSD classifiers themselves and an \emph{in-vivo}
-experiment in which we evaluate the translations produced by the SQUOIA system
-with the integrated CL-WSD system.
-
-\subsection{Classification Evaluation}
-To evaluate the classifiers in isolation, we produced a small Spanish-Quechua
-bitext corpus from a variety of sources, including the Bible, some government
-documents such as the constitution of Peru and several short folktales and
-works of fiction. The great majority of this text was the Bible.
-We used Robert Moore's sentence aligner \cite{DBLP:conf/amta/Moore02}, with the
-default settings to get sentence-aligned text.
-Initially there were just over 50 thousand sentences; 28,549 were included
-after sentence alignment.
-
-\begin{figure*}[t!]
-  \begin{center}
-  \begin{tabular}{|r|c|c|c|c|c|}
-    \hline
-    system                    & \multicolumn{5}{|l|}{accuracy} \\
-    \hline
-    MFS baseline              &  \multicolumn{5}{|l|}{54.54} \\
-    chipa, only word features &  \multicolumn{5}{|l|}{65.43} \\
-    \hline
-           & $C=100$ & $C=200$ & $C=500$ & $C=1000$ & $C=2000$ \\
-    \hline
-    chipa, +clusters from training bitext &
-    66.71 & 67.43 & 68.41 & 69.00 & 69.43 \\
-    chipa, +clusters from europarl        &
-    66.60 & 67.18 & 67.83 & 68.25 & 68.58 \\
-    \hline
-  \end{tabular}
-  \end{center}
-\caption{Results for the \emph{in-vitro} experiment; classification accuracies
-over tenfold cross-validation including null-aligned tokens, as percentages. }
-\label{fig:integrationresults1}
-\end{figure*}
-
-\begin{figure*}[t!]
-  \begin{center}
-  \begin{tabular}{|r|c|c|c|c|c|}
-    \hline
-    system                    & \multicolumn{5}{|l|}{accuracy} \\
-    \hline
-    MFS baseline              &  \multicolumn{5}{|l|}{53.94} \\
-    chipa, only word features &  \multicolumn{5}{|l|}{68.99} \\
-    \hline
-           & $C=100$ & $C=200$ & $C=500$ & $C=1000$ & $C=2000$ \\
-    \hline
-    chipa, +clusters from training bitext &
-    71.53 & 72.62 & 73.88 & 74.29 & 74.78 \\
-    chipa, +clusters from europarl        &
-    71.27 & 72.08 & 73.04 & 73.52 & 73.83 \\
-    \hline
-  \end{tabular}
-  \end{center}
-\caption{Classification accuracies over tenfold cross-validation, excluding
-null-aligned tokens.}
-\label{fig:integrationresults2}
-\end{figure*}
-
-
-During preprocessing, Spanish multi-word expressions identifiable with FreeLing
-were replaced with special tokens to mark that particular expression, and both
-the Spanish and Quechua text were lemmatized. We then performed word-level
-alignments on the remaining sentences with the Berkeley aligner
-\cite{denero-klein:2007:ACLMain}, resulting in one-to-many alignments such that
-each Spanish word is aligned to zero or more Quechua words, resulting in a
-label for every Spanish token.
-
-With this word-aligned bitext, we can then train and evaluate classifiers.
-We evaluate here classifiers for the 100 most common Spanish lemmas appearing
-in the aligned corpus. For this test, we performed 10-fold cross-validation for
-each lemma, retrieving all of the instances of that lemma in the corpus,
-extracting the appropriate features, training classifiers, then testing on
-that held-out fold.
-
-We report on two different scenarios for the \emph{in-vitro} setting; in one
-case, we consider classification problems in which the word in question may be
-aligned to NULL, and in the other setting, we exclude NULL alignments. While
-the former case will be relevant for other translation systems, in the
-architecture of SQUOIA, lexical selection modules may not make the decision to
-drop a word. In both cases, we show the average classification accuracy across
-all words and folds, weighted by the size of each test set.
-
+%% XXX: move this bit into the monolingual chapter.
 We additionally show the effects on classification accuracy of adding features
 derived from Brown clusters, with clusters extracted from both the Europarl
 corpus and the Spanish side of our training data.
@@ -320,7 +217,7 @@ information from the complete corpus is used to classify parts of that corpus.
 
 
 
-\subsection{Translation Evaluation}
+\section{Translation Evaluation}
 In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate two Spanish passages for which we
 had reference Quechua translations. The first is simply a thousand sentences
@@ -363,25 +260,3 @@ Bible test set; the three feature settings listed actually all produce
 different translation output, but they are of equal quality. Here the in-domain
 training data allowed the classifiers to be used more often; 736 of the
 thousand sentences were influenced by the classifiers in this test set.
-
-
-
-They used classifiers to predict the target forms of verbs in cases where the
-system's hand-crafted rules cannot make a decision based on the current
-context.
-
-
-Until this work, SQUOIA's lexical choices were based on a small number of
-hand-written lexical selection rules, or the default entries in a bilingual
-dictionary. 
-
-We have also shown how Brown clusters, either when learned from a large
-out-of-domain corpus or from a smaller in-domain corpus, provide useful
-features for a CL-WSD task, substantially improving classification accuracy.
-
-In order make better use of the suggestions from the CL-WSD module, we may
-need to expand the lexicon used by the translation system, so that mismatches
-between the vocabulary of the available bitext, the translation system itself,
-and the input source text do not hamper our efforts at improved lexical
-selection. Finding more and larger sources of bitext for this language pair
-would of course help immensely.
