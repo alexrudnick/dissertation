@@ -133,17 +133,13 @@ some rules for lexical selection, they have been written by hand and only cover
 a small subset of the vocabulary in a limited number of contexts.
 
 In this work, we supplement these rules with classifiers learned from
-Spanish-Quechua bitext. These classifiers make use of regularities that may not
+Spanish-Quechua bitext.
+These classifiers make use of regularities that may not
 be obvious to human rule-writers, providing improved lexical selection for
 any word type that has adequate coverage in the training corpus.
 
-Quechua is a group of closely related indigenous American languages spoken in
-South America. There are many dialects of Quechua; SQUOIA focuses on the
-Cuzco dialect, spoken around the Peruvian city of Cuzco.  Cuzco Quechua has
-about 1.5 million speakers and some useful available linguistic resources,
-including a small treebank \cite{rios2009quechua}, also produced by the SQUOIA
-team.
-
+There are many dialects of Quechua; SQUOIA focuses on the
+Cuzco dialect, spoken around the Peruvian city of Cuzco.
 
 In the first stages, Spanish source sentences are analyzed with off-the-shelf
 open-source NLP tools. To analyze the input Spanish text,
@@ -227,33 +223,8 @@ advocacy website,\footnote{\emph{Defensoría del Pueblo},
 presumably contains native-quality Quechua. We collected and hand-aligned
 thirty-five sentences from this site.
 
-Having prepared sentence-aligned and segmented bitexts for the evaluation,
-we then translated the Spanish side with SQUOIA, with various CL-WSD settings
-to produce Quechua text. In comparing the output Quechua with the reference
-translations, BLEU scores were quite low. The output often contained no 4-grams
-that matched with the reference translations, resulting in a geometric mean of
-0. So here we report on the unigram-BLEU scores, which reflect some small
-improvements in lexical choice.
-See Figure \ref{fig:translatioresults} for the numerical results.
-
-\begin{figure*}[t!]
-  \begin{center}
-  \begin{tabular}{|r|c|c|}
-    \hline
-    system                           & web test set & bible test set  \\
-    \hline
-    squoia without CL-WSD            & 28.1         & 24.2            \\
-    squoia+chipa, only word features & 28.1         & 24.5            \\
-    squoia+chipa, +europarl clusters & 28.1         & 24.5            \\
-    squoia+chipa, +bible    clusters & 28.1         & 24.5            \\
-    \hline
-  \end{tabular}
-  \end{center}
-  \caption{BLEU-1 scores (modified unigram precision) for the various CL-WSD
-  settings of SQUOIA on the two different Spanish-Quechua test sets.}
-\label{fig:translatioresults}
-\end{figure*}
-
+%% XXX: this is probably not a good test set; we need to pick a better one.
+%% Maybe also just sample some sentences from the Bible.
 
 We do see a slight improvement in lexical selection when enabling Chipa on the
 Bible test set; the three feature settings listed actually all produce
