@@ -44,13 +44,6 @@ software as Tereré \footnote{\url{http://github.com/alexrudnick/terere};
 Tereré is a cold variety of yerba mate brewed with ice water; it is a
 specifically Paraguayan specialty.}.
 
-% turns out not to be true.
-%% While the initial transfer rules will likely be written by hand, based the
-%% respective grammars of Spanish and Guarani, we may also include
-%% automatically-extracted rules, perhaps via Thrax \cite{weese-EtAl:2011:WMT} or
-%% a forthcoming tool for extracting Inversion Transduction Grammars, from Dekai
-%% Wu's team at HKUST \cite{saers-addanki-wu:2013:HyTra}.
-
 The use of automatically-extracted transfer rules would make the system more
 similar to the SAMT approaches of Zollmann and Venugopal
 \cite{zollmann-venugopal:2006:WMT}.
@@ -185,32 +178,6 @@ Notably, since Chipa and SQUOIA do not share the same lexicon and bitext alignme
 may be noisy, translations
 observed in the bitext may be unknown to the SQUOIA system, and lexical entries in the
 SQUOIA dictionary may not be attested in the training data.
-
-
-
-%% XXX: move this bit into the monolingual chapter.
-We additionally show the effects on classification accuracy of adding features
-derived from Brown clusters, with clusters extracted from both the Europarl
-corpus and the Spanish side of our training data.
-We tried several different
-settings for the number of clusters, ranging from $C=100$ to $C=2000$.
-In all of our experimental settings, the addition of Brown cluster features
-substantially improved classification accuracy. We note a consistent upward
-trend in performance as we increase the number of clusters, allowing the
-clustering algorithm to learn finer-grained distinctions.
-The training algorithm takes time quadratic in the number of clusters,
-which becomes prohibitive fairly quickly, so even finer-grained distinctions
-may be helpful, but will be left to future work. On a modern Linux
-workstation, clustering Europarl (~2M sentences) into 2000 clusters took
-roughly a day.
-
-The classifiers using clusters extracted from the Spanish side of our bitext
-consistently outperformed those learned from the Europarl corpus. We had an
-intuition that the much larger corpus (nearly two million sentences) would
-help, but the clusters learned in-domain, largely from the Bible, reflect
-usage distinctions in that domain. Here we are in fact cheating slightly, as
-information from the complete corpus is used to classify parts of that corpus.
-
 
 
 \section{Translation Evaluation}

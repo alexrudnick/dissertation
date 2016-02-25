@@ -146,6 +146,34 @@ clusters corresponding to the names of many countries, some nouns referring to
 people, and common transitive verbs. Note that the clustering is unsupervised,
 and the labels given are not produced by the algorithm.
 
+We additionally show the effects on classification accuracy of adding features
+derived from Brown clusters, with clusters extracted from both the Europarl
+corpus and the Spanish side of our training data.
+We tried several different
+settings for the number of clusters, ranging from $C=100$ to $C=2000$.
+In all of our experimental settings, the addition of Brown cluster features
+substantially improved classification accuracy. We note a consistent upward
+trend in performance as we increase the number of clusters, allowing the
+clustering algorithm to learn finer-grained distinctions.
+The training algorithm takes time quadratic in the number of clusters,
+which becomes prohibitive fairly quickly, so even finer-grained distinctions
+may be helpful, but will be left to future work. On a modern Linux
+workstation, clustering Europarl (~2M sentences) into 2000 clusters took
+roughly a day.
+
+The classifiers using clusters extracted from the Spanish side of our bitext
+consistently outperformed those learned from the Europarl corpus. We had an
+intuition that the much larger corpus (nearly two million sentences) would
+help, but the clusters learned in-domain, largely from the Bible, reflect
+usage distinctions in that domain. Here we are in fact cheating slightly, as
+information from the complete corpus is used to classify parts of that corpus.
+
+
+
+
+
+
+
 \subsection{Learning Clusters from Europarl}
 
 \subsection{Learning Clusters from Wikipedia}
