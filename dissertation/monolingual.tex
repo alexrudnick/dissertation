@@ -96,9 +96,8 @@ answer several relevant questions.
 
 \section{Clustering Spanish text for this work}
 
-It would be good to include some nice examples of the clusters that Brown
-Clustering learns, based on the different source-language corpora that we could
-cluster on.
+%% TODO: include examples of the clusters that we learn from different corpora
+%% specify lemmatized versus not lemmatized
 
 Here's an interesting thing to note: when we do clustering on lemmas, we seem
 to pick up more on ``semantic" categories of things. Note the ``infrastructure"
@@ -208,11 +207,6 @@ with similar co-occurrence patterns, and thus similar meanings, have nearby
 representations.  These approaches make use of the distributional hypothesis to 
 
 \section{Monolingual features from other NLP tools}
-In the Chipa software, we can make use of all kinds of annotations for our
-text (see Section \ref{sec:annotations}), so adding more features is
-straightforward.
-
-
 %% XXX: can we characterize "excellent" here? How good is FreeLing versus other
 %% off-the-shelf Spanish parsers?
 In addition to large quantities of monolingual text, we have excellent
@@ -222,6 +216,10 @@ noun in the window surrounding a focus word is indicative of some particular
 meaning) and help us disambiguate meanings based on the structure of the
 current sentence.
 
+
+In the Chipa software, we can make use of all kinds of annotations for our
+text (see Section \ref{sec:annotations}), so adding more features is
+straightforward.
 
 As a first step, and perhaps an obvious one, we can use part-of-speech tags and
 features extracted from parsers, such as the heads and children of the focus
