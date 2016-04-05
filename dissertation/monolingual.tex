@@ -5,47 +5,48 @@ resources available for the source languages. We would like to use these to
 make better sense of the input text, giving our classifiers clearer signals for
 lexical selection in the target language.
 The approaches considered in this chapter make additional features available to
-the CL-WSD classifiers, based on our knowledge of the source language.
-In short, since we have relatively little bitext available for Spanish-Guarani
+the CL-WSD classifiers, based on our knowledge of the source language;
+since we have relatively little bitext available for Spanish-Guarani
 and Spanish-Quechua, we will need to lean more on our resources, including
 tools and data, for Spanish so that we can better make sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
 available, which suggests that we could use unsupervised methods to discover
-helpful regularities and thus good features for our classifiers. This approach
-has been broadly successful in the literature
+regularities in the language, and use these as features for our classifiers.
+This approach has been broadly successful in the literature
 \cite{turian-ratinov-bengio:2010:ACL}
 %% XXX: add some more references
 , and here we adapt some of the methods explored in previous work on text
-classification to our particular task. Concretely, in this chapter we explore
+classification to our task. Concretely, in this chapter we explore
 Brown clustering \cite{brown1992class}, neural word embeddings, and labels
 learned from other NLP tools such as off-the-shelf taggers and parsers for
-Spanish.
-
+Spanish. There are of course other related methods that one could investigate,
+making use of the deep available literature on distributional semantics, but
+these will be left to future work, either by this author or other researchers.
 
 \section{Brown Clustering}
 The Brown clustering algorithm, also known as IBM clustering, since it was
 developed by the Candide group at IBM, takes an unannotated text corpus as
-input and assigns the word types in the corpus into hierarchical clusters such 
-that words in the same cluster have similar usage patterns according the
+input and assigns each word type in the corpus into hierarchical clusters such
+that types in the same cluster have similar usage patterns according to the
 corpus's bigram statistics.
 
 We can then use this clustering to extract features to our classifiers, adding
 an annotation to each token describing a more abstract, less sparse
-representation, than than surface-level words or even lemmas. The desired
+representation than than surface-level words or lemmas. The desired
 number of clusters must be set ahead of time, but is a tunable parameter.
 
-In this work We use Percy Liang's popular open source implementation of Brown
+In this work we use Percy Liang's popular open source implementation of Brown
 clustering, described in his masters work \cite{Liang05semi-supervisedlearning}
 \footnote{And available at \url{https://github.com/percyliang/brown-cluster}},
-running on the Europarl corpus \cite{europarl} for Spanish, and also on a dump
-of the entirety of the Spanish-language Wikipedia, taken in 2014.
+which for Spanish we have run on the Europarl corpus \cite{europarl}, and also
+on a dump of the entirety of the Spanish-language Wikipedia, taken in 2014.
 
-Brown clustering uses greedy optimization to try to maximize the
-score for an assignment of the word types present in the input text into a fixed
-number of word classes. As the original intention of the approach was for
-class-based language models, the scoring function is the mutual information
-between two immediately subsequent tokens (i.e., a bigram).
+Brown clustering uses greedy optimization to try to maximize the score for an
+assignment of the word types present in the input text into a fixed number of
+word classes. As the original intention of the approach was for class-based
+language models, the scoring function is the mutual information between two
+immediately subsequent tokens (i.e., a bigram).
 
 Concretely, the optimization process is looking for a clustering $C$ that
 maximizes the probability of the corpus $\boldsymbol{w}$, according to the
