@@ -14,9 +14,10 @@ Wait, did we already do that?
   * DONE making it easier to experiment with different featuresets
   * DONE add brown clusters as features
   * DONE pos tags?
-
-  * add other word representations as features: word2vec?
-    * Interesting question here: what *exactly* does word2vec do?
+  * DONE add word2vec features
+    * should figure out best features to extract from word2vec, though
+    * what window to use? how best to combine vectors for different words?
+    * is it best to have vectors over lemmas or surface forms? lowercasing?
   * compare with GLoVE, which is not the same
   http://nlp.stanford.edu/pubs/glove.pdf
   * For word2vec, one major interesting question is how are we going to use
@@ -30,6 +31,22 @@ be?  --> they are. So if this is the case, and we're adding just zillions of
 incredibly sparse features, then what's adding a few more real-valued features?
 That should help immensely, right? Especially if they're a good representation
 of the meanings of the words? ...
+
+[from the tensorflow tutorial on word2vec](https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html#vector-representations-of-words):
+> Word2vec is a particularly computationally-efficient predictive model
+> for learning word embeddings from raw text. It comes in two flavors,
+> the Continuous Bag-of-Words model (CBOW) and the Skip-Gram model.
+> Algorithmically, these models are similar, except that CBOW predicts
+> target words (e.g. 'mat') from source context words ('the cat sits on
+> the'), while the skip-gram does the inverse and predicts source
+> context-words from the target words. This inversion might seem like an
+> arbitrary choice, but statistically it has the effect that CBOW
+> smoothes over a lot of the distributional information (by treating an
+> entire context as one observation). For the most part, this turns out
+> to be a useful thing for smaller datasets. However, skip-gram treats
+> each context-target pair as a new observation, and this tends to do
+> better when we have larger datasets. We will focus on the skip-gram
+> model in the rest of this tutorial.
 
 
   * parse features if that's not too hard?
