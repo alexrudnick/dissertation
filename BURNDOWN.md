@@ -23,6 +23,15 @@ Wait, did we already do that?
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
+    * You want to take the word vectors from the sentence and combine them
+    into a vector representing the current context. There are several things you
+    could try to do this combination:
+      * DONE Just take a sum of the vectors in some window
+      * Take a sum of the vectors for the whole sentence
+      * Take a sum of the vectors for the sentece, but weight words closer to
+      the current focus word more, like attenuate the weight as you get farther
+      out.
+      * Weight word vectors by their tf/idf or similar.
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into
