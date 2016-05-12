@@ -32,6 +32,7 @@ Wait, did we already do that?
       the current focus word more, like attenuate the weight as you get farther
       out.
       * Weight word vectors by their tf/idf or similar.
+      * understand this paper: http://arxiv.org/pdf/1405.4053v2.pdf
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into
