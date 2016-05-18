@@ -212,6 +212,33 @@ individual word types into a multidimensional, continuous space in which words
 with similar co-occurrence patterns, and thus similar meanings, have nearby
 representations.  These approaches make use of the distributional hypothesis to 
 
+\section{Neural Document Embeddings}
+%% XXX working here
+Tomas Mikolov, Quoc Le and collaborators have also developed approaches that
+model not only individual words, but produce representations for sentences,
+paragraphs, or entire documents at once, described in 
+\cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
+This approach, typically called ``paragraph vectors" or sometimes ``doc2vec"
+takes unlabeled text and learns not only representations for word types found
+in the training data, but also representations for each document in the
+training set. Here a ``document" could be as short as an individual sentence,
+or could be scaled to paragraphs or much longer documents, depending on the
+intended application.
+
+This doc2vec approach is an extension of the word2vec approach. Here during
+training, the single hidden layer of the network used to predict words in a
+document contains not only a representation of the embedding for a word type,
+but also an embedding that is learned for the current document.
+
+Then at inference time, when we want to produce a representation for a new
+document, the embeddings for the word types are held constant and we run the
+neural network optimizer (stochastic gradient descent) to learn a new embedding
+for the current document.
+
+As such, Paragraph Vectors provide a straightforward approach for learning
+representations of new documents based on an unlabeled training corpus. This is
+a very convenient technique for this work.
+
 \section{Monolingual features from other NLP tools}
 %% XXX: can we characterize "excellent" here? How good is FreeLing versus other
 %% off-the-shelf Spanish parsers?
