@@ -33,6 +33,8 @@ Wait, did we already do that?
       out.
       * Weight word vectors by their tf/idf or similar.
       * understand this paper: http://arxiv.org/pdf/1405.4053v2.pdf
+  * learn how to train doc2vec
+    * learn how to train doc2vec from Spanish wikipedia!!
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into
