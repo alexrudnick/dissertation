@@ -32,8 +32,8 @@ Wait, did we already do that?
       the current focus word more, like attenuate the weight as you get farther
       out.
       * Weight word vectors by their tf/idf or similar.
-      * understand this paper: http://arxiv.org/pdf/1405.4053v2.pdf
   * learn how to train doc2vec
+    * DONE-ish understand the doc2vec paper (cited in dissertation)
     * learn how to train doc2vec from Spanish wikipedia!!
 
 The important thing to think about here is the "one hot" representation -- are
