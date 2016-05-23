@@ -34,7 +34,9 @@ Wait, did we already do that?
       * Weight word vectors by their tf/idf or similar.
   * learn how to train doc2vec
     * DONE-ish understand the doc2vec paper (cited in dissertation)
-    * learn how to train doc2vec from Spanish wikipedia!!
+    * DONE learn how to train doc2vec from Spanish wikipedia!!
+    * be able to load up saved models and turn inferred document vectors into
+      features for classification
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into

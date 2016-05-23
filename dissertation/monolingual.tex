@@ -236,8 +236,9 @@ neural network optimizer (stochastic gradient descent) to learn a new embedding
 for the current document.
 
 As such, Paragraph Vectors provide a straightforward approach for learning
-representations of new documents based on an unlabeled training corpus. This is
-a very convenient technique for this work.
+representations of new documents based on an unlabeled training corpus, which
+is convenient for this work. Here we use the implementation of doc2vec provided
+by the gensim package \cite{rehurek-lrec}.
 
 \section{Monolingual features from other NLP tools}
 %% XXX: can we characterize "excellent" here? How good is FreeLing versus other
@@ -248,7 +249,6 @@ which both capture abstractions about particular word types (e.g., perhaps a
 noun in the window surrounding a focus word is indicative of some particular
 meaning) and help us disambiguate meanings based on the structure of the
 current sentence.
-
 
 In the Chipa software, we can make use of all kinds of annotations for our
 text (see Section \ref{sec:annotations}), so adding more features is
