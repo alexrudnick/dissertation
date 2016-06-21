@@ -230,15 +230,16 @@ training, the single hidden layer of the network used to predict words in a
 document contains not only a representation of the embedding for a word type,
 but also an embedding that is learned for the current document.
 
-Then at inference time, when we want to produce a representation for a new
-document, the embeddings for the word types are held constant and we run the
-neural network optimizer (stochastic gradient descent) to learn a new embedding
-for the current document.
+At inference time, when we want to produce a representation for a new document,
+the embeddings for the word types are held constant and we run the learning
+process again (stochastic gradient descent) to learn a new embedding for the
+current document, one that best explains the current words.
 
 As such, Paragraph Vectors provide a straightforward approach for learning
 representations of new documents based on an unlabeled training corpus, which
 is convenient for this work. Here we use the implementation of doc2vec provided
-by the gensim package \cite{rehurek-lrec}.
+by the gensim package \cite{rehurek-lrec}, and treat single sentences (or Bible
+verses) as documents, for which we can learn feature representations.
 
 \section{Monolingual features from other NLP tools}
 %% XXX: can we characterize "excellent" here? How good is FreeLing versus other
