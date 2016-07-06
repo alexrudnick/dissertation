@@ -17,12 +17,13 @@ This approach has been broadly successful in the literature
 \cite{turian-ratinov-bengio:2010:ACL}
 %% XXX: add some more references
 , and here we adapt some of the methods explored in previous work on text
-classification to our task. Concretely, in this chapter we explore
-Brown clustering \cite{brown1992class}, neural word embeddings, and labels
-learned from other NLP tools such as off-the-shelf taggers and parsers for
-Spanish. There are of course other related methods that one could investigate,
-making use of the deep available literature on distributional semantics, but
-these will be left to future work, either by this author or other researchers.
+classification to our task. Concretely, in this chapter we explore Brown
+clustering \cite{brown1992class}, two related approaches to neural word
+embeddings, and labels learned from other NLP tools such as off-the-shelf
+taggers and parsers for Spanish.  There are of course other related methods
+that one could investigate, making use of the deep available literature on
+distributional semantics, but these will be left to future work, either by this
+author or other researchers.
 
 \section{Brown Clustering}
 The Brown clustering algorithm, also known as IBM clustering, since it was
@@ -182,35 +183,36 @@ information from the complete corpus is used to classify parts of that corpus.
 
 %% XXX: explain skip-grams and CBOW
 
-
-
-
-Another rich source of features that has been useful for many text
+Another rich source of features that has proved useful for many text
 classification problems in recent years is neural word embeddings, perhaps most
 famously embodied in the work of Mikolov et al. \cite{mikolovword2vec} and
 their associated open source implementation of the technique,
 word2vec\footnote{Available at
-\url{https://code.google.com/archive/p/word2vec/}}.
+\url{https://code.google.com/archive/p/word2vec/}}. In this work we investigate
+the use of ``word2vec"-style word embeddings, as well as the related technique,
+``doc2vec" or ``paragraph vectors"
+\cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
 
 Unlike Brown Clustering, which infers hierarchical clusters for each word type,
 word2vec results in multidimensional representations for word types, turning
 the very sparse ``one hot" representation in which a words with similar uses or
 meanings do not have any obvious similarity into a much denser continuous space
-in which similar words are placed nearby. These ``embeddings", or placements of
-word types into a continuous space, are learned during some other
+in which words with related meanings are placed nearby. These ``embeddings", or
+placements of word types into a continuous space, are learned during some other
 classification task, and are performed by the early layers of a neural network.
 
-%% 
-We could also try some dimensionality reduction or other distributional
-semantics approaches, but representations learned during discriminative
-classification tasks have been found generally more effective for text
-classification problems by Baroni et al \cite{baroni2014don}.
+The literature on continuous representations for words is very rich -- this
+idea has a long lineage in NLP, and we could try any number of dimensionality
+reduction or other distributional semantics approaches here, but recent
+empirical work by Baroni et al \cite{baroni2014don} has shown that
+representations built during discriminative learning tasks are typically more
+effective for text classification problems similar to ours.
 
-
-We also try learning neural word embeddings \cite{mikolovword2vec}, which map
-individual word types into a multidimensional, continuous space in which words
-with similar co-occurrence patterns, and thus similar meanings, have nearby
-representations.  These approaches make use of the distributional hypothesis to 
+%% We also try learning neural word embeddings \cite{mikolovword2vec}, which
+%map individual word types into a multidimensional, continuous space in which
+%words with similar co-occurrence patterns, and thus similar meanings, have
+%nearby representations.  These approaches make use of the distributional
+%hypothesis to 
 
 \section{Neural Document Embeddings}
 %% XXX working here
