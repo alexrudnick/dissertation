@@ -57,9 +57,10 @@ empirical question, whether the suggestions made by the CL-WSD system,
 imperfect as they are sure to be, will improve translation results. We could
 imagine gains failing to materialize, for example, if the CL-WSD system's
 correct choices are mostly those that the MT system would have made on its own,
-say with the guidance of a language model and phrase-table probabilities. 
-We could even imagine its incorrect choices being misleading to the point of
-doing harm to our translation quality.
+say with the guidance of a language model and phrase-table probabilities.
+We could imagine its incorrect choices being misleading to the point of doing
+harm to our translation quality, or even correct CL-WSD choices causing other
+cascading errors, perhaps by surprising the language model.
 
 These experiments are described in more detail in
 Chapter~\ref{chap:integration}, where I also discuss how to integrate Chipa
@@ -71,7 +72,7 @@ to measure classification accuracy over pre-labeled data. Here by
 classification accuracy, we mean measuring how often the system is able to
 correctly choose an appropriate translation for the focus word in a given
 context.
-Strictly speaking, we
+Strictly speaking, for this application, we
 do not have pre-labeled data: our bitext does not come with sub-sentential
 alignments. But automatic word alignments provide a good approximation, as long
 as our sentence alignments (or verse alignments, for Bible text) are accurate.
