@@ -388,9 +388,12 @@ For each of our languages, whether on the source or target side, in addition to
 lowercasing and verse-alignment, we extract the lemmas (the
 citation forms, normalized with respect to inflection) from each surface word.
 Especially when working with smaller data sets and morphologically rich
-languages, this is an important step; working primarily with lemmas rather than
+languages, this is an important step, since it provides a small amount of
+abstraction over the surface forms. Working primarily with lemmas rather than
 surface-form words allows us to group, for example, the plural form of a word
-with its singular.
+with its singular. Dedicated morphological analysis software provides the
+necessary knowledge for mapping from the (potentially complex or irregular)
+inflected forms to their associated lemmas.
 
 For English and Spanish, we use the FreeLing suite of NLP tools
 \cite{padro12} to extract lemmas. FreeLing provides a variety of analyses,
