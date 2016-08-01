@@ -880,9 +880,14 @@ translation a priori. But verbs often used in idiomatic expressions like
 \emph{hacer} and \emph{poner} introduce much more uncertainty. Some of these
 numbers are higher than they would be without the morphological
 analysis process normalizing gender; here both \emph{hijo} 'son' and
-\emph{hija} 'daughter' have been normalized to the masculine form, and a
-classifier with access to the surface form and its gender will have a much
-easier time than the entropy value here suggests.
+\emph{hija} 'daughter' have been normalized to the masculine form.
+Lemmatization here does introduce some apparent ambiguity, but it pools the
+evidence from the various surface forms into the training data for a single
+classifier for that lemma, allowing us to take into account similarities
+between the usage of, for example, \emph{hijo}, \emph{hija}, \emph{hijos} and
+\emph{hijas}.
+But a classifier with access to the surface form will have an easier job than
+the entropy value suggests. 
 
 The values in this table are calculated with the familiar formula for entropy;
 the entropy of the set of possible translations (of a given source-language
