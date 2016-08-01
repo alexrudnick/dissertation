@@ -32,7 +32,8 @@ hand-label each word of our test sentences with their translations.
 For many language pairs, however, this annotation task has nearly been
 performed by translators. We do not strictly have the labels for each token in
 the source document, but with automatic word alignment techniques, we can infer
-these labels with high confidence.
+these labels -- their translations into the target language -- with high
+confidence.
 
 \section{Measuring MT Improvements}
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
@@ -135,7 +136,11 @@ Chipa's input file format describes one token per line, with fields split by
 tabs.  The first field of a line is a token's lemma, and the second field is
 its surface form. Following this are an arbitrary number of annotations for
 that token, which may encode information such as part-of-speech, dependency
-relations, or similar.  Sentence boundaries are indicated by blank lines. An
+relations, or similar. Any arbitrary features that we think could be helpful
+can be added here; these annotations will typically be derived from external
+NLP tools such as taggers or parsers, or come from unsupervised methods;
+exploring these possibilities is the focus of Chapter \ref{chap:monolingual}.
+Sentence boundaries are indicated by blank lines. An
 annotated sentence with one annotation per token might look like Figure
 \ref{fig:quickbrownfox}, for example.
 
