@@ -18,8 +18,6 @@ Wait, did we already do that?
     * should figure out best features to extract from word2vec, though
     * what window to use? how best to combine vectors for different words?
     * is it best to have vectors over lemmas or surface forms? lowercasing?
-  * compare with GLoVE, which is not the same
-  http://nlp.stanford.edu/pubs/glove.pdf
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
@@ -36,7 +34,10 @@ Wait, did we already do that?
     * DONE-ish understand the doc2vec paper (cited in dissertation)
     * DONE learn how to train doc2vec from Spanish wikipedia!!
     * DONE be able to load up saved models
-    * ... and turn inferred document vectors into features for classification
+    * how much text do we use to train a model?
+      * how much can we fit in memory for training?
+      * how does training data size affect quality?
+    * turn inferred document vectors into features for classification
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into
