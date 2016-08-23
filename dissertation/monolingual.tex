@@ -229,13 +229,17 @@ intended application.
 
 This doc2vec approach is an extension of the word2vec approach. Here during
 training, the single hidden layer of the network used to predict words in a
-document contains not only a representation of the embedding for a word type,
-but also an embedding that is learned for the current document.
+document contains not only an embedding for a word type, but also an embedding
+that is learned for the current document. Training proceeds by loading in the
+current representation for a given document and the current word, attempting to
+predict some other word in the context (this is the same as word2vec training),
+and then updating both representations based on the difference between the
+desired output and the actual output.
 
 At inference time, when we want to produce a representation for a new document,
 the embeddings for the word types are held constant and we run the learning
-process again (stochastic gradient descent) to learn a new embedding for the
-current document, one that best explains the current words.
+process again (stochastic gradient descent) to infer, via SGD optimization, a
+new embedding for the current document.
 
 As such, Paragraph Vectors provide a straightforward approach for learning
 representations of new documents based on an unlabeled training corpus, which
