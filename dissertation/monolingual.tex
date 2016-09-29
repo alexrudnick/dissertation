@@ -248,25 +248,20 @@ by the gensim package \cite{rehurek-lrec}, and treat single sentences (or Bible
 verses) as documents, for which we can learn feature representations.
 
 \section{Monolingual features from other NLP tools}
-%% XXX: can we characterize "excellent" here? How good is FreeLing versus other
-%% off-the-shelf Spanish parsers?
-In addition to large quantities of monolingual text, we have excellent
-off-the-shelf NLP tools for Spanish, such as POS taggers and syntactic parsers,
-which both capture abstractions about particular word types (e.g., perhaps a
-noun in the window surrounding a focus word is indicative of some particular
-meaning) and help us disambiguate meanings based on the structure of the
-current sentence.
+In addition to large quantities of monolingual text, another important resource
+for Spanish is the large number of available off-the-shelf NLP tools, such as
+POS taggers and syntactic parsers. These may help us capture abstractions about
+particular word types (e.g., perhaps a noun in the window surrounding a focus
+word is indicative of some particular meaning) and syntactic structure may also
+provide useful features.  In the Chipa software, we can make use of all kinds
+of annotations for our text (see Section \ref{sec:annotations}), so adding more
+features based on analysis by external tools is straightforward.
 
-In the Chipa software, we can make use of all kinds of annotations for our
-text (see Section \ref{sec:annotations}), so adding more features is
-straightforward.
-
-As a first step, and perhaps an obvious one, we can use part-of-speech tags and
-features extracted from parsers, such as the heads and children of the focus
-words.
-We could even use sense annotations from a monolingual WSD system, if we had a
-good one on hand. This idea is akin to one that we will explore in Chapter
-\ref{chap:multilingual}
+As a first step, we synthesize features based on the part-of-speech tags of the
+tokens in a window around the current focus word, and using a syntactic parser,
+the heads and children of the current focus word.  We could even use sense
+annotations from a monolingual WSD system, if we had a good one on hand. This
+idea is akin to one that we will explore in Chapter \ref{chap:multilingual}
 
 For POS tagging and parsing, we run the open source FreeLing text analysis
 suite \cite{padro12} on both the training data and the text input sentences.
