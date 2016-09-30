@@ -35,9 +35,13 @@ Wait, did we already do that?
     * DONE learn how to train doc2vec from Spanish wikipedia!!
     * DONE be able to load up saved models
     * how much text do we use to train a model?
-      * how much can we fit in memory for training?
+      * DONE how much can we fit in memory for training?
+        * we can fit Spanish wikipedia
       * how does training data size affect quality?
     * turn inferred document vectors into features for classification
+    * there's just one vector per sentence, so just turn that into one feature
+      per vector dimension, and the classifier for the individual lemma can
+      figure out what to do with each dimension.
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into
