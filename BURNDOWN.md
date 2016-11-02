@@ -42,32 +42,6 @@ Wait, did we already do that?
     * there's just one vector per sentence, so just turn that into one feature
       per vector dimension, and the classifier for the individual lemma can
       figure out what to do with each dimension.
-
-The important thing to think about here is the "one hot" representation -- are
-our symbolic features like "the word on the left was 'dog' " getting turned into
-like... single binary features that are either true or false? I guess they must
-be?  --> they are. So if this is the case, and we're adding just zillions of
-incredibly sparse features, then what's adding a few more real-valued features?
-That should help immensely, right? Especially if they're a good representation
-of the meanings of the words? ...
-
-[from the tensorflow tutorial on word2vec](https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html#vector-representations-of-words):
-> Word2vec is a particularly computationally-efficient predictive model
-> for learning word embeddings from raw text. It comes in two flavors,
-> the Continuous Bag-of-Words model (CBOW) and the Skip-Gram model.
-> Algorithmically, these models are similar, except that CBOW predicts
-> target words (e.g. 'mat') from source context words ('the cat sits on
-> the'), while the skip-gram does the inverse and predicts source
-> context-words from the target words. This inversion might seem like an
-> arbitrary choice, but statistically it has the effect that CBOW
-> smoothes over a lot of the distributional information (by treating an
-> entire context as one observation). For the most part, this turns out
-> to be a useful thing for smaller datasets. However, skip-gram treats
-> each context-target pair as a new observation, and this tends to do
-> better when we have larger datasets. We will focus on the skip-gram
-> model in the rest of this tutorial.
-
-
   * parse features if that's not too hard?
 
 ## multilingual
