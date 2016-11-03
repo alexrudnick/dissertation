@@ -57,24 +57,15 @@ following formula.
 P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
 \end{equation}
 
-We can use these clusters to extract a number of different kinds of features,
-and we can use a variety of inputs to the clustering software in the first
-place.
-We tried, for example, dropping a bag of all the clusters that occur in the
-sentence, and prefix features for all the clusters that appear too!
-This did not help classification results!
-That's probably too many extraneous features.
-It might be the case that we really just need to add the very local context --
-three words on a side? In Turian et al, they do two words on a side.
+Finding a globally optimal assignment for this turns out to be a
+computationally difficult problem, but several greedy approaches that find
+local optima have been explored in the literature.
+Notably, in addition to Liang's approach, Franz Och's \texttt{mkcls} package
+(described in \cite{och1999efficient}), has been distributed with Moses for
+many years, and optimizes the same function.
 
-
-Finding a globally optimal assignment for this would be computationally
-difficult. But we have a greedy approach for finding a local optimum.
-Interestingly, mkcls is optimizing the same thing as Brown Clustering
-approaches. That's Franz's word classes \cite{och1999efficient}.
-
-When thinking about applying Brown clustering to this task, we would like to
-answer several relevant questions.
+When applying Brown clustering to this task, we would like to answer several
+relevant questions.
 
 \begin{itemize}
   \item Can we use unannotated text to learn useful information about the
@@ -84,16 +75,28 @@ answer several relevant questions.
   \item How does the genre of the input text affect our performance, and how
   does this relate with the size of the text? Is there a size at which we
     can learn a ``better" clustering that overcomes genre mismatches?
-  \item How much does the size of the input text for clustering matter in the
-  downstream task?
-  \item Does it matter if you lemmatize the Spanish first, or not? It seems
-    like the point of Brown Clustering is that it's picking up on syntax in
-    some sense. But maybe lemmatizing is OK; we used the lemmatized version of
-    Europarl in the es-qu experiments for SALTMIL. If it's true, that's a
-    worthwhile thing to note -- to use Brown clustering on Spanish text, maybe
-    you need to lemmatize it first.
+  \item What kinds of preprocessing should we do on the source text? Should the
+  source text be lemmatized, for Spanish? It seems as though part of the point
+  of Brown clustering is to find abstractions over syntax, but perhaps
+  lemmatization helps it find more semantic abstractions in practice.
+  If it's true, that's a worthwhile thing to note -- to use Brown clustering on
+  Spanish text, maybe you need to lemmatize it first.
   \item Similar open questions for word2vec.
 \end{itemize}
+
+We can use such a clustering $C$ (i.e., a mapping from word types to clusters)
+to extract a number of different kinds of features for our classifiers;
+we may also choose a variety of inputs to the clustering algorithm in the first
+place.
+
+Some of the featuers
+
+We tried, for example, dropping a bag of all the clusters that occur in the
+sentence, and prefix features for all the clusters that appear too!
+
+It might be the case that we really just need to add the very local context --
+three words on a side? In Turian et al, they do two words on a side.
+
 
 
 \section{Clustering Spanish text for this work}
