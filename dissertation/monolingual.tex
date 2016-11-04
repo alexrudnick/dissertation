@@ -184,8 +184,6 @@ information from the complete corpus is used to classify parts of that corpus.
 %% relationships versus semantic relationships; will lemmatizing here matter,
 %% similarly to how it affects Brown clustering?
 
-%% XXX: explain skip-grams and CBOW
-
 Another rich source of features that has proved useful for many text
 classification problems in recent years is neural word embeddings, perhaps most
 famously embodied in the work of Mikolov et al. \cite{mikolovword2vec} and
@@ -196,21 +194,31 @@ the use of ``word2vec"-style word embeddings, as well as the related technique,
 ``doc2vec" or ``paragraph vectors"
 \cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
 
+There is a rich literature on continuous representations for words; the idea
+has a long lineage in NLP, and we could try any number of dimensionality
+reduction or distributional semantics approaches here. Recent empirical work by
+Baroni et al \cite{baroni2014don} (summed up by the title of the paper, ``Don't
+Count, Predict!") has shown that representations built during discriminative
+learning tasks are typically more effective for text classification problems
+similar to ours.
+
 Unlike Brown Clustering, which infers hierarchical clusters for each word type,
-word2vec results in multidimensional representations for word types, turning
-the very sparse ``one hot" representation in which a words with similar uses or
-meanings do not have any obvious similarity into a much denser continuous space
-in which words with related meanings are placed nearby. These ``embeddings", or
-placements of word types into a continuous space, are learned during some other
-classification task, and are performed by the early layers of a neural network.
+but like other embedding techniques, word2vec learns multidimensional
+representations for word types, turning the very sparse ``one hot"
+representation in which a words with similar uses or meanings do not have any
+obvious similarity into a much denser continuous space in which words with
+related meanings are placed nearby. These ``embeddings", or placements of word
+types into a continuous space, are learned during some other classification
+task, and are performed by the early layers of a neural network. In the
+word2vec model particularly, there are two different common approaches, useful
+in different contexts. One, called Continuous Bag-of-Words (CBOW) learns a
+classifier that can predict individual words based on their context, and while
+skip-grams do the reverse and learn to predict likely context words based on an
+individual target word. According to the literature, CBOW is useful when
+training on smaller data sets...
 
-The literature on continuous representations for words is very rich -- this
-idea has a long lineage in NLP, and we could try any number of dimensionality
-reduction or other distributional semantics approaches here, but recent
-empirical work by Baroni et al \cite{baroni2014don} has shown that
-representations built during discriminative learning tasks are typically more
-effective for text classification problems similar to ours.
-
+%% XXX: it seems like CBOW would actually work better for larger data sets,
+%% intuitively? Get a good understanding of this.
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into
@@ -222,15 +230,7 @@ of the meanings of the words? ...
 
 %% from the tensorflow tutorial on word2vec
 %% https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html#vector-representations-of-words
-"""
-
-Word2vec is a particularly computationally-efficient predictive model
-for learning word embeddings from raw text. It comes in two flavors,
-the Continuous Bag-of-Words model (CBOW) and the Skip-Gram model.
-Algorithmically, these models are similar, except that CBOW predicts
-target words (e.g. 'mat') from source context words ('the cat sits on
-the'), while the skip-gram does the inverse and predicts source
-context-words from the target words. This inversion might seem like an
+This inversion might seem like an
 arbitrary choice, but statistically it has the effect that CBOW
 smoothes over a lot of the distributional information (by treating an
 entire context as one observation). For the most part, this turns out
