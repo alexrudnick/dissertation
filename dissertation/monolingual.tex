@@ -2,17 +2,17 @@
 \label{chap:monolingual}
 While in this work, our target languages are under-resourced, we have many
 resources available for the source languages. We would like to use these to
-make better sense of the input text, giving our classifiers clearer signals for
-lexical selection in the target language.
+make better sense of the input text, giving our classifiers clearer signals and
+better representations for lexical selection in the target language.
 The approaches considered in this chapter make additional features available to
-the CL-WSD classifiers, based on our knowledge of the source language;
+the CL-WSD classifiers based on knowledge of the source language;
 since we have relatively little bitext available for Spanish-Guarani
-and Spanish-Quechua, we will need to lean more on our resources, including
-tools and data, for Spanish so that we can better make sense of the input text.
+and Spanish-Quechua, we will need to lean more on our Spanish resources,
+including tools and data, in order to make better sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
 available, which suggests that we could use unsupervised methods to discover
-regularities in the language, and use these as features for our classifiers.
+regularities in the language, yielding better features for our classifiers.
 This approach has been broadly successful in the literature
 \cite{turian-ratinov-bengio:2010:ACL}
 %% XXX: add some more references
@@ -30,7 +30,7 @@ The Brown clustering algorithm, also known as IBM clustering, since it was
 developed by the Candide group at IBM, takes an unannotated text corpus as
 input and assigns each word type in the corpus into hierarchical clusters such
 that types in the same cluster have similar usage patterns according to the
-corpus's bigram statistics.
+bigram statistics of the corpus.
 
 We can then use this clustering to extract features to our classifiers, adding
 an annotation to each token describing a more abstract, less sparse
@@ -39,30 +39,29 @@ number of clusters must be set ahead of time, but is a tunable parameter.
 
 In this work we use Percy Liang's popular open source implementation of Brown
 clustering, described in his masters work \cite{Liang05semi-supervisedlearning}
-\footnote{And available at \url{https://github.com/percyliang/brown-cluster}},
-which for Spanish we have run on the Europarl corpus \cite{europarl}, and also
-on a dump of the entirety of the Spanish-language Wikipedia, taken in 2014.
+\footnote{And available at \url{https://github.com/percyliang/brown-cluster}}.
+Here for Spanish we have used this tool on a variety of corpora, varying in
+size from the Bible, to the rather larger Europarl corpus \cite{europarl}, to
+larger still, a dump of the entirety of the Spanish-language Wikipedia.
+%% XXX: add explicit sizes to this paragraph. How many words are they?
 
 Brown clustering uses greedy optimization to try to maximize the score for an
 assignment of the word types present in the input text into a fixed number of
 word classes. As the original intention of the approach was for class-based
 language models, the scoring function is the mutual information between two
-immediately subsequent tokens (i.e., a bigram).
-
-Concretely, the optimization process is looking for a clustering $C$ that
-maximizes the probability of the corpus $\boldsymbol{w}$, according to the
-following formula.
+immediately subsequent tokens (i.e., a bigram). Concretely, the optimization
+process is looking for a clustering $C$ that maximizes the probability of the
+corpus $\boldsymbol{w}$, according to the following formula.
 
 \begin{equation} \label{eq:brownclassprob}
 P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
 \end{equation}
 
-Finding a globally optimal assignment for this turns out to be a
-computationally difficult problem, but several greedy approaches that find
-local optima have been explored in the literature.
-Notably, in addition to Liang's approach, Franz Och's \texttt{mkcls} package
-(described in \cite{och1999efficient}), has been distributed with Moses for
-many years, and optimizes the same function.
+Finding a globally optimal assignment turns out to be computationally
+intractable problem, but several greedy approaches that find local optima have
+been explored in the literature.  Notably, in addition to Liang's approach,
+Franz Och's \texttt{mkcls} package (described in \cite{och1999efficient}), has
+been distributed with Moses for many years, and optimizes the same function.
 
 When applying Brown clustering to this task, we would like to answer several
 relevant questions.
@@ -89,8 +88,9 @@ to extract a number of different kinds of features for our classifiers;
 we may also choose a variety of inputs to the clustering algorithm in the first
 place.
 
-Some of the featuers
+%% Some of the features ...
 
+%% XXX: turn this into a figure
 We tried, for example, dropping a bag of all the clusters that occur in the
 sentence, and prefix features for all the clusters that appear too!
 
