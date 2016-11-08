@@ -241,6 +241,19 @@ model in the rest of this tutorial.
 
 """
 
+We learned a variety of doc2vec embeddings for our text classification tasks,
+training on the Spanish-language section of the Europarl corpus and Spanish
+Wikipedia. Additionally, we learned embeddings using both CBOW and skip-gram
+approaches, in 50, 100, 200, and 400 dimensions. In all cases, we used the
+associated \texttt{word2phrase} tool, distributed with the initial
+\texttt{word2vec} implementation, which finds collocations in the input text
+and treats them as individual tokens. The same collocations must be identified
+in the input text for their embeddings to be used.
+
+We can visualize the learned embeddings with t-SNE \cite{van2008visualizing},
+a popular technique for projecting high-dimensional data conveniently into two
+or three dimensions.
+
 \section{Neural Document Embeddings}
 %% XXX working here
 The same researchers that produced word2vec and their collaborators have also
@@ -302,7 +315,9 @@ FreeLing can perform a number of analysis tasks for Spanish, including
 lemmatization, POS tagging, named entity recognition, and dependency parsing.
 
 \section{Experiments}
-Here we repeat the experiments from Chapter \ref{chap:evaluation}...
+Here we repeat the experiments from Chapter \ref{chap:evaluation}, with the
+addition of features extracted from Brown clusters, neural word embeddings,
+document vectors, and FreeLing text annotations.
 
 There are lots of combinations here...
 
