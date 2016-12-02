@@ -277,18 +277,19 @@ updating both representations based on the gradients between the desired output
 and the actual output. After training, the representation of the model is
 simply the mapping from word types to their embeddings; the embeddings for any
 particular document are not useful since that specific document is unlikely to
-come up.
+come up, but the embeddings for individual words provide  a useful
+generalization.
 
-At inference time, doc2vec can produce new vectors describing previously unseen
+At inference time, doc2vec produces new vectors describing previously unseen
 documents. In our work, and in many text classification tasks, documents will
-be input sentences, or perhaps sentence-length Bible verses.  To produce a
+be input sentences, or perhaps sentence-length Bible verses. To produce a
 representation for a new document, the embeddings for word types are held
 constant and we run the optimization process (stochastic gradient descent or
 similar) to infer an embedding for the current document, such that it helps
 predict words in the current context.
 
 doc2vec thus provides a straightforward approach for learning to produce
-representations of new documents, based on an unlabeled training corpus.  Here
+representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
 \cite{rehurek-lrec}, and use embeddings inferred for Bible verses as features
 for our classifiers.
