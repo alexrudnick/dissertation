@@ -18,6 +18,7 @@ Wait, did we already do that?
     * should figure out best features to extract from word2vec, though
     * what window to use? how best to combine vectors for different words?
     * is it best to have vectors over lemmas or surface forms? lowercasing?
+    * make feature extractors use word2vec phrases.
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
@@ -29,7 +30,7 @@ Wait, did we already do that?
       * Take a sum of the vectors for the sentece, but weight words closer to
       the current focus word more, like attenuate the weight as you get farther
       out.
-      * Weight word vectors by their tf/idf or similar.
+      * Weight word vectors by their tf/idf or similar. (wait what? that doesn't sound like a great idea)
   * learn how to train doc2vec
     * DONE-ish understand the doc2vec paper (cited in dissertation)
     * DONE learn how to train doc2vec from Spanish wikipedia!!
