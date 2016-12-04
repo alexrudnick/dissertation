@@ -19,6 +19,8 @@ Wait, did we already do that?
     * what window to use? how best to combine vectors for different words?
     * is it best to have vectors over lemmas or surface forms? lowercasing?
     * make feature extractors use word2vec phrases.
+      * how do you get the complete set of phrases out of a word2phrase run?
+      * then how do you find the phrases that cover an input sentence?
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
