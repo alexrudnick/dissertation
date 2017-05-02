@@ -17,7 +17,9 @@ Wait, did we already do that?
   * DONE add word2vec features
     * should figure out best features to extract from word2vec, though
     * what window to use? how best to combine vectors for different words?
-    * is it best to have vectors over lemmas or surface forms? lowercasing?
+    * DONE is it best to have vectors over lemmas or surface forms? lowercasing?
+      * almost certainly surface forms -- that's kind of the point of these semi-supervised things.
+      * also probably keep case. case has meaning.
     * make feature extractors use word2vec phrases.
       * how do you get the complete set of phrases out of a word2phrase run?
       * then how do you find the phrases that cover an input sentence?
