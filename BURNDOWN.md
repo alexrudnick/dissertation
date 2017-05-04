@@ -20,6 +20,9 @@ Wait, did we already do that?
     * DONE is it best to have vectors over lemmas or surface forms? lowercasing?
       * almost certainly surface forms -- that's kind of the point of these semi-supervised things.
       * also probably keep case. case has meaning.
+    * It is really silly to include the word vectors in the annotated corpus
+      file.
+      * TODO: just pass the vector file as an argument and load it into memory.
     * make feature extractors use word2vec phrases.
       * how do you get the complete set of phrases out of a word2phrase run?
       * then how do you find the phrases that cover an input sentence?
