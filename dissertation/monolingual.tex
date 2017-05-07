@@ -215,16 +215,20 @@ representation in which a words with similar uses or meanings do not have any
 obvious similarity into a much denser continuous space in which words with
 related meanings are placed nearby. These ``embeddings", or placements of word
 types into a continuous space, are learned during some other classification
-task, and are performed by the early layers of a neural network. In the
-word2vec model particularly, there are two different common approaches, useful
-in different contexts. One, called Continuous Bag-of-Words (CBOW) learns a
-classifier that can predict individual words based on their context, and while
-skip-grams do the reverse and learn to predict likely context words based on an
-individual target word. According to the literature, CBOW is useful when
-training on smaller data sets...
+task, and are performed by the early layers of a neural network.
+
+The word2vec model in particular has two variations, useful in different
+contexts. One, called Continuous Bag-of-Words (CBOW) learns a classifier that
+can predict individual words based on their context, while the ``skip-grams"
+variant does the reverse and learns to predict context words based on an
+individual focus word. According to the literature, CBOW is more appropriate
+when training on smaller data sets...
 
 %% XXX: it seems like CBOW would actually work better for larger data sets,
 %% intuitively? Get a good understanding of this.
+In either case, the result of word2vec is a static mapping from word types to
+their embeddings in a vector space of a given size, typically a few hundred
+dimensions.
 
 The important thing to think about here is the "one hot" representation -- are
 our symbolic features like "the word on the left was 'dog' " getting turned into
