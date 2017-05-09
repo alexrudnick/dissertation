@@ -275,27 +275,29 @@ developed approaches that produce representations for sequences of text, rather
 than individual words, described in
 \cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
 This approach, called ``paragraph vectors" or ``doc2vec" takes unlabeled text
-and learns representations for word types in the training data and also,
-jointly, representations for each \emph{document}. Here a ``document" could be
-as short as an individual sentence, or could be scaled to paragraphs or longer
-documents, depending on the intended application.
+and learns representations for word types jointly with representations for each
+\emph{document}. Here a ``document" could be as short as an individual
+sentence, or could be scaled to paragraphs or longer documents, depending on
+the intended application.
 
 The doc2vec approach is an extension of word2vec. Similar to word2vec, during
 training, a neural network with a single hidden layer is used to predict words
 in the current context. In this extension, however, the hidden layer contains
-not only an embedding for the current word type, but also an embedding learned
+not only an embedding trained for the current word type, but also an embedding
 for the document. Training proceeds by loading the current representation for
+%% XXX: what's the current word, in this context? Are we doing skip-grams in
+%% the doc2vec case?
 the current word and also the current document, attempting to predict some
 other word in the context (analogous to training for word2vec), and then
 updating both representations based on the gradients between the desired output
-and the actual output. After training, the representation of the model is
-simply the mapping from word types to their embeddings; the embeddings for any
-particular document are not useful since that specific document is unlikely to
-come up, but the embeddings for individual words provide  a useful
-generalization.
+and the actual output. The learned model is then just the embeddings for
+individual word types; the embeddings for any particular document are not
+useful since that specific document is unlikely to appear again. The embeddings
+for individual words provide a useful generalization, in that they constrain
+embeddings for new documents.
 
 At inference time, doc2vec produces new vectors describing previously unseen
-documents. In our work, and in many text classification tasks, documents will
+documents. In our work, as in many text classification tasks, documents will
 be input sentences, or perhaps sentence-length Bible verses. To produce a
 representation for a new document, the embeddings for word types are held
 constant and we run the optimization process (stochastic gradient descent or
@@ -305,8 +307,9 @@ predict words in the current context.
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
-\cite{rehurek-lrec}, and use embeddings inferred for Bible verses as features
-for our classifiers.
+\cite{rehurek-lrec}.
+%% and use embeddings inferred for Bible verses as features
+%% for our classifiers.
 
 \section{Monolingual features from other NLP tools}
 In addition to large quantities of monolingual text, another important resource
