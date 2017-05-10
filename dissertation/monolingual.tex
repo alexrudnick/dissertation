@@ -26,6 +26,9 @@ investigate, making use of the deep available literature on distributional
 semantics, but these will be left to future work, either by this author or other
 researchers.
 
+%% XXX: maybe move the less interesting stuff earlier in the chapter? We kind
+%% of want to go out on a high note with the embedding ideas.
+
 \section{Brown Clustering}
 %% XXX: add citations here!
 The Brown clustering algorithm, also known as IBM clustering, since it was
@@ -314,23 +317,26 @@ we use the implementation of doc2vec provided by the gensim package
 \section{Monolingual features from other NLP tools}
 In addition to large quantities of monolingual text, another important resource
 for Spanish is the large number of available off-the-shelf NLP tools, such as
-POS taggers and syntactic parsers. These may help us capture abstractions about
-particular word types (e.g., perhaps a noun in the window surrounding a focus
-word is indicative of some particular meaning) and syntactic structure may also
-provide useful features.  In the Chipa software, we can make use of all kinds
-of annotations for our text (see Section \ref{sec:annotations}), so adding more
-features based on analysis by external tools is straightforward.
+POS taggers and syntactic parsers. These can also help us capture abstractions
+about particular word types (e.g., perhaps a noun in the window surrounding a
+focus word is indicative of some particular meaning) and syntactic structure
+may also provide useful features.  In the Chipa software, we can make use of
+all kinds of annotations for our text (see Section \ref{sec:annotations}), so
+adding more features based on analysis by external tools is straightforward.
 
 As a first step, we synthesize features based on the part-of-speech tags of the
 tokens in a window around the current focus word, and using a syntactic parser,
-the heads and children of the current focus word.  We could even use sense
-annotations from a monolingual WSD system, if we had a good one on hand. This
-idea is akin to one that we will explore in Chapter \ref{chap:multilingual}
+the heads and children of the current focus word.
+In principle, we could use other annotations, such as sense annotations from a
+monolingual WSD system, given a good one.
+This idea is akin to one that we will explore in Chapter
+\ref{chap:multilingual}
 
 For POS tagging and parsing, we run the open source FreeLing text analysis
 suite \cite{padro12} on both the training data and the text input sentences.
 FreeLing can perform a number of analysis tasks for Spanish, including
 lemmatization, POS tagging, named entity recognition, and dependency parsing.
+%% XXX: make some nice figures for the features extracted from FreeLing
 
 \section{Experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}, with the
