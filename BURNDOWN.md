@@ -18,11 +18,11 @@ Wait, did we already do that?
     * should figure out best features to extract from word2vec, though
     * what window to use? how best to combine vectors for different words?
     * DONE is it best to have vectors over lemmas or surface forms? lowercasing?
-      * almost certainly surface forms -- that's kind of the point of these semi-supervised things.
-      * also probably keep case. case has meaning.
+      * DONE almost certainly surface forms -- that's kind of the point of these semi-supervised things.
+      * DONE also probably keep case. case has meaning.
     * It is really silly to include the word vectors in the annotated corpus
       file.
-      * TODO: just pass the vector file as an argument and load it into memory.
+      * DONE just pass the vector file as an argument and load it into memory.
     * make feature extractors use word2vec phrases.
       * how do you get the complete set of phrases out of a word2phrase run?
       * then how do you find the phrases that cover an input sentence?
@@ -32,12 +32,12 @@ Wait, did we already do that?
     * You want to take the word vectors from the sentence and combine them
     into a vector representing the current context. There are several things you
     could try to do this combination:
+      * DONE Take a sum of the vectors for the whole sentence
       * DONE Just take a sum of the vectors in some window
-      * Take a sum of the vectors for the whole sentence
       * Take a sum of the vectors for the sentece, but weight words closer to
       the current focus word more, like attenuate the weight as you get farther
       out.
-      * Weight word vectors by their tf/idf or similar. (wait what? that doesn't sound like a great idea)
+      * SKIP Weight word vectors by their tf/idf or similar.
   * learn how to train doc2vec
     * DONE-ish understand the doc2vec paper (cited in dissertation)
     * DONE learn how to train doc2vec from Spanish wikipedia!!
