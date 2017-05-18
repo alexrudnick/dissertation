@@ -192,7 +192,7 @@ information from the complete corpus is used to classify parts of that corpus.
 
 Another rich source of features that has proved useful for many text
 classification problems in recent years is neural word embeddings, perhaps most
-famously embodied in the work of Mikolov et al. \cite{mikolovword2vec} and
+famously developed in the work of Mikolov et al. \cite{mikolovword2vec} and
 their associated open source implementation of the technique,
 word2vec\footnote{Available at
 \url{https://code.google.com/archive/p/word2vec/}}. In this work we investigate
@@ -200,8 +200,13 @@ the use of ``word2vec"-style word embeddings, as well as the related technique,
 ``doc2vec" or ``paragraph vectors"
 \cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
 These techniques let our classifiers operate on lower-dimensional dense vectors
-(with a few hundred dimensions, typically), as opposed to the high-dimensional
-and sparse vectors typically used in earlier NLP literature.
+(of a few hundred dimensions, typically), as opposed to the high-dimensional
+and sparse vectors typically used in earlier NLP literature\footnote{
+What we might consider to be ``symbolic" binary features used in machine
+learning systems for NLP in recent decades -- such as ``the word `dog` appears
+in the sentence" -- are effectively equivalent to these very sparse ``one hot"
+representations of words, in which, for a vocabulary of size $|V|$, words are
+represented by a length-$V$ vector in which all but one of the elements are 0}.
 
 There is a rich literature on continuous representations for words; the idea
 has a long lineage in NLP, and we could try any number of dimensionality
@@ -238,13 +243,6 @@ text. This, in effect, turns what was a purely supervised task, requiring
 labeled training data, into a semi-supervised task, in which the
 representation-learning phase can be carried out on unlabeled data.
 
-The important thing to think about here is the "one hot" representation -- are
-our symbolic features like "the word on the left was 'dog' " getting turned into
-like... single binary features that are either true or false? I guess they must
-be?  --> they are. So if this is the case, and we're adding just zillions of
-incredibly sparse features, then what's adding a few more real-valued features?
-That should help immensely, right? Especially if they're a good representation
-of the meanings of the words? ...
 
 %% from the tensorflow tutorial on word2vec
 %% https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html#vector-representations-of-words
