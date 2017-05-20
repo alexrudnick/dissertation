@@ -270,16 +270,23 @@ a popular technique for projecting high-dimensional data conveniently into two
 or three dimensions.
 
 \subsection{From word embeddings to classification features}
-We should note that the embeddings learned for a single word are static and not
-reflective of a particular context, so it is not particularly useful to take
-the word vector for the focus word on its own. This leaves us with the problem
-of how to make use of the word vectors in a given sentence...
+We should note that the embeddings learned for a word type are static and do
+not reflect the context of their tokens, so it is not particularly useful to
+take the word vector for the focus word on its own. This leaves us with the
+problem of how to make use of the word vectors in a given sentence.
 
-There are a variety of approaches we could take: we could sum (element-wise)
-all of the word vectors for the entire sentence...
+There are a variety of approaches we could take, even given the assumption that
+we want to combine the vectors by summing or averaging. We could sum
+(element-wise) all of the word vectors for all the tokens in the entire
+sentence. We could only consider the words in a narrow window around the focus
+word. Or we could perform a weighted sum, in which words nearer to the focus
+word are given more weight, but these weights drop off according to some
+function, the farther away they are from the focus word.
+
+%% XXX add some citations for papers where people use word embeddings as
+%% features
 
 \section{Neural Document Embeddings}
-%% XXX working here
 The same researchers that produced word2vec and their collaborators have also
 developed approaches that produce representations for sequences of text, rather
 than individual words, described in
