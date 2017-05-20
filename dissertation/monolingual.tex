@@ -255,7 +255,7 @@ representation-learning phase can be carried out on unlabeled data.
 % better when we have larger datasets. We will focus on the skip-gram
 % model in the rest of this tutorial.
 
-We trained a variety of doc2vec embeddings for our text classification tasks,
+We trained a variety of word2vec embeddings for our text classification tasks,
 training on the Spanish-language section of the Europarl corpus (roughly 57
 million words and 2 million sentences) and a dump of Spanish Wikipedia (449
 million words, 20 million sentences). We learned embeddings using both CBOW and
@@ -268,6 +268,15 @@ in the input text for their embeddings to be used.
 We can visualize the learned embeddings with t-SNE \cite{van2008visualizing},
 a popular technique for projecting high-dimensional data conveniently into two
 or three dimensions.
+
+\subsection{From word embeddings to classification features}
+We should note that the embeddings learned for a single word are static and not
+reflective of a particular context, so it is not particularly useful to take
+the word vector for the focus word on its own. This leaves us with the problem
+of how to make use of the word vectors in a given sentence...
+
+There are a variety of approaches we could take: we could sum (element-wise)
+all of the word vectors for the entire sentence...
 
 \section{Neural Document Embeddings}
 %% XXX working here
