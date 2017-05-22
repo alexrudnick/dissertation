@@ -325,8 +325,6 @@ doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
 \cite{rehurek-lrec}.
-%% and use embeddings inferred for Bible verses as features
-%% for our classifiers.
 
 \section{Monolingual features from other NLP tools}
 In addition to large quantities of monolingual text, another important resource
@@ -347,9 +345,10 @@ This idea is akin to one that we will explore in Chapter
 \ref{chap:multilingual}
 
 For POS tagging and parsing, we run the open source FreeLing text analysis
-suite \cite{padro12} on both the training data and the text input sentences.
-FreeLing can perform a number of analysis tasks for Spanish, including
-lemmatization, POS tagging, named entity recognition, and dependency parsing.
+suite \cite{padro12} on the training data, and at inference time, on new input
+sentences. FreeLing can perform a number of analysis tasks for Spanish,
+including lemmatization, POS tagging, named entity recognition, and dependency
+parsing.
 %% XXX: make some nice figures for the features extracted from FreeLing
 
 \section{Experiments}
@@ -370,6 +369,8 @@ There are lots of combinations here...
   \item es-gn, es-qu with europarl brown clusters
   \item es-gn, es-qu with wikipedia brown clusters
   \item es-gn, es-qu with europarl and wikipedia brown clusters
+  \item es-gn, es-qu with word2vec embeddings of dimensions (50, 100, 200, 400)
+  from both europarl and wikipedia
 \end{itemize}
 
 \begin{itemize}
@@ -380,5 +381,5 @@ There are lots of combinations here...
 \end{itemize}
 
 \begin{itemize}
-  \item COMBINE THEM ALL!!
+  \item combine the most promising ones
 \end{itemize}
