@@ -14,18 +14,19 @@ Wait, did we already do that?
   * DONE making it easier to experiment with different featuresets
   * DONE add brown clusters as features
   * DONE pos tags?
-  * DONE add word2vec features
+  * add word2vec features
     * should figure out best features to extract from word2vec, though
-    * what window to use? how best to combine vectors for different words?
+    * what window to use?
+    * DONE how best to combine vectors for different words: addition seems to
+      be the done thing.
     * DONE is it best to have vectors over lemmas or surface forms? lowercasing?
       * DONE almost certainly surface forms -- that's kind of the point of these semi-supervised things.
       * DONE also probably keep case. case has meaning.
-    * It is really silly to include the word vectors in the annotated corpus
+    * DONE It is really silly to include the word vectors in the annotated corpus
       file.
       * DONE just pass the vector file as an argument and load it into memory.
-    * make feature extractors use word2vec phrases.
-      * how do you get the complete set of phrases out of a word2phrase run?
-      * then how do you find the phrases that cover an input sentence?
+    * how do you get the complete set of phrases out of a word2phrase run?
+    * then how do you find the phrases that cover an input sentence?
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
@@ -39,6 +40,9 @@ Wait, did we already do that?
       out.
       * SKIP Weight word vectors by their tf/idf or similar.
   * learn how to train doc2vec
+    * does it even really make sense to use doc2vec by itself? is the meaning
+    of the sentence as a whole what we want, for classifying a particular token
+    usage?
     * DONE-ish understand the doc2vec paper (cited in dissertation)
     * DONE learn how to train doc2vec from Spanish wikipedia!!
     * DONE be able to load up saved models
