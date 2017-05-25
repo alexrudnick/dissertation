@@ -185,11 +185,6 @@ information from the complete corpus is used to classify parts of that corpus.
 
 
 \section{Neural Word Embeddings}
-
-%% XXX: find some related work on word embeddings meant to capture syntactic
-%% relationships versus semantic relationships; will lemmatizing here matter,
-%% similarly to how it affects Brown clustering?
-
 Another rich source of features that has proved useful for many text
 classification problems in recent years is neural word embeddings, perhaps most
 famously developed in the work of Mikolov et al. \cite{mikolovword2vec} and
@@ -288,38 +283,38 @@ function, the farther away they are from the focus word.
 
 \section{Neural Document Embeddings}
 The same researchers that produced word2vec and their collaborators have also
-developed approaches that produce representations for sequences of text, rather
-than individual words, described in
+developed approaches that build representations for sequences of text, rather
+than individual word types, described in
 \cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
 This approach, called ``paragraph vectors" or ``doc2vec" takes unlabeled text
 and learns representations for word types jointly with representations for each
-\emph{document}. Here a ``document" could be as short as an individual
-sentence, or could be scaled to paragraphs or longer documents, depending on
-the intended application.
+\emph{document}. Here a ``document" is an arbitrary sequence of tokens, perhaps
+a single sentence, or perhaps much longer, depending on the intended
+application.
 
-The doc2vec approach is an extension of word2vec. Similar to word2vec, during
-training, a neural network with a single hidden layer is used to predict words
-in the current context. In this extension, however, the hidden layer contains
-not only an embedding trained for the current word type, but also an embedding
-for the document. Training proceeds by loading the current representation for
+Similar to word2vec, during training, a neural network with a single hidden
+layer is used to predict words in the current context. In this extension,
+however, the hidden layer contains not only an embedding trained for the
+current word type, but also an embedding for the document. Training proceeds by
+loading the current representation for
 %% XXX: what's the current word, in this context? Are we doing skip-grams in
 %% the doc2vec case?
-the current word and also the current document, attempting to predict some
+the current word and the current document, attempting to predict some
 other word in the context (analogous to training for word2vec), and then
 updating both representations based on the gradients between the desired output
-and the actual output. The learned model is then just the embeddings for
+and the actual output. The stored model is then just the embeddings for
 individual word types; the embeddings for any particular document are not
-useful since that specific document is unlikely to appear again. The embeddings
-for individual words provide a useful generalization, in that they constrain
-embeddings for new documents.
+useful since that specific document is unlikely to appear again. Contrastingly,
+the embeddings for individual word types provide a useful generalization, since
+they constrain embeddings for new documents.
 
 At inference time, doc2vec produces new vectors describing previously unseen
-documents. In our work, as in many text classification tasks, documents will
-be input sentences, or perhaps sentence-length Bible verses. To produce a
-representation for a new document, the embeddings for word types are held
-constant and we run the optimization process (stochastic gradient descent or
-similar) to infer an embedding for the current document, such that it helps
-predict words in the current context.
+documents, based on these fixed word embedding vectors. In our work, as in many
+text classification tasks, documents will be input sentences, or perhaps
+sentence-length Bible verses. To produce a representation for a new document,
+the embeddings for word types are held constant and we run the optimization
+process (stochastic gradient descent or similar) to infer an embedding for the
+current document, such that it helps predict words in the current context.
 
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
