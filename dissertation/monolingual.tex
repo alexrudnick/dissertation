@@ -226,19 +226,6 @@ can predict individual words based on their context, while the ``skip-grams"
 variant does the reverse and learns to predict context words based on an
 individual focus word. According to the literature, CBOW is more appropriate
 when training on smaller data sets...
-
-%% XXX: it seems like CBOW would actually work better for larger data sets,
-%% intuitively? Get a good understanding of this.
-In either case, running a word2vec training process results in a static mapping
-from word types to their embeddings in a vector space of a given size,
-typically a few hundred dimensions. These embeddings have been shown to be
-helpful as features in a number of different NLP tasks, allowing us to learn
-richer representations of word types from plentiful unannotated monolingual
-text. This, in effect, turns what was a purely supervised task, requiring
-labeled training data, into a semi-supervised task, in which the
-representation-learning phase can be carried out on unlabeled data.
-
-
 %% from the tensorflow tutorial on word2vec
 %% https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html#vector-representations-of-words
 % This inversion might seem like an
@@ -249,6 +236,20 @@ representation-learning phase can be carried out on unlabeled data.
 % each context-target pair as a new observation, and this tends to do
 % better when we have larger datasets. We will focus on the skip-gram
 % model in the rest of this tutorial.
+
+%% XXX: it seems like CBOW would actually work better for larger data sets,
+%% intuitively? Get a good understanding of this.
+In either case, running a word2vec training process results in a static mapping
+from word types to their embeddings in a vector space of a given size,
+typically a few hundred dimensions. These embeddings have been shown to be
+helpful as features in a number of different NLP tasks, allowing us to learn
+richer representations of word types from plentiful unannotated monolingual
+text. This effectively turns what was a purely supervised task, requiring
+labeled training data, into a semi-supervised task, in which the
+representation-learning phase can be carried out on unlabeled data by
+synthesizing a supervised learning task that can be performed with simple
+monolingual text as its training data.
+
 
 We trained a variety of word2vec embeddings for our text classification tasks,
 training on the Spanish-language section of the Europarl corpus (roughly 57
@@ -265,10 +266,13 @@ a popular technique for projecting high-dimensional data conveniently into two
 or three dimensions.
 
 \subsection{From word embeddings to classification features}
-We should note that the embeddings learned for a word type are static and do
-not reflect the context of their tokens, so it is not particularly useful to
-take the word vector for the focus word on its own. This leaves us with the
-problem of how to make use of the word vectors in a given sentence.
+We should note that the embeddings learned for a word type are just a static
+vector static and do not reflect the context of a particular instance of that
+word, so it cannot be a useful classification feature to take the word vector
+for the focus word on its own. This leaves us with the problem of how to make
+use of the word vectors in a given sentence. Concretely, we have a design
+decision to make, of how to combine several word vectors together, and which
+word vectors in a sentence to choose.
 
 There are a variety of approaches we could take, even given the assumption that
 we want to combine the vectors by summing or averaging. We could sum
