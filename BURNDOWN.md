@@ -26,7 +26,8 @@ Wait, did we already do that?
       file.
       * DONE just pass the vector file as an argument and load it into memory.
     * how do you get the complete set of phrases out of a word2phrase run?
-    * then how do you find the phrases that cover an input sentence?
+    * DONE then how do you find the phrases that cover an input sentence?
+      * DONE just greedily take the longest first, that's not too hard
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
@@ -38,7 +39,7 @@ Wait, did we already do that?
       * Take a sum of the vectors for the sentece, but weight words closer to
       the current focus word more, like attenuate the weight as you get farther
       out.
-      * SKIP Weight word vectors by their tf/idf or similar.
+      * MAYBE SKIP? Weight word vectors by their tf/idf or similar.
   * learn how to train doc2vec
     * does it even really make sense to use doc2vec by itself? is the meaning
     of the sentence as a whole what we want, for classifying a particular token
