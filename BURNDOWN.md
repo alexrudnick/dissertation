@@ -15,7 +15,6 @@ Wait, did we already do that?
   * DONE add brown clusters as features
   * DONE pos tags?
   * add word2vec features
-    * should figure out best features to extract from word2vec, though
     * what window to use?
     * DONE how best to combine vectors for different words: addition seems to
       be the done thing.
@@ -25,9 +24,12 @@ Wait, did we already do that?
     * DONE It is really silly to include the word vectors in the annotated corpus
       file.
       * DONE just pass the vector file as an argument and load it into memory.
-    * how do you get the complete set of phrases out of a word2phrase run?
+    * DONE how do you get the complete set of phrases out of a word2phrase run?
     * DONE then how do you find the phrases that cover an input sentence?
       * DONE just greedily take the longest first, that's not too hard
+    * more importantly: how to safely replace sequences of tokens on source side
+    with the MWEs that we know about without messing up indices into the
+    sentences?
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
@@ -40,14 +42,14 @@ Wait, did we already do that?
       the current focus word more, like attenuate the weight as you get farther
       out.
       * MAYBE SKIP? Weight word vectors by their tf/idf or similar.
-  * learn how to train doc2vec
+  * DONE learn how to train doc2vec
     * does it even really make sense to use doc2vec by itself? is the meaning
     of the sentence as a whole what we want, for classifying a particular token
     usage?
     * DONE-ish understand the doc2vec paper (cited in dissertation)
     * DONE learn how to train doc2vec from Spanish wikipedia!!
     * DONE be able to load up saved models
-    * how much text do we use to train a model?
+    * DONE how much text do we use to train a model?
       * DONE how much can we fit in memory for training?
         * we can fit Spanish wikipedia
       * how does training data size affect quality?
