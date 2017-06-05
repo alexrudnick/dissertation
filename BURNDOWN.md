@@ -27,9 +27,11 @@ Wait, did we already do that?
     * DONE how do you get the complete set of phrases out of a word2phrase run?
     * DONE then how do you find the phrases that cover an input sentence?
       * DONE just greedily take the longest first, that's not too hard
-    * more importantly: how to safely replace sequences of tokens on source side
-    with the MWEs that we know about without messing up indices into the
-    sentences?
+    * DONE more importantly: how to safely replace sequences of tokens on source
+    side with the MWEs that we know about without messing up indices into the
+    sentences? --> it doesn't seem to be that hard, really. Just have to do the
+    substitution and then recompute the source-side index after the fact.
+      * BUG does this sometimes introduce a problem in the training data though?
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
