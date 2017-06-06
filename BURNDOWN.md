@@ -31,7 +31,8 @@ Wait, did we already do that?
     side with the MWEs that we know about without messing up indices into the
     sentences? --> it doesn't seem to be that hard, really. Just have to do the
     substitution and then recompute the source-side index after the fact.
-      * BUG does this sometimes introduce a problem in the training data though?
+      * FIXED does this sometimes introduce a problem in the training data
+      though? --> have to keep track of the surface form, not the lemma.
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
