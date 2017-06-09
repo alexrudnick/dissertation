@@ -33,6 +33,8 @@ Wait, did we already do that?
     substitution and then recompute the source-side index after the fact.
       * FIXED does this sometimes introduce a problem in the training data
       though? --> have to keep track of the surface form, not the lemma.
+        * REALLY FIXED worse than that -- the "surface form" might contain
+        underscores because it was an MWE found my earlier preprocessing.
   * For word2vec, one major interesting question is how are we going to use
   those features? What do they do in the word representations paper? The open
   question is how you use word representation to model a context?
@@ -49,7 +51,7 @@ Wait, did we already do that?
     * does it even really make sense to use doc2vec by itself? is the meaning
     of the sentence as a whole what we want, for classifying a particular token
     usage?
-    * DONE-ish understand the doc2vec paper (cited in dissertation)
+    * understand and explain the doc2vec paper (cited in dissertation)
     * DONE learn how to train doc2vec from Spanish wikipedia!!
     * DONE be able to load up saved models
     * DONE how much text do we use to train a model?
@@ -57,9 +59,8 @@ Wait, did we already do that?
         * we can fit Spanish wikipedia
       * how does training data size affect quality?
     * turn inferred document vectors into features for classification
-    * there's just one vector per sentence, so just turn that into one feature
-      per vector dimension, and the classifier for the individual lemma can
-      figure out what to do with each dimension.
+    * CONCEPTUALLY DONE there's just one vector per sentence, so there's your
+    feature vector.
   * parse features if that's not too hard?
 
 ## multilingual
