@@ -301,28 +301,28 @@ a single sentence, or perhaps much longer, depending on the intended
 application.
 
 Similar to word2vec, here doc2vec uses a neural network with a single hidden
-layer to predict words in the current context, and there are two variants of
-the approach that can be used for training. Here however, the hidden layer
+layer to predict words in the current context. Here however, the hidden layer
 contains not only an embedding trained for word types, but also an embedding
-for the current document.
+for the current document. Training proceeds by loading the current
+representation for the current word and the current document, attempting to
+predict some other word in the context (analogous to training for word2vec),
+and then updating both representations based on the gradients between the
+desired output and the actual output. 
 
-Training proceeds by loading the current representation for the current word
-and the current document, attempting to predict some other word in the context
-(analogous to training for word2vec), and then updating both representations
-based on the gradients between the desired output and the actual output. One
-variant of doc2vec, the ``Distributed Memory Model of Paragraph Vectors", uses
-a paragraph embedding combined with word embeddings for several words in the
-current context to predict a single individual word (similar to the CBOW model
-for word2vec), %% XXX ... is that right?
-and the other variant, the ``Distributed Bag of Words model of
-Paragraph Vectors", must simply uses the current paragraph vector to predict
-all of the words in the current context.
+Also similar to word2vec, there are two variants of the approach that can be
+used for training. One variant of doc2vec, the ``Distributed Memory Model of
+Paragraph Vectors", uses a paragraph embedding combined with word embeddings
+for several words in the current context to predict a single individual word.
+The other variant, the ``Distributed Bag of Words model of Paragraph Vectors",
+simply uses the current paragraph vector to predict all of the words in the
+current context.
+%% XXX ... what's the relationship between these and CBOW and skipgrams?
 
-The resulting stored model is then just the embeddings for individual word
-types; the embeddings for any particular document are not useful since that
-specific document is unlikely to appear again. Contrastingly, the embeddings
-for individual word types provide a useful generalization, since they constrain
-embeddings for new documents.
+In either case, the resulting stored model is the set of embeddings for
+individual word types. The embeddings for any particular document are not
+useful since that specific document is unlikely to appear again, but the
+embeddings for individual word types provide a useful generalization, since
+they constrain embeddings for new documents.
 
 At inference time, doc2vec produces new vectors describing previously unseen
 documents, based on these fixed word embedding vectors. In our work, as in many
