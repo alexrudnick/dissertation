@@ -315,8 +315,10 @@ Paragraph Vectors", uses a paragraph embedding combined with word embeddings
 for several words in the current context to predict a single individual word.
 The other variant, the ``Distributed Bag of Words model of Paragraph Vectors",
 simply uses the current paragraph vector to predict all of the words in the
-current context.
-%% XXX ... what's the relationship between these and CBOW and skipgrams?
+current context, which despite containing ``bag of words" in its name, is more
+closely analogous to the skip-gram artitecture for word2vec
+\cite{quocle-distributed-representations-2014}, since the model is trained to
+predict the entire context based on a single embedding.
 
 In either case, the resulting stored model is the set of embeddings for
 individual word types. The embeddings for any particular document are not
