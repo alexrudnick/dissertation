@@ -30,12 +30,11 @@ researchers.
 %% of want to go out on a high note with the embedding ideas.
 
 \section{Brown Clustering}
-%% XXX: add citations here!
-The Brown clustering algorithm, also known as IBM clustering, since it was
-developed by the Candide group at IBM, takes an unannotated text corpus as
-input and assigns each word type in the corpus into hierarchical clusters such
-that types in the same cluster have similar usage patterns according to the
-bigram statistics of the corpus.
+The Brown clustering algorithm\cite{brown1992class}, also known as IBM
+clustering, as it was developed by the Candide group at IBM, takes an
+unannotated text corpus as input and assigns each word type found the corpus
+into hierarchical clusters such that types in the same cluster have similar
+usage patterns, according to the bigram statistics of the corpus.
 
 We can then use this clustering to create more features for our classifiers; we
 can consider the clusters into which a word falls as a sort of tag.  These
@@ -51,24 +50,25 @@ size from the Bible, to the rather larger Europarl corpus \cite{europarl}, to
 larger still, a dump of the entirety of the Spanish-language Wikipedia.
 %% XXX: add explicit sizes to this paragraph. How many words are they?
 
-Brown clustering uses greedy optimization to find a clustering  -- an assignment
-of the word types present in the input corpus into a fixed number of
-hierarchical clusters -- that maximizes the probability of the input corpus.  As
-the original intention of the approach was for class-based language models, the
-scoring function is the mutual information between two immediately subsequent
-tokens (i.e., a bigram).  Concretely, the optimization process is looking for a
-clustering $C$ that maximizes the probability of the corpus $\boldsymbol{w}$,
-according to the following formula.
+Brown clustering uses greedy optimization to find cluster assignments. Each of
+the word types present in the input corpus must be placed into one of a fixed
+number of hierarchical clusters, such that the assignment attempts to maximize
+the probability of the input corpus.  As the original intention of the approach
+was for class-based language models, the scoring function is the mutual
+information between two immediately subsequent tokens (i.e., a bigram).
+Concretely, the optimization process is looking for a clustering $C$ that
+maximizes the probability of the corpus $\boldsymbol{w}$, according to the
+following formula.
 
 \begin{equation} \label{eq:brownclassprob}
 P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
 \end{equation}
 
-Finding a globally optimal assignment turns out to be an intractable problem,
+Finding the globally optimal assignment turns out to be an intractable problem,
 but several greedy approaches that find local optima have been explored in the
 literature.  Notably, in addition to Liang's approach, Franz Och's
-\texttt{mkcls} package (described in \cite{och1999efficient}), has been
-distributed with Moses for many years, and optimizes the same function.
+\texttt{mkcls} package (familiar to Moses users, and described in
+\cite{och1999efficient}), and optimizes the same function.
 
 When applying Brown clustering to this task, we would like to answer several
 relevant questions.
@@ -91,9 +91,8 @@ relevant questions.
 \end{itemize}
 
 We can use such a clustering $C$ (i.e., a mapping from word types to clusters)
-to extract a number of different kinds of features for our classifiers;
-we may also choose a variety of inputs to the clustering algorithm in the first
-place.
+to extract a number of different kinds of features for our classifiers; we may
+also choose a variety of inputs to the clustering algorithm in the first place.
 
 %% Some of the features ...
 
