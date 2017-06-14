@@ -23,11 +23,36 @@ clustering \cite{brown1992class}, two related approaches to neural embeddings,
 and labels learned from other NLP tools such as off-the-shelf taggers and
 parsers for Spanish. There are of course other related methods that one could
 investigate, making use of the deep available literature on distributional
-semantics, but these will be left to future work, either by this author or other
-researchers.
+semantics, but these will be left to future work, either by this author or
+other researchers.
 
-%% XXX: maybe move the less interesting stuff earlier in the chapter? We kind
-%% of want to go out on a high note with the embedding ideas.
+\section{Monolingual features from other NLP tools}
+In addition to large quantities of monolingual text, another important resource
+for Spanish is the large number of available off-the-shelf NLP tools, such as
+POS taggers and syntactic parsers. These can also help us capture abstractions
+about particular word types (e.g., perhaps a noun in the window surrounding a
+focus word is indicative of some particular meaning) and syntactic structure
+may also provide useful features.  In the Chipa software, we can make use of
+arbitrary annotations for the input text (see Section \ref{sec:annotations}),
+so adding more features based on analysis by external tools is straightforward.
+
+As a first step, we synthesize features based on the part-of-speech tags of the
+tokens in a window around the current focus word, and using a syntactic parser,
+the heads and children of the current focus word.
+In principle, we could use other annotations, such as sense annotations from a
+monolingual WSD system, given a good one.
+This idea is akin to one that we will explore in Chapter
+\ref{chap:multilingual}
+
+For POS tagging and parsing, we run the open source FreeLing text analysis
+suite \cite{padro12} on the training data, and at inference time, on new input
+sentences. FreeLing can perform a number of analysis tasks for Spanish,
+including lemmatization, POS tagging, named entity recognition, and dependency
+parsing.
+%% XXX: make some nice figures for the features extracted from FreeLing
+
+
+
 
 \section{Brown Clustering}
 The Brown clustering algorithm\cite{brown1992class}, also known as IBM
@@ -337,31 +362,6 @@ doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
 \cite{rehurek-lrec}.
-
-\section{Monolingual features from other NLP tools}
-In addition to large quantities of monolingual text, another important resource
-for Spanish is the large number of available off-the-shelf NLP tools, such as
-POS taggers and syntactic parsers. These can also help us capture abstractions
-about particular word types (e.g., perhaps a noun in the window surrounding a
-focus word is indicative of some particular meaning) and syntactic structure
-may also provide useful features.  In the Chipa software, we can make use of
-all kinds of annotations for our text (see Section \ref{sec:annotations}), so
-adding more features based on analysis by external tools is straightforward.
-
-As a first step, we synthesize features based on the part-of-speech tags of the
-tokens in a window around the current focus word, and using a syntactic parser,
-the heads and children of the current focus word.
-In principle, we could use other annotations, such as sense annotations from a
-monolingual WSD system, given a good one.
-This idea is akin to one that we will explore in Chapter
-\ref{chap:multilingual}
-
-For POS tagging and parsing, we run the open source FreeLing text analysis
-suite \cite{padro12} on the training data, and at inference time, on new input
-sentences. FreeLing can perform a number of analysis tasks for Spanish,
-including lemmatization, POS tagging, named entity recognition, and dependency
-parsing.
-%% XXX: make some nice figures for the features extracted from FreeLing
 
 \section{Experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}, with the
