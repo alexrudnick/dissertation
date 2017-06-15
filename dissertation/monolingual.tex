@@ -1,15 +1,15 @@
 \chapter{Learning from Monolingual Data}
 \label{chap:monolingual}
 While in this work our target languages are under-resourced, we have many
-resources available for the source languages. We would like to use these to make
-better sense of the input text, giving our classifiers clearer signals and
-better representations for lexical selection in the target language.  The
+resources available for the source languages. We would like to use these to
+make better sense of the input text, giving our classifiers clearer signals and
+better representations for lexical selection in the target language. The
 approaches considered in this chapter make additional features or different
-representations available to the CL-WSD classifiers, based on knowledge of the
-source language; since we have relatively little bitext available for
+representations available to the CL-WSD classifiers based on knowledge of the
+source language, either gleaned through unsupervised methods or baked into
+extant tools. Since we have relatively little bitext available for
 Spanish-Guarani and Spanish-Quechua, we will need to lean more on our Spanish
-resources, including tools and data, in order to make better sense of the input
-text.
+resources, software and data, in order to make better sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
 available, which suggests that we could use unsupervised methods to discover
@@ -18,17 +18,17 @@ This approach has been broadly successful in the literature
 \cite{turian-ratinov-bengio:2010:ACL}
 %% XXX: add some more references
 , and here we adapt some of the methods explored in previous work on text
-classification to our task. Concretely, in this chapter we explore Brown
-clustering \cite{brown1992class}, two related approaches to neural embeddings,
-and labels learned from other NLP tools such as off-the-shelf taggers and
-parsers for Spanish. There are of course other related methods that one could
-investigate, making use of the deep available literature on distributional
-semantics, but these will be left to future work, either by this author or
-other researchers.
+classification to our task.
+
+Concretely, in this chapter we explore labels learned from existing NLP tools
+such as off-the-shelf taggers and parsers for Spanish, Brown clustering
+\cite{brown1992class}, and two related approaches to neural embeddings. There
+are of course other related methods that one could investigate, making use of
+the available literature on distributional semantics, but these will be left to
+future work, either by this author or other researchers.
 
 \section{Monolingual features from other NLP tools}
-In addition to large quantities of monolingual text, another important resource
-for Spanish is the large number of available off-the-shelf NLP tools, such as
+There are a large number off-the-shelf NLP tools available for Spanish, such as
 POS taggers and syntactic parsers. These can also help us capture abstractions
 about particular word types (e.g., perhaps a noun in the window surrounding a
 focus word is indicative of some particular meaning) and syntactic structure
