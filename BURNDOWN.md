@@ -14,6 +14,10 @@ Wait, did we already do that?
   * DONE making it easier to experiment with different featuresets
   * DONE add brown clusters as features
   * DONE pos tags?
+    * still need to redo pos tag experiments? ...
+  * parse features if that's not too hard
+    * syntactic head like "head:lemma" and/or "head:surface"
+    * syntactic child if any, as above
   * add word2vec features
     * what window to use?
     * DONE how best to combine vectors for different words: addition seems to
@@ -35,9 +39,6 @@ Wait, did we already do that?
       though? --> have to keep track of the surface form, not the lemma.
         * REALLY FIXED worse than that -- the "surface form" might contain
         underscores because it was an MWE found my earlier preprocessing.
-  * For word2vec, one major interesting question is how are we going to use
-  those features? What do they do in the word representations paper? The open
-  question is how you use word representation to model a context?
     * You want to take the word vectors from the sentence and combine them
     into a vector representing the current context. There are several things you
     could try to do this combination:
@@ -61,7 +62,6 @@ Wait, did we already do that?
     * turn inferred document vectors into features for classification
     * CONCEPTUALLY DONE there's just one vector per sentence, so there's your
     feature vector.
-  * parse features if that's not too hard?
 
 ## multilingual
   * train systems to target any other European languages we can get a
