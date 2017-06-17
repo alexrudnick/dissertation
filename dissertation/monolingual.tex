@@ -38,20 +38,17 @@ so adding more features based on analysis by external tools is straightforward.
 
 As a first step, we synthesize features based on the part-of-speech tags of the
 tokens in a window around the current focus word, and using a syntactic parser,
-the heads and children of the current focus word.
-In principle, we could use other annotations, such as sense annotations from a
-monolingual WSD system, given a good one.
-This idea is akin to one that we will explore in Chapter
-\ref{chap:multilingual}
+the heads and children of the current focus word.  In principle, we could use
+other annotations, such as sense annotations from a monolingual WSD system,
+given a good one. This idea is akin to one that we will explore in Chapter
+\ref{chap:multilingual}.
 
 For POS tagging and parsing, we run the open source FreeLing text analysis
-suite \cite{padro12} on the training data, and at inference time, on new input
-sentences. FreeLing can perform a number of analysis tasks for Spanish,
-including lemmatization, POS tagging, named entity recognition, and dependency
-parsing.
+suite \cite{padro12} on input sentences. FreeLing can perform a number of
+analysis tasks for Spanish, including POS tagging, dependency parsing,
+lemmatization, and named entity recognition, of which the latter two are part
+of the standard preprocessing done for all experiments in this work.
 %% XXX: make some nice figures for the features extracted from FreeLing
-
-
 
 
 \section{Brown Clustering}
