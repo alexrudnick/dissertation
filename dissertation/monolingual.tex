@@ -55,8 +55,25 @@ annotation step (see Section \ref{sec:datasetsandpreprocessing}) and simply
 record its output as additional features. When running on novel test sentences,
 as in server mode, we must run it on those individual sentences, just before
 inference time.
-%% XXX: make some nice figures for the features extracted from FreeLing
 
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|p{11cm}|}
+    \hline
+    name          & description  \\
+    \hline
+    \texttt{postag}    & part-of-speech tag for the focus token \\
+    \hline
+    \texttt{postag\_left}  & POS tag for the token to the left of focus token \\
+    \hline
+    \texttt{postag\_right} & \emph{ibid.}, for the right \\
+    %% XXX: add some more
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Additional syntactic features}
+  \label{fig:syntacticfeatures}
+\end{figure*}
 
 \section{Brown Clustering}
 The Brown clustering algorithm\cite{brown1992class}, also known as IBM
