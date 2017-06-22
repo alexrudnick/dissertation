@@ -270,10 +270,10 @@ The word2vec model in particular has two variations, useful in different
 contexts. One, called Continuous Bag-of-Words (CBOW) learns a classifier that
 can predict individual words based on their context, while the ``skip-grams"
 variant does the reverse and learns to predict context words based on an
-individual focus word. According to the literature, CBOW is more appropriate
-when training on smaller data sets...
-%% from the tensorflow tutorial on word2vec
-%% https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html#vector-representations-of-words
+individual focus word. The received wisdom is that CBOW is more appropriate
+when training on smaller data sets \footnote{According to the TensorFlow
+tutorial on word2vec, available at
+\url{https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html}}.
 % This inversion might seem like an
 % arbitrary choice, but statistically it has the effect that CBOW
 % smoothes over a lot of the distributional information (by treating an
@@ -387,8 +387,9 @@ we use the implementation of doc2vec provided by the gensim package
 
 \section{Experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}, with the
-addition of features extracted from Brown clusters, neural word embeddings,
-document vectors, and FreeLing text annotations.
+addition of features extracted from the available syntactic tools, Brown
+clusters, neural word embeddings, document vectors. We do not try all possible
+combinations of these, as that would simply be too many.
 
 There are lots of combinations here...
 
