@@ -142,6 +142,27 @@ sentence, and prefix features for all the clusters that appear too!
 It might be the case that we really just need to add the very local context --
 three words on a side? In Turian et al, they do two words on a side.
 
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|p{11cm}|}
+    \hline
+    name          & description  \\
+    \hline
+    \texttt{brown\_bag}    & Bag of all Brown clusters for the entire sentence \\
+    \hline
+    \texttt{brown\_window}  & All Brown clusters for a window around the focus word\\
+    \hline
+    \texttt{flat\_brown\_bag} & \emph{ibid.}, ... \\
+    \hline
+    \texttt{flat\_brown\_window} & \emph{ibid.}, ... \\
+    %% XXX: add some more
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Features extracted from Brown clusters}
+  \label{fig:brownfeatures}
+\end{figure*}
+
 
 \section{Clustering Spanish text for this work}
 In this work we use Percy Liang's popular open source implementation of Brown
