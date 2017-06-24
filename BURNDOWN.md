@@ -18,6 +18,11 @@ Wait, did we already do that?
   * parse features if that's not too hard
     * syntactic head like "head:lemma" and/or "head:surface"
     * syntactic child if any, as above
+    * going to need to write an annotator that goes through and adds these to
+    tokens, having run freeling on the input sentence.
+    * Alternatively, the POS tags are generated during the initial "annotated"
+    file generation, so maybe we could do it in a similar way?
+      * Find out what the "parsed" format looks like for FreeLing.
   * add word2vec features
     * what window to use?
     * DONE how best to combine vectors for different words: addition seems to
