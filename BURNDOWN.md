@@ -20,6 +20,9 @@ Wait, did we already do that?
     * syntactic child if any, as above
     * going to need to write an annotator that goes through and adds these to
     tokens, having run freeling on the input sentence.
+      * question here is whether it's going to be easier to use FreeLing again,
+      or some other parser. Maybe MaltParser? Extract dependencies out of the
+      CONLL format?
     * Alternatively, the POS tags are generated during the initial "annotated"
     file generation, so maybe we could do it in a similar way?
       * Find out what the "parsed" format looks like for FreeLing.
