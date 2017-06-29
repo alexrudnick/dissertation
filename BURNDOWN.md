@@ -23,10 +23,10 @@ Wait, did we already do that?
       * question here is whether it's going to be easier to use FreeLing again,
       or some other parser. Maybe MaltParser? Extract dependencies out of the
       CONLL format?
-      * for running MaltParser, we want to also get coarse POS tags,
+      * DONE for running MaltParser, we want to also get coarse POS tags,
       specifically ones in the Universal Tag Set. Where do we find a conversion
       table for that tag set? What tag set is it even?
-        * these seem really close to the universal POS tags anyway. If there's
+        * DONE these seem really close to the universal POS tags anyway. If there's
         no conversion table written down, we can just make one ourselves.
     * Alternatively, the POS tags are generated during the initial "annotated"
     file generation, so maybe we could do it in a similar way?
