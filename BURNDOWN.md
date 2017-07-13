@@ -17,12 +17,12 @@ Wait, did we already do that?
     * still need to redo pos tag experiments? ...
   * parse features if that's not too hard
     * DONE syntactic head like "head:lemma"
-    * also "head:surface"
-    * syntactic child if any, as above
+    * DONE also "head:surface"
+    * DONE syntactic child if any, as above
     * DONE going to need to write an annotator that goes through and adds these
     to tokens, having run <del>freeling</del> MaltParser on the input
     sentence.
-      * question here is whether it's going to be easier to use FreeLing again,
+      * DONE question here is whether it's going to be easier to use FreeLing again,
       or some other parser. Maybe MaltParser? Extract dependencies out of the
       CONLL format?
       * DONE for running MaltParser, we want to also get coarse POS tags,
