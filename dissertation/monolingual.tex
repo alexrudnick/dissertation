@@ -38,29 +38,31 @@ so adding more features based on analysis by external tools is straightforward.
 
 As a first step, we synthesize features based on the part-of-speech tags of the
 tokens in a window around the current focus word, and using a syntactic parser,
-the heads and children of the current focus word.  In principle, we could use
+the heads and children of the current focus word. In principle, we could use
 other annotations, such as sense annotations from a monolingual WSD system,
 given a good one. This idea is akin to one that we will explore in Chapter
 \ref{chap:multilingual}, in which we use Chipa itself (trained for other
-language pairs) to provide annotations.
+language pairs, and with larger data sets) to provide annotations.
 
 For POS tagging, we run the open source FreeLing text analysis suite
-\cite{padro12} on input sentences. FreeLing can perform a number of analysis
-tasks for Spanish, including POS tagging, dependency parsing, lemmatization,
-and named entity recognition, of which the latter two are part of the standard
-preprocessing done for all experiments in this work. When all
-of the text involved in an experiment is known beforehand, as in the
-experiments reported in this chapter, then we can run FreeLing during the data
-annotation step (see Section \ref{sec:datasetsandpreprocessing}) and simply
-record its output as additional features. When running on novel test sentences,
-as in server mode, we must run it on those individual sentences, just before
-inference time.
-Parsing was done with MaltParser \cite{Nivre06maltparser:a} \footnote{Available
-at \url{http://maltparser.org/} ; in this work we use version 1.9.0 of the
-parser, and the ``espmalt" pretrained model, which is available at
-\url{http://www.iula.upf.edu/recurs01_mpars_uk.htm}, and was trained on the
-IULA Treebank\cite{MARIMON12.519}, by researchers from the IULA group at
-Universitat Pompeu Fabra.}
+\cite{padro12} on input sentences. FreeLing can perform a number of analyses
+for Spanish, including POS tagging, dependency parsing, lemmatization, and
+named entity recognition, of which the latter two are part of the standard
+preprocessing done for all experiments in this work. When all the text for an
+experiment is known beforehand, as in the experiments reported in this chapter,
+we can run FreeLing during the data annotation step (see Section
+\ref{sec:datasetsandpreprocessing}) and simply record FreeLing's output as
+additional features. When running on novel test sentences, as in server mode,
+we must run it on those sentences just before inference time.
+
+Similarly, for syntactic features, we use MaltParser\cite{Nivre06maltparser:a}
+\footnote{Available at \url{http://maltparser.org/} ; in this work we use
+version 1.9.0 of the parser, and the ``espmalt" pretrained model, which is
+available at \url{http://www.iula.upf.edu/recurs01_mpars_uk.htm}, and was
+trained on the IULA Treebank\cite{MARIMON12.519}, by researchers from the IULA
+group at Universitat Pompeu Fabra.} to get dependency parses of the input
+sentence. This is also performed as a corpus annotation, making the syntactic
+relationships for each token available for feature extraction.
 
 \begin{figure*}
   \begin{centering}
