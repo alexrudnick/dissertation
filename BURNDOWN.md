@@ -11,6 +11,25 @@ too, to do the multilingual features.
 Wait, did we already do that?
 
 ## monolingual
+
+### things left undone
+
+  * finish up analysis and writeup
+  * make charts & graphs
+  * word2vec features
+    * what window to use?
+    * vector combination: weighted sum of the vectors, weighting words closer to
+    the focus word more.
+  * doc2vec features
+    * does it even really make sense to use doc2vec by itself? is the meaning
+    of the sentence as a whole what we want, for classifying a particular token
+    usage?
+    * understand and explain the doc2vec paper (cited in dissertation)
+      * how does training data size affect quality?
+    * turn inferred document vectors into features for classification
+    * run experiments with doc2vec features
+
+### fairly done things
   * DONE making it easier to experiment with different featuresets
   * DONE add brown clusters as features
   * DONE pos tags?
@@ -33,8 +52,7 @@ Wait, did we already do that?
     * SKIP Alternatively, the POS tags are generated during the initial "annotated"
     file generation, so maybe we could do it in a similar way?
       * SKIP Find out what the "parsed" format looks like for FreeLing.
-  * add word2vec features
-    * what window to use?
+  * word2vec features
     * DONE how best to combine vectors for different words: addition seems to
       be the done thing.
     * DONE is it best to have vectors over lemmas or surface forms? lowercasing?
@@ -59,9 +77,6 @@ Wait, did we already do that?
     could try to do this combination:
       * DONE Take a sum of the vectors for the whole sentence
       * DONE Just take a sum of the vectors in some window
-      * Take a sum of the vectors for the sentece, but weight words closer to
-      the current focus word more, like attenuate the weight as you get farther
-      out.
       * MAYBE SKIP? Weight word vectors by their tf/idf or similar.
   * DONE learn how to train doc2vec
     * does it even really make sense to use doc2vec by itself? is the meaning
