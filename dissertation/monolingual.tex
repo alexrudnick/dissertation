@@ -23,18 +23,25 @@ classification to our task.
 Concretely, in this chapter we explore labels learned from existing NLP tools
 such as off-the-shelf taggers and parsers for Spanish, Brown clustering
 \cite{brown1992class}, and two related approaches to neural embeddings. There
-are of course other related methods that one could investigate, making use of
-the available literature on distributional semantics, but these will be left to
-future work, either by this author or other researchers.
+are of course other related methods that one could investigate, especially
+making use of the literature on distributional semantics, but these will be
+left to future work, either by this author or other researchers.
 
 \section{Monolingual features from other NLP tools}
-There are a large number off-the-shelf NLP tools available for Spanish, such as
-POS taggers and syntactic parsers. These can also help us capture abstractions
-about particular word types (e.g., perhaps a noun in the window surrounding a
-focus word is indicative of some particular meaning) and syntactic structure
-may also provide useful features.  In the Chipa software, we can make use of
-arbitrary annotations for the input text (see Section \ref{sec:annotations}),
-so adding more features based on analysis by external tools is straightforward.
+There are a large number off-the-shelf NLP tools available for Spanish; here we
+will look into POS taggers and syntactic parsers specifically. Tagging can help
+us capture abstractions over particular word types, and provides some
+disambiguation on its own\footnote{For example, perhaps a noun in the window
+surrounding a focus word is indicative of a particular meaning. More
+concretely, we could imagine the CL-WSD system benefitting from distinguishing
+the Spanish \emph{poder} as the infinitive verb ``to be able" from the noun
+interpretation ``power, ability".}. Similarly, syntactic structure may also
+provide useful features; a verb may have a drastically different translation
+in the target language based on its objects.
+
+In the Chipa software, we can make use of arbitrary annotations for the input
+text (see Section \ref{sec:annotations}), so adding more features based on
+analysis by external tools is straightforward.
 
 As a first step, we synthesize features based on the part-of-speech tags of the
 tokens in a window around the current focus word, and using a syntactic parser,
