@@ -136,12 +136,21 @@ was for class-based language models, the scoring function is the mutual
 information between two immediately subsequent tokens (i.e., a bigram).
 Concretely, the optimization process is searching for a clustering $C$ that
 maximizes the probability of the corpus $\boldsymbol{w}$, according to the
-formula in Figure XXX.
+formula in Figure \ref{fig:brownprob}.
 
-%% XXX: turn this into a nice figure with a nice caption
-\begin{equation} \label{eq:brownclassprob}
-P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
-\end{equation}
+\begin{figure*}
+
+  \begin{equation} \label{eq:brownclassprob}
+  P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
+  \end{equation}
+
+  \caption{The Brown clustering expression for the probability of a corpus with
+  a specific clustering $C$. It is the product, for each token, of the
+  probability of that token given its cluster, and the probability of that
+  current cluster given the previous cluster. This is analogous to the
+  ``emission" and ``transition" probabilities used in an HMM-based tagger.}
+  \label{fig:brownprob}
+\end{figure*}
 
 Finding the globally optimal assignment turns out to be an intractable problem,
 but several greedy approaches that find local optima have been explored in the
