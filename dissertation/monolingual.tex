@@ -25,7 +25,10 @@ such as off-the-shelf taggers and parsers for Spanish, Brown clustering
 \cite{brown1992class}, and two related approaches to neural embeddings. There
 are of course other related methods that one could investigate, especially
 making use of the literature on distributional semantics, but these will be
-left to future work, either by this author or other researchers.
+left to future work, either by this author or other researchers. First we will
+describe the methods used in some detail, and then towards the end of the
+chapter, in Section \ref{sec:monolingual-experiments}, we describe experiments
+and present experimental results.
 
 \section{Monolingual features from other NLP tools}
 There are a large number off-the-shelf NLP tools available for Spanish; here we
@@ -49,7 +52,8 @@ the heads and children of the current focus word. In principle, we could use
 other annotations, such as sense annotations from a monolingual WSD system,
 given a good one. This idea is akin to one that we will explore in Chapter
 \ref{chap:multilingual}, in which we use Chipa itself (trained for other
-language pairs, and with larger data sets) to provide annotations.
+language pairs, and with larger data sets) to provide annotations, effectively
+using some other target language as a tagset for WSD.
 
 For POS tagging, we run the open source FreeLing text analysis suite
 \cite{padro12} on input sentences. FreeLing can perform a number of analyses
@@ -69,14 +73,15 @@ available at \url{http://www.iula.upf.edu/recurs01_mpars_uk.htm}, and was
 trained on the IULA Treebank\cite{MARIMON12.519}, by researchers from the IULA
 group at Universitat Pompeu Fabra.} to get dependency parses of the input
 sentence. This is also performed as a corpus annotation, making the syntactic
-relationships for each token available for feature extraction. The parser here
-depends on the POS tags produced by FreeLing (thankfully they use the same tag
-set), but as with any pipeline of NLP systems, this carries the risk that
-tagging errors at early stages in the pipeline could propagate and cause
-problems at the later stages of processing\footnote{Here we note this concern
-but move on; it is a very general problem, and solutions to it are an open area
-of research.}.  The parser also depends on the coarse-grained ``universal" POS
-tags \cite{PETROV12.274}; we map manually from the IULA tagset to universal
+relationships for each token available during feature extraction. The parser
+here depends on the POS tags produced by FreeLing. Thankfully, they use the
+same tag set, but as with any pipeline of NLP systems, using the inferred
+output from the tagger as input to the parser carries the risk that errors at
+early stages in the pipeline could propagate and cause problems at the later
+stages of processing\footnote{Here we note this concern but move on; it is a
+very general problem, and solutions to it are an open area of research.}.  The
+parser also depends on the coarse-grained ``universal" POS tags
+\cite{PETROV12.274}, which we manually map from the IULA tagset to universal
 coarse tags.
 
 \begin{figure*}
@@ -129,10 +134,11 @@ number of hierarchical clusters, such that the assignment attempts to maximize
 the probability of the input corpus.  As the original intention of the approach
 was for class-based language models, the scoring function is the mutual
 information between two immediately subsequent tokens (i.e., a bigram).
-Concretely, the optimization process is looking for a clustering $C$ that
+Concretely, the optimization process is searching for a clustering $C$ that
 maximizes the probability of the corpus $\boldsymbol{w}$, according to the
-following formula.
+formula in Figure XXX.
 
+%% XXX: turn this into a nice figure with a nice caption
 \begin{equation} \label{eq:brownclassprob}
 P(\boldsymbol{w}; C) = \prod_{w_i} p(w_i | C(w_i)) p(C(w_i) | C(w_{i-1}))
 \end{equation}
@@ -440,6 +446,7 @@ we use the implementation of doc2vec provided by the gensim package
 \cite{rehurek-lrec}.
 
 \section{Experiments}
+\label{sec:monolingual-experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}, with the
 addition of features extracted from the available syntactic tools, Brown
 clusters, neural word embeddings, document vectors. We do not try all possible
