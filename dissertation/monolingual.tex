@@ -164,17 +164,19 @@ In applying Brown clustering to this task, we would like to answer several
 questions.
 
 \begin{itemize}
-  \item Does more source-language text help us learn ``better" Brown clusters,
-    with respect to the CL-WSD task?
+  \item Can learning Brown clusters from  monolingual source-text resources 
+    improve our performance on this CL-WSD task?
+  \item Does more source-language text help us learn more helpful Brown
+  clusters, with respect to the CL-WSD task?
   \item How does the genre of the input text affect our performance, and how
   does this relate with the size of the text? Is there a size at which we
-    can learn a ``better" clustering that overcomes genre mismatches?
-  \item What kinds of preprocessing should we do on the source text? Should the
-  source text be lemmatized? It seems as though part of the point of Brown
-  clustering is to find abstractions over syntax, but perhaps lemmatization
-  helps it find more semantic abstractions in practice.  If it's true, that's a
-  worthwhile thing to note -- to use Brown clustering on Spanish text, maybe
-  you need to lemmatize it first.
+  can learn a better clustering that overcomes genre mismatches?
+  \item What kinds of preprocessing should we do on the source text? Most
+  saliently, should the source text be lemmatized? We might expect that Brown
+  clustering will help us find abstractions over syntax, but perhaps
+  lemmatization would help it find more semantic abstractions in practice. Or
+  perhaps it would be more effective to use the same input corpus in both
+  lemmatized and inflected forms.
 \end{itemize}
 
 We can use such a clustering $C$ (i.e., a mapping from word types to clusters)
