@@ -15,20 +15,18 @@ Perhaps most saliently for Spanish, we have abundant monolingual text
 available, which suggests that we could use unsupervised methods to discover
 regularities in the language, yielding better features for our classifiers.
 This approach has been broadly successful in the literature
-\cite{turian-ratinov-bengio:2010:ACL}
-%% XXX: add some more references
-, and here we adapt some of the methods explored in previous work on text
-classification to our task.
+\cite{turian-ratinov-bengio:2010:ACL,baroni2014don}, and here we adapt some of
+the methods explored in previous work on text classification to our task.
 
 Concretely, in this chapter we explore labels learned from existing NLP tools
 such as off-the-shelf taggers and parsers for Spanish, Brown clustering
 \cite{brown1992class}, and two related approaches to neural embeddings. There
 are of course other related methods that one could investigate, especially
-making use of the literature on distributional semantics, but these will be
-left to future work, either by this author or other researchers. First we will
-describe the methods used in some detail, and then towards the end of the
-chapter, in Section \ref{sec:monolingual-experiments}, we describe experiments
-and present experimental results.
+making use of the broader literature on distributional semantics, but these
+will be left to future work. First we will describe the methods used in some
+detail, and then towards the end of the chapter, in Section
+\ref{sec:monolingual-experiments}, we describe experiments and present
+experimental results.
 
 \section{Monolingual features from other NLP tools}
 There are a large number off-the-shelf NLP tools available for Spanish; here we
@@ -119,14 +117,16 @@ The Brown clustering algorithm\cite{brown1992class}, also known as IBM
 clustering, as it was developed by the Candide group at IBM, takes an
 unannotated text corpus as input and assigns each word type found the corpus
 into hierarchical clusters such that types in the same cluster have similar
-usage patterns, according to the bigram statistics of the corpus. The desired
-number of ``leaf" clusters must be set ahead of time, as a tunable parameter.
+usage patterns, according to the bigram statistics of the corpus. The tree of
+clusters is binary-branching, so the name of a cluster is simply its path from
+the root of the tree.  The desired number of ``leaf" clusters must be set ahead
+of time, as a tunable parameter.
 
-We can then use this clustering to create more features for our classifiers, by
-considering the clusters into which a word type falls as a tag. These
-annotations describe a more abstract, less sparse representation than surface
-forms or lemmas, hopefully providing useful semantic and syntactic
-generalizations.
+We can use this clustering to create more features for our classifiers,
+considering the clusters into which a word type falls as a tag for instances of
+that word. These annotations describe a more abstract, less sparse
+representation than surface forms or lemmas, hopefully providing useful
+semantic and syntactic generalizations.
 
 Brown clustering uses greedy optimization to find cluster assignments. Each of
 the word types present in the input corpus must be placed into one of a fixed
@@ -185,7 +185,6 @@ also choose a variety of inputs to the clustering algorithm in the first place.
 
 %% Some of the features ...
 
-%% XXX: turn this into a figure
 We tried, for example, dropping a bag of all the clusters that occur in the
 sentence, and prefix features for all the clusters that appear too!
 
