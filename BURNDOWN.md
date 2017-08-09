@@ -1,14 +1,7 @@
 ## general
 
-We want to make it faster to train classifiers, and I suspect that the issue
-here is that it takes a long time to get the relevant training data. So maybe
-what we should do is list the words for which we know we'll need a classifier
-ahead of time, then on loading the training data, stick the relevant sentences
-in memory where we can get them *quickly*. Then on demand, just extract features
-from those sentences.  We're going to need to store multilingual corpora here
-too, to do the multilingual features.
-
-Wait, did we already do that?
+  * maybe rerun the experiments from the baseline chapter so we know that the
+  results are comparable; we're using explicit lists of top words now.
 
 ## monolingual
 
@@ -27,6 +20,7 @@ Wait, did we already do that?
     * understand and explain the doc2vec paper (cited in dissertation)
       * how does training data size affect quality?
     * turn inferred document vectors into features for classification
+      * probably just stick an annotation on the first token in the sentence
     * run experiments with doc2vec features
 
 ### fairly done things

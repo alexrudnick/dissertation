@@ -374,16 +374,12 @@ skip-gram approaches, in 50, 100, 200, and 400 dimensions. In all cases, we
 used the associated \texttt{word2phrase} tool, distributed with the initial
 \texttt{word2vec} implementation, which finds collocations in the input text
 and treats them as individual tokens. The same collocations must be identified
-in the input text for their embeddings to be used. At lookup time we keep a
+in the input text for their embeddings to be used. At lookup time, we keep a
 list of all the multiword expressions present in the dictionary of embeddings,
-sorted from longest (first considering number of tokens, then breaking ties by
-considering number of characters) to shortest, and simply greedily replace any
-of these multiword expressions (starting with the longest) found in the input
-text with the token representing that MWE.
-
-We can visualize the learned embeddings with t-SNE \cite{van2008visualizing},
-a popular technique for projecting high-dimensional data conveniently into two
-or three dimensions.
+sorted from longest to shortest, first considering number of tokens, then
+breaking ties by considering number of characters, and greedily replace any of
+these multiword expressions (starting with the longest) found in the input text
+with the token representing that MWE.
 
 \subsection{From word embeddings to classification features}
 We should note that the embeddings learned for a word type are just a static
@@ -458,11 +454,9 @@ we use the implementation of doc2vec provided by the gensim package
 \section{Experiments}
 \label{sec:monolingual-experiments}
 Here we repeat the experiments from Chapter \ref{chap:evaluation}, with the
-addition of features extracted from the available syntactic tools, Brown
-clusters, neural word embeddings, document vectors. We do not try all possible
-combinations of these, as that would simply be too many.
-
-There are lots of combinations here...
+addition of features extracted from syntactic tools, Brown clusters, and neural
+While there are many possible combinations, we do not try all of them
+exhaustively.
 
 \begin{itemize}
   \item es-gn, es-qu with pos tags
