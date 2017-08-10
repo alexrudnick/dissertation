@@ -340,30 +340,21 @@ The word2vec model in particular has two variations, useful in different
 contexts. One, called Continuous Bag-of-Words (CBOW) learns a classifier that
 can predict individual words based on their context, while the ``skip-grams"
 variant does the reverse and learns to predict context words based on an
-individual focus word. The received wisdom is that CBOW is more appropriate
-when training on smaller data sets \footnote{According to the TensorFlow
+individual focus word. The received wisdom\footnote{According to the TensorFlow
 tutorial on word2vec, available at
-\url{https://www.tensorflow.org/versions/r0.7/tutorials/word2vec/index.html}}.
-% This inversion might seem like an
-% arbitrary choice, but statistically it has the effect that CBOW
-% smoothes over a lot of the distributional information (by treating an
-% entire context as one observation). For the most part, this turns out
-% to be a useful thing for smaller datasets. However, skip-gram treats
-% each context-target pair as a new observation, and this tends to do
-% better when we have larger datasets. We will focus on the skip-gram
-% model in the rest of this tutorial.
+\url{https://www.tensorflow.org/tutorials/word2vec}} is that CBOW is more
+appropriate when training on smaller data sets, but this is an empirical
+question and here we try out both variants.
 
-%% XXX: it seems like CBOW would actually work better for larger data sets,
-%% intuitively? Get a good understanding of this.
 In either case, running a word2vec training process results in a static mapping
 from word types to their embeddings in a vector space of a given size,
 typically a few hundred dimensions. These embeddings have been shown to be
-helpful as features in a number of different NLP tasks, allowing us to learn
-richer representations of word types from plentiful unannotated monolingual
-text. This effectively turns what was a purely supervised task, requiring
-labeled training data, into a semi-supervised task, in which the
-representation-learning phase can be carried out on unlabeled data by
-synthesizing a supervised learning task that can be performed with simple
+helpful as features in a number of different NLP tasks \cite{baroni2014don},
+allowing us to learn richer representations of word types from plentiful
+unannotated monolingual text. This effectively turns what was a purely
+supervised task, requiring labeled training data, into a semi-supervised task,
+in which the representation-learning phase can be carried out on unlabeled data
+by synthesizing a supervised learning task that can be performed with simple
 monolingual text as its training data.
 
 We trained a variety of word2vec embeddings for our text classification tasks,
