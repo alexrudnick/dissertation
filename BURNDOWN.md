@@ -20,7 +20,7 @@
     * understand and explain the doc2vec paper (cited in dissertation)
       * how does training data size affect quality?
     * turn inferred document vectors into features for classification
-      * probably just stick an annotation on the first token in the sentence
+      * DONE probably just stick an annotation on the first token in the sentence
     * run experiments with doc2vec features
 
 ### fairly done things
