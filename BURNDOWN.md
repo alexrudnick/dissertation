@@ -14,12 +14,13 @@
     * vector combination: weighted sum of the vectors, weighting words closer to
     the focus word more.
   * doc2vec features
-    * does it even really make sense to use doc2vec by itself? is the meaning
-    of the sentence as a whole what we want, for classifying a particular token
+    * EMPIRICAL QUESTION: does it even really make sense to use doc2vec by
+    itself? is the meaning of the sentence as a whole what we want, for
+    classifying a particular token
     usage?
     * understand and explain the doc2vec paper (cited in dissertation)
       * how does training data size affect quality?
-    * turn inferred document vectors into features for classification
+    * DONE turn inferred document vectors into features for classification
       * DONE probably just stick an annotation on the first token in the sentence
     * run experiments with doc2vec features
 
