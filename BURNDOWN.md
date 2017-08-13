@@ -19,10 +19,10 @@
     classifying a particular token
     usage?
     * understand and explain the doc2vec paper (cited in dissertation)
-      * how does training data size affect quality?
+      * SKIP?? how does training data size affect quality?
     * DONE turn inferred document vectors into features for classification
       * DONE probably just stick an annotation on the first token in the sentence
-    * run experiments with doc2vec features
+    * DONE run experiments with doc2vec features
 
 ### fairly done things
   * DONE making it easier to experiment with different featuresets

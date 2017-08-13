@@ -440,7 +440,12 @@ current document, such that it helps predict words in the current context.
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
-\cite{rehurek-lrec}.
+\cite{rehurek-lrec}. During training data annotation, we take each
+source-language sentence and infer a new embedding for it based on a doc2vec
+model trained on 20 million sentences dumped from the Spanish-language
+wikipedia. These sentence-level embeddings are stored as a token annotation on
+the first token of each sentence, so they can be made available during feature
+extraction.
 
 \section{Experiments}
 \label{sec:monolingual-experiments}
