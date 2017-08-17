@@ -1,7 +1,6 @@
 ## general
 
-  * maybe rerun the experiments from the baseline chapter so we know that the
-  results are comparable; we're using explicit lists of top words now.
+  * DONE maybe rerun the experiments from the baseline chapter so we know that the results are comparable; we're using explicit lists of top words now.
 
 ## monolingual
 
@@ -14,6 +13,7 @@
     * vector combination: weighted sum of the vectors, weighting words closer to
     the focus word more.
   * doc2vec features
+    * consider doing doc2vec trained on just windows? does that even make sense?
     * EMPIRICAL QUESTION: does it even really make sense to use doc2vec by
     itself? is the meaning of the sentence as a whole what we want, for
     classifying a particular token
