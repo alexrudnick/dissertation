@@ -369,21 +369,23 @@ these multiword expressions (starting with the longest) found in the input text
 with the token representing that MWE.
 
 \subsection{From word embeddings to classification features}
-We should note that the embeddings learned for a word type are just a static
-vector static and do not reflect the context of a particular instance of that
-word, so it cannot be a useful classification feature to take the word vector
-for the focus word on its own. This leaves us with the problem of how to make
-use of the word vectors in a given sentence. Concretely, we have a design
-decision to make, of how to combine several word vectors together, and which
-word vectors in a sentence to choose.
+We should note that the embeddings learned for a word type are fixed for that
+word type, and do not reflect the context of a particular token, so a focus
+word's embedding vector will not provide useful classification features on its
+own. This leaves us with the problem of how to make use of the word vectors in
+a given sentence. Concretely, we must decide how to combine several word
+vectors together, and which word vectors in a sentence to choose for
+combination. The typical approach (XXX citation) is to take element-wise sums
+or averages over the embedding vectors for the tokens in a context.
 
-There are a variety of approaches we could take, even given the assumption that
-we want to combine the vectors by summing or averaging. We could sum
-(element-wise) all of the word vectors for all the tokens in the entire
-sentence. We could only consider the words in a narrow window around the focus
-word. Or we could perform a weighted sum, in which words nearer to the focus
-word are given more weight, but these weights drop off according to some
-function, the farther away they are from the focus word.
+There are a variety of approaches we could take, even within summing and
+averageing. We could sum (element-wise) all of the word vectors for all the
+tokens in the entire sentence. We could only consider the words in a narrow
+window around the focus word. Or we could perform a weighted sum, in which
+words nearer to the focus word are given more weight, but these weights drop
+off according to some function, the farther away they are from the focus word.
+
+%% XXX working here
 
 %% XXX add some citations for papers where people use word embeddings as
 %% features
@@ -418,20 +420,22 @@ current context, which despite containing ``bag of words" in its name, is more
 closely analogous to the skip-gram artitecture for word2vec
 \cite{quocle-distributed-representations-2014}, since the model is trained to
 predict the entire context based on a single embedding.
+%% XXX: which kind of doc2vec are we using here?? Is one preferred over the
+%% other for different tasks?
 
 In either case, the resulting stored model is the set of embeddings for
-individual word types. The embeddings for any particular document are not
-useful since that specific document is unlikely to appear again, but the
-embeddings for individual word types provide a useful generalization, since
-they constrain embeddings for new documents.
+individual word types. The embeddings for any particular document in the
+training set are not stored, since that document is unlikely to appear again at
+inference time, but the embeddings for individual word types provide a useful
+generalization, since they constrain embeddings for new documents.
 
 At inference time, doc2vec produces new vectors describing previously unseen
-documents, based on these fixed word embedding vectors. In our work, as in many
+documents based on these fixed word embedding vectors. In our work, as in many
 text classification tasks, documents will be input sentences, or perhaps
 sentence-length Bible verses. To produce a representation for a new document,
 the embeddings for word types are held constant and we run the optimization
-process (stochastic gradient descent or similar) to infer an embedding for the
-current document, such that it helps predict words in the current context.
+process (stochastic gradient descent) to infer an embedding for the current
+document, such that it helps predict words in the current context.
 
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
