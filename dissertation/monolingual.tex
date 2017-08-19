@@ -420,8 +420,6 @@ current context, which despite containing ``bag of words" in its name, is more
 closely analogous to the skip-gram artitecture for word2vec
 \cite{quocle-distributed-representations-2014}, since the model is trained to
 predict the entire context based on a single embedding.
-%% XXX: which kind of doc2vec are we using here?? Is one preferred over the
-%% other for different tasks?
 
 In either case, the resulting stored model is the set of embeddings for
 individual word types. The embeddings for any particular document in the
@@ -440,12 +438,13 @@ document, such that it helps predict words in the current context.
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
-\cite{rehurek-lrec}. During training data annotation, we take each
-source-language sentence and infer a new embedding for it based on a doc2vec
-model trained on 20 million sentences dumped from the Spanish-language
-wikipedia. These sentence-level embeddings are stored as a token annotation on
-the first token of each sentence, so they can be made available during feature
-extraction.
+\cite{rehurek-lrec}, with its default settings, which means that training is
+carried out with the ``distributed memory" model.
+During training data annotation, we take each source-language sentence and
+infer a new embedding for it based on a doc2vec model trained on 20 million
+sentences dumped from the Spanish-language wikipedia. These sentence-level
+embeddings are stored as a token annotation on the first token of each
+sentence, so they can be made available during feature extraction.
 
 \section{Experiments}
 \label{sec:monolingual-experiments}
@@ -477,5 +476,7 @@ exhaustively.
 \end{itemize}
 
 \begin{itemize}
-  \item combine the most promising ones
+  \item combine the most promising ones ??
+  %% XXX: we don't actually have code to combine word2vec features with the
+  %% default features yet.
 \end{itemize}
