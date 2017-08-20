@@ -213,16 +213,15 @@ three words on a side? In Turian et al, they do two words on a side.
 \end{figure*}
 
 
-\section{Clustering Spanish text for this work}
-%%XXX: working here
-In this work we use Percy Liang's popular open source implementation of Brown
-clustering, described in his masters work \cite{Liang05semi-supervisedlearning}
-\footnote{And available at \url{https://github.com/percyliang/brown-cluster}}.
-Here for Spanish we have used this tool on a variety of corpora, varying in
-size from the Bible, to the rather larger Europarl corpus \cite{europarl}, to
-larger still, a dump of the entirety of the Spanish-language Wikipedia.
-%% XXX: add explicit sizes to this paragraph. How many words are they?
-
+\section{Brown clustering in practice}
+In this work we use Percy Liang's implementation \footnote{Available at
+\url{https://github.com/percyliang/brown-cluster}} of Brown clustering
+\cite{Liang05semi-supervisedlearning}.
+We have run the tool on several corpora, varying in
+size from the Bible (roughly 30K sentences), to the rather larger Europarl
+corpus \cite{europarl} (2 million sentences), to larger still, a dump of the
+Spanish-language Wikipedia (20 million sentences).
+%% XXX: working here
 
 %% TODO: include examples of the clusters that we learn from different corpora
 %% specify lemmatized versus not lemmatized

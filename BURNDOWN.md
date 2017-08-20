@@ -20,11 +20,12 @@
     usage?
     * understand and explain the doc2vec paper (cited in dissertation)
       * SKIP?? how does training data size affect quality?
+
+### fairly done things
+  * doc2vec things...
     * DONE turn inferred document vectors into features for classification
       * DONE probably just stick an annotation on the first token in the sentence
     * DONE run experiments with doc2vec features
-
-### fairly done things
   * DONE making it easier to experiment with different featuresets
   * DONE add brown clusters as features
   * DONE pos tags?
