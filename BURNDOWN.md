@@ -21,7 +21,60 @@
     * understand and explain the doc2vec paper (cited in dissertation)
       * SKIP?? how does training data size affect quality?
 
-### fairly done things
+## multilingual
+  * train systems to target any other European languages we can get a
+  target-language stemmer for. Anything snowball is fair game, maybe? We don't
+  even really need a proper lemmatizer.
+  * build a source corpus annotator for multilingual.
+Then use output of those systems as features.
+  * This is our "classifier stacking" approach, or basically "L2".  What did we
+  do in the semeval paper, exactly? We trained on the real answers and tested
+  on the classifier answers, right?
+  * But we should train on classifier output.
+  * And furthermore, what we can do is just run the classifiers in "annotator"
+  mode -- we blow through an input file and we classify with an existing
+  classifier, then just save the classifier as an annotation.
+  * What we're going to need to do is build preprocessing for Europarl. We need
+  to get Europarl text into the format the Chipa expects.
+
+That looks like...
+  * need lemmatizers and perhaps POS taggers.
+
+## sequence
+CANCELED!!
+
+## combinations
+  * try combinations.
+
+## integration
+hack up squoia again if necessary
+
+  * CANCELED! build tiniest possible cdec system for es-gn (switched to moses)
+  * SKIP Learn to use CMU's morphogen or whatever it's called -- or we could
+  just punt and target lemmatized gn.
+  * DONE built tiny pb-smt system for es-gn, now pretty good at spinning these
+  things up.
+
+  * HARD How hard is it to do phrase-based for cdec? We need to figure out how
+  to load PB-SMT tables. Also how to build them . Can cdec tools even generate
+  them?
+
+  * pull all gn text from guarani-nee and gn-wikipedia.
+  * train surface and lemmatized LMs.
+
+  * SKIP Port cdec-as-python-module stuff to py3k.
+  * STARTED Add chipa as phrase table feature 
+
+## outro
+  * Look, it's some experiments!
+  * Some of them worked!
+  * Probably better to crowdsource and get some respectable amount of data
+  rather than just using the Bible, unless your language is actually extinct.
+  * Hey-o, now I'm a doctor!
+
+
+# fairly done things
+## monolingual done things
   * doc2vec things...
     * DONE turn inferred document vectors into features for classification
       * DONE probably just stick an annotation on the first token in the sentence
@@ -89,52 +142,3 @@
     * CONCEPTUALLY DONE there's just one vector per sentence, so there's your
     feature vector.
 
-## multilingual
-  * train systems to target any other European languages we can get a
-  target-language stemmer for. Anything snowball is fair game, maybe? We don't
-  even really need a proper lemmatizer.
-Then use output of those systems as features.
-  * This is our "classifier stacking" approach, or basically "L2".  What did we
-  do in the semeval paper, exactly? We trained on the real answers and tested
-  on the classifier answers, right?
-  * But we should train on classifier output.
-  * And furthermore, what we can do is just run the classifiers in "annotator"
-  mode -- we blow through an input file and we classify with an existing
-  classifier, then just save the classifier as an annotation.
-  * What we're going to need to do is build preprocessing for Europarl. We need
-  to get Europarl text into the format the Chipa expects.
-
-That looks like...
-  * need lemmatizers and perhaps POS taggers.
-
-## sequence
-CANCELED!!
-
-## combinations
-  * try combinations.
-
-## integration
-hack up squoia again if necessary
-
-  * CANCELED! build tiniest possible cdec system for es-gn (switched to moses)
-  * SKIP Learn to use CMU's morphogen or whatever it's called -- or we could
-  just punt and target lemmatized gn.
-  * DONE built tiny pb-smt system for es-gn, now pretty good at spinning these
-  things up.
-
-  * HARD How hard is it to do phrase-based for cdec? We need to figure out how
-  to load PB-SMT tables. Also how to build them . Can cdec tools even generate
-  them?
-
-  * pull all gn text from guarani-nee and gn-wikipedia.
-  * train surface and lemmatized LMs.
-
-  * SKIP Port cdec-as-python-module stuff to py3k.
-  * STARTED Add chipa as phrase table feature 
-
-## outro
-  * Look, it's some experiments!
-  * Some of them worked!
-  * Probably better to crowdsource and get some respectable amount of data
-  rather than just using the Bible, unless your language is actually extinct.
-  * Hey-o, now I'm a doctor!
