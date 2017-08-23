@@ -36,15 +36,21 @@ due to being related languages, or simply by coincidence.
 Alternatively, a combination of translations into several languages may provide
 evidence for a certain lexical choice in the target language of interest.
 
-In earlier work, we developed a prototype CL-WSD system that makes use of
+In earlier work, we developed a prototype CL-WSD system that made use of
 multilingual evidence \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced
-some of the best results in a SemEval shared task on CL-WSD \cite{task10}.
-In our SemEval paper, we presented two different approaches for making use of
-multilingual evidence, a relatively straightforward classifier stacking
-approach, and a graphical model system based on loopy belief propagation over
-Markov networks. We'll discuss the latter first.
+some of the best results in a SemEval shared task on CL-WSD \cite{task10}.  In
+our SemEval paper, we presented two different approaches for making use of
+multilingual evidence. The more complex of them was a system based on graphical
+models that performed loopy belief propagation over Markov networks, which we
+will discuss briefly here, in the next section.
+The simpler approach described in that work was a relatively straightforward
+classifier stacking approach, where the outputs of several CL-WSD classifiers
+were used as input features for one final classifier. This approach is more
+immediately applicable to lexical selection when our target language is
+under-resourced, as it does not require bitext corpora between all of the
+involved languages.
 
-\section{Markov Networks}
+\section{CL-WSD with Markov Networks}
 %% Make it clear that this was about SemEval but we're probably not going to
 %% use it in Chipa because too clunky.
 In our SemEval entry, we investigated a Markov network (or ``Markov Random
