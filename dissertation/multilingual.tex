@@ -53,26 +53,32 @@ involved languages.
 \section{CL-WSD with Markov Networks}
 %% Make it clear that this was about SemEval but we're probably not going to
 %% use it in Chipa because too clunky.
-In our SemEval entry, we investigated a Markov network (or ``Markov Random
-Field") approach, building a network of interacting variables (see Figure
-\ref{fig:pentagram}) to solve the classification problem for all five target
-languages jointly.
+In our SemEval entry, we investigated an approach based on Markov networks
+(also known as ``Markov Random Fields"), building a network of interacting
+variables (see Figure \ref{fig:pentagram}) to solve the classification problem
+for the five target languages of the SemEval 2013 task \cite{task10}. Given
+English source sentences with a specific annotated focus word (from a small set
+of possible focus words types), the task was to make a correct lexical
+selection for translating into Dutch, French, German, Italian and Spanish,
+matching the selections made by human annotators familiar with those languages.
 
-The network has nodes that correspond to the distributions produced by the
-simple classifiers, given an input sentence, and edges with pairwise potentials
-that are derived from the joint probabilities of target language labels
-occurring together in the training data. 
+In that work, the network has nodes that correspond to the distributions
+produced by language-specific maximum entropy classifiers, given an input
+sentence, and edges with pairwise potentials that are derived from the joint
+probabilities of target language labels occurring together in the training
+data. 
 Thus the task of finding the optimal translations into five languages jointly
-is framed as a MAP inference problem, where we try to maximize the joint
+is framed as a MAP inference problem, wherein we try to maximize the joint
 probability of all five variables, given the evidence of the features extracted
 from the source language sentence.
-The inference process is performed using loopy belief propagation
+The inference process is carried out with loopy belief propagation
 \cite{DBLP:conf/uai/MurphyWJ99}, which is an approximate but tractable
 inference algorithm that, while giving no guarantees, often produces good
 solutions in practice.
 We used the formulation for pairwise Markov networks that passes messages
 directly between the nodes rather than first constructing a cluster graph,
-which is described in \cite[\S 11.3.5.1]{Koller+Friedman:09}.
+which is described in \cite[\S 11.3.5.1] of Koller and Friedman's book on
+graphical models{Koller+Friedman:09}.
 
 \begin{figure}
   \begin{center}
@@ -84,15 +90,17 @@ which is described in \cite[\S 11.3.5.1]{Koller+Friedman:09}.
   \label{fig:pentagram}
 \end{figure}
 
-Our initial approach for setting the weights in the Markov network requires,
-for each pair of languages, a parallel corpus for that language. It thus seems
+Our approach here for setting the weights in the Markov network requires, for
+each edge in the graph, a parallel corpus for that language pair. It thus seems
 less easily extensible than the classifier stacking approach, in which it is
-clear how we can include all kinds of heterogeneous information.
+clear how we can include information from many heterogeneous sources.
 The benefit of the Markov network approach is that it takes seriously the
 uncertainty present in the predictions of each of the component classifiers,
 solving the entire problem jointly.
-The Markov network approach may also play a part in our future CL-WSD systems.
-
+The Markov network approach may be useful for future CL-WSD systems in other
+settings, but we will not make further use of it for now, in the setting of
+translating into under-resourced languages, since we do not have many parallel
+corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
 %% XXX make it clear how we're going to use this for Chipa rather than making
