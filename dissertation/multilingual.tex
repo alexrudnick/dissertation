@@ -11,6 +11,14 @@ language; translation from \emph{e.g.} Spanish to English can be thought of as
 word-sense disambiguation. In this chapter, we will investigate making use of
 some of the available multilingual corpora resources.
 
+We want a CL-WSD system to be able to learn the relationships between the
+senses of a given source word that are lexicalized in different ways in various
+languages.
+Two target languages may happen to surface the same sense distinctions, perhaps
+due to being related languages, or simply by coincidence.
+Alternatively, a combination of translations into several languages may provide
+evidence for a certain lexical choice in the target language of interest.
+
 For some languages, such as those of the European Union, we have multiple
 bitext corpora available, covering several different language pairs with the
 same source language. Through the Europarl corpus \cite{europarl}, for example,
@@ -23,32 +31,33 @@ Each corpus may contain useful examples of a given source language word,
 and senses of that word may be lexicalized in varying, non-overlapping ways in
 the different target languages.
 This approach is particularly informed by the work of Els Lefever
-\emph{et. al} (see especially \cite{lefever-hoste-decock:2011:ACL-HLT2011}),
-although their technique requires an entire machine translation system to
-perform CL-WSD, which seems unwieldy when we want to use CL-WSD as a
-subcomponent of a machine translation system.
+\emph{et. al} (see especially \cite{lefever-hoste-decock:2011:ACL-HLT2011}), in
+which the entire source sentence is machine-translated into several different
+target languages just before inference time. One drawback is that this
+technique requires one or more an entire MT systems to perform CL-WSD, which
+seems unwieldy when we want to use CL-WSD as a subcomponent of a machine
+translation system.
 
-We want a CL-WSD system to be able to learn the relationships between the
-senses of a given source word that are lexicalized in different ways in various
-languages.
-Two target languages may happen to surface the same sense distinctions, perhaps
-due to being related languages, or simply by coincidence.
-Alternatively, a combination of translations into several languages may provide
-evidence for a certain lexical choice in the target language of interest.
-
-In earlier work, we developed a prototype CL-WSD system that made use of
-multilingual evidence \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced
-some of the best results in a SemEval shared task on CL-WSD \cite{task10}.  In
-our SemEval paper, we presented two different approaches for making use of
-multilingual evidence. The more complex of them was a system based on graphical
-models that performed loopy belief propagation over Markov networks, which we
-will discuss briefly here, in the next section.
+So considering this work, we developed a prototype CL-WSD system that made use
+of multilingual evidence \cite{rudnick-liu-gasser:2013:SemEval-2013} and
+produced some of the best results in a SemEval shared task on CL-WSD
+\cite{task10}.  In our SemEval paper, we presented two different approaches for
+making use of multilingual evidence. The more complex of them was a system
+based on graphical models that performed loopy belief propagation over Markov
+networks, which we will discuss briefly here, in the next section.
 The simpler approach described in that work was a relatively straightforward
 classifier stacking approach, where the outputs of several CL-WSD classifiers
 were used as input features for one final classifier. This approach is more
 immediately applicable to lexical selection when our target language is
 under-resourced, as it does not require bitext corpora between all of the
 involved languages.
+
+In general in the SemEval task, our systems that took into account evidence
+from multiple sources had better performance on the Semeval task than the one
+using monolingual features; our top results in every language came from either
+classifier stacking or the MRF classifier. This suggests that it is possible to
+make use of the evidence in several parallel corpora in a CL-WSD task without
+translating every word in a source sentence into many target languages.
 
 \section{CL-WSD with Markov Networks}
 In our SemEval entry, we investigated an approach based on Markov networks
@@ -101,16 +110,11 @@ estimated from our Dutch-French bitext, and the messages from the \emph{es},
   \label{fig:pentagram}
 \end{figure}
 
-In general, our systems that took into account evidence from multiple sources
-had better performance on the Semeval task than the one using monolingual
-features; our top result in every language came from either classifier stacking
-or the MRF classifier. This suggests that it is possible to make use of the
-evidence in several parallel corpora in a CL-WSD task without translating every
-word in a source sentence into many target languages, which was the approach
-taken by Lefever \emph{et al.} \cite{lefever-hoste-decock:2011:ACL-HLT2011}.
 
-However, the strategy taken here for setting the weights in the Markov network
-requires, for each edge in the graph, a parallel corpus for that language pair.
+While we were able to achieve fairly good results with these MRF-based
+classifiers on the Semeval CL-WSD task, our strategy for setting the weights in
+the Markov network requires, for each edge in the graph, a parallel corpus for
+the corresponding language pair.
 It thus seems less easily extensible than the classifier stacking approach, in
 which it is clear how we can include information from many heterogeneous
 sources. The benefit of the Markov network approach is that it takes seriously
@@ -118,7 +122,7 @@ the uncertainty present in the predictions of each of the component
 classifiers, solving the entire problem jointly.
 
 The Markov network approach may be useful for future CL-WSD systems in other
-settings, but we will not make further use of it for now, in the setting of
+settings, but we will not make further use of it for now, for the setting of
 translating into under-resourced languages, since we do not have many parallel
 corpora available for Guarani or Quechua.
 
