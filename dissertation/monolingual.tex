@@ -217,18 +217,28 @@ three words on a side? In Turian et al, they do two words on a side.
 In this work we use Percy Liang's implementation \footnote{Available at
 \url{https://github.com/percyliang/brown-cluster}} of Brown clustering
 \cite{Liang05semi-supervisedlearning}.
-We have run the tool on several corpora, varying in
-size from the Bible (roughly 30K sentences), to the rather larger Europarl
-corpus \cite{europarl} (2 million sentences), to larger still, a dump of the
-Spanish-language Wikipedia (20 million sentences).
-%% XXX: working here
+We have run the tool on several corpora, varying in size from the Bible
+(roughly 30K sentences), to the larger Europarl corpus \cite{europarl} (2
+million sentences), to larger still, a dump of the Spanish-language Wikipedia
+(20 million sentences). When working with Spanish, a consideration is the
+relative morphological richness of our input text; we could choose to lemmatize
+our input text before clustering, or not, and this decision will be more
+significant than it would be for English, given how much more inflection is
+present in Spanish.
+
+In this work we try both approaches, running the clustering tool on both the
+lemmatized and inflected versions of our input corpora. Examining the learned
+clusters, we see a few interesting things; first note the semantic
+relatedness. Also note that in the clusters learned from the surface-level
+text, we pick up on syntactic regularities as well as semantic ones.
+
+%% when we do clustering on lemmas, we seem to pick up more on ``semantic"
+%% categories of things. Note the ``infrastructure" cluster below -- it's got
+%% words that all pertain to infrastructure!
 
 %% TODO: include examples of the clusters that we learn from different corpora
 %% specify lemmatized versus not lemmatized
 
-Here's an interesting thing to note: when we do clustering on lemmas, we seem
-to pick up more on ``semantic" categories of things. Note the ``infrastructure"
-cluster below -- it's got words that all pertain to infrastructure!
 
 When we don't use lemmas, the cluster that contains ``infraestructura" contains
 these words: \emph{formación educación tecnología infraestructura publicidad
@@ -291,9 +301,11 @@ The classifiers using clusters extracted from the Spanish side of our bitext
 consistently outperformed those learned from the Europarl corpus. We had an
 intuition that the much larger corpus (nearly two million sentences) would
 help, but the clusters learned in-domain, largely from the Bible, reflect
-usage distinctions in that domain. Here we are in fact cheating slightly, as
-information from the complete corpus is used to classify parts of that corpus.
-
+usage distinctions in that domain. Here we are cheating slightly, as
+information from the complete corpus is used to classify parts of that corpus;
+the results here should be considered an upper bound on what would be possible
+with matching domain, if we are willing to trade size for a good match, rather
+than as clean experimental results.
 
 \section{Neural Word Embeddings}
 Another rich source of features that has proved useful for many text
