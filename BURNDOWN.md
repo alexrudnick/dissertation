@@ -6,6 +6,13 @@
 
 ### things left undone
 
+  * examine all of our Brown clusters that we found and make nice figures
+    * lemmatized bible
+    * surface bible
+    * lemmatized europarl
+    * surface europarl
+    * lemmatized wikipedia
+    * surface wikipedia
   * finish up analysis and writeup
   * make charts & graphs
   * word2vec features
