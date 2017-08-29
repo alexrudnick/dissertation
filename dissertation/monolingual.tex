@@ -82,6 +82,17 @@ parser also depends on the coarse-grained ``universal" POS tags
 \cite{PETROV12.274}, which we manually map from the IULA tagset to universal
 coarse tags.
 
+%% XXX working here
+Operationally, before training our CL-WSD system we parse all of the training
+data with the given MaltParser model and the tags inferred by FreeLing. The
+parses output by MaltParser are stored on disk in CONLL-X format. Then with a
+corpus annotation script, we use these saved parses to find every token's
+syntactic head (or the root of the sentence), and every token's syntactic
+children, if any. All of these are marked in the annotated training data, to be
+made available during feature extraction.
+
+%% XXX: maybe make a diagram for an example of how that works?
+
 \begin{figure*}
   \begin{centering}
   \begin{tabular}{|r|p{11cm}|}
