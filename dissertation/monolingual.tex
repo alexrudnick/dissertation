@@ -82,14 +82,16 @@ parser also depends on the coarse-grained ``universal" POS tags
 \cite{PETROV12.274}, which we manually map from the IULA tagset to universal
 coarse tags.
 
-%% XXX working here
 Operationally, before training our CL-WSD system we parse all of the training
-data with the given MaltParser model and the tags inferred by FreeLing. The
-parses output by MaltParser are stored on disk in CONLL-X format. Then with a
-corpus annotation script, we use these saved parses to find every token's
-syntactic head (or the root of the sentence), and every token's syntactic
-children, if any. All of these are marked in the annotated training data, to be
-made available during feature extraction.
+data with the given MaltParser model and the tags inferred by FreeLing during
+preprocessing. The parses output by MaltParser are stored on disk in CONLL-X
+format. Then with a corpus annotation script, we use the saved parses to find
+every token's syntactic head (or the root of the sentence), and every token's
+syntactic children, if any. All of these are marked in the annotated training
+data, to be made available during feature extraction. During feature extraction,
+chipa turns these stored annotations into sparse binary features. The list of
+all syntactic features made available to the classifier is listed in Figure
+\ref{fig:syntacticfeatures}.
 
 %% XXX: maybe make a diagram for an example of how that works?
 
@@ -195,6 +197,7 @@ to extract a number of different kinds of features for our classifiers; we may
 also choose a variety of inputs to the clustering algorithm in the first place.
 
 %% Some of the features ...
+%% XXX: working here
 
 We tried, for example, dropping a bag of all the clusters that occur in the
 sentence, and prefix features for all the clusters that appear too!
@@ -202,6 +205,7 @@ sentence, and prefix features for all the clusters that appear too!
 It might be the case that we really just need to add the very local context --
 three words on a side? In Turian et al, they do two words on a side.
 
+%% XXX: we have versions for wikipedia and europarl, don't we?
 \begin{figure*}
   \begin{centering}
   \begin{tabular}{|r|p{11cm}|}
