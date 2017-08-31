@@ -1,10 +1,8 @@
+# things left undone
+
 ## general
 
-  * DONE maybe rerun the experiments from the baseline chapter so we know that the results are comparable; we're using explicit lists of top words now.
-
 ## monolingual
-
-### things left undone
 
   * examine all of our Brown clusters that we found and make nice figures
     * lemmatized bible
@@ -81,6 +79,9 @@ hack up squoia again if necessary
 
 
 # fairly done things
+
+  * DONE maybe rerun the experiments from the baseline chapter so we know that the results are comparable; we're using explicit lists of top words now.
+
 ## monolingual done things
   * doc2vec things...
     * DONE turn inferred document vectors into features for classification

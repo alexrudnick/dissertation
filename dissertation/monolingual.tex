@@ -491,3 +491,28 @@ exhaustively.
   %% XXX: we don't actually have code to combine word2vec features with the
   %% default features yet.
 \end{itemize}
+
+\section{Classification Results} 
+
+\begin{figure}
+  %% \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
+  \caption{Baseline Chipa scores for Spanish-Guarani, by classifier.}
+  \label{fig:esgnresults:monolingual}
+\end{figure}
+
+\begin{figure}
+  %% \includegraphics[width=\textwidth]{baseline-esqu-ch4.png}
+  \caption{Baseline Chipa scores for Spanish-Quechua, by classifier.}
+  \label{fig:esquresults:monolingual}
+\end{figure}
+
+In Figures \ref{fig:esgnresults:monolingual},
+\ref{fig:esquresults:monolingual}, \ref{fig:esenresults:monolingual}, and
+\ref{fig:enesresults:monolingual}, we see the results
+for the Chipa system running with roughly the same classifiers used in Chapter
+\ref{chap:baseline}, but now with the features based on our monolingual
+resources described in this chapter. As before, we report classification
+accuracy as a percentage, and we performed ten-fold cross-validation, using all
+of the available training data for each of the lemmas in a given language
+pair's bitext that appear at least fifty times. Also as before, we consider the
+``regular" and ``non-null" classification settings separately.
