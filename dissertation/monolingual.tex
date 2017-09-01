@@ -94,7 +94,6 @@ all syntactic features made available to the classifier is listed in Figure
 \ref{fig:syntacticfeatures}.
 
 %% XXX: maybe make a diagram for an example of how that works?
-
 \begin{figure*}
   \begin{centering}
   \begin{tabular}{|r|p{11cm}|}
@@ -521,6 +520,7 @@ exhaustively.
   \label{fig:esquresults:monolingual}
 \end{figure}
 
+\subsection{Results using only word2vec embeddings}
 In Figures \ref{fig:esgnresults:monolingual},
 \ref{fig:esquresults:monolingual}, \ref{fig:esenresults:monolingual}, and
 \ref{fig:enesresults:monolingual}, we see the results
@@ -531,3 +531,28 @@ accuracy as a percentage, and we performed ten-fold cross-validation, using all
 of the available training data for each of the lemmas in a given language
 pair's bitext that appear at least fifty times. Also as before, we consider the
 ``regular" and ``non-null" classification settings separately.
+
+In general, we see that through using the word2vec embeddings summed over a
+window surrounding the focus word, we can get results significantly better than
+the MFS baseline, although not with all settings and not with all classifiers.
+A winning combination seems to be the skipgram embeddings trained on the
+Wikipedia dump, with a window size of three tokens on either side of the focus
+word, which beats the MFS accuracy by 1.2 percentage points over all words for
+the nullable ``regular" setting, and 1.4 percentage points in the ``non-null"
+setting. The width of the embeddings trained seems to have little effect, but
+the top performances were seen in both settings with the skipgrams trained on
+Wikipedia. We also see that the clear winner, out of the classifier
+architectures tried, was the maximum entropy classifier with L1
+regularization. The same linear classifier with L2 regularization was also able
+to outperform the MFS baseline, but not as well as the L1 version.
+
+Using skipgram embeddings trained on the smaller Europarl corpus was also able
+to beat the MFS baseline, but by a smaller margin than the embeddings trained
+on Wikipedia.
+
+Approaches that did not beat the MFS baseline included all uses of skipgrams,
+classifiers other than maximum entropy, and summing the embeddings across the
+entire sentence.
+
+\subsection{Results using syntactic features along with default features}
+%% XXX working here
