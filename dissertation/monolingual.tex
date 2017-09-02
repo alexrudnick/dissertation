@@ -555,8 +555,10 @@ classifiers other than maximum entropy, and summing the embeddings across the
 entire sentence. Additionally, while they were able to roughly match the MFS
 baseline, the doc2vec word embeddings were not able to outperform that
 baseline. Intuitively, perhaps trying to capture the entire sentence, rather
-than the area around the focus word, is less helpful for making CL-WSD
-decisions.
+than the area around the focus word, is less helpful for making local CL-WSD
+decisions; this interpretation is consistent at least with our observation that
+summing the embeddings for the entire sentence is less helpful than summing the
+embeddings in a small window around the focus word.
 
 \subsection{Results using syntactic features along with default features}
 %% XXX working here
