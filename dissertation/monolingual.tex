@@ -520,7 +520,7 @@ exhaustively.
   \label{fig:esquresults:monolingual}
 \end{figure}
 
-\subsection{Results using only word2vec embeddings}
+\subsection{Results using only neural embeddings}
 In Figures \ref{fig:esgnresults:monolingual},
 \ref{fig:esquresults:monolingual}, \ref{fig:esenresults:monolingual}, and
 \ref{fig:enesresults:monolingual}, we see the results
@@ -552,7 +552,11 @@ on Wikipedia.
 
 Approaches that did not beat the MFS baseline included all uses of skipgrams,
 classifiers other than maximum entropy, and summing the embeddings across the
-entire sentence.
+entire sentence. Additionally, while they were able to roughly match the MFS
+baseline, the doc2vec word embeddings were not able to outperform that
+baseline. Intuitively, perhaps trying to capture the entire sentence, rather
+than the area around the focus word, is less helpful for making CL-WSD
+decisions.
 
 \subsection{Results using syntactic features along with default features}
 %% XXX working here
