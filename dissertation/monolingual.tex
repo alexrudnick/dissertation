@@ -194,8 +194,8 @@ questions.
 We can use such a clustering $C$ (i.e., a mapping from word types to clusters)
 to extract a number of different kinds of features for our classifiers; we may
 also choose a variety of inputs to the clustering algorithm in the first place.
-
-%% Some of the features ...
+In principle, we may gain useful clusters from any large sample of text in the
+source language, and any preprocessing on that corpus could be useful.
 %% XXX: working here
 
 We tried, for example, dropping a bag of all the clusters that occur in the
@@ -562,3 +562,10 @@ embeddings in a small window around the focus word.
 
 \subsection{Results using syntactic features along with default features}
 %% XXX working here
+
+Taking a look at the scores from the features based on extant Spanish-language
+NLP tools, we see that we were able to surpass the MFS baseline with the
+dependency-parse and POS-tag-based features. They seemed to work especially
+well with the L2-norm maxent classifier and random forests.
+
+%% XXX: try just pos tags? how does that compare?
