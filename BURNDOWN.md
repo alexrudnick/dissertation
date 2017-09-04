@@ -12,6 +12,10 @@
     * surface europarl
     * lemmatized wikipedia
     * surface wikipedia
+  * try combinations of default features with embeddings.
+    * shouldn't be hard: calculate embeddings as before, just add those as some
+    more features, right? One feature per dimension, just loop over the
+    dimensions.
   * finish up analysis and writeup
   * make charts & graphs
   * word2vec features
