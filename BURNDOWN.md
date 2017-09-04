@@ -1,6 +1,7 @@
 # things left undone
 
 ## general
+  * be able to draw curves of word training data size versus accuracy
 
 ## monolingual
 

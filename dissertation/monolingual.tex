@@ -561,11 +561,15 @@ summing the embeddings for the entire sentence is less helpful than summing the
 embeddings in a small window around the focus word.
 
 \subsection{Results using syntactic features along with default features}
-%% XXX working here
-
-Taking a look at the scores from the features based on extant Spanish-language
-NLP tools, we see that we were able to surpass the MFS baseline with the
-dependency-parse and POS-tag-based features. They seemed to work especially
-well with the L2-norm maxent classifier and random forests.
+Taking a look at the scores from the features based on easily available
+Spanish-language taggers and parsers, we see that we were able to surpass the
+MFS baseline with the dependency-parse and POS-tag-based features. They seemed
+to work especially well with the L2-norm maxent classifier and random forests.
+Furthermore, they beat the default features described in Chapter
+\ref{chap:baseline} by roughly half a percentage point: 0.5 or 0.6 percentage
+points, in the ``regular" and ``non-null" settings, respectively.
 
 %% XXX: try just pos tags? how does that compare?
+
+%% furthermore: how does our accuracy correlate with training set size, when we
+%% consider words separately? Can we draw that curve?
