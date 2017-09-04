@@ -50,9 +50,6 @@ Then use output of those systems as features.
 That looks like...
   * need lemmatizers and perhaps POS taggers.
 
-## sequence
-CANCELED!!
-
 ## combinations
   * try combinations.
 
@@ -155,3 +152,5 @@ hack up squoia again if necessary
     * CONCEPTUALLY DONE there's just one vector per sentence, so there's your
     feature vector.
 
+## sequence
+CANCELED!!
