@@ -20,8 +20,6 @@
   * make charts & graphs
   * word2vec features
     * what window to use?
-    * vector combination: weighted sum of the vectors, weighting words closer to
-    the focus word more.
   * doc2vec features
     * consider doing doc2vec trained on just windows? does that even make sense?
     * EMPIRICAL QUESTION: does it even really make sense to use doc2vec by
@@ -114,6 +112,7 @@ hack up squoia again if necessary
   * word2vec features
     * DONE how best to combine vectors for different words: addition seems to
       be the done thing.
+    * DONE vector combination: weighted sum of the vectors, weighting words closer to the focus word more.
     * DONE is it best to have vectors over lemmas or surface forms? lowercasing?
       * DONE almost certainly surface forms -- that's kind of the point of these semi-supervised things.
       * DONE also probably keep case. case has meaning.
