@@ -404,11 +404,23 @@ combination. The typical approach (XXX citation) is to take element-wise sums
 or averages over the embedding vectors for the tokens in a context.
 
 There are a variety of approaches we could take, even within summing and
-averageing. We could sum (element-wise) all of the word vectors for all the
+averaging. We could sum (element-wise) all of the word vectors for all the
 tokens in the entire sentence. We could only consider the words in a narrow
 window around the focus word. Or we could perform a weighted sum, in which
 words nearer to the focus word are given more weight, but these weights drop
-off according to some function, the farther away they are from the focus word.
+off according to some function, scaling with the distance from the focus word.
+For our experiments here, we try these three different approaches, resulting in
+three different feature sets.
+
+In the first feature set, called ``window", we present the classifier with the
+element-wise sum of the vectors for the focus word (or the token containing the
+focus word, if it is inside a multi-word expression) and the three tokens on
+either side. The resulting vector thus has the same dimensionality as the word
+embeddings that we learned. Secondly, in the ``fullsent" feature set, we
+perform an unweighted element-wise sum of the word embeddings for the entire
+sentence. Finally, in the ``pyramid" feature set, we sum the embeddings for
+each token in a broad window around the focus word, but before summing, scale
+the embeddings by $1.0 - (0.1 * d) $, for a minimum of 0.
 
 %% XXX working here
 
