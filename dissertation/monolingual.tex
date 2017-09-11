@@ -533,6 +533,7 @@ exhaustively.
 \end{figure}
 
 \subsection{Results using only neural embeddings}
+%% XXX: fix transition so that it's clear these are just Spanish-Guaraní
 In Figures \ref{fig:esgnresults:monolingual},
 \ref{fig:esquresults:monolingual}, \ref{fig:esenresults:monolingual}, and
 \ref{fig:enesresults:monolingual}, we see the results
@@ -547,16 +548,22 @@ pair's bitext that appear at least fifty times. Also as before, we consider the
 In general, we see that through using the word2vec embeddings summed over a
 window surrounding the focus word, we can get results significantly better than
 the MFS baseline, although not with all settings and not with all classifiers.
-A winning combination seems to be the skipgram embeddings trained on the
-Wikipedia dump, with a window size of three tokens on either side of the focus
-word, which beats the MFS accuracy by 1.2 percentage points over all words for
-the nullable ``regular" setting, and 1.4 percentage points in the ``non-null"
-setting. The width of the embeddings trained seems to have little effect, but
-the top performances were seen in both settings with the skipgrams trained on
-Wikipedia. We also see that the clear winner, out of the classifier
-architectures tried, was the maximum entropy classifier with L1
-regularization. The same linear classifier with L2 regularization was also able
-to outperform the MFS baseline, but not as well as the L1 version.
+One fairly successful combination seems to be the skipgram embeddings trained
+on the Wikipedia dump, with a window size of three tokens on either side of the
+focus word, which beats the MFS accuracy by 1.2 percentage points over all
+words for the nullable ``regular" setting, and 1.4 percentage points in the
+``non-null" setting. The width of the embeddings trained seems to have little
+effect, but the top performances were seen in both settings with the skipgrams
+trained on Wikipedia. We also see that the clear winner, out of the classifier
+architectures tried, was the maximum entropy classifier with L1 regularization.
+The same linear classifier with L2 regularization was also able to outperform
+the MFS baseline, but not as well as the L1 version.
+
+Additionally, using the ``pyramid" style of embedding combinations seems to
+slightly outperform simply summing over a window of three tokens. Out of all
+the results for Spanish-Guaraní using only neural embeddings, we got the best
+results using ``pyrmaid" style combinations, with the Wikipedia skipgram
+embeddings, and a maximum entropy classifier with L1 regularization.
 
 Using skipgram embeddings trained on the smaller Europarl corpus was also able
 to beat the MFS baseline, but by a smaller margin than the embeddings trained
