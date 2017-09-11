@@ -533,16 +533,15 @@ exhaustively.
 \end{figure}
 
 \subsection{Results using only neural embeddings}
-%% XXX: fix transition so that it's clear these are just Spanish-Guaraní
 In Figures \ref{fig:esgnresults:monolingual},
 \ref{fig:esquresults:monolingual}, \ref{fig:esenresults:monolingual}, and
-\ref{fig:enesresults:monolingual}, we see the results
-for the Chipa system running with roughly the same classifiers used in Chapter
-\ref{chap:baseline}, but now with the features based on our monolingual
-resources described in this chapter. As before, we report classification
-accuracy as a percentage, and we performed ten-fold cross-validation, using all
-of the available training data for each of the lemmas in a given language
-pair's bitext that appear at least fifty times. Also as before, we consider the
+\ref{fig:enesresults:monolingual}, we see the results for the Chipa system with
+roughly the same classifiers used in Chapter \ref{chap:baseline}, but now with
+the features based on our monolingual resources described in this chapter,
+first on Spanish-Guaraní. As before, we report classification accuracy as a
+percentage, and we performed ten-fold cross-validation, using all of the
+available training data for each of the lemmas in a given language pair's
+bitext that appear at least fifty times. Also as before, we consider the
 ``regular" and ``non-null" classification settings separately.
 
 In general, we see that through using the word2vec embeddings summed over a
@@ -563,7 +562,10 @@ Additionally, using the ``pyramid" style of embedding combinations seems to
 slightly outperform simply summing over a window of three tokens. Out of all
 the results for Spanish-Guaraní using only neural embeddings, we got the best
 results using ``pyrmaid" style combinations, with the Wikipedia skipgram
-embeddings, and a maximum entropy classifier with L1 regularization.
+embeddings, and a maximum entropy classifier with L1 regularization. This beat
+the MFS baseline by 1.3 percentage points in the ``regular" setting and 1.5
+percentage points in the ``nonnull" setting, slightly outperforming the
+``window" style of combination.
 
 Using skipgram embeddings trained on the smaller Europarl corpus was also able
 to beat the MFS baseline, but by a smaller margin than the embeddings trained
@@ -578,6 +580,9 @@ than the area around the focus word, is less helpful for making local CL-WSD
 decisions; this interpretation is consistent at least with our observation that
 summing the embeddings for the entire sentence is less helpful than summing the
 embeddings in a small window around the focus word.
+
+%% XXX: add the Quechua results once those are ready
+%% XXX: make some nice graphs
 
 \subsection{Results using syntactic features along with default features}
 Taking a look at the scores from the features based on easily available
