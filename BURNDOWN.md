@@ -18,16 +18,12 @@
     dimensions.
   * finish up analysis and writeup
   * make charts & graphs
-  * word2vec features
-    * what window to use?
   * doc2vec features
-    * consider doing doc2vec trained on just windows? does that even make sense?
     * EMPIRICAL QUESTION: does it even really make sense to use doc2vec by
     itself? is the meaning of the sentence as a whole what we want, for
     classifying a particular token
     usage?
-    * understand and explain the doc2vec paper (cited in dissertation)
-      * SKIP?? how does training data size affect quality?
+  * understand and explain the doc2vec paper (cited in dissertation)
 
 ## multilingual
   * train systems to target any other European languages we can get a
