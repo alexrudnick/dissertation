@@ -532,7 +532,7 @@ exhaustively.
   \label{fig:esquresults:monolingual}
 \end{figure}
 
-\subsection{Results using only neural embeddings}
+\subsection{Results: using only neural embeddings}
 In Figure \ref{fig:esgnresults:monolingual}, we see the results for the Chipa
 system with roughly the same classifiers used in Chapter \ref{chap:baseline},
 but now with the features based on our monolingual resources described in this
@@ -569,15 +569,15 @@ Using skipgram embeddings trained on the smaller Europarl corpus was also able
 to beat the MFS baseline, but by a smaller margin than the embeddings trained
 on Wikipedia.
 
-Approaches that did not beat the MFS baseline included all uses of skipgrams,
-classifiers other than maximum entropy, and summing the embeddings across the
-entire sentence. Additionally, while they were able to roughly match the MFS
-baseline, the doc2vec word embeddings were not able to outperform that
-baseline. Intuitively, perhaps trying to capture the entire sentence, rather
-than the area around the focus word, is less helpful for making local CL-WSD
-decisions; this interpretation is consistent at least with our observation that
-summing the embeddings for the entire sentence is less helpful than summing the
-embeddings in a small window around the focus word.
+Approaches that did not beat the MFS baseline included all uses of continuous
+bag of words, classifiers other than maximum entropy, and summing the
+embeddings across the entire sentence. Additionally, while they were able to
+roughly match the MFS baseline, the doc2vec word embeddings were not able to
+outperform that baseline. Intuitively, perhaps trying to capture the entire
+sentence, rather than the area around the focus word, is less helpful for
+making local CL-WSD decisions; this interpretation is consistent at least with
+our observation that summing the embeddings for the entire sentence is less
+helpful than summing the embeddings in a small window around the focus word.
 
 For Spanish-Quechua, we were also able to beat the MFS baseline using only word
 embedding features. Here again, we see the use of ``pyramid" combinations
@@ -593,11 +593,16 @@ MFS baseline, this time by 3.5 percentage points, using pyramid combinations,
 and 400-dimensional skipgram embeddings trained on Wikipedia, with the L2
 maximum entropy classifier. The other dimensionalities follow closely behind,
 as do the ``window" combination methods.
-%% XXX: try cbow with Quechua.
+
+As with the previous language pair, for Spanish-Quechua using skipgram
+embeddings was much more effective on this task than the continuous bag of
+words embeddings; we were unable to surpass the MFS baseline with any of the
+``cbow" embeddings, whether they were trained on Europarl or Wikipedia, and for
+any of the combination methods.
 
 %% XXX: make some nice graphs
 
-\subsection{Results using syntactic features along with default features}
+\subsection{Results: syntactic features with default features}
 Taking a look at the scores from the features based on easily available
 Spanish-language taggers and parsers, we see that for Spanish-Guarani, we were
 able to surpass the MFS baseline with the dependency-parse and POS-tag-based
@@ -631,3 +636,7 @@ by 4.3 points.
 
 %% furthermore: how does our accuracy correlate with training set size, when we
 %% consider words separately? Can we draw that curve?
+
+\section{Results: combining neural embeddings with sparse features}
+
+%% XXX: still need to implement this and run the experiments!!
