@@ -532,7 +532,45 @@ exhaustively.
   \label{fig:esquresults:monolingual}
 \end{figure}
 
-\subsection{Results: using only neural embeddings}
+\subsection{Results: adding syntactic features}
+Taking a look at the scores from the features based on easily available
+Spanish-language taggers and parsers, we see that for Spanish-Guarani, we were
+able to surpass the MFS baseline with the dependency-parse and POS-tag-based
+features. They seemed to work especially well with the L2-norm maxent
+classifier and random forests.  Furthermore, they beat the default features
+described in Chapter \ref{chap:baseline} by roughly half a percentage point:
+0.5 or 0.6 percentage points, in the ``regular" and ``non-null" settings,
+respectively.
+%% XXX: did we run just POS tags for Guaraní?
+
+We see fairly similar results for Spanish-Quechua, which are shown in Figure
+\ref{fig:esquresults:monolingual}. Our strongest results for the ``regular"
+classification setting came with the use of the syntactic features, using
+random decision forests, which beat the Spanish-Quechua MFS baseline by 3.5
+percentage points. Random forests with the ``POS tags" feature set was nearly
+as strong, beating the baseline by 3.1 points. Random forests seemed to work
+quite well broadly for Spanish-Quechua; the default feature set beat the
+MFS baseline by 2.8 points.
+
+Maximum entropy classifiers with L2 regularization and syntactic features also
+did fairly well for Spanish-Quechua, beating the baseline by 2.9 points.
+
+For the ``nonnull" case of Spanish-Quechua, we see the order of the top
+classifiers flipped; the maximum entropy classifier had the top results,
+beating the MFS baseline by 5 percentage points. Using just the default
+features with added POS tags beats the baseline by 4.7 percentage points. For
+comparison, the default feautres win out over the MFS baseline by 4 percentage
+points with L2 maximum entropy, or 3.9 points with random forests. For random
+forests with the syntactic features, we see that setting beat the MFS baseline
+by 4.3 points.
+
+%% furthermore: how does our accuracy correlate with training set size, when we
+%% consider words separately? Can we draw that curve?
+
+\subsection{Results: adding clustering features}
+%% XXX: gotta get results for these experiments
+
+\subsection{Results: neural embeddings alone}
 In Figure \ref{fig:esgnresults:monolingual}, we see the results for the Chipa
 system with roughly the same classifiers used in Chapter \ref{chap:baseline},
 but now with the features based on our monolingual resources described in this
@@ -584,9 +622,10 @@ embedding features. Here again, we see the use of ``pyramid" combinations
 working well, and the Wikipedia embeddings outperforming the embeddings trained
 on Europarl. The top combination for Quechua on the ``regular setting", using
 100-dimensional skipgram embeddings trained on Wikipedia, combined with the
-``pyramid" approach, beats the MFS baseline by 1.8 percentage points.
-The other dimensionalities follow closely behind, with 200, 100, and 400
-providing results just a few tenths of a percent worse.
+``pyramid" approach, beats the MFS baseline by 1.8 percentage points. The other
+dimensionalities follow closely behind, with 200, 100, and 400 providing
+results just a few tenths of a percent worse. Also, the ``window" combination
+method worked nearly as well as ``pyramid".
 
 In the ``nonnull" setting, using word embedding features alone also beats the
 MFS baseline, this time by 3.5 percentage points, using pyramid combinations,
@@ -598,44 +637,11 @@ As with the previous language pair, for Spanish-Quechua using skipgram
 embeddings was much more effective on this task than the continuous bag of
 words embeddings; we were unable to surpass the MFS baseline with any of the
 ``cbow" embeddings, whether they were trained on Europarl or Wikipedia, and for
-any of the combination methods.
+any of the combination methods. Also, as with Spanish-Guaraní, we did not see
+the ``fullsent" combination strategy beat the MFS baseline for any of our
+parameter settings.
 
 %% XXX: make some nice graphs
-
-\subsection{Results: syntactic features with default features}
-Taking a look at the scores from the features based on easily available
-Spanish-language taggers and parsers, we see that for Spanish-Guarani, we were
-able to surpass the MFS baseline with the dependency-parse and POS-tag-based
-features. They seemed to work especially well with the L2-norm maxent
-classifier and random forests.  Furthermore, they beat the default features
-described in Chapter \ref{chap:baseline} by roughly half a percentage point:
-0.5 or 0.6 percentage points, in the ``regular" and ``non-null" settings,
-respectively.
-%% XXX: did we run just POS tags for Guaraní?
-
-We see fairly similar results for Spanish-Quechua, which are shown in Figure
-\ref{fig:esquresults:monolingual}. Our strongest results for the ``regular"
-classification setting came with the use of the syntactic features, using
-random decision forests, which beat the Spanish-Quechua MFS baseline by 3.5
-percentage points. Random forests with the ``POS tags" feature set was nearly
-as strong, beating the baseline by 3.1 points. Random forests seemed to work
-quite well broadly for Spanish-Quechua; the default feature set beat the
-MFS baseline by 2.8 points.
-
-Maximum entropy classifiers with L2 regularization and syntactic features also
-did fairly well for Spanish-Quechua, beating the baseline by 2.9 points.
-
-For the ``nonnull" case of Spanish-Quechua, we see the order of the top
-classifiers flipped; the maximum entropy classifier had the top results,
-beating the MFS baseline by 5 percentage points. Using just the default
-features with added POS tags beats the baseline by 4.7 percentage points. For
-comparison, the default feautres win out over the MFS baseline by 4 percentage
-points with L2 maximum entropy, or 3.9 points with random forests. For random
-forests with the syntactic features, we see that setting beat the MFS baseline
-by 4.3 points.
-
-%% furthermore: how does our accuracy correlate with training set size, when we
-%% consider words separately? Can we draw that curve?
 
 \section{Results: combining neural embeddings with sparse features}
 
