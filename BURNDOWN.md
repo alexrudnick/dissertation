@@ -4,7 +4,17 @@
   * be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-
+  * clean and rationalize code for brown cluster features a bit.
+  * run experiments for brown clusters
+    * europarl clusters
+    * europarl lemma clusters
+    * wikipedia clusters
+    * wikipedia lemma clusters
+    * as above, but with cluster prefixes
+  * try combinations of default features with embeddings.
+    * shouldn't be hard: calculate embeddings as before, just add those as some
+    more features, right? One feature per dimension, just loop over the
+    dimensions.
   * examine all of our Brown clusters that we found and make nice figures
     * lemmatized bible
     * surface bible
@@ -12,10 +22,6 @@
     * surface europarl
     * lemmatized wikipedia
     * surface wikipedia
-  * try combinations of default features with embeddings.
-    * shouldn't be hard: calculate embeddings as before, just add those as some
-    more features, right? One feature per dimension, just loop over the
-    dimensions.
   * finish up analysis and writeup
   * make charts & graphs
   * doc2vec features
