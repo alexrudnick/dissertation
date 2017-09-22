@@ -6,11 +6,11 @@
 ## monolingual
   * clean and rationalize code for brown cluster features a bit.
   * run experiments for brown clusters
+    * always use feature prefixes, just cite Turian et al as explanation
     * europarl clusters
     * europarl lemma clusters
     * wikipedia clusters
     * wikipedia lemma clusters
-    * as above, but with cluster prefixes
   * try combinations of default features with embeddings.
     * shouldn't be hard: calculate embeddings as before, just add those as some
     more features, right? One feature per dimension, just loop over the
