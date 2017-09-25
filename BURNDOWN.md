@@ -5,7 +5,6 @@
 
 ## monolingual
   * run experiments for brown clusters AND syntactic features at once
-  * clean and rationalize code for brown cluster features a bit.
   * try combinations of default features with embeddings.
     * shouldn't be hard: calculate embeddings as before, just add those as some
     more features, right? One feature per dimension, just loop over the
@@ -86,6 +85,7 @@ hack up squoia again if necessary
     * DONE europarl lemma clusters
     * DONE wikipedia clusters
     * DONE wikipedia lemma clusters
+  * SKIP clean and rationalize code for brown cluster features a bit.
   * doc2vec things...
     * DONE turn inferred document vectors into features for classification
       * DONE probably just stick an annotation on the first token in the sentence
