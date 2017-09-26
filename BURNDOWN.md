@@ -4,7 +4,6 @@
   * be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * run experiments for brown clusters AND syntactic features at once
   * try combinations of default features with embeddings.
     * shouldn't be hard: calculate embeddings as before, just add those as some
     more features, right? One feature per dimension, just loop over the
@@ -79,6 +78,7 @@ hack up squoia again if necessary
   * DONE maybe rerun the experiments from the baseline chapter so we know that the results are comparable; we're using explicit lists of top words now.
 
 ## monolingual done things
+  * DONE run experiments for brown clusters AND syntactic features at once
   * run experiments for brown clusters
     * DONE always use feature prefixes, just cite Turian et al as explanation
     * DONE europarl clusters
