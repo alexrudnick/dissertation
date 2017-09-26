@@ -492,15 +492,12 @@ exhaustively.
 
 \begin{itemize}
   \item es-gn, es-qu with pos tags
-  \item es-gn, es-qu with syntactic heads
-  \item es-gn, es-qu with syntactic children
-  \item es-gn, es-qu with all syntactic features
+  \item es-gn, es-qu with pos tags and syntactic heads and children
 \end{itemize}
 
 \begin{itemize}
   \item es-gn, es-qu with europarl brown clusters
   \item es-gn, es-qu with wikipedia brown clusters
-  \item es-gn, es-qu with europarl and wikipedia brown clusters
   \item es-gn, es-qu with word2vec embeddings of dimensions (50, 100, 200, 400)
   from both europarl and wikipedia
 \end{itemize}
@@ -508,14 +505,12 @@ exhaustively.
 \begin{itemize}
   \item es-gn, es-qu with europarl embeddings
   \item es-gn, es-qu with wikipedia embeddings
-  \item es-gn, es-qu with europarl and wikipedia embeddings
-  \item es-gn, es-qu with pos tags and syntactic heads
 \end{itemize}
 
 \begin{itemize}
-  \item combine the most promising ones ??
+  \item combine the most promising ones
   %% XXX: we don't actually have code to combine word2vec features with the
-  %% default features yet.
+  %% sparse features yet.
 \end{itemize}
 
 \section{Classification Results} 
@@ -540,8 +535,10 @@ features. They seemed to work especially well with the L2-norm maxent
 classifier and random forests.  Furthermore, they beat the default features
 described in Chapter \ref{chap:baseline} by roughly half a percentage point:
 0.5 or 0.6 percentage points, in the ``regular" and ``non-null" settings,
-respectively.
-%% XXX: did we run just POS tags for Guaraní?
+respectively. Adding the part-of-speech features without the parse features
+worked nearly as well, falling a tenth of a percentage point behind using all
+of the syntactic features in the ``regular" setting, and three tenths of a
+point behind in the ``nonnull" setting.
 
 We see fairly similar results for Spanish-Quechua, which are shown in Figure
 \ref{fig:esquresults:monolingual}. Our strongest results for the ``regular"
@@ -568,7 +565,24 @@ by 4.3 points.
 %% consider words separately? Can we draw that curve?
 
 \subsection{Results: adding clustering features}
-%% XXX: gotta get results for these experiments
+
+%% XXX working here
+Results for clustering for Spanish-Guaraní:
+using a bag of brown for the whole sentence didn't work very well.
+Using the brown clusters for a small window around the focus word worked well!
+
+Similar for Spanish-Quechua.
+
+Lemmatizing the source text before extracting
+Brown clusters did not seem to help; in fact the scores for lemmatized Brown
+clusters were a few tenths of a percentage point lower.  
+
+When we use Brown clusters in the window alongside the syntactic featues, that
+works best of all so far, for Spanish-Guaraní and Spanish-Quechua, in both
+regular and nonnull settings. That is pretty cool. So if you've got a tagger,
+a parser, and a bunch of monolingual text for your source language, you can
+probably make your CL-WSD classification rather better, all without any
+particular resources for your target language.
 
 \subsection{Results: neural embeddings alone}
 In Figure \ref{fig:esgnresults:monolingual}, we see the results for the Chipa
