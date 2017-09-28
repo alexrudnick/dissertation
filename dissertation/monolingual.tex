@@ -485,10 +485,17 @@ sentence, so they can be made available during feature extraction.
 
 \section{Experiments}
 \label{sec:monolingual-experiments}
-Here we repeat the experiments from Chapter \ref{chap:evaluation}, with the
-addition of features extracted from syntactic tools, Brown clusters, and neural
-While there are many possible combinations, we do not try all of them
-exhaustively.
+Here we repeat the experiments from Chapter \ref{chap:baseline} for
+Spanish-Guaraní and Spanish-Quechua, with the addition of features extracted
+from syntactic tools, Brown clusters, and the various kinds of neural
+embeddings presented in this chapter.
+
+Most of the experiments here used the features in Figure
+\ref{fig:baselinefeatures}, but we additionally did experiments with the neural
+embedding features on their own.
+
+While there are many possible combinations of these features, we did not try
+all of them exhaustively.
 
 \begin{itemize}
   \item es-gn, es-qu with pos tags
@@ -565,7 +572,6 @@ by 4.3 points.
 %% consider words separately? Can we draw that curve?
 
 \subsection{Results: adding clustering features}
-
 %% XXX working here
 Results for clustering for Spanish-Guaraní:
 using a bag of brown for the whole sentence didn't work very well.
