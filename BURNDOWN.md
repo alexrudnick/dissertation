@@ -4,10 +4,6 @@
   * be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * try combinations of default features with embeddings.
-    * shouldn't be hard: calculate embeddings as before, just add those as some
-    more features, right? One feature per dimension, just loop over the
-    dimensions.
   * examine all of our Brown clusters that we found and make nice figures
     * lemmatized bible
     * surface bible
@@ -17,11 +13,6 @@
     * surface wikipedia
   * finish up analysis and writeup
   * make charts & graphs
-  * doc2vec features
-    * EMPIRICAL QUESTION: does it even really make sense to use doc2vec by
-    itself? is the meaning of the sentence as a whole what we want, for
-    classifying a particular token
-    usage?
   * understand and explain the doc2vec paper (cited in dissertation)
 
 ## multilingual
@@ -79,6 +70,10 @@ hack up squoia again if necessary
 
 ## monolingual done things
   * DONE run experiments for brown clusters AND syntactic features at once
+  * DONE try combinations of default features with embeddings.
+    * DONE shouldn't be hard: calculate embeddings as before, just add those as some
+    more features, right? One feature per dimension, just loop over the
+    dimensions.
   * run experiments for brown clusters
     * DONE always use feature prefixes, just cite Turian et al as explanation
     * DONE europarl clusters
@@ -153,6 +148,11 @@ hack up squoia again if necessary
     * turn inferred document vectors into features for classification
     * CONCEPTUALLY DONE there's just one vector per sentence, so there's your
     feature vector.
+  * DONE doc2vec features
+    * EMPIRICAL QUESTION: does it even really make sense to use doc2vec by
+    itself? is the meaning of the sentence as a whole what we want, for
+    classifying a particular token
+    usage?
 
 ## sequence
 CANCELED!!
