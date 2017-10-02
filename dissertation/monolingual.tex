@@ -665,4 +665,10 @@ parameter settings.
 
 \section{Results: combining neural embeddings with sparse features}
 
-%% XXX: still need to implement this and run the experiments!!
+We can successfully combine the syntactic features with the ``pyramid" style
+word2vec embeddings!
+For both Spanish-Guaraní and Spanish-Quechua, the ``monolingual-nobag" feature
+set, which combines word2vec embeddings with syntactic features but leaves out
+the ``bag of words" features for the entire sentence, outperforms any of the
+word2vec feature sets, by about a percentage point for both regular and nonnull
+settings. That's kind of a nice result.
