@@ -204,7 +204,6 @@ sentence, and prefix features for all the clusters that appear too!
 It might be the case that we really just need to add the very local context --
 three words on a side? In Turian et al, they do two words on a side.
 
-%% XXX: we have versions for wikipedia and europarl, don't we?
 \begin{figure*}
   \begin{centering}
   \begin{tabular}{|r|p{11cm}|}
@@ -213,30 +212,24 @@ three words on a side? In Turian et al, they do two words on a side.
     \hline
     \texttt{brown\_bag}    & Bag of all Brown clusters for the entire sentence \\
     \hline
-    \texttt{brown\_window}  & All Brown clusters for a window around the focus word\\
-    \hline
-    \texttt{flat\_brown\_bag} & \emph{ibid.}, ... \\
-    \hline
-    \texttt{flat\_brown\_window} & \emph{ibid.}, ... \\
-    %% XXX: add some more
-    \hline
+    \texttt{brown\_window}  & All Brown clusters for the three-token window around the focus word \\
   \end{tabular}
   \end{centering}
-  \caption{Features extracted from Brown clusters}
+  \caption{Features extracted from Brown clusters. These came in surface-form
+  and lemma variants, and were trained on both the Europarl for Spanish, and
+  our Wikipedia dump.}
   \label{fig:brownfeatures}
 \end{figure*}
-
 
 \section{Brown clustering in practice}
 In this work we use Percy Liang's implementation \footnote{Available at
 \url{https://github.com/percyliang/brown-cluster}} of Brown clustering
-\cite{Liang05semi-supervisedlearning}.
-We have run the tool on several corpora, varying in size from the Bible
-(roughly 30K sentences), to the larger Europarl corpus \cite{europarl} (2
-million sentences), to larger still, a dump of the Spanish-language Wikipedia
-(20 million sentences). When working with Spanish, a consideration is the
-relative morphological richness of our input text; we could choose to lemmatize
-our input text before clustering, or not, and this decision will be more
+\cite{Liang05semi-supervisedlearning}.  We ran this tool on two different
+monolingual corpora, the Spanish section of the Europarl corpus \cite{europarl}
+(2 million sentences) and a dump of the Spanish-language Wikipedia (20 million
+sentences). When working with Spanish, a consideration is the relative
+morphological richness of our input text; we could choose to lemmatize our
+input text before clustering, or not, and this decision will be more
 significant than it would be for English, given how much more inflection is
 present in Spanish.
 
