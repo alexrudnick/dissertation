@@ -35,6 +35,7 @@ That looks like...
   * need lemmatizers and perhaps POS taggers.
 
 ## combinations
+  * is this really a chapter? it's probably not really a chapter
   * try combinations.
 
 ## integration
