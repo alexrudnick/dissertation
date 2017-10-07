@@ -34,10 +34,6 @@ Then use output of those systems as features.
 That looks like...
   * need lemmatizers and perhaps POS taggers.
 
-## combinations
-  * is this really a chapter? it's probably not really a chapter
-  * try combinations.
-
 ## integration
 hack up squoia again if necessary
 
@@ -157,3 +153,8 @@ hack up squoia again if necessary
 
 ## sequence
 CANCELED!!
+
+## combinations
+  * CANCELED?? As a chapter anyway. Just do combinations as we go.
+  * try combinations.
+
