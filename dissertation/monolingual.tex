@@ -8,7 +8,7 @@ approaches considered in this chapter make additional features or different
 representations available to the CL-WSD classifiers based on knowledge of the
 source language, either gleaned through unsupervised methods or baked into
 extant tools. Since we have relatively little bitext available for
-Spanish-Guarani and Spanish-Quechua, we will need to lean more on our Spanish
+Spanish-Guaraní and Spanish-Quechua, we will need to lean more on our Spanish
 resources, software and data, in order to make better sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
@@ -482,10 +482,9 @@ Here we repeat the experiments from Chapter \ref{chap:baseline} for
 Spanish-Guaraní and Spanish-Quechua, with the addition of features extracted
 from syntactic tools, Brown clusters, and the various kinds of neural
 embeddings presented in this chapter.
-
-Most of the experiments here used the features in Figure
-\ref{fig:baselinefeatures}, but we additionally did experiments with the neural
-embedding features on their own.
+The systems in these experiments use the same classification algorithms that we
+used in Chapter \ref{chap:baseline}, simply with different or additional
+features; notably we tried using the neural embedding features on their own.
 
 While there are many possible combinations of these features, we did not try
 all of them exhaustively.
@@ -498,26 +497,23 @@ all of them exhaustively.
 \begin{itemize}
   \item es-gn, es-qu with europarl brown clusters
   \item es-gn, es-qu with wikipedia brown clusters
-  \item es-gn, es-qu with word2vec embeddings of dimensions (50, 100, 200, 400)
-  from both europarl and wikipedia
 \end{itemize}
 
 \begin{itemize}
-  \item es-gn, es-qu with europarl embeddings
-  \item es-gn, es-qu with wikipedia embeddings
+  \item es-gn, es-qu with word2vec embeddings of dimensions (50, 100, 200, 400)
+  from both europarl and wikipedia, and both skipgram and cbow
+  \item doc2vec embeddings trained on wikipedia
 \end{itemize}
 
 \begin{itemize}
   \item combine the most promising ones
-  %% XXX: we don't actually have code to combine word2vec features with the
-  %% sparse features yet.
 \end{itemize}
 
 \section{Classification Results} 
 
 \begin{figure}
   %% \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
-  \caption{Baseline Chipa scores for Spanish-Guarani, by classifier.}
+  \caption{Baseline Chipa scores for Spanish-Guaraní, by classifier.}
   \label{fig:esgnresults:monolingual}
 \end{figure}
 
@@ -529,16 +525,16 @@ all of them exhaustively.
 
 \subsection{Results: adding syntactic features}
 Taking a look at the scores from the features based on easily available
-Spanish-language taggers and parsers, we see that for Spanish-Guarani, we were
-able to surpass the MFS baseline with the dependency-parse and POS-tag-based
-features. They seemed to work especially well with the L2-norm maxent
-classifier and random forests.  Furthermore, they beat the default features
-described in Chapter \ref{chap:baseline} by roughly half a percentage point:
-0.5 or 0.6 percentage points, in the ``regular" and ``non-null" settings,
-respectively. Adding the part-of-speech features without the parse features
-worked nearly as well, falling a tenth of a percentage point behind using all
-of the syntactic features in the ``regular" setting, and three tenths of a
-point behind in the ``nonnull" setting.
+Spanish-language taggers and parsers, which are presented in Figure XXX, we see
+that for Spanish-Guaraní, we were able to surpass the MFS baseline with the
+dependency-parse and POS-tag-based features. They seemed to work especially
+well with the L2-norm maxent classifier and random forests. Furthermore, they
+beat the default features described in Chapter \ref{chap:baseline} by roughly
+half a percentage point: 0.5 or 0.6 percentage points, in the ``regular" and
+``non-null" settings, respectively. Adding the part-of-speech features without
+the parse features worked nearly as well, falling a tenth of a percentage point
+behind using all of the syntactic features in the ``regular" setting, and three
+tenths of a point behind in the ``nonnull" setting.
 
 We see fairly similar results for Spanish-Quechua, which are shown in Figure
 \ref{fig:esquresults:monolingual}. Our strongest results for the ``regular"
@@ -584,10 +580,7 @@ probably make your CL-WSD classification rather better, all without any
 particular resources for your target language.
 
 \subsection{Results: neural embeddings alone}
-In Figure \ref{fig:esgnresults:monolingual}, we see the results for the Chipa
-system with roughly the same classifiers used in Chapter \ref{chap:baseline},
-but now with the features based on our monolingual resources described in this
-chapter, for Spanish-Guaraní. As before, we report classification accuracy
+As before, we report classification accuracy
 as a percentage, and we performed ten-fold cross-validation, using all of the
 available training data for each of the lemmas in a given language pair's
 bitext that appear at least fifty times. Also as before, we consider the
