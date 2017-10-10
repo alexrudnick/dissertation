@@ -83,17 +83,18 @@ parser also depends on the coarse-grained ``universal" POS tags
 coarse tags.
 
 Operationally, before training our CL-WSD system we parse all of the training
-data with the given MaltParser model and the tags inferred by FreeLing during
-preprocessing. The parses output by MaltParser are stored on disk in CONLL-X
-format. Then with a corpus annotation script, we use the saved parses to find
-every token's syntactic head (or the root of the sentence), and every token's
-syntactic children, if any. All of these are marked in the annotated training
-data, to be made available during feature extraction. During feature extraction,
-chipa turns these stored annotations into sparse binary features. The list of
-all syntactic features made available to the classifier is listed in Figure
+data with the given MaltParser model, using the tags inferred by FreeLing
+during preprocessing. The parses output by MaltParser are stored on disk in
+CONLL-X format. Then with a corpus annotation script, we find every token's
+syntactic head (or the root of the sentence) and every token's syntactic
+children, if any, in the saved parses. All of these dependency heads and
+children are marked in the annotated training data, to be made available during
+feature extraction. During feature extraction, chipa turns these stored
+annotations into sparse binary features.  The list of all syntactic features
+made available to the classifier is listed in Figure
 \ref{fig:syntacticfeatures}.
 
-%% XXX: maybe make a diagram for an example of how that works?
+%% XXX: maybe make a diagram for an example of how we find heads and children?
 \begin{figure*}
   \begin{centering}
   \begin{tabular}{|r|p{11cm}|}
@@ -136,15 +137,15 @@ of time, as a tunable parameter.
 
 We can use this clustering to create more features for our classifiers,
 considering the clusters into which a word type falls as a tag for instances of
-that word. These annotations describe a more abstract, less sparse
-representation than surface forms or lemmas, hopefully providing useful
-semantic and syntactic generalizations.
+that word. These annotations give a more abstract, less sparse representation
+than surface forms or lemmas, hopefully providing useful semantic and syntactic
+generalizations.
 
 Brown clustering uses greedy optimization to find cluster assignments. Each of
-the word types present in the input corpus must be placed into one of a fixed
-number of hierarchical clusters, such that the assignment attempts to maximize
-the probability of the input corpus.  As the original intention of the approach
-was for class-based language models, the scoring function is the mutual
+the word types present in the input corpus is placed into one of a fixed number
+of hierarchical clusters, such that the assignment attempts to maximize the
+probability of the input corpus. As the original intention of these clusters
+was for use in class-based language models, the scoring function is the mutual
 information between two immediately subsequent tokens (i.e., a bigram).
 Concretely, the optimization process is searching for a clustering $C$ that
 maximizes the probability of the corpus $\boldsymbol{w}$, according to the
@@ -179,10 +180,8 @@ questions.
   \item Can learning Brown clusters from  monolingual source-text resources 
     improve our performance on this CL-WSD task?
   \item Does more source-language text help us learn more helpful Brown
-  clusters, with respect to the CL-WSD task?
-  \item How does the genre of the input text affect our performance, and how
-  does this relate with the size of the text? Is there a size at which we
-  can learn a better clustering that overcomes genre mismatches?
+  clusters, with respect to the CL-WSD task? Can a large enough monolingual
+  corpus help us overcome domain mismatches?
   \item What kinds of preprocessing should we do on the source text? Most
   saliently, should the source text be lemmatized? We might expect that Brown
   clustering will help us find abstractions over syntax, but perhaps
@@ -221,6 +220,7 @@ three words on a side? In Turian et al, they do two words on a side.
   \label{fig:brownfeatures}
 \end{figure*}
 
+%% XXX maybe merge this with previous section
 \section{Brown clustering in practice}
 In this work we use Percy Liang's implementation \footnote{Available at
 \url{https://github.com/percyliang/brown-cluster}} of Brown clustering
