@@ -131,15 +131,9 @@ clustering, as it was developed by the Candide group at IBM, takes an
 unannotated text corpus as input and assigns each word type found the corpus
 into hierarchical clusters such that types in the same cluster have similar
 usage patterns, according to the bigram statistics of the corpus. The tree of
-clusters is binary-branching, so the name of a cluster is simply its path from
-the root of the tree.  The desired number of ``leaf" clusters must be set ahead
-of time, as a tunable parameter.
-
-We can use this clustering to create more features for our classifiers,
-considering the clusters into which a word type falls as a tag for instances of
-that word. These annotations give a more abstract, less sparse representation
-than surface forms or lemmas, hopefully providing useful semantic and syntactic
-generalizations.
+clusters is binary-branching, so the identity of a cluster is simply its path
+from the root of the tree.  The desired number of ``leaf" clusters must be set
+ahead of time, as a tunable parameter.
 
 Brown clustering uses greedy optimization to find cluster assignments. Each of
 the word types present in the input corpus is placed into one of a fixed number
@@ -165,13 +159,20 @@ formula in Figure \ref{fig:brownprob}.
   \label{fig:brownprob}
 \end{figure*}
 
-Finding the globally optimal assignment turns out to be an intractable problem,
-but several greedy approaches that find local optima have been explored in the
-literature.  Notably, in addition to Liang's approach, Franz Och's
-\texttt{mkcls} package (familiar to Moses users, and described in
-\cite{och1999efficient}) optimizes the same function. In any case, with the
-available software running on modern hardware, we can find a clustering for the
-corpora used in this work in a fairly short time -- a few hours at most.
+Finding an optimal assignment of all word types in the corpus into these
+hierarchical clusters is an intractable problem, but several greedy approaches
+that find local optima have been explored in the literature.  Notably, in
+addition to Liang's approach, Franz Och's \texttt{mkcls} package (familiar to
+Moses users, and described in \cite{och1999efficient}) optimizes the same
+function when assigning words to classes. In any case, with the available
+software running on modern hardware, we can find a clustering for the corpora
+used in this work in a fairly short time -- a few hours at most.
+
+Here our immediate use for these clusters is to create more features for our
+classifiers, considering the clusters into which a word type falls as a tag,
+for instances of that type. These annotations give a more abstract, less sparse
+representation than surface forms or lemmas, hopefully providing useful
+semantic and syntactic generalizations.
 
 In applying Brown clustering to this task, we would like to answer several
 questions.
@@ -202,6 +203,12 @@ sentence, and prefix features for all the clusters that appear too!
 
 It might be the case that we really just need to add the very local context --
 three words on a side? In Turian et al, they do two words on a side.
+
+Following the work of Turian \emph{et al.}
+\cite{turian-ratinov-bengio:2010:ACL}, we took the prefixes of each cluster's
+bit strings, at 4, 6, and 10 bits, as well as the complete bit string for the
+word type's cluster; each of these became a separate sparse feature for the
+current instance.
 
 \begin{figure*}
   \begin{centering}
