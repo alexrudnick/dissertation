@@ -483,12 +483,20 @@ Spanish-Guaraní and Spanish-Quechua, with the addition of features extracted
 from syntactic tools, Brown clusters, and the various kinds of neural
 embeddings presented in this chapter.
 The systems in these experiments use the same classification algorithms that we
-used in Chapter \ref{chap:baseline}, simply with different or additional
-features; notably we tried using the neural embedding features on their own.
+used in Chapter \ref{chap:baseline}, mostly with additional features, although
+we also tried using the neural embedding features on their own and as a
+replacement for the baseline features. While there are many possible
+combinations of the features, we did not try all of the possibilities
+exhaustively.
 
-While there are many possible combinations of these features, we did not try
-all of them exhaustively.
+So in the next section, we will present classification accuracies for
+experiments with adding syntactic features, adding features derived from Brown
+clusters, some combinations of these; then the results for using neural
+embeddings by themselves, followed by combining the previous features with the
+neural embeddings.
 
+%% XXX: do we need this? maybe make a figure to show all the feature sets and
+%% what they're called?
 \begin{itemize}
   \item es-gn, es-qu with pos tags
   \item es-gn, es-qu with pos tags and syntactic heads and children
