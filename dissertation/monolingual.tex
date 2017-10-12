@@ -166,85 +166,50 @@ addition to Liang's approach, Franz Och's \texttt{mkcls} package (familiar to
 Moses users, and described in \cite{och1999efficient}) optimizes the same
 function when assigning words to classes. In any case, with the available
 software running on modern hardware, we can find a clustering for the corpora
-used in this work in a fairly short time -- a few hours at most.
+used in this work in a fairly short time, on the order of hours.
 
 Here our immediate use for these clusters is to create more features for our
-classifiers, considering the clusters into which a word type falls as a tag,
+classifiers, interpreting the clusters into which a word type falls as a tag
 for instances of that type. These annotations give a more abstract, less sparse
 representation than surface forms or lemmas, hopefully providing useful
-semantic and syntactic generalizations.
+semantic and syntactic generalizations. We may also preprocess the input to
+the clustering algorithm beforehand, as long as we can reproduce the
+preprocessing for unseen input text at query time.
 
-In applying Brown clustering to this task, we would like to answer several
+In applying Brown clusters to this task, we would like to answer several
 questions.
 
 \begin{itemize}
-  \item Can learning Brown clusters from  monolingual source-text resources 
-    improve our performance on this CL-WSD task?
+  \item Can learning Brown clusters from monolingual source text improve our
+  performance on this CL-WSD task?
   \item Does more source-language text help us learn more helpful Brown
   clusters, with respect to the CL-WSD task? Can a large enough monolingual
   corpus help us overcome domain mismatches?
   \item What kinds of preprocessing should we do on the source text? Most
-  saliently, should the source text be lemmatized? We might expect that Brown
-  clustering will help us find abstractions over syntax, but perhaps
-  lemmatization would help it find more semantic abstractions in practice. Or
-  perhaps it would be more effective to use the same input corpus in both
-  lemmatized and inflected forms.
+  saliently, should the source text be lemmatized?
 \end{itemize}
 
-We can use such a clustering $C$ (i.e., a mapping from word types to clusters)
-to extract a number of different kinds of features for our classifiers; we may
-also choose a variety of inputs to the clustering algorithm in the first place.
-In principle, we may gain useful clusters from any large sample of text in the
-source language, and any preprocessing on that corpus could be useful.
-%% XXX: working here
-
-We tried, for example, dropping a bag of all the clusters that occur in the
-sentence, and prefix features for all the clusters that appear too!
-
-It might be the case that we really just need to add the very local context --
-three words on a side? In Turian et al, they do two words on a side.
-
-Following the work of Turian \emph{et al.}
-\cite{turian-ratinov-bengio:2010:ACL}, we took the prefixes of each cluster's
-bit strings, at 4, 6, and 10 bits, as well as the complete bit string for the
-word type's cluster; each of these became a separate sparse feature for the
-current instance.
-
-\begin{figure*}
-  \begin{centering}
-  \begin{tabular}{|r|p{11cm}|}
-    \hline
-    name          & description  \\
-    \hline
-    \texttt{brown\_bag}    & Bag of all Brown clusters for the entire sentence \\
-    \hline
-    \texttt{brown\_window}  & All Brown clusters for the three-token window around the focus word \\
-  \end{tabular}
-  \end{centering}
-  \caption{Features extracted from Brown clusters. These came in surface-form
-  and lemma variants, and were trained on both the Europarl for Spanish, and
-  our Wikipedia dump.}
-  \label{fig:brownfeatures}
-\end{figure*}
-
-%% XXX maybe merge this with previous section
-\section{Brown clustering in practice}
+\subsection{Clustering in practice}
 In this work we use Percy Liang's implementation \footnote{Available at
 \url{https://github.com/percyliang/brown-cluster}} of Brown clustering
-\cite{Liang05semi-supervisedlearning}.  We ran this tool on two different
+\cite{Liang05semi-supervisedlearning}. We ran this tool on two different
 monolingual corpora, the Spanish section of the Europarl corpus \cite{europarl}
-(2 million sentences) and a dump of the Spanish-language Wikipedia (20 million
-sentences). When working with Spanish, a consideration is the relative
-morphological richness of our input text; we could choose to lemmatize our
-input text before clustering, or not, and this decision will be more
-significant than it would be for English, given how much more inflection is
-present in Spanish.
+(2 million sentences) and a dump of Spanish-language Wikipedia (20 million
+sentences).
+When working with Spanish, considering its relative morphological richness, we
+may consider whether we ought to lemmatize our input text before clustering.
+This decision will be more significant than it would be for English,
+considering how much more inflection is present in Spanish.
 
-In this work we try both approaches, running the clustering tool on both the
-lemmatized and inflected versions of our input corpora. Examining the learned
-clusters, we see a few interesting things; first note the semantic
-relatedness. Also note that in the clusters learned from the surface-level
-text, we pick up on syntactic regularities as well as semantic ones.
+In this work we try both approaches, running the clustering tool on both
+lemmatized and surface versions of our input corpora. Examining the learned
+clusters.. %% XXX
+Also note that in the clusters learned from the surface-level text, we pick up
+on syntactic regularities as well as semantic ones.
+
+We might expect that Brown clustering will help us find abstractions over
+syntax, but perhaps lemmatization would help it find more semantic abstractions
+in practice; this is an empirical question.
 
 %% when we do clustering on lemmas, we seem to pick up more on ``semantic"
 %% categories of things. Note the ``infrastructure" cluster below -- it's got
@@ -252,7 +217,6 @@ text, we pick up on syntactic regularities as well as semantic ones.
 
 %% TODO: include examples of the clusters that we learn from different corpora
 %% specify lemmatized versus not lemmatized
-
 
 When we don't use lemmas, the cluster that contains ``infraestructura" contains
 these words: \emph{formación educación tecnología infraestructura publicidad
@@ -320,6 +284,38 @@ information from the complete corpus is used to classify parts of that corpus;
 the results here should be considered an upper bound on what would be possible
 with matching domain, if we are willing to trade size for a good match, rather
 than as clean experimental results.
+
+
+\subsection{Classification features based on Brown clusters}
+We tried, for example, dropping a bag of all the clusters that occur in the
+sentence, and prefix features for all the clusters that appear too!
+It might be the case that we really just need to add the very local context --
+three words on a side? In Turian et al, they do two words on a side.
+
+Following the work of Turian \emph{et al.}
+\cite{turian-ratinov-bengio:2010:ACL}, we took the prefixes of each cluster's
+bit strings, at 4, 6, and 10 bits, as well as the complete bit string for the
+word type's cluster; each of these became a separate sparse feature for the
+current instance.
+
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|p{11cm}|}
+    \hline
+    name          & description  \\
+    \hline
+    \texttt{brown\_bag}    & Bag of all Brown clusters for the entire sentence \\
+    \hline
+    \texttt{brown\_window}  & All Brown clusters for the three-token window around the focus word \\
+  \end{tabular}
+  \end{centering}
+  \caption{Features extracted from Brown clusters. These came in surface-form
+  and lemma variants, and were trained on both the Europarl for Spanish, and
+  our Wikipedia dump.}
+  \label{fig:brownfeatures}
+\end{figure*}
+
 
 \section{Neural Word Embeddings}
 Another rich source of features that has proved useful for many text
