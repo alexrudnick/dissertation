@@ -229,33 +229,11 @@ grammatical gender and number. To get more semantic similarity, maybe we should
 cluster on lemmas -- otherwise the morphological features of Spanish could
 overwhelm the clustering approach.
 
-\TODO{replace with current example}
-\begin{figure*}[t!]
-  \begin{tabular}{|r|p{10cm}|}
-    \hline
-    category  & top twenty word types by frequency \\
-    \hline
-    countries & francia irlanda alemania grecia italia españa rumanía portugal polonia suecia bulgaria austria finlandia hungría bélgica japón gran\_bretaña dinamarca luxemburgo bosnia \\
-    \hline
-    more places & kosovo internet bruselas áfrica iraq lisboa chipre afganistán estrasburgo oriente\_próximo copenhague asia chechenia gaza oriente\_medio birmania londres irlanda\_del\_norte berlín barcelona \\
-    \hline
-    mostly people & hombre periodista jefes\_de\_estado individuo profesor soldado abogado delincuente demócrata dictador iglesia alumno adolescente perro chico economista gato jurista caballero bebé \\
-    \hline
-    infrastructure & infraestructura vehículo buque servicio\_público cultivo edificio barco negocio motor avión monopolio planta ruta coche libro aparato tren billete actividad\_económica camión \\
-    \hline
-    common verbs & pagar comprar vender explotar practicar soportar exportar comer consumir suministrar sacrificar fabricar gobernar comercializar cultivar fumar capturar almacenar curar beber \\
-    \hline
-  \end{tabular}
-\caption{Some illustrative clusters found by the Brown clustering algorithm on
-the Spanish Europarl data. These are five out of $C=1000$ clusters, and
-were picked and labeled by hand. The words listed are the
-top twenty terms from that cluster, by frequency.}
-\label{fig:clusters}
-\end{figure*}
+\input{clusterfigures.tex}
 
-Figure \ref{fig:clusters} shows some illustrative examples of clusters that
-we found in the Spanish Europarl corpus.  Examining the output of the
-clustering algorithm, we see some intuitively satisfying results; there are
+Figure \ref{fig:clusters-europarl-surface} shows some illustrative examples of
+clusters that we found in the Spanish Europarl corpus.  Examining the output of
+the clustering algorithm, we see some intuitively satisfying results; there are
 clusters corresponding to the names of many countries, some nouns referring to
 people, and common transitive verbs. Note that the clustering is unsupervised,
 and the labels given are not produced by the algorithm.
@@ -263,28 +241,27 @@ and the labels given are not produced by the algorithm.
 We additionally show the effects on classification accuracy of adding features
 derived from Brown clusters, with clusters extracted from both the Europarl
 corpus and the Spanish side of our training data.
-We tried several different
-settings for the number of clusters, ranging from $C=100$ to $C=2000$.
-In all of our experimental settings, the addition of Brown cluster features
-substantially improved classification accuracy. We note a consistent upward
-trend in performance as we increase the number of clusters, allowing the
-clustering algorithm to learn finer-grained distinctions.
-The training algorithm takes time quadratic in the number of clusters,
-which becomes prohibitive fairly quickly, so even finer-grained distinctions
-may be helpful, but will be left to future work. On a modern Linux
-workstation, clustering Europarl (~2M sentences) into 2000 clusters took
-roughly a day.
 
-The classifiers using clusters extracted from the Spanish side of our bitext
-consistently outperformed those learned from the Europarl corpus. We had an
-intuition that the much larger corpus (nearly two million sentences) would
-help, but the clusters learned in-domain, largely from the Bible, reflect
-usage distinctions in that domain. Here we are cheating slightly, as
-information from the complete corpus is used to classify parts of that corpus;
-the results here should be considered an upper bound on what would be possible
-with matching domain, if we are willing to trade size for a good match, rather
-than as clean experimental results.
+% We tried several different settings for the number of clusters, ranging from
+% $C=100$ to $C=2000$.  In all of our experimental settings, the addition of
+% Brown cluster features substantially improved classification accuracy. We
+% note a consistent upward trend in performance as we increase the number of
+% clusters, allowing the clustering algorithm to learn finer-grained
+% distinctions.  The training algorithm takes time quadratic in the number of
+% clusters, which becomes prohibitive fairly quickly, so even finer-grained
+% distinctions may be helpful, but will be left to future work. On a modern
+% Linux workstation, clustering Europarl (~2M sentences) into 2000 clusters
+% took roughly a day.
 
+% The classifiers using clusters extracted from the Spanish side of our bitext
+% consistently outperformed those learned from the Europarl corpus. We had an
+% intuition that the much larger corpus (nearly two million sentences) would
+% help, but the clusters learned in-domain, largely from the Bible, reflect
+% usage distinctions in that domain. Here we are cheating slightly, as
+% information from the complete corpus is used to classify parts of that
+% corpus; the results here should be considered an upper bound on what would be
+% possible with matching domain, if we are willing to trade size for a good
+% match, rather than as clean experimental results.
 
 \subsection{Classification features based on Brown clusters}
 We tried, for example, dropping a bag of all the clusters that occur in the
