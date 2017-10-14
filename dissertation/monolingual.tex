@@ -231,16 +231,16 @@ overwhelm the clustering approach.
 
 \input{clusterfigures.tex}
 
-Figure \ref{fig:clusters-europarl-surface} shows some illustrative examples of
-clusters that we found in the Spanish Europarl corpus.  Examining the output of
-the clustering algorithm, we see some intuitively satisfying results; there are
-clusters corresponding to the names of many countries, some nouns referring to
-people, and common transitive verbs. Note that the clustering is unsupervised,
-and the labels given are not produced by the algorithm.
-
-We additionally show the effects on classification accuracy of adding features
-derived from Brown clusters, with clusters extracted from both the Europarl
-corpus and the Spanish side of our training data.
+Figures \ref{fig:clusters-europarl-surface}, \ref{fig:clusters-europarl-lemma},
+\ref{fig:clusters-wikipedia-surface} and \ref{fig:clusters-wikipedia-lemma}
+show some hand-selected illustrative examples of clusters that we found in our
+monolingual Spanish corpora, Europarl and Wikipedia, in both surface-form and
+lemmatized versions. Examining the output of the clustering algorithm, we see
+some intuitively satisfying results; there are clusters corresponding to the
+names of many countries, some nouns referring to people, and common transitive
+verbs. The words listed in these figures are the top twenty terms from that
+cluster, by frequency. The names given for the clusters were also chosen by
+hand, rather than through some automatic process.
 
 % We tried several different settings for the number of clusters, ranging from
 % $C=100$ to $C=2000$.  In all of our experimental settings, the addition of
