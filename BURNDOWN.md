@@ -4,13 +4,6 @@
   * be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * examine all of our Brown clusters that we found and make nice figures
-    * lemmatized bible
-    * surface bible
-    * lemmatized europarl
-    * surface europarl
-    * lemmatized wikipedia
-    * surface wikipedia
   * finish up analysis and writeup
   * make charts & graphs
   * understand and explain the doc2vec paper (cited in dissertation)
@@ -150,6 +143,13 @@ hack up squoia again if necessary
     itself? is the meaning of the sentence as a whole what we want, for
     classifying a particular token
     usage?
+  * DONE examine all of our Brown clusters that we found and make nice figures
+    * SKIP lemmatized bible
+    * SKIP surface bible
+    * DONE lemmatized europarl
+    * DONE surface europarl
+    * DONE lemmatized wikipedia
+    * DONE surface wikipedia
 
 ## sequence
 CANCELED!!
