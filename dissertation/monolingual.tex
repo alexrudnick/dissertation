@@ -257,19 +257,27 @@ directions\footnote{With the inclusion of \emph{voivodato} (English:
 Wikipedia, is an administrative region in eastern Europe, similar to a
 historical duchy or modern province.}.
 
+So a qualitative look at the clusters found in these corpora shows some
+promising regularities found in the text. As expected, when we cluster on the
+surface forms, we find both syntactic and semantic similarities, but using the
+lemmatized forms seems to push the clusters towards conceptual similarity. It
+is still an empirical question which of these approaches will help more for our
+CL-WSD task, but we will try them both.
+
 \subsection{Classification features based on Brown clusters}
-%% XXX needs a bunch of work
-We tried, for example, dropping a bag of all the clusters that occur in the
-sentence, and prefix features for all the clusters that appear too!
-It might be the case that we really just need to add the very local context --
-three words on a side? In Turian et al, they do two words on a side.
 
-Following the work of Turian \emph{et al.}
-\cite{turian-ratinov-bengio:2010:ACL}, we took the prefixes of each cluster's
-bit strings, at 4, 6, and 10 bits, as well as the complete bit string for the
-word type's cluster; each of these became a separate sparse feature for the
-current instance.
+Given a clustering learned from a large monolingual corpus, we must still
+decide how to map the clusters into classification features. If we know, for
+example, that the word to the left of the focus word is in cluster
+``010111111100", what information do we provide to the classifier? We could
+interpret this cluster as a tag, and create sparse features for an input
+sentence based on the clusters present in it, perhaps focusing on the window
+surrounding the focus word. However, following the work of Turian \emph{et al.}
+\cite{turian-ratinov-bengio:2010:ACL}, we also took the prefixes of each cluster's
+bit strings, at 4, 6, and 10 bits, taking advantage of the hierarchical
+structure in the clusters, and used these separate sparse features.
 
+%% XXX working here
 
 \begin{figure*}
   \begin{centering}
