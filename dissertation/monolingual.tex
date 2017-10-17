@@ -265,19 +265,33 @@ is still an empirical question which of these approaches will help more for our
 CL-WSD task, but we will try them both.
 
 \subsection{Classification features based on Brown clusters}
-
 Given a clustering learned from a large monolingual corpus, we must still
-decide how to map the clusters into classification features. If we know, for
-example, that the word to the left of the focus word is in cluster
+decide how to extract classification features from those clusters. If we know,
+for example, that the token to the left of the focus word is in cluster
 ``010111111100", what information do we provide to the classifier? We could
-interpret this cluster as a tag, and create sparse features for an input
-sentence based on the clusters present in it, perhaps focusing on the window
-surrounding the focus word. However, following the work of Turian \emph{et al.}
-\cite{turian-ratinov-bengio:2010:ACL}, we also took the prefixes of each cluster's
-bit strings, at 4, 6, and 10 bits, taking advantage of the hierarchical
-structure in the clusters, and used these separate sparse features.
+interpret this cluster atomically, as a tag for that token, and create sparse
+features for an input sentence based on the clusters present in it, perhaps
+focusing on the window surrounding the focus word. However, following the work
+of Turian \emph{et al.} \cite{turian-ratinov-bengio:2010:ACL}, we also take the
+prefixes of each cluster's bit strings at 4, 6, and 10 bits, taking advantage
+of the hierarchical structure in the clusters, and used these separate sparse
+features.
 
-%% XXX working here
+%% XXX: turn this into a nice figure rather than doing it inline; this is not
+%% typesetting well.
+As a concrete example using the lemmatized Wikipedia clusters, if we find that
+the lemma \emph{rioplatense} is in a three-token window around the current
+focus word, and that this lemma in in cluster ``111110111111111110", then we
+extract features
+\texttt{brown\_window\_wikipedia\_lemma(111110111111111110)},
+\texttt{brown\_window\_wikipedia\_lemma\_4(1111)},
+\texttt{brown\_window\_wikipedia\_lemma\_6(111110)} and 
+\texttt{brown\_window\_wikipedia\_lemma\_10(1111101111)}, setting them all to
+1. We additionally can extract analogous features for all the tokens in the
+sentence; these would be called \texttt{brown\_bag\_wikipedia\_lemma}. If we
+are using clusters based on the surface forms, these simply do not have
+\texttt{lemma} in their name, and features based on Europarl, are marked with
+\texttt{europarl} rather than \texttt{wikipedia}.
 
 \begin{figure*}
   \begin{centering}
@@ -293,10 +307,10 @@ structure in the clusters, and used these separate sparse features.
   \end{centering}
   \caption{Features extracted from Brown clusters. These came in surface-form
   and lemma variants, and were trained on both the Europarl for Spanish, and
-  our Wikipedia dump.}
+  our Wikipedia dump. Additionally, we add variants for the 4, 6, and 10-bit
+  prefixes of the clusters.}
   \label{fig:brownfeatures}
 \end{figure*}
-
 
 \section{Neural Word Embeddings}
 Another rich source of features that has proved useful for many text
