@@ -220,12 +220,12 @@ show some hand-selected illustrative examples of clusters that we found in our
 monolingual Spanish corpora, Europarl and Wikipedia, in both surface-form and
 lemmatized versions. Examining the output of the clustering algorithm, we see
 some intuitively satisfying results; there are clusters corresponding to the
-names of many countries, some nouns referring to people by profession, and some
+names of many countries, nouns referring to people by profession, and some
 semantically similar verbs. The words listed in these figures are the top
-twenty terms from that cluster, by frequency. Note that the names given for the
-clusters were also chosen by hand, rather than through some automatic process.
-We can see that the clustering process is finding some satisfying
-generalizations in the text.
+twenty terms from that cluster, by frequency in the corpus. Note that the names
+given for the clusters were also chosen by hand, rather than through some
+automatic process. It is reassuring that the clustering process, over all of
+these corpora, is finding some interpretable generalizations in the text.
 
 Comparing the lemmatized versus the surface-form versions of the clustering, we
 note that, as expected, the clusters capture more syntactic regularities when
@@ -235,28 +235,27 @@ to its cluster in Figure \ref{fig:clusters-europarl-surface}. In the lemmatized
 version, we see that \emph{infraestructura} falls into a cluster primarily
 composed of words pertaining to transportation-related concepts, such as
 \emph{vehículo} 'vehicle', \emph{billete} 'ticket' and \emph{avión} 'airplane'.
+In the Wikipedia lemma clusters, shown in Figure
+\ref{fig:clusters-wikipedia-lemma}, we see some satisfying semantic clusters as
+well, such as adjectives describing political positions, verbs about making
+choices, and a cluster of locations, mostly cities.
 
 Contrastingly, on the surface-form side, the cluster that contains
 \emph{infraestructura} does not immediately reveal the same conceptual
 similarity: we see \emph{formación} 'education (formal)' \emph{creatividad}
 'creativity', and \emph{comida} 'food' in the same cluster. While a few of the
 words have similar meanings, the clustering seems to have found that these
-words fit well together as singular feminine nouns, which is more of a
+words cluster together as singular feminine nouns, which is more of a
 syntactic commonality than a semantic one. This is not to say that the
 surface-form clusters do not exhibit semantic relatedness; in the ``profession
-nouns" cluster in Figure \ref{fig:clusters-wikipedia-surface}, we see nouns that
-refer to people's professions, although it should also be noted that these are
-all singular masculine nouns.
-
-In the Wikipedia clusters, we see some satisfying clusters as well; many
-adjectives describing political positions cluster together, as do verbs
-describing making a choice (Figure \ref{clusters-wikipedia-lemma})
-
-
-In fact, the words in many of the clusters all seem to have the same
-grammatical gender and number. To get more semantic similarity, maybe we should
-cluster on lemmas -- otherwise the morphological features of Spanish could
-overwhelm the clustering approach.
+nouns" cluster in Figure \ref{fig:clusters-wikipedia-surface}, we see nouns
+that refer to people's professions, although it should also be noted that these
+are all singular masculine nouns. Also in the Wikipedia surface clusters, we
+see a cluster containing almost entirely words referring to cardinal
+directions\footnote{With the inclusion of \emph{voivodato} (English:
+'voivodeship' or Polish 'województwo') which, I have just learned from
+Wikipedia, is an administrative region in eastern Europe, similar to a
+historical duchy or modern province.}.
 
 \subsection{Classification features based on Brown clusters}
 %% XXX needs a bunch of work
