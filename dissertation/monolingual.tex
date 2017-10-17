@@ -230,18 +230,28 @@ generalizations in the text.
 Comparing the lemmatized versus the surface-form versions of the clustering, we
 note that, as expected, the clusters capture more syntactic regularities when
 given the inflected forms. Consider, for example the cluster containing
-\emph{infraestructura} in Figure \ref{fig:clusters-europarl-lemma}...
-%% XXX
+\emph{infraestructura} in Figure \ref{fig:clusters-europarl-lemma}, as compared
+to its cluster in Figure \ref{fig:clusters-europarl-surface}. In the lemmatized
+version, we see that \emph{infraestructura} falls into a cluster primarily
+composed of words pertaining to transportation-related concepts, such as
+\emph{vehículo} 'vehicle', \emph{billete} 'ticket' and \emph{avión} 'airplane'.
 
-When we don't use lemmas, the cluster that contains ``infraestructura" contains
-these words: \emph{formación educación tecnología infraestructura publicidad
-enseñanza ocupación religión vivienda ética propaganda banda fusión huelga
-creatividad medicina manipulación tribuna cualificación comida}. It seems like
-this is more about grammatical gender: those are all singular feminine nouns.
+Contrastingly, on the surface-form side, the cluster that contains
+\emph{infraestructura} does not immediately reveal the same conceptual
+similarity: we see \emph{formación} 'education (formal)' \emph{creatividad}
+'creativity', and \emph{comida} 'food' in the same cluster. While a few of the
+words have similar meanings, the clustering seems to have found that these
+words fit well together as singular feminine nouns, which is more of a
+syntactic commonality than a semantic one. This is not to say that the
+surface-form clusters do not exhibit semantic relatedness; in the ``profession
+nouns" cluster in Figure \ref{fig:clusters-wikipedia-surface}, we see nouns that
+refer to people's professions, although it should also be noted that these are
+all singular masculine nouns.
 
+In the Wikipedia clusters, we see some satisfying clusters as well; many
+adjectives describing political positions cluster together, as do verbs
+describing making a choice (Figure \ref{clusters-wikipedia-lemma})
 
-Also note that in the clusters learned from the surface-level text, we pick up
-on syntactic regularities as well as semantic ones.
 
 In fact, the words in many of the clusters all seem to have the same
 grammatical gender and number. To get more semantic similarity, maybe we should
@@ -249,6 +259,7 @@ cluster on lemmas -- otherwise the morphological features of Spanish could
 overwhelm the clustering approach.
 
 \subsection{Classification features based on Brown clusters}
+%% XXX needs a bunch of work
 We tried, for example, dropping a bag of all the clusters that occur in the
 sentence, and prefix features for all the clusters that appear too!
 It might be the case that we really just need to add the very local context --
