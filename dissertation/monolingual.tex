@@ -277,21 +277,24 @@ prefixes of each cluster's bit strings at 4, 6, and 10 bits, taking advantage
 of the hierarchical structure in the clusters, and used these separate sparse
 features.
 
-%% XXX: turn this into a nice figure rather than doing it inline; this is not
-%% typesetting well.
 As a concrete example using the lemmatized Wikipedia clusters, if we find that
 the lemma \emph{rioplatense} is in a three-token window around the current
 focus word, and that this lemma in in cluster ``111110111111111110", then we
-extract features
-\texttt{brown\_window\_wikipedia\_lemma(111110111111111110)},
-\texttt{brown\_window\_wikipedia\_lemma\_4(1111)},
-\texttt{brown\_window\_wikipedia\_lemma\_6(111110)} and 
-\texttt{brown\_window\_wikipedia\_lemma\_10(1111101111)}, setting them all to
-1. We additionally can extract analogous features for all the tokens in the
-sentence; these would be called \texttt{brown\_bag\_wikipedia\_lemma}. If we
-are using clusters based on the surface forms, these simply do not have
-\texttt{lemma} in their name, and features based on Europarl, are marked with
-\texttt{europarl} rather than \texttt{wikipedia}.
+extract the following features, setting each of them to $1$.
+
+\begin{itemize}
+\item \texttt{brown\_window\_wikipedia\_lemma(111110111111111110)}
+\item \texttt{brown\_window\_wikipedia\_lemma\_4(1111)}
+\item \texttt{brown\_window\_wikipedia\_lemma\_6(111110)}
+\item \texttt{brown\_window\_wikipedia\_lemma\_10(1111101111)}
+\end{itemize}
+
+We additionally extract analogous features for all tokens in the sentence;
+these would be called \texttt{brown\_bag\_wikipedia\_lemma},
+\texttt{brown\_bag\_wikipedia\_4}, and so on. If we are using clusters based on
+the surface forms, these simply do not have \texttt{lemma} in their name, and
+features based on Europarl, are marked with \texttt{europarl} rather than
+\texttt{wikipedia}.
 
 \begin{figure*}
   \begin{centering}
@@ -312,6 +315,12 @@ are using clusters based on the surface forms, these simply do not have
   \label{fig:brownfeatures}
 \end{figure*}
 
+In cases of unknown words, where we do not have a cluster assignment for a word
+in the input text, we simply do not extract cluster features for that word.
+This will happen in practice, even for a fairly large monolingual corpus, but
+may be especially common in this setting due to domain mismatches. Many
+biblical names, for example, are not present in Europarl.
+
 \section{Neural Word Embeddings}
 Another rich source of features that has proved useful for many text
 classification problems in recent years is neural word embeddings, perhaps most
@@ -324,7 +333,7 @@ the use of ``word2vec"-style word embeddings, as well as the related technique,
 \cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
 These techniques let our classifiers operate on lower-dimensional dense vectors
 (of a few hundred dimensions, typically), as opposed to the high-dimensional
-and sparse vectors typically used in earlier NLP literature\footnote{
+sparse vectors typically used in earlier NLP literature\footnote{
 What we might consider to be ``symbolic" binary features used in machine
 learning systems for NLP in recent decades -- such as ``the word `dog` appears
 in the sentence" -- are effectively equivalent to these very sparse ``one hot"
@@ -333,20 +342,20 @@ represented by a length-$V$ vector in which all but one of the elements are 0}.
 
 There is a rich literature on continuous representations for words; the idea
 has a long lineage in NLP, and we could try any number of dimensionality
-reduction or distributional semantics approaches here. Recent empirical work by
-Baroni et al \cite{baroni2014don} (summed up by the title of the paper, ``Don't
-Count, Predict!") has shown that representations built during discriminative
-learning tasks are typically more effective for text classification problems
-similar to ours.
+reduction or distributional semantics approaches here. However, recent
+empirical work by Baroni et al \cite{baroni2014don} (summed up by the title of
+the paper, ``Don't Count, Predict!") has shown that representations built
+during discriminative learning tasks are typically more effective for text
+classification problems similar to ours.
 
 Unlike Brown Clustering, which infers hierarchical clusters for each word type,
 but like other embedding techniques, word2vec learns multidimensional
 representations for word types, turning the very sparse ``one hot"
-representation in which a words with similar uses or meanings do not have any
-obvious similarity into a much denser continuous space in which words with
+representation in which words with similar uses or meanings do not have any
+obvious similarity into a much denser continuous space, wherein words with
 related meanings are placed nearby. These ``embeddings", or placements of word
-types into a continuous space, are learned during some other classification
-task, and are performed by the early layers of a neural network.
+types in a continuous space, are learned latently during some other
+classification task, and are performed by the early layers of a neural network.
 
 The word2vec model in particular has two variations, useful in different
 contexts. One, called Continuous Bag-of-Words (CBOW) learns a classifier that
@@ -370,11 +379,11 @@ by synthesizing a supervised learning task that can be performed with simple
 monolingual text as its training data.
 
 We trained a variety of word2vec embeddings for our text classification tasks,
-training on the Spanish-language section of the Europarl corpus (roughly 57
-million words and 2 million sentences) and a dump of Spanish Wikipedia (449
+again training on the Spanish-language section of the Europarl corpus (roughly
+57 million words or 2 million sentences) and a dump of Spanish Wikipedia (449
 million words, 20 million sentences). We learned embeddings using both CBOW and
 skip-gram approaches, in 50, 100, 200, and 400 dimensions. In all cases, we
-used the associated \texttt{word2phrase} tool, distributed with the initial
+used the associated \texttt{word2phrase} tool, distributed with the public
 \texttt{word2vec} implementation, which finds collocations in the input text
 and treats them as individual tokens. The same collocations must be identified
 in the input text for their embeddings to be used. At lookup time, we keep a
@@ -385,14 +394,15 @@ these multiword expressions (starting with the longest) found in the input text
 with the token representing that MWE.
 
 \subsection{From word embeddings to classification features}
-We should note that the embeddings learned for a word type are fixed for that
-word type, and do not reflect the context of a particular token, so a focus
-word's embedding vector will not provide useful classification features on its
-own. This leaves us with the problem of how to make use of the word vectors in
-a given sentence. Concretely, we must decide how to combine several word
-vectors together, and which word vectors in a sentence to choose for
-combination. The typical approach (XXX citation) is to take element-wise sums
-or averages over the embedding vectors for the tokens in a context.
+We should note that, like Brown clusters, the embeddings learned for a word
+type are fixed for that word type, and do not reflect the context of a
+particular token, so a focus word's embedding vector will not provide useful
+classification features on its own. This leaves us with the problem of how to
+make use of the word vectors in a given sentence. Concretely, we must decide
+how to combine several word vectors together, and which word vectors in a
+sentence to choose for combination. The typical approach (XXX citation) is to
+take element-wise sums or averages over the embedding vectors for the tokens in
+a context.
 
 There are a variety of approaches we could take, even within summing and
 averaging. We could sum (element-wise) all of the word vectors for all the
