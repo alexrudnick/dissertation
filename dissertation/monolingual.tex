@@ -400,9 +400,9 @@ particular token, so a focus word's embedding vector will not provide useful
 classification features on its own. This leaves us with the problem of how to
 make use of the word vectors in a given sentence. Concretely, we must decide
 how to combine several word vectors together, and which word vectors in a
-sentence to choose for combination. The typical approach (XXX citation) is to
-take element-wise sums or averages over the embedding vectors for the tokens in
-a context.
+sentence to choose for combination. A typical approach is to take element-wise
+sums or averages over the embedding vectors for the tokens in a context
+\cite[Chapter 8]{Goldberg17}.
 
 There are a variety of approaches we could take, even within summing and
 averaging. We could sum (element-wise) all of the word vectors for all the
@@ -419,9 +419,10 @@ focus word, if it is inside a multi-word expression) and the three tokens on
 either side. The resulting vector thus has the same dimensionality as the word
 embeddings that we learned. Secondly, in the ``fullsent" feature set, we
 perform an unweighted element-wise sum of the word embeddings for the entire
-sentence. Finally, in the ``pyramid" feature set, we sum the embeddings for
-each token in a broad window around the focus word, but before summing, scale
-the embeddings by $1.0 - (0.1 * d) $, for a minimum of 0.
+input sentence. Finally, in the ``pyramid" feature set, we sum the embeddings
+for each token in a broad window around the focus word, but before summing,
+scale each embeddings by $max(0, 1.0 - (0.1 * d))$, where $d$ is the distance
+between that token and the focus word.
 
 %% XXX working here
 
