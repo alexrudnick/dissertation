@@ -7,6 +7,7 @@
   * finish up analysis and writeup
   * make charts & graphs
   * understand and explain the doc2vec paper (cited in dissertation)
+  * try doc2vec on a window around the focus word??
 
 ## multilingual
   * train systems to target any other European languages we can get a
