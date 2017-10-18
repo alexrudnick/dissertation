@@ -487,12 +487,16 @@ we use the implementation of doc2vec provided by the gensim package
 \cite{rehurek-lrec}, with its default settings, which means that training is
 carried out with the ``distributed memory" model.
 
-%% XXX: not true anymore
-During training data annotation, we take each source-language sentence and
-infer a new embedding for it based on a doc2vec model trained on 20 million
-sentences dumped from the Spanish-language wikipedia. These sentence-level
-embeddings are stored as a token annotation on the first token of each
-sentence, so they can be made available during feature extraction.
+During training data annotation, we pass over our bitext corpus, take the
+source-language sentence from each training pair, and infer a new embedding for
+it based on a doc2vec model trained on our 20 million sentences from
+Spanish-language Wikipedia. These sentence-level embeddings are stored as a
+token annotation on the first token of each sentence, so they can be made
+available during feature extraction. We can also show the gensim software the
+context window around the focus word, rather than the entire sentence, to
+generate a more focused representation.
+
+In either case, the result is a vector of the chosen dimensionality ...
 
 \section{Experiments}
 \label{sec:monolingual-experiments}
