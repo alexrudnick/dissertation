@@ -424,21 +424,27 @@ for each token in a broad window around the focus word, but before summing,
 scale each embeddings by $max(0, 1.0 - (0.1 * d))$, where $d$ is the distance
 between that token and the focus word.
 
-%% XXX working here
-
-%% XXX add some citations for papers where people use word embeddings as
-%% features
+For all of the variations considered here, whether we are using skipgrams or
+CBOW, for whichever dimensionality we choose, and for any of the methods of
+combining the vectors, when using these word embeddings without other
+resources, we end up representing a CL-WSD problem as a sentence a dense vector
+of the same dimensionality as the word embeddings that we are currently using,
+and these dense vectors can be passed along to any machine learning algorithm
+that we care to use.
 
 \section{Neural Document Embeddings}
-The same researchers that produced word2vec and their collaborators have also
-developed approaches that build representations for sequences of text, rather
-than individual word types, described in
+Rather than coming up with representations for individual words and then
+combining them to get a representation of a sentence or a local context, we
+might want a technique that directly finds representations of sequences of
+text. One such technique, called ``paragraph vectors" or ``doc2vec", does just
+this. doc2vec was developed by some of the same researchers that produced
+word2vec, and it can build representations for arbitrary sequences of text,
+rather than individual word types
 \cite{dai-document-embedding-2015,quocle-distributed-representations-2014}.
-This approach, called ``paragraph vectors" or ``doc2vec" takes unlabeled text
-and learns representations for word types jointly with representations for each
-\emph{document}. Here a ``document" is an arbitrary sequence of tokens, perhaps
-a single sentence, or perhaps much longer, depending on the intended
-application.
+This approach takes unlabeled text and learns representations for word types
+jointly with representations for each \emph{document}. Here a ``document" is an
+arbitrary sequence of tokens, perhaps a single sentence, or perhaps much
+longer, depending on the intended application.
 
 Similar to word2vec, here doc2vec uses a neural network with a single hidden
 layer to predict words in the current context. Here however, the hidden layer
@@ -446,8 +452,8 @@ contains not only an embedding trained for word types, but also an embedding
 for the current document. Training proceeds by loading the current
 representation for the current word and the current document, attempting to
 predict some other word in the context (analogous to training for word2vec),
-and then updating both representations based on the gradients between the
-desired output and the actual output. 
+and then updating both of these representations based on the gradients between
+the desired output and the actual output. 
 
 Also similar to word2vec, there are two variants of the approach that can be
 used for training. One variant of doc2vec, the ``Distributed Memory Model of
@@ -460,25 +466,28 @@ closely analogous to the skip-gram artitecture for word2vec
 \cite{quocle-distributed-representations-2014}, since the model is trained to
 predict the entire context based on a single embedding.
 
-In either case, the resulting stored model is the set of embeddings for
+In either case, the resulting stored model consists of the embeddings for
 individual word types. The embeddings for any particular document in the
 training set are not stored, since that document is unlikely to appear again at
 inference time, but the embeddings for individual word types provide a useful
 generalization, since they constrain embeddings for new documents.
 
-At inference time, doc2vec produces new vectors describing previously unseen
+At inference time, doc2vec produces new vectors representing previously unseen
 documents based on these fixed word embedding vectors. In our work, as in many
 text classification tasks, documents will be input sentences, or perhaps
-sentence-length Bible verses. To produce a representation for a new document,
-the embeddings for word types are held constant and we run the optimization
-process (stochastic gradient descent) to infer an embedding for the current
-document, such that it helps predict words in the current context.
+sentence-length Bible verses, or smaller windows of text around a
+word-in-context. To produce a representation for a new document, the embeddings
+for word types are held constant and we run stochastic gradient descent
+optimization to infer an embedding for the current document, based on the fixed
+word embeddings, such that it helps predict words in the current context.
 
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
 \cite{rehurek-lrec}, with its default settings, which means that training is
 carried out with the ``distributed memory" model.
+
+%% XXX: not true anymore
 During training data annotation, we take each source-language sentence and
 infer a new embedding for it based on a doc2vec model trained on 20 million
 sentences dumped from the Spanish-language wikipedia. These sentence-level

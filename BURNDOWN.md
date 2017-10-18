@@ -6,7 +6,6 @@
 ## monolingual
   * finish up analysis and writeup
   * make charts & graphs
-  * understand and explain the doc2vec paper (cited in dissertation)
   * try doc2vec on a window around the focus word??
 
 ## multilingual
@@ -129,7 +128,7 @@ hack up squoia again if necessary
     * does it even really make sense to use doc2vec by itself? is the meaning
     of the sentence as a whole what we want, for classifying a particular token
     usage?
-    * understand and explain the doc2vec paper (cited in dissertation)
+    * DONE understand and explain the doc2vec paper (cited in dissertation)
     * DONE learn how to train doc2vec from Spanish wikipedia!!
     * DONE be able to load up saved models
     * DONE how much text do we use to train a model?
