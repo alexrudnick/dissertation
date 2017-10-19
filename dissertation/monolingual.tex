@@ -505,45 +505,54 @@ previously.
 \section{Experiments}
 \label{sec:monolingual-experiments}
 Here we repeat the experiments from Chapter \ref{chap:baseline} for
-Spanish-Guaraní and Spanish-Quechua, with the addition of features extracted
-from syntactic tools, Brown clusters, and the various kinds of neural
-embeddings presented in this chapter.
-The systems in these experiments use the same classification algorithms that we
-used in Chapter \ref{chap:baseline}, mostly with additional features, although
-we also tried using the neural embedding features on their own and as a
-replacement for the baseline features. While there are many possible
-combinations of the features, we did not try all of the possibilities
-exhaustively.
+Spanish-Guaraní and Spanish-Quechua, using the features extracted from
+syntactic tools, Brown clusters, and the various kinds of neural embeddings
+presented in this chapter.
+These experiments were carried out with the same classification algorithms that
+we used in Chapter \ref{chap:baseline}. While most of the experiments here are
+a combination of the baseline features with the features introduced in this
+chapter, we also tried using the neural embeddings features on their own,
+as a replacement for the baseline features. While there are many possible
+combinations of the features, we did not try all (exponentially many)
+possibilities exhaustively.
 
-So in the next section, we will present classification accuracies for
-experiments with adding syntactic features, adding features derived from Brown
-clusters, some combinations of these; then the results for using neural
-embeddings by themselves, followed by combining the previous features with the
-neural embeddings.
-
-%% XXX: do we need this? maybe make a figure to show all the feature sets and
-%% what they're called?
-\begin{itemize}
-  \item es-gn, es-qu with pos tags
-  \item es-gn, es-qu with pos tags and syntactic heads and children
-\end{itemize}
+Specifically, we tried all of the following feature sets, for both
+Spanish-Guaraní and Spanish-Quechua, and with the most promising classifiers
+from Chapter \ref{chap:baseline}.
 
 \begin{itemize}
-  \item es-gn, es-qu with europarl brown clusters
-  \item es-gn, es-qu with wikipedia brown clusters
+  \item POS tag features with baseline features
+  \item POS tag and dependency parse features, with baseline features
+
+  \item Europarl Brown clusters, with baseline features
+  \item Wikipedia Brown clusters, with baseline features
+  \item Europarl Brown clusters, with baseline features (context window)
+  \item Wikipedia Brown clusters, with baseline features (context window)
+
+  \item word2vec embeddings on their own, in combinations of \dots{}
+    \begin{itemize}
+      \item trained on Europarl and Wikipedia
+      \item skipgrams and CBOW
+      \item dimensions: 50, 100, 200, 400
+      \item combination strategies: full sentence, context window, and pyramid
+    \end{itemize}
+
+  \item doc2vec embeddings trained on wikipedia (full sentence)
+  \item doc2vec embeddings trained on wikipedia (context window)
+
+  \item Combination: baseline features 
+  \item Combination: pyramid word2vec with brown and syntactic
 \end{itemize}
 
-\begin{itemize}
-  \item es-gn, es-qu with word2vec embeddings of dimensions (50, 100, 200, 400)
-  from both europarl and wikipedia, and both skipgram and cbow, in full
-  sentence, window, and pyramid combination approaches.
-  \item doc2vec embeddings trained on wikipedia: full sentence
-  \item doc2vec embeddings trained on wikipedia: window sentence
-\end{itemize}
+with adding syntactic features, adding features derived from Brown clusters,
+some combinations of these; then the results for using neural embeddings by
+themselves, followed by combining the previous features with the neural
+embeddings.
 
-\begin{itemize}
-  \item combine the most promising ones
-\end{itemize}
+
+In the next section, we present and discuss the results from these experiments.
+
+
 
 \section{Experimental Results} 
 
