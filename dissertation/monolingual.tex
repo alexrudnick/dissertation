@@ -484,19 +484,23 @@ word embeddings, such that it helps predict words in the current context.
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
-\cite{rehurek-lrec}, with its default settings, which means that training is
-carried out with the ``distributed memory" model.
+\cite{rehurek-lrec} \footnote{Available at
+\url{https://radimrehurek.com/gensim/}}, with its default settings, which uses
+the ``distributed memory" model.
 
 During training data annotation, we pass over our bitext corpus, take the
 source-language sentence from each training pair, and infer a new embedding for
 it based on a doc2vec model trained on our 20 million sentences from
 Spanish-language Wikipedia. These sentence-level embeddings are stored as a
 token annotation on the first token of each sentence, so they can be made
-available during feature extraction. We can also show the gensim software the
-context window around the focus word, rather than the entire sentence, to
+available during feature extraction. We can also show the gensim software a
+small context window around the focus word, rather than the entire sentence to
 generate a more focused representation.
 
-In either case, the result is a vector of the chosen dimensionality ...
+In either case, the result is a dense vector of dimensionality 400 (XXX either
+justify this or try 200 as well), which we can pass to whichever machine
+learning algorithm we like, as we did with the vectors based on word2vec,
+previously.
 
 \section{Experiments}
 \label{sec:monolingual-experiments}
@@ -531,16 +535,19 @@ neural embeddings.
 
 \begin{itemize}
   \item es-gn, es-qu with word2vec embeddings of dimensions (50, 100, 200, 400)
-  from both europarl and wikipedia, and both skipgram and cbow
-  \item doc2vec embeddings trained on wikipedia
+  from both europarl and wikipedia, and both skipgram and cbow, in full
+  sentence, window, and pyramid combination approaches.
+  \item doc2vec embeddings trained on wikipedia: full sentence
+  \item doc2vec embeddings trained on wikipedia: window sentence
 \end{itemize}
 
 \begin{itemize}
   \item combine the most promising ones
 \end{itemize}
 
-\section{Classification Results} 
+\section{Experimental Results} 
 
+%% XXX: make some nice graphs
 \begin{figure}
   %% \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
   \caption{Baseline Chipa scores for Spanish-Guaraní, by classifier.}
@@ -609,7 +616,7 @@ a parser, and a bunch of monolingual text for your source language, you can
 probably make your CL-WSD classification rather better, all without any
 particular resources for your target language.
 
-\subsection{Results: neural embeddings alone}
+\subsection{Results: word2vec embeddings alone}
 As before, we report classification accuracy
 as a percentage, and we performed ten-fold cross-validation, using all of the
 available training data for each of the lemmas in a given language pair's
@@ -677,9 +684,9 @@ any of the combination methods. Also, as with Spanish-Guaraní, we did not see
 the ``fullsent" combination strategy beat the MFS baseline for any of our
 parameter settings.
 
-%% XXX: make some nice graphs
+\subsection{Results: doc2vec embeddings alone}
 
-\section{Results: combining neural embeddings with sparse features}
+\subsection{Results: combining neural embeddings with sparse features}
 
 Taking a look at the most successful word2vec combination strategy, ``pyramid",
 we see that we can improve on the results from using the word2vec embeddings
@@ -691,3 +698,7 @@ For both Spanish-Guaraní and Spanish-Quechua, the ``pyramid\_extras" feature
 set, which combines word2vec embeddings with syntactic features and Brown
 clusters outperforms any of the word2vec feature sets by themselves, by roughly
 a percentage point for both regular and nonnull settings. 
+
+\section{Discussion}
+
+...
