@@ -497,10 +497,9 @@ available during feature extraction. We can also show the gensim software a
 small context window around the focus word, rather than the entire sentence to
 generate a more focused representation.
 
-In either case, the result is a dense vector of dimensionality 400 (XXX either
-justify this or try 200 as well), which we can pass to whichever machine
-learning algorithm we like, as we did with the vectors based on word2vec,
-previously.
+In either case, the result is a dense vector of the specified dimensionality,
+again typically a few hundred, which we can pass to whichever machine learning
+algorithm we like, as we did with the vectors based on word2vec, previously.
 
 \section{Experiments}
 \label{sec:monolingual-experiments}
@@ -517,19 +516,19 @@ combinations of the features, we did not try all (exponentially many)
 possibilities exhaustively.
 
 Specifically, we tried all of the following feature sets, for both
-Spanish-Guaraní and Spanish-Quechua, and with the most promising classifiers
-from Chapter \ref{chap:baseline}.
+Spanish-Guaraní and Spanish-Quechua, feeding them into the same machine
+learning algorithms that were used in Chapter \ref{chap:baseline}.
 
 \begin{itemize}
-  \item POS tag features with baseline features
+  \item POS tag features, with baseline features
   \item POS tag and dependency parse features, with baseline features
 
   \item Europarl Brown clusters, with baseline features
   \item Wikipedia Brown clusters, with baseline features
-  \item Europarl Brown clusters, with baseline features (context window)
-  \item Wikipedia Brown clusters, with baseline features (context window)
+  \item Europarl Brown clusters (context window only), with baseline features
+  \item Wikipedia Brown clusters (context window only), with baseline features
 
-  \item word2vec embeddings on their own, in combinations of \dots{}
+  \item word2vec embeddings on their own, in all combinations of \dots{}
     \begin{itemize}
       \item trained on Europarl and Wikipedia
       \item skipgrams and CBOW
@@ -548,15 +547,9 @@ from Chapter \ref{chap:baseline}.
   \item Combination: pyramid word2vec with brown and syntactic
 \end{itemize}
 
-with adding syntactic features, adding features derived from Brown clusters,
-some combinations of these; then the results for using neural embeddings by
-themselves, followed by combining the previous features with the neural
-embeddings.
-
+%% XXX ... that was kind of a lot of combinations
 
 In the next section, we present and discuss the results from these experiments.
-
-
 
 \section{Experimental Results} 
 
