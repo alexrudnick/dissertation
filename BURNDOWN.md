@@ -7,6 +7,8 @@
   * finish up analysis and writeup
   * make charts & graphs
   * try doc2vec on a window around the focus word??
+  * OK but we really need to understand why doc2vec models are so huge for 200
+  dimensions but not 400 dimensions.
 
 ## multilingual
   * train systems to target any other European languages we can get a
@@ -21,6 +23,11 @@ Then use output of those systems as features.
   * And furthermore, what we can do is just run the classifiers in "annotator"
   mode -- we blow through an input file and we classify with an existing
   classifier, then just save the classifier as an annotation.
+    * notably, we want to write down the answer *on the particular token* that
+    we are going to try to classify later -- it is not a property of the
+    sentence as a whole. The sentence as a whole is not a classification
+    problem; it could have multiple different tokens that need to get
+    classified.
   * What we're going to need to do is build preprocessing for Europarl. We need
   to get Europarl text into the format the Chipa expects.
 
