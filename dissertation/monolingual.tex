@@ -523,10 +523,14 @@ learning algorithms that were used in Chapter \ref{chap:baseline}.
   \item POS tag features, with baseline features
   \item POS tag and dependency parse features, with baseline features
 
-  \item Europarl Brown clusters, with baseline features
-  \item Wikipedia Brown clusters, with baseline features
-  \item Europarl Brown clusters (context window only), with baseline features
-  \item Wikipedia Brown clusters (context window only), with baseline features
+  \item Brown cluster features, with baseline features, in combinations of
+  \dots{}
+    \begin{itemize}
+      \item trained on Europarl or Wikipedia
+      \item based on lemmas or surface forms
+      \item context-window only, or including both context-window and all
+      clusters for the sentence as a bag.
+    \end{itemize}
 
   \item word2vec embeddings on their own, in all combinations of \dots{}
     \begin{itemize}
@@ -543,11 +547,11 @@ learning algorithms that were used in Chapter \ref{chap:baseline}.
       \item dimensions: 200, 400
     \end{itemize}
 
-  \item Combination: baseline features 
-  \item Combination: pyramid word2vec with brown and syntactic
+  \item Combination: baseline features, with syntactic features and
+  Brown clusters (context window, surface form, Wikipedia).
+  \item Combination: pyramid word2vec, with syntactic features and Brown
+  clusters (context window, surface form, Wikipedia).
 \end{itemize}
-
-%% XXX ... that was kind of a lot of combinations
 
 In the next section, we present and discuss the results from these experiments.
 
