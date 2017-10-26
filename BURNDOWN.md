@@ -7,8 +7,6 @@
   * finish up analysis and writeup
   * make charts & graphs
   * try doc2vec on a window around the focus word??
-  * OK but we really need to understand why doc2vec models are so huge for 200
-  dimensions but not 400 dimensions.
 
 ## multilingual
   * train systems to target any other European languages we can get a
@@ -157,7 +155,8 @@ hack up squoia again if necessary
     * DONE surface europarl
     * DONE lemmatized wikipedia
     * DONE surface wikipedia
-
+  * SKIP MAYBE understand why doc2vec models are so huge for 200 dimensions but
+  not 400 dimensions.
 ## sequence
 CANCELED!!
 
