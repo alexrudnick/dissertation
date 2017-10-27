@@ -4,6 +4,9 @@
   * be able to draw curves of word training data size versus accuracy
 
 ## monolingual
+  * maybe rerun the word2vec experiements that we did with the regular feature
+  file, since those seem to have used lemmas rather than surface forms. maybe
+  surface forms help more?
   * finish up analysis and writeup
   * make charts & graphs
   * try doc2vec on a window around the focus word??
