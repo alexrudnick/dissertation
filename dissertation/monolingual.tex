@@ -690,21 +690,19 @@ parameter settings.
 
 \subsection{Results: doc2vec embeddings alone}
 Taking a look at the results for using doc2vec embeddings on their own, we see
-a similar pattern to the use of word2vec: trying to build a representation of
-the entire sentence at once has not been helpful for this problem.
-
-Building doc2vec embeddings for whole sentences, we were able to roughly match
+that with the full-sentence doc2vec embeddings, we were able to roughly match
 the MFS baseline, but not outperform it. However, when we restrict the doc2vec
 optimizer to looking at a narrow context window around the focus word, we can
-outperform the MFS baseline by about a percentage point for Spanish-Guaraní.
+outperform the MFS baseline by about a percentage point; we get the best
+results with a maximum entropy classifier with L2 norm, and slightly worse
+results with L1 norm. This pattern holds for both ``regular" and ``nonnull"
+settings, for both Spanish-Guaraní and Spanish-Quechua.
 
-Intuitively,
-perhaps trying to capture the entire sentence, rather than the area around the
-focus word, is less helpful for making local CL-WSD decisions; this
-interpretation is consistent at least with our observation that summing the
-embeddings for the entire sentence is less helpful than summing the embeddings
-in a small window around the focus word.
-
+Intuitively, perhaps trying to capture the entire sentence, rather than the
+area around the focus word, is less helpful for making local CL-WSD decisions;
+this interpretation is consistent at least with our observation that for
+word2vec, summing the embeddings for the entire sentence is less helpful than
+summing the embeddings in a window around the focus word.
 
 \subsection{Results: combining neural embeddings with sparse features}
 
