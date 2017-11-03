@@ -691,12 +691,14 @@ parameter settings.
 \subsection{Results: doc2vec embeddings alone}
 Taking a look at the results for using doc2vec embeddings on their own, we see
 that with the full-sentence doc2vec embeddings, we were able to roughly match
-the MFS baseline, but not outperform it. However, when we restrict the doc2vec
-optimizer to looking at a narrow context window around the focus word, we can
-outperform the MFS baseline by about a percentage point; we get the best
-results with a maximum entropy classifier with L2 norm, and slightly worse
-results with L1 norm. This pattern holds for both ``regular" and ``nonnull"
-settings, for both Spanish-Guaraní and Spanish-Quechua.
+the MFS baseline, and in a few cases, outperform it by about half a percentage
+point. However, when we restrict the doc2vec optimizer to looking at a narrow
+context window around the focus word, we can outperform the MFS baseline by
+either a percentage point for Spanish-Guaraní, or 1.5 points for
+Spanish-Quechua; we get the best results with a maximum entropy classifier with
+L2 norm, and slightly worse results with L1 norm. This pattern holds for both
+``regular" and ``nonnull" settings, for both Spanish-Guaraní and
+Spanish-Quechua.
 
 Intuitively, perhaps trying to capture the entire sentence, rather than the
 area around the focus word, is less helpful for making local CL-WSD decisions;
@@ -714,9 +716,8 @@ that used the word2vec embeddings.
 
 For both Spanish-Guaraní and Spanish-Quechua, the ``pyramid\_extras" feature
 set, which combines word2vec embeddings with syntactic features and Brown
-clusters outperforms any of the word2vec feature sets by themselves, by roughly
-a percentage point for both regular and nonnull settings. 
+clusters outperforms any of the word2vec feature sets by themselves, by at
+least half a percentage point for both regular and nonnull settings. 
 
 \section{Discussion}
-
-...
+Local information.
