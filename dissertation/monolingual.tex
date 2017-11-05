@@ -713,6 +713,25 @@ summing the embeddings in a window around the focus word.
 
 \subsection{Results: combining neural embeddings with sparse features}
 
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|l|l|}
+    \hline
+    system & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    pyramid\_extras, maxent l1 & 0.475 & 0.523 & 0.463 & 0.437 \\
+    \hline
+    pyramid\_extras, maxent l2 & 0.473 & 0.523 & 0.460 & 0.439 \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Additional syntactic features}
+  \label{fig:syntacticfeatures}
+\end{figure*}
+
+
 Taking a look at the most successful word2vec combination strategy, ``pyramid",
 we see that we can improve on the results from using the word2vec embeddings
 alone by adding the other features developed in this chapter. Although it was
