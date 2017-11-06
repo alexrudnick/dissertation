@@ -540,11 +540,9 @@ learning algorithms that were used in Chapter \ref{chap:baseline}.
       \item combination strategies: full sentence, context window, and pyramid
     \end{itemize}
 
-  \item doc2vec embeddings on their own, trained on Wikipedia, in combinations
-  of \dots{}
+  \item doc2vec embeddings on their own, trained on Wikipedia\dots{}
     \begin{itemize}
-      \item embeddings for a full sentence, embeddings for a context window
-      \item dimensions: 200, 400
+      \item embeddings for a full sentence or embeddings for a context window
     \end{itemize}
 
   \item Combination: baseline features, with syntactic features and
@@ -632,6 +630,33 @@ probably make your CL-WSD classification rather better, all without any
 particular resources for your target language.
 
 \subsection{Results: word2vec embeddings alone}
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    \hline
+    maxent l1 pyramid, skipgrams 200 dimensions & 0.469 & 0.512 & 0.453 & 0.424 \\
+    \hline
+    maxent l1 window, skipgrams 200 dimensions & 0.468 & 0.511 & 0.451 & 0.423 \\
+    \hline
+    maxent l1 fullsent, skipgrams 200 dimensions & 0.428 & 0.469 & 0.408 & 0.374 \\
+    \hline
+    best word2vec alone & 0.470 & 0.514 & 0.454 & 0.426 \\
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    best classifier, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Top results for classification using only word2vec embeddings to
+  create features. For comparison, also included are the MFS baseline and the
+  top results from the previous chapter.}
+  \label{fig:word2vec-alone-results}
+\end{figure*}
+
 As before, we report classification accuracy
 as a percentage, and we performed ten-fold cross-validation, using all of the
 available training data for each of the lemmas in a given language pair's
@@ -715,22 +740,28 @@ summing the embeddings in a window around the focus word.
 
 \begin{figure*}
   \begin{centering}
-  \begin{tabular}{|r|l|l|l|l|}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
-    system & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    \hline
+    maxent l1 & 0.475 & 0.523 & 0.463 & 0.437 \\
+    \hline
+    maxent l2 & 0.473 & 0.523 & 0.460 & 0.439 \\
+    \hline
+    best word2vec alone & 0.470 & 0.514 & 0.454 & 0.426 \\
     \hline
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
-    pyramid\_extras, maxent l1 & 0.475 & 0.523 & 0.463 & 0.437 \\
+    best, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
     \hline
-    pyramid\_extras, maxent l2 & 0.473 & 0.523 & 0.460 & 0.439 \\
-    \hline
-  \end{tabular}
+  \end{tabulary}
   \end{centering}
-  \caption{Additional syntactic features}
-  \label{fig:syntacticfeatures}
+  \caption{Results for combining word2vec embeddings with syntactic features
+  and Brown clusters. For comparison, also included are the MFS baseline,
+  word2vec results without additional features, and the top results from the
+  previous chapter.}
+  \label{fig:pyramid-extras-results}
 \end{figure*}
-
 
 Taking a look at the most successful word2vec combination strategy, ``pyramid",
 we see that we can improve on the results from using the word2vec embeddings
