@@ -2,6 +2,8 @@
 
 ## general
   * be able to draw curves of word training data size versus accuracy
+  * make sure results reported in baseline" chapter are generated on the same
+  test sets and same process as "monolingual"
 
 ## monolingual
   * finish up analysis and writeup
