@@ -719,6 +719,33 @@ the ``fullsent" combination strategy beat the MFS baseline for any of our
 parameter settings.
 
 \subsection{Results: doc2vec embeddings alone}
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    \hline
+    maxent l1 fullsent, 200 dimensions & 0.462 & 0.497 & 0.441 & 0.391 \\
+    \hline
+    maxent l2 window, 200 dimensions & 0.467 & 0.506 & 0.449 & 0.402 \\
+    \hline
+    maxent l1 window, 200 dimensions & 0.463 & 0.502 & 0.445 & 0. 395\\
+    \hline
+    best word2vec alone & 0.470 & 0.514 & 0.454 & 0.426 \\
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    best classifier, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{Top results for classification using only word2vec embeddings to
+  create features. For comparison, also included are the MFS baseline and the
+  top results from the previous chapter.}
+  \label{fig:doc2vec-alone-results}
+\end{figure*}
+
 Taking a look at the results for using doc2vec embeddings on their own, we see
 that with the full-sentence doc2vec embeddings, we were able to roughly match
 the MFS baseline, and in a few cases, outperform it by about half a percentage
