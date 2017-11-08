@@ -8,7 +8,6 @@
 ## monolingual
   * finish up analysis and writeup
   * make charts & graphs
-  * try doc2vec on a window around the focus word??
 
 ## multilingual
   * train systems to target any other European languages we can get a
@@ -162,6 +161,7 @@ hack up squoia again if necessary
   * DONE maybe rerun the word2vec experiements that we did with the regular
   feature file, since those seem to have used lemmas rather than surface forms.
   maybe surface forms help more?
+  * DONE try doc2vec on a window around the focus word??
 
 ## sequence
 CANCELED!!
