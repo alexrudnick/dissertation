@@ -574,6 +574,31 @@ In the next section, we present and discuss the results from these experiments.
 \end{figure}
 
 \subsection{Results: adding syntactic features}
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    \hline
+    +pos tags features, maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    +all syntactic features, maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    best, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{Results for combining word2vec embeddings with syntactic features
+  and Brown clusters. For comparison, also included are the MFS baseline,
+  word2vec results without additional features, and the top results from the
+  previous chapter.}
+  \label{fig:syntactic-results}
+\end{figure*}
+
+
 Taking a look at the scores from the features based on easily available
 Spanish-language taggers and parsers, which are presented in Figure XXX, we see
 that for Spanish-Guaraní, we were able to surpass the MFS baseline with the
@@ -611,6 +636,37 @@ by 4.3 points.
 %% consider words separately? Can we draw that curve?
 
 \subsection{Results: adding clustering features}
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    \hline
+    Wikipedia clusters, lemmatized, maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    Europarl clusters, lemmatized, maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    Wikipedia clusters, surface, maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    Europarl clusters, surface, maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    Wikipedia clusters, surface, window only, maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    best, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{Results for combining word2vec embeddings with syntactic features
+  and Brown clusters. For comparison, also included are the MFS baseline,
+  word2vec results without additional features, and the top results from the
+  previous chapter.}
+  \label{fig:brown-results}
+\end{figure*}
+
+
 %% XXX working here
 Results for clustering for Spanish-Guaraní:
 using a bag of brown for the whole sentence didn't work very well.
