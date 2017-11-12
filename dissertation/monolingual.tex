@@ -554,24 +554,8 @@ learning algorithms that were used in Chapter \ref{chap:baseline}.
 In the next section, we present and discuss the results from these experiments.
 
 \section{Experimental Results} 
-%% XXX: for each of these subsections, make a little chart comparing the best
-%% results with the baselines (for each of the four settings):
-%% - MFS baseline
-%% - default features baseline from previous chapter
-%% Then for the end, show the best ones from each subsection, all together.
-
 %% XXX: make some nice graphs
-\begin{figure}
-  %% \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
-  \caption{Baseline Chipa scores for Spanish-Guaraní, by classifier.}
-  \label{fig:esgnresults:monolingual}
-\end{figure}
-
-\begin{figure}
-  %% \includegraphics[width=\textwidth]{baseline-esqu-ch4.png}
-  \caption{Baseline Chipa scores for Spanish-Quechua, by classifier.}
-  \label{fig:esquresults:monolingual}
-\end{figure}
+%% XXX: show the best ones from each subsection, all together.
 
 \subsection{Results: adding syntactic features}
 
@@ -684,7 +668,6 @@ probably make your CL-WSD classification rather better, all without any
 particular resources for your target language.
 
 \subsection{Results: word2vec embeddings alone}
-
 \begin{figure*}
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
@@ -818,7 +801,6 @@ word2vec, summing the embeddings for the entire sentence is less helpful than
 summing the embeddings in a window around the focus word.
 
 \subsection{Results: combining neural embeddings with sparse features}
-
 \begin{figure*}
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
@@ -854,6 +836,20 @@ For both Spanish-Guaraní and Spanish-Quechua, the ``pyramid\_extras" feature
 set, which combines word2vec embeddings with syntactic features and Brown
 clusters outperforms any of the word2vec feature sets by themselves, by at
 least half a percentage point for both regular and nonnull settings. 
+
+\subsection{Comparing results}
+\begin{figure}
+  %% \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
+  \caption{Baseline Chipa scores for Spanish-Guaraní, by classifier.}
+  \label{fig:esgnresults:monolingual}
+\end{figure}
+
+\begin{figure}
+  %% \includegraphics[width=\textwidth]{baseline-esqu-ch4.png}
+  \caption{Baseline Chipa scores for Spanish-Quechua, by classifier.}
+  \label{fig:esquresults:monolingual}
+\end{figure}
+
 
 \section{Discussion}
 In this chapter, we have shown a number of different approaches that we can
