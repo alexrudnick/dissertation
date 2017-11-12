@@ -626,7 +626,7 @@ by 4.3 points.
     \hline
     classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
     \hline
-    Wikipedia clusters, lemmatized, maxent l1 & XXX & XXX & XXX & XXX \\
+    Wikipedia clusters, lemmatized, maxent l1 & 0.448 & 0.490 & XXX & XXX \\
     \hline
     Europarl clusters, lemmatized, maxent l1 & XXX & XXX & XXX & XXX \\
     \hline
@@ -634,7 +634,9 @@ by 4.3 points.
     \hline
     Europarl clusters, surface, maxent l1 & XXX & XXX & XXX & XXX \\
     \hline
-    Wikipedia clusters, surface, window only, maxent l1 & XXX & XXX & XXX & XXX \\
+    Wikipedia clusters, surface, window only, random forest & 0.484 & 0.524 & XXX & XXX \\
+    \hline
+    Wikipedia clusters, surface, window only, maxent l2 & 0.476 & 0.525 & XXX & XXX \\
     \hline
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
@@ -651,21 +653,19 @@ by 4.3 points.
 
 %% XXX working here
 Results for clustering for Spanish-Guaraní:
-using a bag of brown for the whole sentence didn't work very well.
-Using the brown clusters for a small window around the focus word worked well!
+using a bag of brown for the whole sentence didn't work very well. For many of
+the experiments that we did with Brown clusters, adding clusters for the entire
+sentence seemed to overwhelm the useful signals from the other features;
+results dipped below the MFS baseline.
+However, using Brown clusters for the context window around the focus word
+worked pretty well, typically improving on the baseline results from the
+previous chapter.
 
 Similar for Spanish-Quechua.
 
-Lemmatizing the source text before extracting
-Brown clusters did not seem to help; in fact the scores for lemmatized Brown
-clusters were a few tenths of a percentage point lower.  
-
-When we use Brown clusters in the window alongside the syntactic featues, that
-works best of all so far, for Spanish-Guaraní and Spanish-Quechua, in both
-regular and nonnull settings. That is pretty cool. So if you've got a tagger,
-a parser, and a bunch of monolingual text for your source language, you can
-probably make your CL-WSD classification rather better, all without any
-particular resources for your target language.
+Lemmatizing the source text before extracting Brown clusters did not seem to
+help; in fact the scores for lemmatized Brown clusters were a few tenths of a
+percentage point lower.  
 
 \subsection{Results: word2vec embeddings alone}
 \begin{figure*}
@@ -799,6 +799,17 @@ area around the focus word, is less helpful for making local CL-WSD decisions;
 this interpretation is consistent at least with our observation that for
 word2vec, summing the embeddings for the entire sentence is less helpful than
 summing the embeddings in a window around the focus word.
+
+
+\subsection{Results: combining sparse features}
+%% XXX working here
+When we use Brown clusters in the window alongside the syntactic featues, that
+works best of all so far, for Spanish-Guaraní and Spanish-Quechua, in both
+regular and nonnull settings. That is pretty cool. So if you've got a tagger,
+a parser, and a bunch of monolingual text for your source language, you can
+probably make your CL-WSD classification rather better, all without any
+particular resources for your target language.
+
 
 \subsection{Results: combining neural embeddings with sparse features}
 \begin{figure*}
