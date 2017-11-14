@@ -581,18 +581,18 @@ In the next section, we present and discuss the results from these experiments.
   \label{fig:syntactic-results}
 \end{figure*}
 
-
 Taking a look at the scores from the features based on easily available
-Spanish-language taggers and parsers, which are presented in Figure XXX, we see
-that for Spanish-Guaraní, we were able to surpass the MFS baseline with the
-dependency-parse and POS-tag-based features. They seemed to work especially
-well with the L2-norm maxent classifier and random forests. Furthermore, they
-beat the default features described in Chapter \ref{chap:baseline} by roughly
-half a percentage point: 0.5 or 0.6 percentage points, in the ``regular" and
-``non-null" settings, respectively. Adding the part-of-speech features without
-the parse features worked nearly as well, falling a tenth of a percentage point
-behind using all of the syntactic features in the ``regular" setting, and three
-tenths of a point behind in the ``nonnull" setting.
+Spanish-language taggers and parsers, which are presented in Figure
+\ref{fig:syntactic-results}, we see that for Spanish-Guaraní, we were able to
+surpass the MFS baseline with the dependency-parse and POS-tag-based features.
+They seemed to work especially well with the L2-norm maxent classifier and
+random forests. Furthermore, they beat the default features described in
+Chapter \ref{chap:baseline} by roughly half a percentage point: 0.5 or 0.6
+percentage points, in the ``regular" and ``non-null" settings, respectively.
+Adding the part-of-speech features without the parse features worked nearly as
+well, falling a tenth of a percentage point behind using all of the syntactic
+features in the ``regular" setting, and three tenths of a point behind in the
+``nonnull" setting.
 
 We see fairly similar results for Spanish-Quechua, which are shown in Figure
 \ref{fig:esquresults:monolingual}. Our strongest results for the ``regular"
@@ -614,9 +614,6 @@ comparison, the default feautres win out over the MFS baseline by 4 percentage
 points with L2 maximum entropy, or 3.9 points with random forests. For random
 forests with the syntactic features, we see that setting beat the MFS baseline
 by 4.3 points.
-
-%% furthermore: how does our accuracy correlate with training set size, when we
-%% consider words separately? Can we draw that curve?
 
 \subsection{Results: adding clustering features}
 
