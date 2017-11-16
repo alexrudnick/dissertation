@@ -625,19 +625,21 @@ by 4.3 points.
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
+    %% XXX put in all combinations of...
+    %% for each classifier, do europarl/wikipedia and surface/lemma
     classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
     \hline
-    Wikipedia clusters, lemmatized, maxent l1 & 0.448 & 0.490 & XXX & XXX \\
+    Wikipedia clusters, lemmatized, maxent l1 & 0.448 & 0.490 & 0.429 & 0.401 \\
     \hline
-    Europarl clusters, lemmatized, maxent l1 & XXX & XXX & XXX & XXX \\
+    Europarl clusters, lemmatized, maxent l1 & XXX & XXX & 0.432 & 0.401 \\
     \hline
     Wikipedia clusters, surface, maxent l1 & XXX & XXX & XXX & XXX \\
     \hline
     Europarl clusters, surface, maxent l1 & XXX & XXX & XXX & XXX \\
     \hline
-    Wikipedia clusters, surface, window only, random forest & 0.484 & 0.524 & XXX & XXX \\
+    Wikipedia clusters, surface, window only, random forest & 0.484 & 0.524 & 0.468 & 0.430 \\
     \hline
-    Wikipedia clusters, surface, window only, maxent l2 & 0.476 & 0.525 & XXX & XXX \\
+    Wikipedia clusters, surface, window only, maxent l2 & 0.476 & 0.525 & 0.460 & 0.436 \\
     \hline
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
