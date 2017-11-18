@@ -6,6 +6,7 @@
   test sets and same process as "monolingual"
 
 ## monolingual
+  * what kinds of words are we likely to do better on?
   * how does this look for words with more examples, versus fewer?
   * finish up analysis and writeup
   * make charts & graphs
