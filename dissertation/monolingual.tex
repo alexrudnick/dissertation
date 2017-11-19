@@ -670,6 +670,37 @@ Lemmatizing the source text before extracting Brown clusters did not seem to
 help; in fact the scores for lemmatized Brown clusters were a few tenths of a
 percentage point lower.  
 
+\subsection{Results: combining sparse features}
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+    \hline
+    maxent l1 & XXX & XXX & XXX & XXX \\
+    \hline
+    maxent l2 & XXX & XXX & XXX & XXX \\
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    best, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{Results for combining word2vec embeddings with syntactic features
+  and Brown clusters. For comparison, also included are the MFS baseline,
+  word2vec results without additional features, and the top results from the
+  previous chapter.}
+  \label{fig:pyramid-extras-results}
+\end{figure*}
+
+%% XXX working here
+When we use Brown clusters in the window alongside the syntactic featues, this
+works best of all so far, for Spanish-Guaraní and Spanish-Quechua, in both
+regular and nonnull settings.
+
+
+
 \subsection{Results: word2vec embeddings alone}
 \begin{figure*}
   \begin{centering}
@@ -804,16 +835,6 @@ word2vec, summing the embeddings for the entire sentence is less helpful than
 summing the embeddings in a window around the focus word.
 
 
-\subsection{Results: combining sparse features}
-%% XXX working here
-When we use Brown clusters in the window alongside the syntactic featues, that
-works best of all so far, for Spanish-Guaraní and Spanish-Quechua, in both
-regular and nonnull settings. That is pretty cool. So if you've got a tagger,
-a parser, and a bunch of monolingual text for your source language, you can
-probably make your CL-WSD classification rather better, all without any
-particular resources for your target language.
-
-
 \subsection{Results: combining neural embeddings with sparse features}
 \begin{figure*}
   \begin{centering}
@@ -873,13 +894,13 @@ source-language syntactic analysis tools.
 
 Using each of these different tools, we were able to overcome the relatively
 strong most-frequent sense baseline, and with many of them, we were able to
-improve on the default feature set, described in the previous chapter. All of
-these approaches make more abstract representations of the source text
+improve slightly on the default feature set, described in the previous chapter.
+All of these approaches make more abstract representations of the source text
 available to our classifiers, whether these representations were learned from
 the available text, or encapsulate some kind of syntactic knowledge about the
 language. We found, in general, that representing the text closely surrounding
 the focus word was more effective than attempting to represent the entire
-sentence at once.
+source-language sentence at once.
 
 In the next chapter, we will leverage another one of our important resources
 that we have available for a resource-rich language like Spanish: bitext with
