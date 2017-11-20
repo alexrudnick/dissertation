@@ -632,31 +632,61 @@ by 4.3 points.
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
-    %% XXX put in all combinations of...
-    %% for each classifier, do europarl/wikipedia and surface/lemma
-    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
-    \hline
-    Wikipedia clusters, lemmatized, maxent l1 & 0.448 & 0.490 & 0.429 & 0.401 \\
-    \hline
-    Europarl clusters, lemmatized, maxent l1 & XXX & XXX & 0.432 & 0.401 \\
-    \hline
-    Wikipedia clusters, surface, maxent l1 & XXX & XXX & XXX & XXX \\
-    \hline
-    Europarl clusters, surface, maxent l1 & XXX & XXX & XXX & XXX \\
-    \hline
-    Wikipedia clusters, surface, window only, random forest & 0.484 & 0.524 & 0.468 & 0.430 \\
-    \hline
-    Wikipedia clusters, surface, window only, maxent l2 & 0.476 & 0.525 & 0.460 & 0.436 \\
+    features & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
     \hline
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
-    best, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+    \multicolumn{5}{|l|}{maxent l1} \\
+    \hline
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
+    \hline
+    +Europarl clusters, surface & 0.446 & 0.491 & 0.429 & 0.399 \\
+    \hline
+    %% XXX: where did the results for gn go for this?
+    +Europarl clusters, lemmatized & XXX & XXX & 0.432 & 0.401 \\
+    \hline
+    +Wikipedia clusters, surface & 0.446 & 0.490 & 0.428 & 0.399 \\
+    \hline
+    +Wikipedia clusters, lemmatized & 0.448 & 0.490 & 0.429 & 0.401 \\
+    \hline
+    +Wikipedia clusters, surface, window only & 0.460 & 0.506 & 0.445 & 0.416 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l2} \\
+    \hline
+    baseline features & 0.475 & 0.524 & 0.475 & 0.431 \\
+    \hline
+    +Europarl clusters, surface & 0.462 & 0.512 & 0.445 & 0.420 \\
+    \hline
+    +Europarl clusters, lemmatized & XXX & XXX & 0.445 & 0.419 \\
+    \hline
+    +Wikipedia clusters, surface & 0.461 & 0.512 & 0.445 & 0.420 \\
+    \hline
+    +Wikipedia clusters, lemmatized & 0.463 & XXX & 0.445 & 0.419 \\
+    \hline
+    +Wikipedia clusters, surface, window only & 0.475 & 0.525 & 0.460 & 0.436 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{random forest} \\
+    baseline features, random forest & 0.481 & 0.520 & 0.464 & 0.424 \\
+    \hline
+    +Europarl clusters, surface & 0.476 & 0.519 & 0.461 & 0.423 \\
+    \hline
+    +Europarl clusters, lemmatized & XXX & XXX & 0.459 & 0.420 \\
+    \hline
+    +Wikipedia clusters, surface & 0.477 & 0.518 & 0.460 & 0.423 \\
+    \hline
+    +Wikipedia clusters, lemmatized & XXX & XXX & 0.459 & 0.418 \\
+    \hline
+    +Wikipedia clusters, surface, window only & 0.484 & 0.524 & 0.468 & 0.430 \\
     \hline
   \end{tabulary}
   \end{centering}
   \caption{Classification results for adding Brown cluster features to the
-  default feature set. For comparison, also included are the MFS baseline and
-  the top results from the previous chapter.}
+  default feature set.}
   \label{fig:brown-results}
 \end{figure*}
 
