@@ -6,8 +6,6 @@
   test sets and same process as "monolingual"
 
 ## monolingual
-  * what kinds of words are we likely to do better on?
-  * how does this look for words with more examples, versus fewer?
   * finish up analysis and writeup
   * make charts & graphs
 
@@ -164,6 +162,8 @@ hack up squoia again if necessary
   feature file, since those seem to have used lemmas rather than surface forms.
   maybe surface forms help more?
   * DONE try doc2vec on a window around the focus word??
+  * SKIP what kinds of words are we likely to do better on?
+  * SKIP how does this look for words with more examples, versus fewer?
 
 ## sequence
 CANCELED!!
