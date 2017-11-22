@@ -567,18 +567,28 @@ In the next section, we present and discuss the results from these experiments.
     \hline
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
-    baseline features, maxent l1 & 0.461 & 0.506 & 0.444 & 0.414 \\
     \hline
-    +pos tags features, maxent l1 & 0.464 & 0.510 & 0.449 & 0.420 \\
+
+    \multicolumn{5}{|l|}{maxent l1} \\
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
     \hline
-    +all syntactic features, maxent l1 & 0.465 & 0.511 & 0.450 & 0.422 \\
+    +pos tags features & 0.464 & 0.510 & 0.449 & 0.420 \\
     \hline
-    baseline features, maxent l2 & 0.475 & 0.524 & 0.475 & 0.431 \\
+    +all syntactic features & 0.465 & 0.511 & 0.450 & 0.422 \\
     \hline
-    +pos tags features, maxent l2 & 0.479 & 0.527 & 0.462 & 0.438 \\
     \hline
-    +all syntactic features, maxent l2 & 0.480 & 0.530 & 0.465 & 0.441 \\
+
+    \multicolumn{5}{|l|}{maxent l2} \\
     \hline
+    baseline features & 0.475 & 0.524 & 0.475 & 0.431 \\
+    \hline
+    +pos tags features & 0.479 & 0.527 & 0.462 & 0.438 \\
+    \hline
+    +all syntactic features & 0.480 & 0.530 & 0.465 & 0.441 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{random forest} \\
     baseline features, random forest & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
     +pos tags features, random forest & 0.485 & 0.523 & 0.467 & 0.430 \\
@@ -712,21 +722,42 @@ percentage point lower.
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
     classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
-    \hline
-    maxent l1 & XXX & XXX & XXX & XXX \\
-    \hline
-    maxent l2 & XXX & XXX & XXX & XXX \\
+
     \hline
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
-    best, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+    \multicolumn{5}{|l|}{maxent l1} \\
+    \hline
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
+    \hline
+    +syntactic features, maxent l1 & 0.465 & 0.511 & 0.450 & 0.422 \\
+    \hline
+    combined sparse features & 0.464 & 0.510 & 0.448 & 0.422 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l2} \\
+    \hline
+    baseline features & 0.475 & 0.524 & 0.475 & 0.431 \\
+    \hline
+    +syntactic features, maxent l2 & 0.480 & 0.530 & 0.465 & 0.441 \\
+    \hline
+    combined sparse features & 0.479 & 0.530 & 0.465 & 0.443 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{random forest} \\
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
+    \hline
+    +syntactic features & 0.486 & 0.527 & 0.471 & 0.434 \\
+    \hline
+    combined sparse features & 0.488 & 0.528 & 0.472 & 0.437 \\
     \hline
   \end{tabulary}
   \end{centering}
-  \caption{Results for combining word2vec embeddings with syntactic features
-  and Brown clusters. For comparison, also included are the MFS baseline,
-  word2vec results without additional features, and the top results from the
-  previous chapter.}
+  \caption{Results for baseline features with syntactic features
+  and Brown clusters.}
   \label{fig:pyramid-extras-results}
 \end{figure*}
 
