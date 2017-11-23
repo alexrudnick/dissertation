@@ -570,6 +570,7 @@ In the next section, we present and discuss the results from these experiments.
     \hline
 
     \multicolumn{5}{|l|}{maxent l1} \\
+    \hline
     baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
     \hline
     +pos tags features & 0.464 & 0.510 & 0.449 & 0.420 \\
@@ -589,11 +590,12 @@ In the next section, we present and discuss the results from these experiments.
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
-    baseline features, random forest & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
-    +pos tags features, random forest & 0.485 & 0.523 & 0.467 & 0.430 \\
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
-    +all syntactic features, random forest & 0.486 & 0.527 & 0.471 & 0.434 \\
+    +pos tags features & 0.485 & 0.523 & 0.467 & 0.430 \\
+    \hline
+    +all syntactic features & 0.486 & 0.527 & 0.471 & 0.434 \\
     \hline
   \end{tabulary}
   \end{centering}
@@ -680,7 +682,8 @@ by 4.3 points.
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
-    baseline features, random forest & 0.481 & 0.520 & 0.464 & 0.424 \\
+    \hline
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
     +Europarl clusters, surface & 0.476 & 0.519 & 0.461 & 0.423 \\
     \hline
@@ -748,6 +751,7 @@ percentage point lower.
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
+    \hline
     baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
     +syntactic features & 0.486 & 0.527 & 0.471 & 0.434 \\
@@ -756,8 +760,9 @@ percentage point lower.
     \hline
   \end{tabulary}
   \end{centering}
-  \caption{Results for baseline features with syntactic features
-  and Brown clusters.}
+  \caption{Results for baseline features with the sparse features introduced in
+  this chapter: features from a POS tagger, a dependency parser, and Brown
+  clustering.}
   \label{fig:pyramid-extras-results}
 \end{figure*}
 
