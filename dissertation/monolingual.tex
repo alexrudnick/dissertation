@@ -921,47 +921,32 @@ summing the embeddings in a window around the focus word.
 
     \multicolumn{5}{|l|}{maxent l1} \\
     \hline
-    word2vec alone & XXX & XXX & XXX & XXX \\
+    word2vec alone  & 0.470 & 0.513 & 0.453 & 0.424 \\
     \hline
-    +sparse features & XXX & XXX & XXX & XXX \\
+    +sparse features & 0.472 & 0.519 & 0.458 & 0.436 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{maxent l2} \\
     \hline
-    word2vec alone & XXX & XXX & XXX & XXX \\
+    word2vec alone & 0.465 & 0.513 & 0.449 & 0.424 \\
     \hline
-    +sparse features & XXX & XXX & XXX & XXX \\
+    +sparse features & 0.472 & 0.522 & 0.458 & 0.438 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
     \hline
-    word2vec alone & XXX & XXX & XXX & XXX \\
+    word2vec alone & 0.452 & 0.493 & 0.438 & 0.394 \\
     \hline
-    +sparse features & XXX & XXX & XXX & XXX \\
-    \hline
-    \hline
-
-
-    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
-    \hline
-    maxent l1 & 0.475 & 0.523 & 0.463 & 0.437 \\
-    \hline
-    maxent l2 & 0.473 & 0.523 & 0.460 & 0.439 \\
-    \hline
-    best word2vec alone & 0.470 & 0.514 & 0.454 & 0.426 \\
-    \hline
-    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
-    \hline
-    best, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    +sparse features & 0.461 & 0.504 & 0.449 & 0.410 \\
     \hline
   \end{tabulary}
   \end{centering}
-  \caption{Results for combining word2vec embeddings with syntactic features
-  and Brown clusters. For comparison, also included are the MFS baseline,
-  word2vec results without additional features, and the top results from the
-  previous chapter.}
+  \caption{Results for combining word2vec embeddings (Wikipedia skipgrams, 200
+  dimensions, ``pyramid" strategy) with syntactic features and Brown clusters.
+  For comparison, also included are the MFS baseline, word2vec results without
+  additional features.}
   \label{fig:pyramid-extras-results}
 \end{figure*}
 
