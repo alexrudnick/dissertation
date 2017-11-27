@@ -618,21 +618,9 @@ Spanish-Quechua with maximum entropy (L2-norm), which sees a small loss on the
 small gains back when adding the syntactic features. The incremental
 improvements seem to be in place for all other settings.
 
-%% XXX working here
-
-Maximum entropy classifiers with L2 regularization and syntactic features also
-did fairly well for Spanish-Quechua, beating the baseline by 2.9 points.
-
-For the ``nonnull" case of Spanish-Quechua, we see the order of the top
-classifiers flipped; the maximum entropy classifier had the top results,
-beating the MFS baseline by 5 percentage points. Using just the default
-features with added POS tags beats the baseline by 4.7 percentage points. For
-comparison, the default feautres win out over the MFS baseline by 4 percentage
-points with L2 maximum entropy, or 3.9 points with random forests. For random
-forests with the syntactic features, we see that setting beat the MFS baseline
-by 4.3 points.
-
-
+Where we see gains, the gains seem to be of roughly the same (small) magnitude;
+it is not obvious whether any of the classifiers are more able to make use of
+the additional features than others.
 
 \subsection{Results: adding clustering features}
 
@@ -698,22 +686,22 @@ by 4.3 points.
   \label{fig:brown-results}
 \end{figure*}
 
+We see the experimental results for adding our Brown Cluster features
+(explained in Figure \ref{fig:brownfeatures}) in Figure \ref{fig:brownresults}.
+In general, we do not see gains from adding all of the Brown Cluster features
+together; this typically seems to diminish performance by a few tenths of a
+percentage point, in many cases making the performance as a whole dip below the
+MFS baseline. This seems to be too many potentially-irrelevant features,
+perhaps overwhelming the useful signals present in the baseline feature set.
 
-%% XXX working here
-Results for clustering for Spanish-Guaraní:
-using a bag of brown for the whole sentence didn't work very well. For many of
-the experiments that we did with Brown clusters, adding clusters for the entire
-sentence seemed to overwhelm the useful signals from the other features;
-results dipped below the MFS baseline.
-However, using Brown clusters for the context window around the focus word
-worked pretty well, typically improving on the baseline results from the
-previous chapter.
-
-Similar for Spanish-Quechua.
-
-Lemmatizing the source text before extracting Brown clusters did not seem to
-help; in fact the scores for lemmatized Brown clusters were a few tenths of a
-percentage point lower.  
+However, we get better results when we limit the Brown cluster features to a
+narrow context words of three words on either side of the focus word; this
+seems to lead to roughly the same results for the maximum entropy classifiers
+-- except for the ``non-null" case for L2-norm for Spanish-Quechua, as in the
+results for syntactic features in Figure \ref{fig:syntactic-results}. But for
+the random forest classifiers, we see consistent gains of three to six tenths
+of a percentage point. So for random forest classifiers, it seems worthwhile to
+add these window-based Brown cluster features.
 
 \subsection{Results: combining sparse features}
 \begin{figure*}
