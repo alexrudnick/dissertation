@@ -5,10 +5,6 @@
   * make sure results reported in baseline" chapter are generated on the same
   test sets and same process as "monolingual"
 
-## monolingual
-  * finish up analysis and writeup
-  * make charts & graphs
-
 ## multilingual
   * train systems to target any other European languages we can get a
   target-language stemmer for. Anything snowball is fair game, maybe? We don't
@@ -164,6 +160,8 @@ hack up squoia again if necessary
   * DONE try doc2vec on a window around the focus word??
   * SKIP what kinds of words are we likely to do better on?
   * SKIP how does this look for words with more examples, versus fewer?
+  * DONE finish up analysis and writeup
+  * DONE make charts & graphs
 
 ## sequence
 CANCELED!!
