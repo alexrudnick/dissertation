@@ -774,7 +774,9 @@ regular and nonnull settings.
 
 
 \subsection{Results: word2vec embeddings alone}
+
 \begin{figure*}
+{\small
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
@@ -784,161 +786,91 @@ regular and nonnull settings.
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
     \hline
-    \multicolumn{5}{|l|}{maxent l1} \\
+    \multicolumn{5}{|l|}{maxent l1 (200 dims)} \\
     \hline
-window_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.461 & 0.505 & 0.449 & 0.417 \\
-window_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.460 & 0.504 & 0.447 & 0.416 \\
-window_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.456 & 0.503 & 0.444 & 0.415 \\
-window_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.460 & 0.505 & 0.448 & 0.415 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.466 & 0.510 & 0.452 & 0.420 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.467 & 0.511 & 0.450 & 0.422 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.464 & 0.512 & 0.451 & 0.423 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.466 & 0.510 & 0.452 & 0.417 \\
-window_word2vec_word2vec-spanish-europarl-100.skipgram & 0.462 & 0.506 & 0.450 & 0.418 \\
-window_word2vec_word2vec-spanish-europarl-200.skipgram & 0.462 & 0.506 & 0.447 & 0.417 \\
-window_word2vec_word2vec-spanish-europarl-400.skipgram & 0.459 & 0.505 & 0.446 & 0.417 \\
-window_word2vec_word2vec-spanish-europarl-50.skipgram & 0.461 & 0.506 & 0.449 & 0.415 \\
-window_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.466 & 0.510 & 0.452 & 0.420 \\
-window_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.468 & 0.511 & 0.451 & 0.423 \\
-window_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.466 & 0.512 & 0.451 & 0.424 \\
-window_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.466 & 0.510 & 0.452 & 0.418 \\
-
-pyramid_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.463 & 0.507 & 0.448 & 0.417 \\
-pyramid_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.462 & 0.505 & 0.447 & 0.418 \\
-pyramid_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.459 & 0.505 & 0.444 & 0.418 \\
-pyramid_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.462 & 0.505 & 0.448 & 0.414 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.469 & 0.512 & 0.453 & 0.422 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.469 & 0.512 & 0.452 & 0.423 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.467 & 0.513 & 0.452 & 0.424 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.467 & 0.510 & 0.451 & 0.417 \\
-pyramid_word2vec_word2vec-spanish-europarl-100.skipgram & 0.464 & 0.508 & 0.450 & 0.417 \\
-pyramid_word2vec_word2vec-spanish-europarl-200.skipgram & 0.463 & 0.507 & 0.448 & 0.418 \\
-pyramid_word2vec_word2vec-spanish-europarl-400.skipgram & 0.460 & 0.506 & 0.445 & 0.418 \\
-pyramid_word2vec_word2vec-spanish-europarl-50.skipgram & 0.464 & 0.506 & 0.449 & 0.415 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.469 & 0.512 & 0.454 & 0.422 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.469 & 0.512 & 0.453 & 0.424 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.468 & 0.514 & 0.453 & 0.425 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.468 & 0.510 & 0.451 & 0.417 \\
-
-fullsent_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.424 & 0.466 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.421 & 0.465 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.421 & 0.466 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.427 & 0.468 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.431 & 0.471 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.428 & 0.469 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.426 & 0.472 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.433 & 0.472 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-100.skipgram & 0.424 & 0.466 & 0.407 & 0.367 \\
-fullsent_word2vec_word2vec-spanish-europarl-200.skipgram & 0.421 & 0.465 & 0.406 & 0.369 \\
-fullsent_word2vec_word2vec-spanish-europarl-400.skipgram & 0.422 & 0.467 & 0.403 & 0.372 \\
-fullsent_word2vec_word2vec-spanish-europarl-50.skipgram & 0.428 & 0.468 & 0.409 & 0.366 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.430 & 0.469 & 0.409 & 0.371 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.428 & 0.468 & 0.408 & 0.374 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.426 & 0.472 & 0.407 & 0.377 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.432 & 0.472 & 0.412 & 0.370 \\
+window, mwes, europarl & 0.460 & 0.504 & 0.447 & 0.416 \\
+    \hline
+window, mwes, wikipedia & 0.467 & 0.511 & 0.450 & 0.422 \\
+    \hline
+window, europarl & 0.462 & 0.506 & 0.447 & 0.417 \\
+    \hline
+window, wikipedia & 0.468 & 0.511 & 0.451 & 0.423 \\
+    \hline
+pyramid, mwes, europarl & 0.462 & 0.505 & 0.447 & 0.418 \\
+    \hline
+pyramid, mwes, wikipedia & 0.469 & 0.512 & 0.452 & 0.423 \\
+    \hline
+pyramid, europarl & 0.463 & 0.507 & 0.448 & 0.418 \\
+    \hline
+pyramid, wikipedia & 0.469 & 0.512 & 0.453 & 0.424 \\
+    \hline
+fullsent, mwes, europarl & 0.421 & 0.465 & -     & -     \\
+    \hline
+fullsent, mwes, wikipedia & 0.428 & 0.469 & -     & -     \\
+    \hline
+fullsent, europarl & 0.421 & 0.465 & 0.406 & 0.369 \\
+    \hline
+fullsent, wikipedia & 0.428 & 0.468 & 0.408 & 0.374 \\
     \hline
     \hline
 
-    \multicolumn{5}{|l|}{maxent l2} \\
+    \multicolumn{5}{|l|}{maxent l2 (200 dims)} \\
     \hline
-window_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.455 & 0.501 & 0.443 & 0.414 \\
-window_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.453 & 0.500 & 0.439 & 0.413 \\
-window_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.448 & 0.497 & 0.434 & 0.410 \\
-window_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.456 & 0.501 & 0.444 & 0.412 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.461 & 0.506 & 0.447 & 0.417 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.461 & 0.506 & 0.445 & 0.420 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.457 & 0.506 & 0.443 & 0.420 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.461 & 0.506 & 0.447 & 0.414 \\
-window_word2vec_word2vec-spanish-europarl-100.skipgram & 0.457 & 0.502 & 0.444 & 0.415 \\
-window_word2vec_word2vec-spanish-europarl-200.skipgram & 0.455 & 0.501 & 0.440 & 0.414 \\
-window_word2vec_word2vec-spanish-europarl-400.skipgram & 0.449 & 0.498 & 0.435 & 0.411 \\
-window_word2vec_word2vec-spanish-europarl-50.skipgram & 0.457 & 0.501 & 0.445 & 0.412 \\
-window_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.462 & 0.507 & 0.447 & 0.418 \\
-window_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.461 & 0.507 & 0.445 & 0.420 \\
-window_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.459 & 0.506 & 0.443 & 0.420 \\
-window_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.461 & 0.506 & 0.447 & 0.415 \\
-
-pyramid_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.458 & 0.504 & 0.444 & 0.415 \\
-pyramid_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.457 & 0.504 & 0.443 & 0.418 \\
-pyramid_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.455 & 0.504 & 0.440 & 0.417 \\
-pyramid_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.458 & 0.502 & 0.445 & 0.413 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.464 & 0.509 & 0.449 & 0.419 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.464 & 0.511 & 0.449 & 0.423 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.463 & 0.513 & 0.449 & 0.425 \\
-pyramid_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.462 & 0.506 & 0.447 & 0.414 \\
-pyramid_word2vec_word2vec-spanish-europarl-100.skipgram & 0.459 & 0.504 & 0.445 & 0.416 \\
-pyramid_word2vec_word2vec-spanish-europarl-200.skipgram & 0.459 & 0.505 & 0.443 & 0.417 \\
-pyramid_word2vec_word2vec-spanish-europarl-400.skipgram & 0.456 & 0.505 & 0.440 & 0.418 \\
-pyramid_word2vec_word2vec-spanish-europarl-50.skipgram & 0.459 & 0.503 & 0.445 & 0.413 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.464 & 0.510 & 0.449 & 0.420 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.465 & 0.512 & 0.449 & 0.424 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.464 & 0.513 & 0.449 & 0.426 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.463 & 0.507 & 0.448 & 0.415 \\
-
-fullsent_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.420 & 0.465 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.421 & 0.469 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.424 & 0.476 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.420 & 0.461 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.426 & 0.468 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.427 & 0.472 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.428 & 0.480 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.425 & 0.465 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-100.skipgram & 0.421 & 0.464 & 0.403 & 0.369 \\
-fullsent_word2vec_word2vec-spanish-europarl-200.skipgram & 0.421 & 0.469 & 0.406 & 0.375 \\
-fullsent_word2vec_word2vec-spanish-europarl-400.skipgram & 0.425 & 0.476 & 0.407 & 0.382 \\
-fullsent_word2vec_word2vec-spanish-europarl-50.skipgram & 0.421 & 0.461 & 0.402 & 0.361 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.425 & 0.467 & 0.405 & 0.372 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.427 & 0.472 & 0.408 & 0.379 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.429 & 0.479 & 0.411 & 0.388 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.425 & 0.465 & 0.406 & 0.365 \\
+window, mwes, europarl & 0.453 & 0.500 & 0.439 & 0.413 \\
+    \hline
+window, mwes, wikipedia & 0.461 & 0.506 & 0.445 & 0.420 \\
+    \hline
+window, europarl & 0.455 & 0.501 & 0.440 & 0.414 \\
+    \hline
+window, wikipedia & 0.461 & 0.507 & 0.445 & 0.420 \\
+    \hline
+pyramid, mwes, europarl & 0.457 & 0.504 & 0.443 & 0.418 \\
+    \hline
+pyramid, mwes, wikipedia & 0.464 & 0.511 & 0.449 & 0.423 \\
+    \hline
+pyramid, europarl & 0.459 & 0.505 & 0.443 & 0.417 \\
+    \hline
+pyramid, wikipedia & 0.465 & 0.512 & 0.449 & 0.424 \\
+    \hline
+fullsent, mwes, europarl & 0.421 & 0.469 & -     & -     \\
+    \hline
+fullsent, mwes, wikipedia & 0.427 & 0.472 & -     & -     \\
+    \hline
+fullsent, europarl & 0.421 & 0.469 & 0.406 & 0.375 \\
+    \hline
+fullsent, wikipedia & 0.427 & 0.472 & 0.408 & 0.379 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
     \hline
-window_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.445 & 0.488 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.448 & 0.489 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.447 & 0.490 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.442 & 0.484 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.451 & 0.492 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.451 & 0.493 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.452 & 0.494 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.448 & 0.488 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-europarl-100.skipgram & 0.446 & 0.488 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-europarl-200.skipgram & 0.447 & 0.491 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-europarl-400.skipgram & 0.448 & 0.490 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-europarl-50.skipgram & 0.443 & 0.485 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.450 & 0.492 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.453 & 0.494 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.451 & 0.495 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.447 & 0.488 & 0.000 & 0.000 \\
-
-fullsent_mwes_word2vec_word2vec-spanish-europarl-100.skipgram & 0.429 & 0.470 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-200.skipgram & 0.431 & 0.474 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-400.skipgram & 0.432 & 0.476 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-50.skipgram & 0.425 & 0.468 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.431 & 0.473 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.433 & 0.476 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.436 & 0.478 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.428 & 0.470 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-100.skipgram & 0.428 & 0.471 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-200.skipgram & 0.432 & 0.474 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-400.skipgram & 0.431 & 0.475 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-50.skipgram & 0.426 & 0.468 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-100.skipgram & 0.432 & 0.473 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-200.skipgram & 0.432 & 0.477 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-400.skipgram & 0.434 & 0.477 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.427 & 0.471 & 0.000 & 0.000 \\
+window, mwes, europarl & 0.448 & 0.489 & -     & -     \\
+    \hline
+window, mwes, wikipedia & 0.451 & 0.493 & -     & -     \\
+    \hline
+window, europarl & 0.447 & 0.491 & -     & -     \\
+    \hline
+window, wikipedia & 0.453 & 0.494 & -     & -     \\
+    \hline
+fullsent, mwes, europarl & 0.431 & 0.474 & -     & -     \\
+    \hline
+fullsent, mwes, wikipedia & 0.433 & 0.476 & -     & -     \\
+    \hline
+fullsent, europarl & 0.432 & 0.474 & -     & -     \\
+    \hline
+fullsent, wikipedia & 0.432 & 0.477 & -     & -     \\
     \hline
   \end{tabulary}
   \end{centering}
-  \caption{Top results for classification using only word2vec embeddings to
-  create features. For comparison, also included are the MFS baseline and the
-  top results from the previous chapter.}
+  \caption{Results for classification using only word2vec skipgram embeddings
+to create features. For space, here we only show results for 200-dimensional
+embeddings, although we tried several different embeddings sizes.}
   \label{fig:word2vec-alone-results-skipgram}
+} %% end small
 \end{figure*}
 
 \begin{figure*}
+{\small
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
@@ -949,133 +881,75 @@ fullsent_word2vec_word2vec-spanish-wikipedia-50.skipgram & 0.427 & 0.471 & 0.000
     \hline
     \multicolumn{5}{|l|}{maxent l1} \\
     \hline
-window_mwes_word2vec_word2vec-spanish-europarl-100.cbow & 0.413 & 0.452 & 0.000 & 0.000 \\
-window_mwes_word2vec_word2vec-spanish-europarl-200.cbow & 0.411 & 0.454 & 0.000 & 0.000 \\
-window_word2vec_word2vec-spanish-europarl-100.cbow & 0.414 & 0.455 & 0.397 & 0.367 \\
-window_word2vec_word2vec-spanish-europarl-200.cbow & 0.414 & 0.455 & 0.396 & 0.367 \\
-window_word2vec_word2vec-spanish-europarl-400.cbow & 0.413 & 0.456 & 0.396 & 0.372 \\
-window_word2vec_word2vec-spanish-europarl-50.cbow & 0.417 & 0.455 & 0.400 & 0.365 \\
-window_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.413 & 0.453 & 0.396 & 0.366 \\
-window_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.414 & 0.456 & 0.395 & 0.368 \\
-window_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.415 & 0.458 & 0.397 & 0.373 \\
-window_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.414 & 0.452 & 0.396 & 0.362 \\
-
-pyramid_word2vec_word2vec-spanish-europarl-100.cbow & 0.000 & 0.000 & 0.402 & 0.370 \\
-pyramid_word2vec_word2vec-spanish-europarl-200.cbow & 0.000 & 0.000 & 0.401 & 0.374 \\
-pyramid_word2vec_word2vec-spanish-europarl-400.cbow & 0.000 & 0.000 & 0.402 & 0.378 \\
-pyramid_word2vec_word2vec-spanish-europarl-50.cbow & 0.000 & 0.000 & 0.402 & 0.367 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.000 & 0.000 & 0.399 & 0.369 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.000 & 0.000 & 0.401 & 0.375 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.000 & 0.000 & 0.403 & 0.380 \\
-pyramid_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.000 & 0.000 & 0.398 & 0.365 \\
-
-fullsent_mwes_word2vec_word2vec-spanish-europarl-100.cbow & 0.386 & 0.427 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-200.cbow & 0.388 & 0.434 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-400.cbow & 0.391 & 0.441 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-europarl-50.cbow & 0.384 & 0.421 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.386 & 0.427 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.391 & 0.433 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.394 & 0.440 & 0.000 & 0.000 \\
-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.385 & 0.421 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-100.cbow & 0.386 & 0.427 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-200.cbow & 0.389 & 0.433 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-400.cbow & 0.392 & 0.441 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-europarl-50.cbow & 0.384 & 0.421 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.386 & 0.427 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.391 & 0.433 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.394 & 0.440 & 0.000 & 0.000 \\
-fullsent_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.384 & 0.421 & 0.000 & 0.000 \\
+window, mwes, europarl & 0.411 & 0.454 & -     & -     \\
+    \hline
+window, europarl & 0.414 & 0.455 & 0.396 & 0.367 \\
+    \hline
+window, wikipedia  & 0.414 & 0.456 & 0.395 & 0.368 \\
+    \hline
+pyramid, europarl & -     & -     & 0.401 & 0.374 \\
+    \hline
+pyramid, wikipedia & -     & -     & 0.401 & 0.375 \\
+    \hline
+fullsent, mwes, europarl & 0.388 & 0.434 & -     & -     \\
+    \hline
+fullsent, mwes, wikipedia & 0.391 & 0.433 & -     & -     \\
+    \hline
+fullsent, europarl & 0.389 & 0.433 & -     & -     \\
+    \hline
+fullsent, wikipedia & 0.391 & 0.433 & -     & -     \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{maxent l2} \\
     \hline
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-europarl-100.cbow & 0.385 & 0.429 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-europarl-200.cbow & 0.392 & 0.441 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-europarl-400.cbow & 0.397 & 0.450 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-europarl-50.cbow & 0.378 & 0.417 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.386 & 0.430 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.394 & 0.441 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.399 & 0.450 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.380 & 0.419 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-europarl-100.cbow & 0.385 & 0.429 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-europarl-200.cbow & 0.392 & 0.442 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-europarl-400.cbow & 0.397 & 0.451 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-europarl-50.cbow & 0.380 & 0.418 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.385 & 0.429 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.394 & 0.440 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.398 & 0.450 & 0.000 & 0.000 \\
-maxent-l2-c1-fullsent_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.381 & 0.419 & 0.000 & 0.000 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-europarl-100.cbow & 0.000 & 0.000 & 0.396 & 0.368 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-europarl-200.cbow & 0.000 & 0.000 & 0.398 & 0.375 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-europarl-400.cbow & 0.000 & 0.000 & 0.401 & 0.382 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-europarl-50.cbow & 0.000 & 0.000 & 0.392 & 0.361 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.000 & 0.000 & 0.394 & 0.369 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.000 & 0.000 & 0.398 & 0.377 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.000 & 0.000 & 0.404 & 0.385 \\
-maxent-l2-c1-pyramid_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.000 & 0.000 & 0.389 & 0.359 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-europarl-100.cbow & 0.401 & 0.445 & 0.000 & 0.000 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-europarl-200.cbow & 0.402 & 0.447 & 0.000 & 0.000 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-europarl-400.cbow & 0.401 & 0.450 & 0.000 & 0.000 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-europarl-50.cbow & 0.401 & 0.441 & 0.000 & 0.000 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.404 & 0.446 & 0.000 & 0.000 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.406 & 0.451 & 0.000 & 0.000 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.407 & 0.456 & 0.000 & 0.000 \\
-maxent-l2-c1-window_mwes_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.401 & 0.442 & 0.000 & 0.000 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-europarl-100.cbow & 0.404 & 0.446 & 0.386 & 0.360 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-europarl-200.cbow & 0.403 & 0.448 & 0.386 & 0.363 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-europarl-400.cbow & 0.403 & 0.449 & 0.386 & 0.367 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-europarl-50.cbow & 0.404 & 0.442 & 0.387 & 0.355 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.406 & 0.446 & 0.387 & 0.361 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.408 & 0.451 & 0.389 & 0.366 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.407 & 0.455 & 0.391 & 0.371 \\
-maxent-l2-c1-window_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.403 & 0.442 & 0.385 & 0.353 \\
-
+window, mwes, europarl & 0.402 & 0.447 & -     & -     \\
+    \hline
+window, mwes, wikipedia & 0.406 & 0.451 & -     & -     \\
+    \hline
+window, europarl & 0.403 & 0.448 & 0.386 & 0.363 \\
+    \hline
+window, wikipedia & 0.408 & 0.451 & 0.389 & 0.366 \\
+    \hline
+pyramid, europarl & -     & -     & 0.398 & 0.375 \\
+    \hline
+pyramid, wikipedia & -     & -     & 0.398 & 0.377 \\
+    \hline
+fullsent, mwes, europarl & 0.392 & 0.441 & -     & -     \\
+    \hline
+fullsent, mwes, wikipedia & 0.394 & 0.441 & -     & -     \\
+    \hline
+fullsent, europarl & 0.392 & 0.442 & -     & -     \\
+    \hline
+fullsent, wikipedia & 0.394 & 0.440 & -     & -     \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
     \hline
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-europarl-100.cbow & 0.432 & 0.473 & 0.000 & 0.000 \\
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-europarl-200.cbow & 0.431 & 0.474 & 0.000 & 0.000 \\
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-europarl-400.cbow & 0.432 & 0.476 & 0.000 & 0.000 \\
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-europarl-50.cbow & 0.427 & 0.471 & 0.000 & 0.000 \\
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.431 & 0.476 & 0.000 & 0.000 \\
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.434 & 0.478 & 0.000 & 0.000 \\
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.434 & 0.478 & 0.000 & 0.000 \\
-random-forest-default-fullsent_mwes_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.429 & 0.472 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-europarl-100.cbow & 0.430 & 0.473 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-europarl-200.cbow & 0.432 & 0.472 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-europarl-400.cbow & 0.432 & 0.476 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-europarl-50.cbow & 0.429 & 0.469 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.432 & 0.477 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.434 & 0.478 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.434 & 0.476 & 0.000 & 0.000 \\
-random-forest-default-fullsent_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.429 & 0.472 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-europarl-100.cbow & 0.446 & 0.488 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-europarl-200.cbow & 0.448 & 0.489 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-europarl-400.cbow & 0.450 & 0.491 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-europarl-50.cbow & 0.444 & 0.485 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.450 & 0.492 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.451 & 0.494 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.452 & 0.495 & 0.000 & 0.000 \\
-random-forest-default-window_mwes_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.447 & 0.487 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-europarl-100.cbow & 0.447 & 0.488 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-europarl-200.cbow & 0.449 & 0.492 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-europarl-400.cbow & 0.450 & 0.491 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-europarl-50.cbow & 0.443 & 0.487 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-wikipedia-100.cbow & 0.450 & 0.492 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-wikipedia-200.cbow & 0.452 & 0.494 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-wikipedia-400.cbow & 0.453 & 0.495 & 0.000 & 0.000 \\
-random-forest-default-window_word2vec_word2vec-spanish-wikipedia-50.cbow & 0.447 & 0.489 & 0.000 & 0.000 \\
-
+fullsent, mwes, europarl & 0.431 & 0.474 & -     & -     \\
+    \hline
+fullsent, mwes, wikipedia & 0.434 & 0.478 & -     & -     \\
+    \hline
+fullsent, europarl & 0.432 & 0.472 & -     & -     \\
+    \hline
+fullsent, wikipedia & 0.434 & 0.478 & -     & -     \\
+    \hline
+window, mwes, europarl & 0.448 & 0.489 & -     & -     \\
+    \hline
+window, mwes, wikipedia & 0.451 & 0.494 & -     & -     \\
+    \hline
+window, europarl & 0.449 & 0.492 & -     & -     \\
+    \hline
+window, wikipedia & 0.452 & 0.494 & -     & -     \\
     \hline
   \end{tabulary}
   \end{centering}
-  \caption{Top results for classification using only word2vec embeddings to
-  create features. For comparison, also included are the MFS baseline and the
-  top results from the previous chapter.}
+  \caption{Results for classification using only word2vec CBOW embeddings
+to create features. For space, here we only show results for 200-dimensional
+embeddings, although we tried several different embeddings sizes.}
   \label{fig:word2vec-alone-results-cbow}
+} %% end small
 \end{figure*}
 
 Taking a look at Figures \ref{fig:word2vec-alone-results-skipgram} and
@@ -1147,17 +1021,28 @@ parameter settings.
     \hline
     classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
     \hline
-    maxent l1 fullsent, 200 dimensions & 0.462 & 0.497 & 0.441 & 0.391 \\
-    \hline
-    maxent l2 window, 200 dimensions & 0.467 & 0.506 & 0.449 & 0.402 \\
-    \hline
-    maxent l1 window, 200 dimensions & 0.463 & 0.502 & 0.445 & 0. 395\\
-    \hline
-    best word2vec alone & 0.470 & 0.514 & 0.454 & 0.426 \\
-    \hline
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
-    best classifier, baseline features & 0.481 & 0.524 & 0.464 & 0.431 \\
+    \hline
+    \multicolumn{5}{|l|}{maxent l1} \\
+    \hline
+    fullsent & 0.462 & 0.496 & 0.441 & 0.391 \\
+    window & 0.463 & 0.502 & 0.445 & 0.395 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l2} \\
+    \hline
+    fullsent & 0.462 & 0.497 & 0.442 & 0.390 \\
+    window & 0.467 & 0.506 & 0.449 & 0.402 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{random forest} \\
+    \hline
+    fullsent & 0.420 & 0.497 & 0.404 & 0.390 \\
+    window & 0.421 & 0.461 & 0.405 & 0.352 \\
+    \hline
     \hline
   \end{tabulary}
   \end{centering}
