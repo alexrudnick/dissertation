@@ -24,11 +24,11 @@ such as off-the-shelf taggers and parsers for Spanish, Brown clustering
 are of course other related methods that one could investigate, especially
 making use of the broader literature on distributional semantics, but these
 will be left to future work. First we will describe the methods used in some
-detail, and then towards the end of the chapter, in Section
-\ref{sec:monolingual-experiments}, we describe experiments and present
-experimental results.
+detail, and then towards the end of the chapter, in Sections
+\ref{sec:monolingual-experiments} and \ref{sec:monolingual-results}
+respectively, we describe experiments and present experimental results.
 
-\section{Monolingual features from other NLP tools}
+\section{Monolingual features from existing NLP tools}
 There are a large number off-the-shelf NLP tools available for Spanish. Here we
 will look into part of speech taggers and syntactic parsers specifically.
 Tagging can help us capture abstractions over particular word types, and
@@ -51,7 +51,7 @@ text (see Section \ref{sec:annotations}), so adding more features based on
 analysis by external tools is straightforward.
 
 As a first step, we synthesize features based on the part-of-speech tags of the
-tokens in a window around the current focus word, and using a syntactic parser,
+tokens surrounding the focus word, and using a syntactic parser,
 the heads and children of the current focus word. In principle, we could use
 other annotations, such as sense annotations from a monolingual WSD system,
 given a good one. This idea is akin to one that we will explore in Chapter
@@ -147,7 +147,7 @@ the input corpus.  These clusters were originally intended for use in
 class-based language modeling, and as such the scoring function is the mutual
 information between subsequent tokens. Concretely, the optimization process is
 searching for a clustering $C$ that maximizes the probability of the corpus
-$\boldsymbol{w}$, according to the formula in Figure \ref{fig:brownprob}.
+$\boldsymbol{w}$, according to the formula in Figure~\ref{fig:brownprob}.
 
 \begin{figure*}
 
@@ -230,8 +230,8 @@ these corpora, is finding some interpretable generalizations in the text.
 Comparing the lemmatized versus the surface-form versions of the clustering, we
 note that, as expected, the clusters capture more syntactic regularities when
 given the inflected forms. Consider, for example the cluster containing
-\emph{infraestructura} in Figure \ref{fig:clusters-europarl-lemma}, as compared
-to its cluster in Figure \ref{fig:clusters-europarl-surface}. In the lemmatized
+\emph{infraestructura} in Figure~\ref{fig:clusters-europarl-lemma}, as compared
+to its cluster in Figure~\ref{fig:clusters-europarl-surface}. In the lemmatized
 version, we see that \emph{infraestructura} falls into a cluster primarily
 composed of words pertaining to transportation-related concepts, such as
 \emph{vehículo} 'vehicle', \emph{billete} 'ticket' and \emph{avión} 'airplane'.
@@ -248,7 +248,7 @@ words have similar meanings, the clustering seems to have found that these
 words cluster together as singular feminine nouns, which is more of a
 syntactic commonality than a semantic one. This is not to say that the
 surface-form clusters do not exhibit semantic relatedness; in the ``profession
-nouns" cluster in Figure \ref{fig:clusters-wikipedia-surface}, we see nouns
+nouns" cluster in Figure~\ref{fig:clusters-wikipedia-surface}, we see nouns
 that refer to people's professions, although it should also be noted that these
 are all singular masculine nouns. Also in the Wikipedia surface clusters, we
 see a cluster containing almost entirely words referring to cardinal
@@ -338,7 +338,8 @@ What we might consider to be ``symbolic" binary features used in machine
 learning systems for NLP in recent decades -- such as ``the word `dog` appears
 in the sentence" -- are effectively equivalent to these very sparse ``one hot"
 representations of words, in which, for a vocabulary of size $|V|$, words are
-represented by a length-$V$ vector in which all but one of the elements are 0}.
+represented by a length-$V$ vector in which all but one of the elements are
+0.}.
 
 There is a rich literature on continuous representations for words; the idea
 has a long lineage in NLP, and we could try any number of dimensionality
@@ -382,7 +383,7 @@ We trained a variety of word2vec embeddings for our text classification tasks,
 again training on the Spanish-language section of the Europarl corpus (roughly
 57 million words or 2 million sentences) and a dump of Spanish Wikipedia (449
 million words, 20 million sentences). We learned embeddings using both CBOW and
-skip-gram approaches, in 50, 100, 200, and 400 dimensions. In all cases, we
+skip-gram approaches, in 50, 100, 200, and 400 dimensions. We also
 used the associated \texttt{word2phrase} tool, distributed with the public
 \texttt{word2vec} implementation, which finds collocations in the input text
 and treats them as individual tokens. The same collocations must be identified
@@ -427,9 +428,9 @@ between that token and the focus word.
 For all of the variations considered here, whether we are using skipgrams or
 CBOW, for whichever dimensionality we choose, and for any of the methods of
 combining the vectors, when using these word embeddings without other
-resources, we end up representing a CL-WSD problem as a sentence a dense vector
-of the same dimensionality as the word embeddings that we are currently using,
-and these dense vectors can be passed along to any machine learning algorithm
+resources, we end up representing a CL-WSD problem as a dense vector
+of the same dimensionality as the current set of word embeddings;
+these dense vectors can be passed along to any machine learning algorithm
 that we care to use.
 
 \section{Neural Document Embeddings}
@@ -556,8 +557,7 @@ Spanish-Quechua.
 In the next section, we present and discuss the results from these experiments.
 
 \section{Experimental Results} 
-%% XXX: make some nice graphs
-%% XXX: show the best ones from each subsection, all together.
+\label{sec:monolingual-results}
 
 \subsection{Results: adding syntactic features}
 
@@ -687,20 +687,21 @@ the additional features than others.
 \end{figure*}
 
 We see the experimental results for adding our Brown Cluster features
-(explained in Figure \ref{fig:brownfeatures}) in Figure \ref{fig:brownresults}.
+(explained in Figure~\ref{fig:brownfeatures}) in Figure
+\ref{fig:brown-results}.
 In general, we do not see gains from adding all of the Brown Cluster features
 together; this typically seems to diminish performance by a few tenths of a
 percentage point, in many cases making the performance as a whole dip below the
-MFS baseline. This seems to be too many potentially-irrelevant features,
-perhaps overwhelming the useful signals present in the baseline feature set.
-There does not seem to be a consistent or significant change due to using the
-lemmatized forms.
+MFS baseline. While they are intended to be helpful abstractions, we may be
+adding too many irrelevant features, perhaps overwhelming the useful signals
+present in the baseline feature set. There does not seem to be a consistent or
+significant change due to using the lemmatized or surface forms.
 
 However, we get substantially better results when we limit the Brown cluster
 features to a narrow context words of three words on either side of the focus
 word; this seems to lead to roughly the same results for the maximum entropy
 classifiers -- except for the ``non-null" case for L2-norm for Spanish-Quechua,
-as in the results for syntactic features in Figure \ref{fig:syntactic-results}.
+as in the results for syntactic features in Figure~\ref{fig:syntactic-results}.
 But for the random forest classifiers, we see consistent gains of three to six
 tenths of a percentage point. So for random forest classifiers, it seems
 worthwhile to add these window-based Brown cluster features.
@@ -753,10 +754,10 @@ worthwhile to add these window-based Brown cluster features.
 \end{figure*}
 
 We present the experimental results for combinations of all of the sparse
-features presented in this chapter in Figure
-\ref{fig:sparse-combination-results}. Here in general we see some good gains
-over the baseline features, from a few tenths of a percentage point to just
-over a full percentage point; we see that as before, the maximum entropy
+features presented in this chapter in
+Figure~\ref{fig:sparse-combination-results}. Here in general we see some good
+gains over the baseline features, from a few tenths of a percentage point to
+just over a full percentage point; we see that as before, the maximum entropy
 classifiers do not seem to benefit from the addition of Brown cluster features,
 but they do benefit from the syntactic features. The random forest classifiers
 benefit from both additional kinds of features; our best performance with the
@@ -969,7 +970,7 @@ Specifically, almost all of the experiments with the CBOW embeddings, the
 ``fullsent" combination approach, and random forest classifiers gave results
 lower than the MFS baseline, so not all combinations were carried out.
 
-However, if we focus on Figure \ref{fig:word2vec-alone-results-skipgram}, we
+However, if we focus on Figure~\ref{fig:word2vec-alone-results-skipgram}, we
 can see some fairly promising results. We note that for the maxent classifiers,
 we can often beat the MFS baseline by using the word2vec embedding features
 alone, and for some settings, even beat the baseline features. Particularly, we
@@ -1036,7 +1037,7 @@ encouraging, for features for maxent classifiers.
 \end{figure*}
 
 Taking a look at the results for using doc2vec embeddings on their own,
-presented in Figure \ref{fig:doc2vec-alone-results}, we see a few general
+presented in Figure~\ref{fig:doc2vec-alone-results}, we see a few general
 trends. As with the word2vec feature sets, the random forests did not
 outperform the MFS baseline when given a dense vector as input. Also as we saw
 with the word2vec features, trying to build a representation of the
@@ -1051,7 +1052,7 @@ window around the focus word, we outperformed the MFS baseline on all of the
 test sets, for maxent classifiers. For some, but not all, of the L1-norm
 maxent cases, the doc2vec features beat the baseline features by a slim margin.
 Probably something like doc2vec embeddings could be made to work well in this
-setting, but probably more experimentation would be needed.
+setting, but more experimentation would be needed.
 
 \subsection{Results: combining neural embeddings with sparse features}
 \begin{figure*}
@@ -1102,7 +1103,7 @@ setting, but probably more experimentation would be needed.
   \label{fig:pyramid-extras-results}
 \end{figure*}
 
-In Figure \ref{fig:pyramid-extras-results}, we present the experimental results
+In Figure~\ref{fig:pyramid-extras-results}, we present the experimental results
 for combining the most successful word2vec embeddings with the most promising
 additional sparse features described in this chapter. In these experiments, we
 started with the 200-dimensional Wikipedia embeddings, combined them in the
@@ -1127,22 +1128,29 @@ existing source-language syntactic analysis tools.
 Using each of these different tools, we were able to overcome the relatively
 strong most-frequent sense baseline, and with many of the different feature
 sets, we were able to show small but consistent gains over the baseline feature
-set. All of these approaches make more abstract representations of the source
-text available to our classifiers, whether these representations were learned
-from the available text, or encapsulate some kind of syntactic knowledge about
-the language.
+set.
+
+All of the approaches explored in this chapter make more abstract
+representations of the source text available to our classifiers, whether these
+representations were learned from the available text, or encapsulate some kind
+of syntactic knowledge about the language.
 
 We found, in general, that adding features that represent the text closely
 surrounding the focus word was more effective than attempting to represent the
 entire source-language sentence at once; we observed this effect for Brown
 cluster features, and for features built from both word and document
 embeddings.
+Additionally, we found that we could not only add some of these features to our
+baseline sparse feature set, but also that our new sparse features could be
+added to dense feature vectors based on word2vec embeddings, resulting in gains
+over using the neural embeddings by themselves.
 
-Also we found that while random forest classifiers seem to benefit more from
-adding more sparse features like the ones we extracted from Brown clusters,
-they do not perform as well when given dense vectors, like those produced by
-word2vec and doc2vec; contrastingly, the maximum entropy classifiers
-(especially with L1 regularization) have better performance in this setting.
+In general, our random forest classifiers seem to benefit more from adding many
+sparse features, like the ones we extracted from Brown clusters, than the
+maxent classifiers do. However, the random forest classifiers do not perform as
+well when given dense vectors, like those produced by word2vec and doc2vec.
+Contrastingly, the maximum entropy classifiers (especially with L1
+regularization) have better performance in this setting.
 
 In the next chapter, we will make use of another one of our available resources
 for a resource-rich language like Spanish: bitext with other language pairs.
