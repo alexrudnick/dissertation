@@ -978,11 +978,14 @@ the ``fullsent" approach does not seem to help here -- and that for the L1-norm
 maxent classifier, we can outperform the baseline features with word2vec
 features alone.
 
-In general, the L1-norm maxent classifier seems to do best with these feature
-sets, and the embeddings trained on the larger (and more general-domain)
-Wikipedia corpus seem to be most effective; using the multi-word expression
-embeddings seems to have little to no effect. The ``pyramid" combination scheme
-generally comes out on top.
+Interestingly, despite its strong performance on the sparse feature sets, the
+random forest classifier does not do as well with the dense vectors; it does
+not beat the MFS baseline.  In general, the L1-norm maxent classifier seems to
+do best with these feature sets, and the embeddings trained on the larger (and
+more general-domain) Wikipedia corpus seem to be most effective; using the
+multi-word expression embeddings seems to have little to no effect. The
+``pyramid" combination scheme generally comes out on top. So this is
+encouraging, for features for maxent classifiers.
 
 \subsection{Results: doc2vec embeddings alone}
 
@@ -1033,22 +1036,22 @@ generally comes out on top.
 \end{figure*}
 
 Taking a look at the results for using doc2vec embeddings on their own,
-presented in Figure \ref{fig:doc2vec-alone-results} we see that with the
-full-sentence doc2vec embeddings, we were able to roughly match the MFS
-baseline, and in a few cases, outperform it by about half a percentage point.
+presented in Figure \ref{fig:doc2vec-alone-results}, we see a few general
+trends. As with the word2vec feature sets, the random forests did not
+outperform the MFS baseline when given a dense vector as input. Also as we saw
+with the word2vec features, trying to build a representation of the
+entire sentence was not as effective as building a vector to represent just the
+tokens around the focus word.
+The full-sentence representations were more effective than the corresponding
+full-sentence vector sums from word2vec, however -- in a few instances they
+beat the MFS baseline.
+
 However, when we restrict the doc2vec optimizer to looking at a narrow context
-window around the focus word, we can outperform the MFS baseline by either a
-percentage point for Spanish-Guaraní, or 1.5 points for Spanish-Quechua; we get
-the best results with a maximum entropy classifier with L2 norm, and slightly
-worse results with L1 norm. This pattern holds for both ``regular" and
-``nonnull" settings, for both Spanish-Guaraní and Spanish-Quechua.
-
-Intuitively, perhaps trying to capture the entire sentence, rather than the
-area around the focus word, is less helpful for making local CL-WSD decisions;
-this interpretation is consistent at least with our observation that for
-word2vec, summing the embeddings for the entire sentence is less helpful than
-summing the embeddings in a window around the focus word.
-
+window around the focus word, we outperformed the MFS baseline on all of the
+test sets, for maxent classifiers. For some, but not all, of the L1-norm
+maxent cases, the doc2vec features beat the baseline features by a slim margin.
+Probably something like doc2vec embeddings could be made to work well in this
+setting, but probably more experimentation would be needed.
 
 \subsection{Results: combining neural embeddings with sparse features}
 \begin{figure*}
@@ -1099,51 +1102,47 @@ summing the embeddings in a window around the focus word.
   \label{fig:pyramid-extras-results}
 \end{figure*}
 
-Taking a look at the most successful word2vec combination strategy, ``pyramid",
-we see that we can improve on the results from using the word2vec embeddings
-alone by adding the other features developed in this chapter. Although it was
-not the most successful strategy overall, it was the most successful strategy
-that used the word2vec embeddings.
+In Figure \ref{fig:pyramid-extras-results}, we present the experimental results
+for combining the most successful word2vec embeddings with the most promising
+additional sparse features described in this chapter. In these experiments, we
+started with the 200-dimensional Wikipedia embeddings, combined them in the
+``pyramid" style, and also made the Brown cluster and syntactic features
+available to the classifiers to see if these would improve performance.
 
-For both Spanish-Guaraní and Spanish-Quechua, the ``pyramid\_extras" feature
-set, which combines word2vec embeddings with syntactic features and Brown
-clusters outperforms any of the word2vec feature sets by themselves, by at
-least half a percentage point for both regular and nonnull settings. 
-
-\subsection{Comparing results}
-\begin{figure}
-  %% \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
-  \caption{Baseline Chipa scores for Spanish-Guaraní, by classifier.}
-  \label{fig:esgnresults:monolingual}
-\end{figure}
-
-\begin{figure}
-  %% \includegraphics[width=\textwidth]{baseline-esqu-ch4.png}
-  \caption{Baseline Chipa scores for Spanish-Quechua, by classifier.}
-  \label{fig:esquresults:monolingual}
-\end{figure}
-
+And in general, we see that the addition of these features does make an
+improvement over using the word2vec features by themselves. In fact, for all of
+the classifiers, and each of the test sets, we see an improvement over the
+word2vec features; this only results in an improvement over the baseline
+features for the L1-norm maximum entropy classifer, however. But it is the best
+results presented thus far for that classifier, and the most effective feature
+set that we have tried, using neural embeddings.
 
 \section{Discussion}
 In this chapter, we have shown a number of different approaches for making use
 of the available resources for our source language in the CL-WSD task,
 including three different ways of learning from unannotated source-language
-text and making use of existing source-language syntactic analysis tools.
+text -- clustering and two kinds of neural embeddings -- and making use of
+existing source-language syntactic analysis tools.
 
 Using each of these different tools, we were able to overcome the relatively
-strong most-frequent sense baseline, and with many of them, we were able to
-show some small but consistent gains over the default feature set.
-All of these approaches make more abstract representations of the source text
-available to our classifiers, whether these representations were learned from
-the available text, or encapsulate some kind of syntactic knowledge about the
-language. We found, in general, that representing the text closely surrounding
-the focus word was more effective than attempting to represent the entire
-source-language sentence at once.
+strong most-frequent sense baseline, and with many of the different feature
+sets, we were able to show small but consistent gains over the baseline feature
+set. All of these approaches make more abstract representations of the source
+text available to our classifiers, whether these representations were learned
+from the available text, or encapsulate some kind of syntactic knowledge about
+the language.
+
+We found, in general, that adding features that represent the text closely
+surrounding the focus word was more effective than attempting to represent the
+entire source-language sentence at once; we observed this effect for Brown
+cluster features, and for features built from both word and document
+embeddings.
 
 Also we found that while random forest classifiers seem to benefit more from
 adding more sparse features like the ones we extracted from Brown clusters,
-they do not seem to do as well when given dense vectors, like those produced by
-word2vec and doc2vec representations.
+they do not perform as well when given dense vectors, like those produced by
+word2vec and doc2vec; contrastingly, the maximum entropy classifiers
+(especially with L1 regularization) have better performance in this setting.
 
-In the next chapter, we will leverage another one of our available resources
+In the next chapter, we will make use of another one of our available resources
 for a resource-rich language like Spanish: bitext with other language pairs.
