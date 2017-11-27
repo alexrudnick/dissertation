@@ -484,9 +484,9 @@ word embeddings, such that it helps predict words in the current context.
 doc2vec thus provides a straightforward approach for learning to produce
 representations of new documents, based on an unlabeled training corpus. Here
 we use the implementation of doc2vec provided by the gensim package
-\cite{rehurek-lrec} \footnote{Available at
-\url{https://radimrehurek.com/gensim/}}, with its default settings, which uses
-the ``distributed memory" model.
+\footnote{Available at \url{https://radimrehurek.com/gensim/}}, with its
+default settings, which uses the ``distributed memory" model
+\cite{rehurek-lrec}.
 
 During training data annotation, we pass over our bitext corpus, take the
 source-language sentence from each training pair, and infer a new embedding for
@@ -747,15 +747,20 @@ add these window-based Brown cluster features.
   \caption{Results for baseline features with the sparse features introduced in
   this chapter: features from a POS tagger, a dependency parser, and Brown
   clustering.}
-  \label{fig:pyramid-extras-results}
+  \label{fig:sparse-combination-results}
 \end{figure*}
 
-%% XXX working here
-When we use Brown clusters in the window alongside the syntactic featues, this
-works best of all so far, for Spanish-Guaraní and Spanish-Quechua, in both
-regular and nonnull settings.
-
-
+We present the experimental results for combinations of all of the sparse
+features presented in this chapter in Figure
+\ref{fig:sparse-combination-results}. Here in general we see some good gains
+over the baseline features, from a few tenths of a percentage point to just
+over a full percentage point; we see that as before, the maximum entropy
+classifiers do not seem to benefit from the addition of Brown cluster features,
+but they do benefit from the syntactic features. The random forest classifiers
+benefit from both additional kinds of features; our best performance with the
+sparse feature sets is with random forests given these combined features, and
+this is consistent for both language pairs, and in the regular and non-null
+settings.
 
 \subsection{Results: word2vec embeddings alone}
 
@@ -770,85 +775,91 @@ regular and nonnull settings.
     MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
     \hline
     \hline
-    \multicolumn{5}{|l|}{maxent l1 (200 dims)} \\
+    \multicolumn{5}{|l|}{maxent l1} \\
     \hline
-window, mwes, europarl & 0.460 & 0.504 & 0.447 & 0.416 \\
-    \hline
-window, mwes, wikipedia & 0.467 & 0.511 & 0.450 & 0.422 \\
-    \hline
-window, europarl & 0.462 & 0.506 & 0.447 & 0.417 \\
-    \hline
-window, wikipedia & 0.468 & 0.511 & 0.451 & 0.423 \\
-    \hline
-pyramid, mwes, europarl & 0.462 & 0.505 & 0.447 & 0.418 \\
-    \hline
-pyramid, mwes, wikipedia & 0.469 & 0.512 & 0.452 & 0.423 \\
-    \hline
-pyramid, europarl & 0.463 & 0.507 & 0.448 & 0.418 \\
-    \hline
-pyramid, wikipedia & 0.469 & 0.512 & 0.453 & 0.424 \\
-    \hline
-fullsent, mwes, europarl & 0.421 & 0.465 & -     & -     \\
-    \hline
-fullsent, mwes, wikipedia & 0.428 & 0.469 & -     & -     \\
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
     \hline
 fullsent, europarl & 0.421 & 0.465 & 0.406 & 0.369 \\
     \hline
+fullsent, europarl, mwes & 0.421 & 0.465 & -     & -     \\
+    \hline
 fullsent, wikipedia & 0.428 & 0.468 & 0.408 & 0.374 \\
+    \hline
+fullsent, wikipedia, mwes & 0.428 & 0.469 & -     & -     \\
+    \hline
+pyramid, europarl & 0.463 & 0.507 & 0.448 & 0.418 \\
+    \hline
+pyramid, europarl, mwes & 0.462 & 0.505 & 0.447 & 0.418 \\
+    \hline
+pyramid, wikipedia & 0.469 & 0.512 & 0.453 & 0.424 \\
+    \hline
+pyramid, wikipedia, mwes & 0.469 & 0.512 & 0.452 & 0.423 \\
+    \hline
+window, europarl & 0.462 & 0.506 & 0.447 & 0.417 \\
+    \hline
+window, europarl, mwes & 0.460 & 0.504 & 0.447 & 0.416 \\
+    \hline
+window, wikipedia & 0.468 & 0.511 & 0.451 & 0.423 \\
+    \hline
+window, wikipedia, mwes & 0.467 & 0.511 & 0.450 & 0.422 \\
     \hline
     \hline
 
-    \multicolumn{5}{|l|}{maxent l2 (200 dims)} \\
+    \multicolumn{5}{|l|}{maxent l2} \\
     \hline
-window, mwes, europarl & 0.453 & 0.500 & 0.439 & 0.413 \\
-    \hline
-window, mwes, wikipedia & 0.461 & 0.506 & 0.445 & 0.420 \\
-    \hline
-window, europarl & 0.455 & 0.501 & 0.440 & 0.414 \\
-    \hline
-window, wikipedia & 0.461 & 0.507 & 0.445 & 0.420 \\
-    \hline
-pyramid, mwes, europarl & 0.457 & 0.504 & 0.443 & 0.418 \\
-    \hline
-pyramid, mwes, wikipedia & 0.464 & 0.511 & 0.449 & 0.423 \\
-    \hline
-pyramid, europarl & 0.459 & 0.505 & 0.443 & 0.417 \\
-    \hline
-pyramid, wikipedia & 0.465 & 0.512 & 0.449 & 0.424 \\
-    \hline
-fullsent, mwes, europarl & 0.421 & 0.469 & -     & -     \\
-    \hline
-fullsent, mwes, wikipedia & 0.427 & 0.472 & -     & -     \\
+    baseline features & 0.475 & 0.524 & 0.475 & 0.431 \\
     \hline
 fullsent, europarl & 0.421 & 0.469 & 0.406 & 0.375 \\
     \hline
+fullsent, europarl, mwes & 0.421 & 0.469 & -     & -     \\
+    \hline
 fullsent, wikipedia & 0.427 & 0.472 & 0.408 & 0.379 \\
+    \hline
+fullsent, wikipedia, mwes & 0.427 & 0.472 & -     & -     \\
+    \hline
+pyramid, europarl & 0.459 & 0.505 & 0.443 & 0.417 \\
+    \hline
+pyramid, europarl, mwes & 0.457 & 0.504 & 0.443 & 0.418 \\
+    \hline
+pyramid, wikipedia & 0.465 & 0.512 & 0.449 & 0.424 \\
+    \hline
+pyramid, wikipedia, mwes & 0.464 & 0.511 & 0.449 & 0.423 \\
+    \hline
+window, europarl & 0.455 & 0.501 & 0.440 & 0.414 \\
+    \hline
+window, europarl, mwes & 0.453 & 0.500 & 0.439 & 0.413 \\
+    \hline
+window, wikipedia & 0.461 & 0.507 & 0.445 & 0.420 \\
+    \hline
+window, wikipedia, mwes & 0.461 & 0.506 & 0.445 & 0.420 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
     \hline
-window, mwes, europarl & 0.448 & 0.489 & -     & -     \\
-    \hline
-window, mwes, wikipedia & 0.451 & 0.493 & -     & -     \\
-    \hline
-window, europarl & 0.447 & 0.491 & -     & -     \\
-    \hline
-window, wikipedia & 0.453 & 0.494 & -     & -     \\
-    \hline
-fullsent, mwes, europarl & 0.431 & 0.474 & -     & -     \\
-    \hline
-fullsent, mwes, wikipedia & 0.433 & 0.476 & -     & -     \\
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
 fullsent, europarl & 0.432 & 0.474 & -     & -     \\
     \hline
+fullsent, europarl, mwes & 0.431 & 0.474 & -     & -     \\
+    \hline
 fullsent, wikipedia & 0.432 & 0.477 & -     & -     \\
+    \hline
+fullsent, wikipedia, mwes & 0.433 & 0.476 & -     & -     \\
+    \hline
+window, europarl & 0.447 & 0.491 & -     & -     \\
+    \hline
+window, europarl, mwes & 0.448 & 0.489 & -     & -     \\
+    \hline
+window, wikipedia & 0.453 & 0.494 & -     & -     \\
+    \hline
+window, wikipedia, mwes & 0.451 & 0.493 & -     & -     \\
     \hline
   \end{tabulary}
   \end{centering}
   \caption{Results for classification using only word2vec skipgram embeddings
 to create features. For space, here we only show results for 200-dimensional
-embeddings, although we tried several different embeddings sizes.}
+embeddings.}
   \label{fig:word2vec-alone-results-skipgram}
 } %% end small
 \end{figure*}
@@ -865,73 +876,80 @@ embeddings, although we tried several different embeddings sizes.}
     \hline
     \multicolumn{5}{|l|}{maxent l1} \\
     \hline
-window, mwes, europarl & 0.411 & 0.454 & -     & -     \\
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
     \hline
-window, europarl & 0.414 & 0.455 & 0.396 & 0.367 \\
+fullsent, europarl & 0.389 & 0.433 & -     & -     \\
     \hline
-window, wikipedia  & 0.414 & 0.456 & 0.395 & 0.368 \\
+fullsent, europarl, mwes & 0.388 & 0.434 & -     & -     \\
+    \hline
+fullsent, wikipedia & 0.391 & 0.433 & -     & -     \\
+    \hline
+fullsent, wikipedia, mwes & 0.391 & 0.433 & -     & -     \\
     \hline
 pyramid, europarl & -     & -     & 0.401 & 0.374 \\
     \hline
 pyramid, wikipedia & -     & -     & 0.401 & 0.375 \\
     \hline
-fullsent, mwes, europarl & 0.388 & 0.434 & -     & -     \\
+window, europarl & 0.414 & 0.455 & 0.396 & 0.367 \\
     \hline
-fullsent, mwes, wikipedia & 0.391 & 0.433 & -     & -     \\
+window, europarl, mwes & 0.411 & 0.454 & -     & -     \\
     \hline
-fullsent, europarl & 0.389 & 0.433 & -     & -     \\
-    \hline
-fullsent, wikipedia & 0.391 & 0.433 & -     & -     \\
+window, wikipedia  & 0.414 & 0.456 & 0.395 & 0.368 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{maxent l2} \\
     \hline
-window, mwes, europarl & 0.402 & 0.447 & -     & -     \\
+    baseline features & 0.475 & 0.524 & 0.475 & 0.431 \\
     \hline
-window, mwes, wikipedia & 0.406 & 0.451 & -     & -     \\
+fullsent, europarl & 0.392 & 0.442 & -     & -     \\
     \hline
-window, europarl & 0.403 & 0.448 & 0.386 & 0.363 \\
+fullsent, europarl, mwes & 0.392 & 0.441 & -     & -     \\
     \hline
-window, wikipedia & 0.408 & 0.451 & 0.389 & 0.366 \\
+fullsent, wikipedia & 0.394 & 0.440 & -     & -     \\
+    \hline
+fullsent, wikipedia, mwes & 0.394 & 0.441 & -     & -     \\
     \hline
 pyramid, europarl & -     & -     & 0.398 & 0.375 \\
     \hline
 pyramid, wikipedia & -     & -     & 0.398 & 0.377 \\
     \hline
-fullsent, mwes, europarl & 0.392 & 0.441 & -     & -     \\
+window, europarl & 0.403 & 0.448 & 0.386 & 0.363 \\
     \hline
-fullsent, mwes, wikipedia & 0.394 & 0.441 & -     & -     \\
+window, europarl, mwes & 0.402 & 0.447 & -     & -     \\
     \hline
-fullsent, europarl & 0.392 & 0.442 & -     & -     \\
+window, wikipedia & 0.408 & 0.451 & 0.389 & 0.366 \\
     \hline
-fullsent, wikipedia & 0.394 & 0.440 & -     & -     \\
+window, wikipedia, mwes & 0.406 & 0.451 & -     & -     \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
     \hline
-fullsent, mwes, europarl & 0.431 & 0.474 & -     & -     \\
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
-fullsent, mwes, wikipedia & 0.434 & 0.478 & -     & -     \\
     \hline
 fullsent, europarl & 0.432 & 0.472 & -     & -     \\
     \hline
+fullsent, europarl, mwes & 0.431 & 0.474 & -     & -     \\
+    \hline
 fullsent, wikipedia & 0.434 & 0.478 & -     & -     \\
     \hline
-window, mwes, europarl & 0.448 & 0.489 & -     & -     \\
-    \hline
-window, mwes, wikipedia & 0.451 & 0.494 & -     & -     \\
+fullsent, wikipedia, mwes & 0.434 & 0.478 & -     & -     \\
     \hline
 window, europarl & 0.449 & 0.492 & -     & -     \\
     \hline
+window, europarl, mwes & 0.448 & 0.489 & -     & -     \\
+    \hline
 window, wikipedia & 0.452 & 0.494 & -     & -     \\
+    \hline
+window, wikipedia, mwes & 0.451 & 0.494 & -     & -     \\
     \hline
   \end{tabulary}
   \end{centering}
   \caption{Results for classification using only word2vec CBOW embeddings
 to create features. For space, here we only show results for 200-dimensional
-embeddings, although we tried several different embeddings sizes.}
+embeddings.}
   \label{fig:word2vec-alone-results-cbow}
 } %% end small
 \end{figure*}
@@ -1123,14 +1141,14 @@ least half a percentage point for both regular and nonnull settings.
 
 
 \section{Discussion}
-In this chapter, we have shown a number of different approaches that we can
-leverage resources for our source language, including three different ways of
-learning from unannotated source-language text and making use of existing
-source-language syntactic analysis tools.
+In this chapter, we have shown a number of different approaches for making use
+of the available resources for our source language in the CL-WSD task,
+including three different ways of learning from unannotated source-language
+text and making use of existing source-language syntactic analysis tools.
 
 Using each of these different tools, we were able to overcome the relatively
 strong most-frequent sense baseline, and with many of them, we were able to
-improve slightly on the default feature set, described in the previous chapter.
+show some small but consistent gains over the default feature set.
 All of these approaches make more abstract representations of the source text
 available to our classifiers, whether these representations were learned from
 the available text, or encapsulate some kind of syntactic knowledge about the
@@ -1138,6 +1156,10 @@ language. We found, in general, that representing the text closely surrounding
 the focus word was more effective than attempting to represent the entire
 source-language sentence at once.
 
-In the next chapter, we will leverage another one of our important resources
-that we have available for a resource-rich language like Spanish: bitext with
-other language pairs.
+Also we found that while random forest classifiers seem to benefit more from
+adding more sparse features like the ones we extracted from Brown clusters,
+they do not seem to do as well when given dense vectors, like those produced by
+word2vec and doc2vec representations.
+
+In the next chapter, we will leverage another one of our available resources
+for a resource-rich language like Spanish: bitext with other language pairs.
