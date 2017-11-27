@@ -549,7 +549,7 @@ Spanish-Quechua.
   \item Combination of promising features: baseline features, with syntactic
   features and Brown clusters (context window, surface form, Wikipedia).
   \item Combination of promising features: ``pyramid" word2vec embeddings, with
-  syntactic features and Brown clusters (context window, surface form,
+  syntactic features and Brown clusters (also context window, surface form,
   Wikipedia).
 \end{itemize}
 
@@ -693,15 +693,17 @@ together; this typically seems to diminish performance by a few tenths of a
 percentage point, in many cases making the performance as a whole dip below the
 MFS baseline. This seems to be too many potentially-irrelevant features,
 perhaps overwhelming the useful signals present in the baseline feature set.
+There does not seem to be a consistent or significant change due to using the
+lemmatized forms.
 
-However, we get better results when we limit the Brown cluster features to a
-narrow context words of three words on either side of the focus word; this
-seems to lead to roughly the same results for the maximum entropy classifiers
--- except for the ``non-null" case for L2-norm for Spanish-Quechua, as in the
-results for syntactic features in Figure \ref{fig:syntactic-results}. But for
-the random forest classifiers, we see consistent gains of three to six tenths
-of a percentage point. So for random forest classifiers, it seems worthwhile to
-add these window-based Brown cluster features.
+However, we get substantially better results when we limit the Brown cluster
+features to a narrow context words of three words on either side of the focus
+word; this seems to lead to roughly the same results for the maximum entropy
+classifiers -- except for the ``non-null" case for L2-norm for Spanish-Quechua,
+as in the results for syntactic features in Figure \ref{fig:syntactic-results}.
+But for the random forest classifiers, we see consistent gains of three to six
+tenths of a percentage point. So for random forest classifiers, it seems
+worthwhile to add these window-based Brown cluster features.
 
 \subsection{Results: combining sparse features}
 \begin{figure*}
@@ -928,7 +930,6 @@ window, wikipedia, mwes & 0.406 & 0.451 & -     & -     \\
     \hline
     baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
-    \hline
 fullsent, europarl & 0.432 & 0.472 & -     & -     \\
     \hline
 fullsent, europarl, mwes & 0.431 & 0.474 & -     & -     \\
@@ -957,63 +958,31 @@ embeddings.}
 Taking a look at Figures \ref{fig:word2vec-alone-results-skipgram} and
 \ref{fig:word2vec-alone-results-cbow}, we see the results for the experiments
 for using only word2vec embeddings for our features. There were many
-variations, but we see a few general trends.
+variations, but we see a few general trends. We performed experiments for 50,
+100, 200, and 400 dimensions, but the dimensionality of the vectors did not
+seem to substantially change the results, more than a few tenths of a
+percentage point. Here we report the results for 200 dimensions to save space
+and for easier comparison; in general the results for 200 dimensions were on
+the slightly more favorable side of representative. Also, because there were so
+many variations to try, some of the less promising combinations were cut.
+Specifically, almost all of the experiments with the CBOW embeddings, the
+``fullsent" combination approach, and random forest classifiers gave results
+lower than the MFS baseline, so not all combinations were carried out.
 
+However, if we focus on Figure \ref{fig:word2vec-alone-results-skipgram}, we
+can see some fairly promising results. We note that for the maxent classifiers,
+we can often beat the MFS baseline by using the word2vec embedding features
+alone, and for some settings, even beat the baseline features. Particularly, we
+note that using the ``window" and ``pyramid" results, we can do fairly well --
+the ``fullsent" approach does not seem to help here -- and that for the L1-norm
+maxent classifier, we can outperform the baseline features with word2vec
+features alone.
 
-In general, we see that through using the word2vec embeddings summed over a
-window surrounding the focus word, we can get results significantly better than
-the MFS baseline, although not with all settings and not with all classifiers.
-One fairly successful combination seems to be the skipgram embeddings trained
-on the Wikipedia dump, with a window size of three tokens on either side of the
-focus word, which beats the MFS accuracy by 1.2 percentage points over all
-words for the nullable ``regular" setting, and 1.4 percentage points in the
-``non-null" setting. The width of the embeddings trained seems to have little
-effect, but the top performances were seen in both settings with the skipgrams
-trained on Wikipedia. We also see that the clear winner, out of the classifier
-architectures tried, was the maximum entropy classifier with L1 regularization.
-The same linear classifier with L2 regularization was also able to outperform
-the MFS baseline, but not as well as the L1 version.
-
-Additionally, using the ``pyramid" style of embedding combinations seems to
-slightly outperform simply summing over a window of three tokens. Out of all
-the results for Spanish-Guaraní using only neural embeddings, we got the best
-results using ``pyrmaid" style combinations, with the Wikipedia skipgram
-embeddings, and a maximum entropy classifier with L1 regularization. This beat
-the MFS baseline by 1.3 percentage points in the ``regular" setting and 1.5
-percentage points in the ``nonnull" setting, slightly outperforming the
-``window" style of combination.
-
-Using skipgram embeddings trained on the smaller Europarl corpus was also able
-to beat the MFS baseline, but by a smaller margin than the embeddings trained
-on Wikipedia.
-
-Approaches that did not beat the MFS baseline included all uses of continuous
-bag of words, classifiers other than maximum entropy, and summing the
-embeddings across the entire sentence.
-
-For Spanish-Quechua, we were also able to beat the MFS baseline using only word
-embedding features. Here again, we see the use of ``pyramid" combinations
-working well, and the Wikipedia embeddings outperforming the embeddings trained
-on Europarl. The top combination for Quechua on the ``regular setting", using
-100-dimensional skipgram embeddings trained on Wikipedia, combined with the
-``pyramid" approach, beats the MFS baseline by 1.8 percentage points. The other
-dimensionalities follow closely behind, with 200, 100, and 400 providing
-results just a few tenths of a percent worse. Also, the ``window" combination
-method worked nearly as well as ``pyramid".
-
-In the ``nonnull" setting, using word embedding features alone also beats the
-MFS baseline, this time by 3.5 percentage points, using pyramid combinations,
-and 400-dimensional skipgram embeddings trained on Wikipedia, with the L2
-maximum entropy classifier. The other dimensionalities follow closely behind,
-as do the ``window" combination methods.
-
-As with the previous language pair, for Spanish-Quechua using skipgram
-embeddings was much more effective on this task than the continuous bag of
-words embeddings; we were unable to surpass the MFS baseline with any of the
-``cbow" embeddings, whether they were trained on Europarl or Wikipedia, and for
-any of the combination methods. Also, as with Spanish-Guaraní, we did not see
-the ``fullsent" combination strategy beat the MFS baseline for any of our
-parameter settings.
+In general, the L1-norm maxent classifier seems to do best with these feature
+sets, and the embeddings trained on the larger (and more general-domain)
+Wikipedia corpus seem to be most effective; using the multi-word expression
+embeddings seems to have little to no effect. The ``pyramid" combination scheme
+generally comes out on top.
 
 \subsection{Results: doc2vec embeddings alone}
 
@@ -1028,21 +997,30 @@ parameter settings.
     \hline
     \multicolumn{5}{|l|}{maxent l1} \\
     \hline
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
+    \hline
     fullsent & 0.462 & 0.496 & 0.441 & 0.391 \\
+    \hline
     window & 0.463 & 0.502 & 0.445 & 0.395 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{maxent l2} \\
     \hline
+    baseline features & 0.475 & 0.524 & 0.475 & 0.431 \\
+    \hline
     fullsent & 0.462 & 0.497 & 0.442 & 0.390 \\
+    \hline
     window & 0.467 & 0.506 & 0.449 & 0.402 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
     \hline
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
+    \hline
     fullsent & 0.420 & 0.497 & 0.404 & 0.390 \\
+    \hline
     window & 0.421 & 0.461 & 0.405 & 0.352 \\
     \hline
     \hline
@@ -1086,7 +1064,9 @@ summing the embeddings in a window around the focus word.
 
     \multicolumn{5}{|l|}{maxent l1} \\
     \hline
-    word2vec alone  & 0.470 & 0.513 & 0.453 & 0.424 \\
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
+    \hline
+    word2vec alone  & 0.469 & 0.512 & 0.453 & 0.424 \\
     \hline
     +sparse features & 0.472 & 0.519 & 0.458 & 0.436 \\
     \hline
@@ -1094,13 +1074,17 @@ summing the embeddings in a window around the focus word.
 
     \multicolumn{5}{|l|}{maxent l2} \\
     \hline
-    word2vec alone & 0.465 & 0.513 & 0.449 & 0.424 \\
+    baseline features & 0.475 & 0.524 & 0.475 & 0.431 \\
+    \hline
+    word2vec alone & 0.465 & 0.512 & 0.449 & 0.424 \\
     \hline
     +sparse features & 0.472 & 0.522 & 0.458 & 0.438 \\
     \hline
     \hline
 
     \multicolumn{5}{|l|}{random forest} \\
+    \hline
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
     \hline
     word2vec alone & 0.452 & 0.493 & 0.438 & 0.394 \\
     \hline
