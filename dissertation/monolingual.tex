@@ -507,17 +507,17 @@ Here we repeat the experiments from Chapter \ref{chap:baseline} for
 Spanish-Guaraní and Spanish-Quechua, using the features extracted from
 syntactic tools, Brown clusters, and the various kinds of neural embeddings
 presented in this chapter.
-These experiments were carried out with the same classification algorithms that
-we used in Chapter \ref{chap:baseline}. While most of the experiments here are
-a combination of the baseline features with the features introduced in this
-chapter, we also tried using the neural embeddings features on their own,
+These experiments were carried out with the top classification algorithms that
+we used in Chapter \ref{chap:baseline}, focusing on maximum entropy (using both
+L1 and L2 regularization) and random forests. While most of the experiments
+here are a combination of the baseline features with the features introduced in
+this chapter, we also tried using the neural embeddings features on their own,
 as a replacement for the baseline features. While there are many possible
 combinations of the features, we did not try all (exponentially many)
 possibilities exhaustively.
 
-Specifically, we tried all of the following feature sets, for both
-Spanish-Guaraní and Spanish-Quechua, feeding them into the same machine
-learning algorithms that were used in Chapter \ref{chap:baseline}.
+Specifically, we tried the following feature sets, for both Spanish-Guaraní and
+Spanish-Quechua.
 
 \begin{itemize}
   \item POS tag features, with baseline features
@@ -532,10 +532,11 @@ learning algorithms that were used in Chapter \ref{chap:baseline}.
       clusters for the sentence as a bag.
     \end{itemize}
 
-  \item word2vec embeddings on their own, in all combinations of \dots{}
+  \item word2vec embeddings on their own, in combinations of \dots{}
     \begin{itemize}
       \item trained on Europarl and Wikipedia
       \item skipgrams and CBOW
+      \item using multi-word expression embeddings or not
       \item dimensions: 50, 100, 200, 400
       \item combination strategies: full sentence, context window, and pyramid
     \end{itemize}
@@ -545,10 +546,11 @@ learning algorithms that were used in Chapter \ref{chap:baseline}.
       \item embeddings for a full sentence or embeddings for a context window
     \end{itemize}
 
-  \item Combination: baseline features, with syntactic features and
-  Brown clusters (context window, surface form, Wikipedia).
-  \item Combination: pyramid word2vec, with syntactic features and Brown
-  clusters (context window, surface form, Wikipedia).
+  \item Combination of promising features: baseline features, with syntactic
+  features and Brown clusters (context window, surface form, Wikipedia).
+  \item Combination of promising features: ``pyramid" word2vec embeddings, with
+  syntactic features and Brown clusters (context window, surface form,
+  Wikipedia).
 \end{itemize}
 
 In the next section, we present and discuss the results from these experiments.
@@ -606,25 +608,17 @@ In the next section, we present and discuss the results from these experiments.
 
 Taking a look at the scores from the features based on easily available
 Spanish-language taggers and parsers, which are presented in Figure
-\ref{fig:syntactic-results}, we see that for Spanish-Guaraní, we were able to
-surpass the MFS baseline with the dependency-parse and POS-tag-based features.
-They seemed to work especially well with the L2-norm maxent classifier and
-random forests. Furthermore, they beat the default features described in
-Chapter \ref{chap:baseline} by roughly half a percentage point: 0.5 or 0.6
-percentage points, in the ``regular" and ``non-null" settings, respectively.
-Adding the part-of-speech features without the parse features worked nearly as
-well, falling a tenth of a percentage point behind using all of the syntactic
-features in the ``regular" setting, and three tenths of a point behind in the
-``nonnull" setting.
+\ref{fig:syntactic-results}, we see small but fairly consistent improvements
+over the baseline features as we add syntactic features. In almost all of our
+settings, we see a few tenths of a percentage point gain by adding the POS tag
+features, and then another small gain on top of that by adding syntactic
+dependency features. The only deviation from the trend here is the case of
+Spanish-Quechua with maximum entropy (L2-norm), which sees a small loss on the
+``regular" (nullable) test set when adding POS tag features, but then gets
+small gains back when adding the syntactic features. The incremental
+improvements seem to be in place for all other settings.
 
-We see fairly similar results for Spanish-Quechua, which are shown in Figure
-\ref{fig:esquresults:monolingual}. Our strongest results for the ``regular"
-classification setting came with the use of the syntactic features, using
-random decision forests, which beat the Spanish-Quechua MFS baseline by 3.5
-percentage points. Random forests with the ``POS tags" feature set was nearly
-as strong, beating the baseline by 3.1 points. Random forests seemed to work
-quite well broadly for Spanish-Quechua; the default feature set beat the
-MFS baseline by 2.8 points.
+%% XXX working here
 
 Maximum entropy classifiers with L2 regularization and syntactic features also
 did fairly well for Spanish-Quechua, beating the baseline by 2.9 points.
@@ -637,6 +631,8 @@ comparison, the default feautres win out over the MFS baseline by 4 percentage
 points with L2 maximum entropy, or 3.9 points with random forests. For random
 forests with the syntactic features, we see that setting beat the MFS baseline
 by 4.3 points.
+
+
 
 \subsection{Results: adding clustering features}
 
