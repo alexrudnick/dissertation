@@ -4,6 +4,7 @@
   * be able to draw curves of word training data size versus accuracy
   * make sure results reported in baseline" chapter are generated on the same
   test sets and same process as "monolingual"
+  * do we need to rerun es-en and en-es for that reason? probably?
 
 ## multilingual
   * train systems to target any other European languages we can get a
@@ -24,10 +25,8 @@ Then use output of those systems as features.
     problem; it could have multiple different tokens that need to get
     classified.
   * What we're going to need to do is build preprocessing for Europarl. We need
-  to get Europarl text into the format the Chipa expects.
-
-That looks like...
-  * need lemmatizers and perhaps POS taggers.
+  to get Europarl text into the format the Chipa expects and aligned in the same
+  way as the bibles.
 
 ## integration
 hack up squoia again if necessary
