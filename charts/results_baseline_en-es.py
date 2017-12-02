@@ -28,7 +28,7 @@ randomforestScores = (63.43, 71.74)
 ind = np.arange(N)  # the x locations for the groups
 width = 0.18        # the width of the bars
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(11.97,12.37))
 rects1 = ax.bar(ind + 0 * width, mfsScores, width, color='b')
 rects2 = ax.bar(ind + 1 * width, linearsvcScores, width, color='g')
 rects3 = ax.bar(ind + 2 * width, maxent_l1Scores, width, color='r')
@@ -75,4 +75,5 @@ autolabel(rects3, ax)
 autolabel(rects4, ax)
 autolabel(rects5, ax)
 
-plt.show()
+# plt.show()
+plt.savefig('results_baseline_en-es.png', bbox_inches='tight')

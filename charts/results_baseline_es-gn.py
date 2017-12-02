@@ -36,7 +36,7 @@ randomforestScores = (48.26, 52.17)
 ind = np.arange(N)  # the x locations for the groups
 width = 0.18       # the width of the bars
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(11.97,12.37))
 rects1 = ax.bar(ind + 0 * width, mfsScores, width, color='b')
 rects2 = ax.bar(ind + 1 * width, linearsvcScores, width, color='g')
 rects3 = ax.bar(ind + 2 * width, maxent_l1Scores, width, color='r')
@@ -45,7 +45,7 @@ rects5 = ax.bar(ind + 4 * width, randomforestScores, width, color='m')
 
 # add some text for labels, title and axes ticks
 ax.set_ylabel('Scores')
-ax.set_title('Spanish-Guarani classification accuracy')
+ax.set_title('Spanish-Guaraní classification accuracy')
 ax.set_xticks(ind + width * 2.5)
 ax.set_xticklabels(('regular', 'nonnull'))
 
@@ -83,4 +83,5 @@ autolabel(rects3, ax)
 autolabel(rects4, ax)
 autolabel(rects5, ax)
 
-plt.show()
+# plt.show()
+plt.savefig('results_baseline_es-gn.png', bbox_inches='tight')
