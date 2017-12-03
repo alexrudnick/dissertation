@@ -1,6 +1,7 @@
 NAME=dissertation
 
 $(NAME).pdf: *.tex *.bib is-abbrv.bst figures
+	make -C charts
 	xelatex $(NAME).tex
 	bibtex $(NAME)
 	xelatex $(NAME).tex
