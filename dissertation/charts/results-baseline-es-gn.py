@@ -5,28 +5,36 @@ import matplotlib.pyplot as plt
 
 N = 2
 
-mfsScores =          (58.61, 68.47)
-linearsvcScores =    (61.44, 70.52)
-maxent_l1Scores =    (63.63, 72.11)
-maxent_l2Scores =    (63.97, 72.51)
-randomforestScores = (63.43, 71.74)
+mfsScores =          (45.58, 49.76)
+linearsvcScores =    (45.32, 50.90)
+maxent_l1Scores =    (46.99, 51.56)
+maxent_l2Scores =    (48.31, 53.23)
+randomforestScores = (48.26, 52.17)
 
-"""
-2016-01-06-14-08-en-es-MFS-default-regular accuracy: 0.5861
-2016-01-06-14-08-en-es-linearsvc-l2-c1-default-regular accuracy: 0.6144
-2016-01-06-14-08-en-es-maxent-l1-c1-default-regular accuracy: 0.6363
-2016-01-06-14-08-en-es-maxent-l2-c1-default-regular accuracy: 0.6397
-2016-01-06-14-08-en-es-random-forest-default-default-regular accuracy: 0.6343
+# 2016-01-06-13-47-es-gn-MFS-default-regular
+# accuracy: 0.4558
+# 2016-01-06-13-47-es-gn-linearsvc-l2-c1-default-regular
+# accuracy: 0.4532
+# 2016-01-06-13-47-es-gn-maxent-l1-c1-default-regular
+# accuracy: 0.4699
+# 2016-01-06-13-47-es-gn-maxent-l2-c1-default-regular
+# accuracy: 0.4831
+# 2016-01-06-13-47-es-gn-random-forest-default-default-regular
+# accuracy: 0.4826
 
-2016-01-06-14-08-en-es-MFS-default-nonnull accuracy: 0.6847
-2016-01-06-14-08-en-es-linearsvc-l2-c1-default-nonnull accuracy: 0.7052
-2016-01-06-14-08-en-es-maxent-l1-c1-default-nonnull accuracy: 0.7211
-2016-01-06-14-08-en-es-maxent-l2-c1-default-nonnull accuracy: 0.7251
-2016-01-06-14-08-en-es-random-forest-default-default-nonnull accuracy: 0.7174
-"""
+# 2016-01-06-13-47-es-gn-MFS-default-nonnull
+# accuracy: 0.4976
+# 2016-01-06-13-47-es-gn-linearsvc-l2-c1-default-nonnull
+# accuracy: 0.5090
+# 2016-01-06-13-47-es-gn-maxent-l1-c1-default-nonnull
+# accuracy: 0.5156
+# 2016-01-06-13-47-es-gn-maxent-l2-c1-default-nonnull
+# accuracy: 0.5323
+# 2016-01-06-13-47-es-gn-random-forest-default-default-nonnull
+# accuracy: 0.5217
 
 ind = np.arange(N)  # the x locations for the groups
-width = 0.18        # the width of the bars
+width = 0.18       # the width of the bars
 
 fig, ax = plt.subplots(figsize=(11.97,12.37))
 rects1 = ax.bar(ind + 0 * width, mfsScores, width, color='b')
@@ -37,7 +45,7 @@ rects5 = ax.bar(ind + 4 * width, randomforestScores, width, color='m')
 
 # add some text for labels, title and axes ticks
 ax.set_ylabel('Scores')
-ax.set_title('English-Spanish classification accuracy')
+ax.set_title('Spanish-Guaraní classification accuracy')
 ax.set_xticks(ind + width * 2.5)
 ax.set_xticklabels(('regular', 'nonnull'))
 
@@ -76,4 +84,4 @@ autolabel(rects4, ax)
 autolabel(rects5, ax)
 
 # plt.show()
-plt.savefig('results_baseline_en-es.png', bbox_inches='tight')
+plt.savefig('results-baseline-es-gn.png', bbox_inches='tight')

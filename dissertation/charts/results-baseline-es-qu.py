@@ -5,33 +5,26 @@ import matplotlib.pyplot as plt
 
 N = 2
 
-mfsScores =          (45.58, 49.76)
-linearsvcScores =    (45.32, 50.90)
-maxent_l1Scores =    (46.99, 51.56)
-maxent_l2Scores =    (48.31, 53.23)
-randomforestScores = (48.26, 52.17)
+mfsScores =          (43.55, 39.10)
+linearsvcScores =    (43.47, 41.64)
+maxent_l1Scores =    (45.35, 42.58)
+maxent_l2Scores =    (46.70, 44.15)
+randomforestScores = (46.41, 42.57)
 
-# 2016-01-06-13-47-es-gn-MFS-default-regular
-# accuracy: 0.4558
-# 2016-01-06-13-47-es-gn-linearsvc-l2-c1-default-regular
-# accuracy: 0.4532
-# 2016-01-06-13-47-es-gn-maxent-l1-c1-default-regular
-# accuracy: 0.4699
-# 2016-01-06-13-47-es-gn-maxent-l2-c1-default-regular
-# accuracy: 0.4831
-# 2016-01-06-13-47-es-gn-random-forest-default-default-regular
-# accuracy: 0.4826
+"""
+2016-01-06-13-47-es-qu-MFS-default-regular accuracy: 0.4355
+2016-01-06-13-47-es-qu-linearsvc-l2-c1-default-regular accuracy: 0.4347
+2016-01-06-13-47-es-qu-maxent-l1-c1-default-regular accuracy: 0.4535
+2016-01-06-13-47-es-qu-maxent-l2-c1-default-regular accuracy: 0.4670
+2016-01-06-13-47-es-qu-random-forest-default-default-regular accuracy: 0.4641
 
-# 2016-01-06-13-47-es-gn-MFS-default-nonnull
-# accuracy: 0.4976
-# 2016-01-06-13-47-es-gn-linearsvc-l2-c1-default-nonnull
-# accuracy: 0.5090
-# 2016-01-06-13-47-es-gn-maxent-l1-c1-default-nonnull
-# accuracy: 0.5156
-# 2016-01-06-13-47-es-gn-maxent-l2-c1-default-nonnull
-# accuracy: 0.5323
-# 2016-01-06-13-47-es-gn-random-forest-default-default-nonnull
-# accuracy: 0.5217
+2016-01-06-13-47-es-qu-MFS-default-nonnull accuracy: 0.3910
+2016-01-06-13-47-es-qu-linearsvc-l2-c1-default-nonnull accuracy: 0.4164
+2016-01-06-13-47-es-qu-maxent-l1-c1-default-nonnull accuracy: 0.4258
+2016-01-06-13-47-es-qu-maxent-l2-c1-default-nonnull accuracy: 0.4415
+2016-01-06-13-47-es-qu-random-forest-default-default-nonnull accuracy: 0.4257
+"""
+
 
 ind = np.arange(N)  # the x locations for the groups
 width = 0.18       # the width of the bars
@@ -45,7 +38,7 @@ rects5 = ax.bar(ind + 4 * width, randomforestScores, width, color='m')
 
 # add some text for labels, title and axes ticks
 ax.set_ylabel('Scores')
-ax.set_title('Spanish-Guaraní classification accuracy')
+ax.set_title('Spanish-Quechua classification accuracy')
 ax.set_xticks(ind + width * 2.5)
 ax.set_xticklabels(('regular', 'nonnull'))
 
@@ -84,4 +77,4 @@ autolabel(rects4, ax)
 autolabel(rects5, ax)
 
 # plt.show()
-plt.savefig('results_baseline_es-gn.png', bbox_inches='tight')
+plt.savefig('results-baseline-es-qu.png', bbox_inches='tight')

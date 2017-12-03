@@ -77,4 +77,4 @@ autolabel(rects4, ax)
 autolabel(rects5, ax)
 
 # plt.show()
-plt.savefig('results_baseline_es-en.png', bbox_inches='tight')
+plt.savefig('results-baseline-es-en.png', bbox_inches='tight')

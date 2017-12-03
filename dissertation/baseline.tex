@@ -101,38 +101,39 @@ these experiments did nearly as well.
 \section{Classification Results for the Baseline System}
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{baseline-esgn-ch4.png}
+  \includegraphics[width=\textwidth]{results-baseline-es-gn.png}
   \caption{Baseline Chipa scores for Spanish-Guarani, by classifier.}
-  \label{fig:esgnresults:ch4}
+  \label{fig:esgnresults:baseline}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{baseline-esqu-ch4.png}
+  \includegraphics[width=\textwidth]{results-baseline-es-qu.png}
   \caption{Baseline Chipa scores for Spanish-Quechua, by classifier.}
-  \label{fig:esquresults:ch4}
+  \label{fig:esquresults:baseline}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{baseline-esen-ch4.png}
+  \includegraphics[width=\textwidth]{results-baseline-es-en.png}
   \caption{Baseline Chipa scores for Spanish-English, by classifier.}
-  \label{fig:esenresults:ch4}
+  \label{fig:esenresults:baseline}
 \end{figure}
 
 \begin{figure}
-  \includegraphics[width=\textwidth]{baseline-enes-ch4.png}
+  \includegraphics[width=\textwidth]{results-baseline-en-es.png}
   \caption{Baseline Chipa scores for English-Spanish, by classifier.}
-  \label{fig:enesresults:ch4}
+  \label{fig:enesresults:baseline}
 \end{figure}
 
-In Figures \ref{fig:esgnresults:ch4}, \ref{fig:esquresults:ch4},
-\ref{fig:esenresults:ch4}, and \ref{fig:enesresults:ch4}, we see the results
-for the baseline Chipa system running with a a variety of common classification
-algorithms, chosen for familiarity and availability within our machine learning
-toolkit, on different language pairs. Here we report classification accuracy as
-a percentage -- there is only one reference translation given, and the
-classifier only gets credit for predicting it correctly. We performed ten-fold
-cross-validation, using all of the available training data for each of the
-lemmas in a given language pair's bitext that appear at least fifty times. 
+In Figures \ref{fig:esgnresults:baseline}, \ref{fig:esquresults:baseline},
+\ref{fig:esenresults:baseline}, and \ref{fig:enesresults:baseline}, we see the
+results for the baseline Chipa system running with a a variety of common
+classification algorithms, chosen for familiarity and availability within our
+machine learning toolkit, on different language pairs. Here we report
+classification accuracy as a percentage -- there is only one reference
+translation given, and the classifier only gets credit for predicting it
+correctly. We performed ten-fold cross-validation, using all of the available
+training data for each of the lemmas in a given language pair's bitext that
+appear at least fifty times. 
 
 As mentioned previously, there are two settings for this task; in the
 ``regular" setting, we consider ``null" to be a valid translation, i.e., the
@@ -142,7 +143,7 @@ consider the instances where there is an alignment from the focus word to at
 least one token in the target sentence. For most of the language pairs, we see
 that our results in the ``nonnull" setting are higher, which is not surprising,
 since there are fewer options to pick from. In Spanish-Quechua (Figure
-\ref{fig:esquresults:ch4}), however, we see
+\ref{fig:esquresults:baseline}), however, we see
 that the scores are lower in the ``nonnull" setting. This seems to be due to
 the Spanish and Quechua texts not being close translations of one another -- it
 is fairly likely that words in the Spanish text are simply not present in the
@@ -202,7 +203,7 @@ lemma.
   \includegraphics[width=\textwidth]{semeval-2010-ch4.png}
   \caption{Scores on the SemEval 2010 test set, including results posted in
   the shared task and the baseline Chipa system running on the same test set.}
-  \label{fig:semeval2010:ch4}
+  \label{fig:semeval2010:baseline}
 \end{figure}
 
 \begin{figure}
@@ -211,7 +212,7 @@ lemma.
   the shared task and the baseline Chipa system running on the same test set.
   When one team presented multiple results, here we take the best result from
   that team.}
-  \label{fig:semeval2013:ch4}
+  \label{fig:semeval2013:baseline}
 \end{figure}
 
 There were two settings for the evaluation, \emph{best} and \emph{oof}. In
@@ -229,7 +230,7 @@ please see the shared task descriptions.
 
 The scores for the baseline Chipa system, as well as for other systems
 entered in the 2010 and 2013 competitions, are reported in Figures
-\ref{fig:semeval2010:ch4} and \ref{fig:semeval2013:ch4}.
+\ref{fig:semeval2010:baseline} and \ref{fig:semeval2013:baseline}.
 In the 2010 competition, none of the posted systems were able to beat the
 simple most-frequent-sense baseline for the out-of-five setting, but Chipa
 surpasses it handily. Chipa also does better than all but one of the posted

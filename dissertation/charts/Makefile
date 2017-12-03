@@ -1,4 +1,4 @@
-all: results_baseline_en-es.png results_baseline_es-en.png results_baseline_es-gn.png results_baseline_es-qu.png
+all: results-baseline-en-es.png results-baseline-es-en.png results-baseline-es-gn.png results-baseline-es-qu.png
 
 %.png: %.py
 	python3 $<
