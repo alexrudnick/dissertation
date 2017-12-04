@@ -6,10 +6,10 @@ import matplotlib.pyplot as plt
 N = 2
 
 mfsScores =          (58.61, 68.47)
-linearsvcScores =    (61.44, 70.52)
-maxent_l1Scores =    (63.63, 72.11)
-maxent_l2Scores =    (63.97, 72.51)
-randomforestScores = (63.43, 71.74)
+linearsvcScores =    (60.5, 69.6)
+maxent_l1Scores =    (62.8, 71.2)
+maxent_l2Scores =    (63.2, 71.7)
+randomforestScores = (63.3, 71.6)
 
 """
 2016-01-06-14-08-en-es-MFS-default-regular accuracy: 0.5861
