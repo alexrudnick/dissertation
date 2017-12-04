@@ -1,10 +1,9 @@
 # things left undone
 
 ## general
-  * be able to draw curves of word training data size versus accuracy
-  * make sure results reported in baseline" chapter are generated on the same
-  test sets and same process as "monolingual"
-  * do we need to rerun es-en and en-es for that reason? probably?
+  * SKIP? be able to draw curves of word training data size versus accuracy
+  * update discussion in "baseline" chapter to make sure it matches reported
+  results
 
 ## multilingual
   * train systems to target any other European languages we can get a
@@ -58,6 +57,10 @@ hack up squoia again if necessary
 # fairly done things
 
   * DONE maybe rerun the experiments from the baseline chapter so we know that the results are comparable; we're using explicit lists of top words now.
+
+## baseline done things
+  * DONE make sure results reported in baseline" chapter are generated on the same test sets and same process as "monolingual"
+  * DONE do we need to rerun es-en and en-es for that reason? probably?
 
 ## monolingual done things
   * DONE run experiments for brown clusters AND syntactic features at once
