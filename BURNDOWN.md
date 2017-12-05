@@ -2,8 +2,6 @@
 
 ## general
   * SKIP? be able to draw curves of word training data size versus accuracy
-  * update discussion in "baseline" chapter to make sure it matches reported
-  results
 
 ## multilingual
   * train systems to target any other European languages we can get a
@@ -61,6 +59,8 @@ hack up squoia again if necessary
 ## baseline done things
   * DONE make sure results reported in baseline" chapter are generated on the same test sets and same process as "monolingual"
   * DONE do we need to rerun es-en and en-es for that reason? probably?
+  * DONE update discussion in "baseline" chapter to make sure it matches
+  reported results
 
 ## monolingual done things
   * DONE run experiments for brown clusters AND syntactic features at once
