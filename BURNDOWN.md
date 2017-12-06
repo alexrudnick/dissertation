@@ -4,15 +4,19 @@
   * SKIP? be able to draw curves of word training data size versus accuracy
 
 ## multilingual
-  * train systems to target any other European languages we can get a
-  target-language stemmer for. Anything snowball is fair game, maybe? We don't
-  even really need a proper lemmatizer.
-  * build a source corpus annotator for multilingual.
-Then use output of those systems as features.
-  * This is our "classifier stacking" approach, or basically "L2".  What did we
-  do in the semeval paper, exactly? We trained on the real answers and tested
-  on the classifier answers, right?
-  * But we should train on classifier output.
+  * pick languages we want to use
+  * make scripts for preparing data for Europarl for all the European languages
+  we think we're going to do. Should be basically like the en-es data
+  preparation script.
+    * pick lemmatizer/stemmer to use (could use 
+  * make an annotation script to stick classifier answers on all words we have a
+  classifier for.
+  * make features out of those annotations
+
+  * This is roughly our "classifier stacking" approach, or basically "L2",
+  except that in the semeval paper we trained on the real answers and tested on
+  classifier answers, which was goofy
+
   * And furthermore, what we can do is just run the classifiers in "annotator"
   mode -- we blow through an input file and we classify with an existing
   classifier, then just save the classifier as an annotation.
