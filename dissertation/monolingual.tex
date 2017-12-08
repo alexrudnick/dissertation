@@ -609,18 +609,16 @@ In the next section, we present and discuss the results from these experiments.
 Taking a look at the scores from the features based on easily available
 Spanish-language taggers and parsers, which are presented in Figure
 \ref{fig:syntactic-results}, we see small but fairly consistent improvements
-over the baseline features as we add syntactic features. In almost all of our
+over the baseline features as we add syntactic features. In all of our
 settings, we see a few tenths of a percentage point gain by adding the POS tag
 features, and then another small gain on top of that by adding syntactic
-dependency features. The only deviation from the trend here is the case of
-Spanish-Quechua with maximum entropy (L2-norm), which sees a small loss on the
-``regular" (nullable) test set when adding POS tag features, but then gets
-small gains back when adding the syntactic features. The incremental
-improvements seem to be in place for all other settings.
+dependency features.
 
-Where we see gains, the gains seem to be of roughly the same (small) magnitude;
-it is not obvious whether any of the classifiers are more able to make use of
-the additional features than others.
+These gains seem to be of roughly the same (small) magnitude; it is not obvious
+whether any of the classifiers are more able to make use of the additional
+features than others, but this is somewhat reassuring, and it looks like we are
+easily able to add some helpful features when we have syntactic analysis tools
+available for our source language.
 
 \subsection{Results: adding clustering features}
 
@@ -699,12 +697,11 @@ significant change due to using the lemmatized or surface forms.
 
 However, we get substantially better results when we limit the Brown cluster
 features to a narrow context words of three words on either side of the focus
-word; this seems to lead to roughly the same results for the maximum entropy
-classifiers -- except for the ``non-null" case for L2-norm for Spanish-Quechua,
-as in the results for syntactic features in Figure~\ref{fig:syntactic-results}.
-But for the random forest classifiers, we see consistent gains of three to six
-tenths of a percentage point. So for random forest classifiers, it seems
-worthwhile to add these window-based Brown cluster features.
+word; this seems to lead to roughly the same results as the baseline features,
+for the maximum entropy classifiers.  But for the random forest classifiers, we
+see consistent gains of three to six tenths of a percentage point. So for
+random forest classifiers, it seems worthwhile to add these window-based Brown
+cluster features.
 
 \subsection{Results: combining sparse features}
 \begin{figure*}
@@ -1113,10 +1110,10 @@ available to the classifiers to see if these would improve performance.
 And in general, we see that the addition of these features does make an
 improvement over using the word2vec features by themselves. In fact, for all of
 the classifiers, and each of the test sets, we see an improvement over the
-word2vec features; this only results in an improvement over the baseline
-features for the L1-norm maximum entropy classifer, however. But it is the best
-results presented thus far for that classifier, and the most effective feature
-set that we have tried, using neural embeddings.
+word2vec features; this only results in consistent improvements over the
+baseline features for the L1-norm maximum entropy classifer, however. But it is
+the best results presented thus far for that classifier, and the most effective
+feature set that we have tried, using neural embeddings.
 
 \section{Discussion}
 In this chapter, we have shown a number of different approaches for making use
@@ -1128,10 +1125,15 @@ existing source-language syntactic analysis tools.
 Using each of these different tools, we were able to overcome the relatively
 strong most-frequent sense baseline, and with many of the different feature
 sets, we were able to show small but consistent gains over the baseline feature
-set. Overall, the best results posted Spanish-Guaraní were with the combined
-sparse features; the random forest classifier had the strongest results for the
-regular setting, and the maximum entropy classifier with L2 regularization came
-out ahead for the non-null setting.
+set. Overall, the best results posted for Spanish-Guaraní were with the
+combined sparse features; the random forest classifier had the strongest
+results for the ``regular" setting, and the maximum entropy classifier with L2
+regularization came out ahead for the non-null setting (this result was tied
+with the one for using the syntactic features with maximum entropy, L2
+regularization). The top results for Spanish-Quechua were similarly posted with
+the combined sparse features, with random forests coming out ahead for the
+``regular" setting and maximum entropy, L2, posting the best results for
+``non-null".
 
 All of the approaches explored in this chapter make more abstract
 representations of the source text available to our classifiers, whether these
