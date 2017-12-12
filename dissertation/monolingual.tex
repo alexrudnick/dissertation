@@ -22,8 +22,9 @@ Concretely, in this chapter we explore labels learned from existing NLP tools
 such as off-the-shelf taggers and parsers for Spanish, Brown clustering
 \cite{brown1992class}, and a few related approaches to neural embeddings. There
 are of course other related methods that one could investigate, especially
-making use of the broader literature on distributional semantics, but these
-will be left to future work. First we will describe the methods used in some
+making use of the broader literature on distributional semantics, but we
+consider them to be outside the scope of this work.
+First we will describe the methods used in some
 detail, and then towards the end of the chapter, in Sections
 \ref{sec:monolingual-experiments} and \ref{sec:monolingual-results}
 respectively, we describe experiments and present experimental results.
@@ -206,7 +207,7 @@ may consider lemmatizing our input text before clustering. This decision will
 be more significant than it would be for English, given the inflections present
 in Spanish, especially verb conjugations and adjective-noun agreement.
 We might expect that Brown clustering on surface forms would help us find
-abstractions over syntax, but perhaps lemmatization will turn it toward more
+abstractions over syntax, and that lemmatization will turn it towards more
 semantic abstractions. This is an empirical question, and we briefly look into
 it here, first by qualitatively examining the clusters that we learned, but
 later extrinsically evaluating the clusters to see how they affect the CL-WSD
@@ -262,7 +263,7 @@ promising regularities found in the text. As expected, when we cluster on the
 surface forms, we find both syntactic and semantic similarities, but using the
 lemmatized forms seems to push the clusters towards conceptual similarity. It
 is still an empirical question which of these approaches will help more for our
-CL-WSD task, but we will try them both.
+CL-WSD task, so we will run experiments using each one.
 
 \subsection{Classification features based on Brown clusters}
 Given a clustering learned from a large monolingual corpus, we must still
@@ -969,20 +970,20 @@ lower than the MFS baseline, so not all combinations were carried out.
 
 However, if we focus on Figure~\ref{fig:word2vec-alone-results-skipgram}, we
 can see some fairly promising results. We note that for the maxent classifiers,
-we can often beat the MFS baseline by using the word2vec embedding features
-alone, and for some settings, even beat the baseline features. Particularly, we
-note that using the ``window" and ``pyramid" results, we can do fairly well --
-the ``fullsent" approach does not seem to help here -- and that for the L1-norm
-maxent classifier, we can outperform the baseline features with word2vec
-features alone.
+we can often surpass the MFS baseline by using the word2vec embedding features
+alone, and for some settings, even surpass the baseline features. Particularly,
+we note that using the ``window" and ``pyramid" results, we can do fairly well
+-- the ``fullsent" approach does not seem to help here -- and that for the
+L1-norm maxent classifier, we can outperform the baseline features with
+word2vec features alone.
 
 Interestingly, despite its strong performance on the sparse feature sets, the
 random forest classifier does not do as well with the dense vectors; it does
-not beat the MFS baseline.  In general, the L1-norm maxent classifier seems to
-do best with these feature sets, and the embeddings trained on the larger (and
-more general-domain) Wikipedia corpus seem to be most effective; using the
-multi-word expression embeddings seems to have little to no effect. The
-``pyramid" combination scheme generally comes out on top. So this is
+not outperform the MFS baseline.  In general, the L1-norm maxent classifier
+seems to do best with these feature sets, and the embeddings trained on the
+larger (and more general-domain) Wikipedia corpus seem to be most effective;
+using the multi-word expression embeddings seems to have little to no effect.
+The ``pyramid" combination scheme generally comes out on top. So this is
 encouraging, for features for maxent classifiers.
 
 \subsection{Results: doc2vec embeddings alone}
@@ -1042,14 +1043,15 @@ entire sentence was not as effective as building a vector to represent just the
 tokens around the focus word.
 The full-sentence representations were more effective than the corresponding
 full-sentence vector sums from word2vec, however -- in a few instances they
-beat the MFS baseline.
+outperform the MFS baseline.
 
 However, when we restrict the doc2vec optimizer to looking at a narrow context
 window around the focus word, we outperformed the MFS baseline on all of the
 test sets, for maxent classifiers. For some, but not all, of the L1-norm
-maxent cases, the doc2vec features beat the baseline features by a slim margin.
-Probably something like doc2vec embeddings could be made to work well in this
-setting, but more experimentation would be needed.
+maxent cases, the doc2vec features surpass the baseline features by a slim
+margin. There may be a way to make doc2vec embeddings, or some other kind of
+document-level embedding features, work well for this setting, but further
+exploration is outside the scope of this work.
 
 \subsection{Results: combining neural embeddings with sparse features}
 \begin{figure*}
