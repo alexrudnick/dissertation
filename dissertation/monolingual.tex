@@ -91,8 +91,8 @@ universal coarse tags during corpus annotation.
 
 Operationally, before training our CL-WSD system, we parse all of the training
 data with the ``espmalt" model, using the tags inferred by FreeLing during
-preprocessing. The dependency parses output by MaltParser are stored on disk in
-CONLL-X format. Then with a corpus annotation script, we walk the dependency
+preprocessing, and store all of MaltParser's dependency parses on disk.
+Then with a corpus annotation script, we walk those dependency
 graphs to find each token's immediate syntactic head (or the root of the
 sentence) and every token's immediate syntactic children, if any. All of these
 dependency heads and children are annotated in the training data, to be made
@@ -133,14 +133,14 @@ syntactic features made available to the classifier is given in Figure
 
 \section{Brown Clustering}
 The Brown clustering algorithm\cite{brown1992class}, also known as IBM
-clustering, as it was developed by the Candide group at IBM, takes an
-unannotated text corpus as input and assigns each word type found the corpus
-into hierarchical clusters, such that types in the same cluster have similar
-usage patterns based on the bigram statistics of the corpus. The tree of
-clusters is binary-branching, so the identity of a cluster is simply its path
-from the root of the tree, and clusters that are close in the tree have similar
-usage patterns. The desired number of ``leaf" clusters must be set ahead of
-time as a tunable parameter.
+clustering, as it was developed by the Candide group at IBM, finds a
+hierarchical clustering for all the word types in a corpus, such that words
+that are clustered nearby have similar usage patterns, and thus presumably
+similar meanings.
+The tree of clusters is binary-branching, so the identity of a cluster is
+simply its path from the root of the tree, and clusters that are close in the
+tree have similar usage patterns. The desired number of ``leaf" clusters must
+be set ahead of time as a tunable parameter.
 
 Each of the word types present in the input corpus is allocated to one of the
 leaf clusters, such that the assignment attempts to maximize the probability of
@@ -148,7 +148,9 @@ the input corpus.  These clusters were originally intended for use in
 class-based language modeling, and as such the scoring function is the mutual
 information between subsequent tokens. Concretely, the optimization process is
 searching for a clustering $C$ that maximizes the probability of the corpus
-$\boldsymbol{w}$, according to the formula in Figure~\ref{fig:brownprob}.
+$\boldsymbol{w}$, according to the formula in Figure~\ref{fig:brownprob};
+intuitively, word types that occur in similar bigrams should be in similar
+clusters.
 
 \begin{figure*}
 
