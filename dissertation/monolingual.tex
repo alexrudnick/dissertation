@@ -369,7 +369,7 @@ individual focus word. The received wisdom\footnote{According to the TensorFlow
 tutorial on word2vec, available at
 \url{https://www.tensorflow.org/tutorials/word2vec}} is that CBOW is more
 appropriate when training on smaller data sets, but this is an empirical
-question and here we try out both variants.
+question, so here we run experiments with both variants.
 
 In either case, running a word2vec training process results in a static mapping
 from word types to their embeddings in a vector space of a given size,
@@ -414,8 +414,8 @@ tokens in the entire sentence. We could only consider the words in a narrow
 window around the focus word. Or we could perform a weighted sum, in which
 words nearer to the focus word are given more weight, but these weights drop
 off according to some function, scaling with the distance from the focus word.
-For our experiments here, we try these three different approaches, resulting in
-three different feature sets.
+We run experiments using these three different approaches, resulting in three
+different feature sets.
 
 In the first feature set, called ``window", we present the classifier with the
 element-wise sum of the vectors for the focus word (or the token containing the
@@ -515,13 +515,13 @@ These experiments were carried out with the top classification algorithms that
 we used in Chapter \ref{chap:baseline}, focusing on maximum entropy (using both
 L1 and L2 regularization) and random forests. While most of the experiments
 here are a combination of the baseline features with the features introduced in
-this chapter, we also tried using the neural embeddings features on their own,
+this chapter, we also used the neural embeddings features on their own,
 as a replacement for the baseline features. While there are many possible
-combinations of the features, we did not try all (exponentially many)
-possibilities exhaustively.
+combinations of the features, we did not run experiments for all (exponentially
+many) possibilities exhaustively.
 
-Specifically, we tried the following feature sets, for both Spanish-Guaraní and
-Spanish-Quechua.
+Specifically, we experimented with the following feature sets, for both
+Spanish-Guaraní and Spanish-Quechua.
 
 \begin{itemize}
   \item POS tag features, with baseline features
@@ -542,7 +542,9 @@ Spanish-Quechua.
       \item skipgrams and CBOW
       \item using multi-word expression embeddings or not
       \item dimensions: 50, 100, 200, 400
-      \item combination strategies: full sentence, context window, and pyramid
+      \item combination strategies: full sentence, context window, and
+      ``pyramid" (summing embeddings with a weight that decreases with distance
+      from the focus word)
     \end{itemize}
 
   \item doc2vec embeddings on their own, trained on Wikipedia\dots{}
