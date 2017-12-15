@@ -5,10 +5,11 @@
 
 ## multilingual
   * pick languages we want to use
+    * freeling supports: cs, de, en, es, fr, it, nb, pt, ru, sl... so plenty
   * make scripts for preparing data for Europarl for all the European languages
   we think we're going to do. Should be basically like the en-es data
   preparation script.
-    * pick lemmatizer/stemmer to use (could use 
+    * DONE pick lemmatizer/stemmer to use (can just use FreeLing!)
   * make an annotation script to stick classifier answers on all words we have a
   classifier for.
   * make features out of those annotations
