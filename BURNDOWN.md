@@ -4,7 +4,7 @@
   * SKIP? be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * make sure we ran all windowbrown variants
+  * DONE make sure we ran all windowbrown variants
   * report results for all windowbrown variants
 
 ## multilingual
