@@ -5,7 +5,8 @@
 
 ## monolingual
   * DONE make sure we ran all windowbrown variants
-  * report results for all windowbrown variants
+  * DONE report results for all windowbrown variants
+  * edit text to reflect results for all windowbrown variants
 
 ## multilingual
   * pick languages we want to use
