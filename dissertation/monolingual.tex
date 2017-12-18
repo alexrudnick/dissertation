@@ -628,6 +628,7 @@ available for our source language.
 \subsection{Results: adding clustering features}
 
 \begin{figure*}
+{\small
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
@@ -707,6 +708,7 @@ available for our source language.
   \caption{Classification results for adding Brown cluster features to the
   default feature set.}
   \label{fig:brown-results}
+} %% end small
 \end{figure*}
 
 We see the experimental results for adding our Brown Cluster features
@@ -726,7 +728,10 @@ word; this seems to lead to roughly the same results as the baseline features,
 for the maximum entropy classifiers.  But for the random forest classifiers, we
 see consistent gains of three to six tenths of a percentage point. So for
 random forest classifiers, it seems worthwhile to add these window-based Brown
-cluster features.
+cluster features. Within the ``window only" variants of the Brown cluster
+features, the scores are fairly similar, but by a small margin we see the
+strongest results coming from using the clusters trained on the surface form of
+our Spanish Wikipedia.
 
 \subsection{Results: combining sparse features}
 \begin{figure*}
