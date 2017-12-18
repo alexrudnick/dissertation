@@ -628,8 +628,8 @@ available for our source language.
 \subsection{Results: adding clustering features}
 
 \begin{figure*}
-{\small
   \begin{centering}
+  {\footnotesize
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
     features & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
@@ -649,13 +649,13 @@ available for our source language.
     \hline
     +Wikipedia clusters, lemmatized & 0.448 & 0.490 & 0.429 & 0.401 \\
     \hline
-    +Europarl clusters, surface, window only & 0.460 & 0.505 & 0.444 & 0.415 \\
+    +Europarl, surface, window & 0.460 & 0.505 & 0.444 & 0.415 \\
     \hline
-    +Europarl clusters, lemmatized, window only & 0.460 & 0.506 & 0.444 & 0.415 \\
+    +Europarl, lemmas, window & 0.460 & 0.506 & 0.444 & 0.415 \\
     \hline
-    +Wikipedia clusters, surface, window only & 0.460 & 0.506 & 0.445 & 0.416 \\
+    +Wikipedia, surface, window & 0.460 & 0.506 & 0.445 & 0.416 \\
     \hline
-    +Wikipedia clusters, lemmatized, window only & 0.460 & 0.506 & 0.443 & 0.415 \\
+    +Wikipedia, lemmas, window & 0.460 & 0.506 & 0.443 & 0.415 \\
     \hline
     \hline
 
@@ -671,13 +671,13 @@ available for our source language.
     \hline
     +Wikipedia clusters, lemmatized & 0.463 & 0.512 & 0.445 & 0.419 \\
     \hline
-    +Europarl clusters, surface, window only & 0.476 & 0.525 & 0.458 & 0.435 \\
+    +Europarl, surface, window & 0.476 & 0.525 & 0.458 & 0.435 \\
     \hline
-    +Europarl clusters, lemmatized, window only & 0.475 & 0.525 & 0.459 & 0.435 \\
+    +Europarl, lemmas, window & 0.475 & 0.525 & 0.459 & 0.435 \\
     \hline
-    +Wikipedia clusters, surface, window only & 0.475 & 0.525 & 0.460 & 0.436 \\
+    +Wikipedia, surface, window & 0.475 & 0.525 & 0.460 & 0.436 \\
     \hline
-    +Wikipedia clusters, lemmatized, window only & 0.475 & 0.524 & 0.459 & 0.434 \\
+    +Wikipedia, lemmas, window & 0.475 & 0.524 & 0.459 & 0.434 \\
     \hline
     \hline
 
@@ -693,22 +693,20 @@ available for our source language.
     \hline
     +Wikipedia clusters, lemmatized & 0.478 & 0.517 & 0.459 & 0.418 \\
     \hline
+    +Europarl, surface, window & 0.483 & 0.524 & 0.466 & 0.430 \\
     \hline
-    +Europarl clusters, surface, window only & 0.483 & 0.524 & 0.466 & 0.430 \\
+    +Europarl, lemmas, window & 0.483 & 0.524 & 0.466 & 0.428 \\
     \hline
-    +Europarl clusters, lemmatized, window only & 0.483 & 0.524 & 0.466 & 0.428 \\
+    +Wikipedia, surface, window & 0.484 & 0.524 & 0.468 & 0.430 \\
     \hline
-    +Wikipedia clusters, surface, window only & 0.484 & 0.524 & 0.468 & 0.430 \\
-    \hline
-    +Wikipedia clusters, lemmatized, window only & 0.483 & 0.524 & 0.466 & 0.427 \\
-    \hline
+    +Wikipedia, lemmas, window & 0.483 & 0.524 & 0.466 & 0.427 \\
     \hline
   \end{tabulary}
+  } %% end footnotesize
   \end{centering}
   \caption{Classification results for adding Brown cluster features to the
   default feature set.}
   \label{fig:brown-results}
-} %% end small
 \end{figure*}
 
 We see the experimental results for adding our Brown Cluster features
@@ -795,8 +793,8 @@ settings.
 \subsection{Results: word2vec embeddings alone}
 
 \begin{figure*}
-{\small
   \begin{centering}
+  {\footnotesize
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
     classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
@@ -886,17 +884,17 @@ window, wikipedia & 0.453 & 0.494 & -     & -     \\
 window, wikipedia, mwes & 0.451 & 0.493 & -     & -     \\
     \hline
   \end{tabulary}
+  } %% end footnotesize
   \end{centering}
   \caption{Results for classification using only word2vec skipgram embeddings
 to create features. For space, here we only show results for 200-dimensional
 embeddings.}
   \label{fig:word2vec-alone-results-skipgram}
-} %% end small
 \end{figure*}
 
 \begin{figure*}
-{\small
   \begin{centering}
+  {\footnotesize
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
     \hline
     classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
@@ -975,12 +973,12 @@ window, wikipedia & 0.452 & 0.494 & -     & -     \\
 window, wikipedia, mwes & 0.451 & 0.494 & -     & -     \\
     \hline
   \end{tabulary}
+  } %% end footnotesize
   \end{centering}
   \caption{Results for classification using only word2vec CBOW embeddings
 to create features. For space, here we only show results for 200-dimensional
 embeddings.}
   \label{fig:word2vec-alone-results-cbow}
-} %% end small
 \end{figure*}
 
 Taking a look at Figures \ref{fig:word2vec-alone-results-skipgram} and
