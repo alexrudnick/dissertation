@@ -723,13 +723,22 @@ significant change due to using the lemmatized or surface forms.
 However, we get substantially better results when we limit the Brown cluster
 features to a narrow context words of three words on either side of the focus
 word; this seems to lead to roughly the same results as the baseline features,
-for the maximum entropy classifiers.  But for the random forest classifiers, we
+for the maximum entropy classifiers. But for the random forest classifiers, we
 see consistent gains of three to six tenths of a percentage point. So for
 random forest classifiers, it seems worthwhile to add these window-based Brown
 cluster features. Within the ``window only" variants of the Brown cluster
 features, the scores are fairly similar, but by a small margin we see the
 strongest results coming from using the clusters trained on the surface form of
 our Spanish Wikipedia.
+
+Neither of these corpora, Europarl or the Spanish Wikipedia, are similar in
+genre to the Bible verses in our test set, but we can get a small benefit from
+adding the Brown cluster features here. The substantially larger size of the
+Wikipedia corpus does not seem to confer clusters that are much more helpful;
+if there had been a large performance gap between using the Wikipedia and
+Europarl clusters, we could have run additional experiments with clusters
+trained on a 2-million sentence sample of Wikipedia to determine whether it was
+the additional size or the genre of the text that had improved performance.
 
 \subsection{Results: combining sparse features}
 \begin{figure*}
@@ -1154,15 +1163,15 @@ existing source-language syntactic analysis tools.
 Using each of these different tools, we were able to overcome the relatively
 strong most-frequent sense baseline, and with many of the different feature
 sets, we were able to show small but consistent gains over the baseline feature
-set. Overall, the best results posted for Spanish-Guaraní were with the
-combined sparse features; the random forest classifier had the strongest
-results for the ``regular" setting, and the maximum entropy classifier with L2
-regularization came out ahead for the non-null setting (this result was tied
-with the one for using the syntactic features with maximum entropy, L2
-regularization). The top results for Spanish-Quechua were similarly posted with
-the combined sparse features, with random forests coming out ahead for the
-``regular" setting and maximum entropy, L2, posting the best results for
-``non-null".
+set described in the previous chapter. Overall, the best results posted for
+Spanish-Guaraní were with the combined sparse features; the random forest
+classifier had the strongest results for the ``regular" setting, and the
+maximum entropy classifier with L2 regularization came out ahead for the
+non-null setting (this result was tied with the one for using the syntactic
+features with maximum entropy, L2 regularization). 
+For Spanish-Quechua, the top results were similarly posted with the combined
+sparse features, with random forests coming out ahead for the ``regular"
+setting and maximum entropy, L2, posting the best results for ``non-null".
 
 All of the approaches explored in this chapter make more abstract
 representations of the source text available to our classifiers, whether these
