@@ -4,9 +4,6 @@
   * SKIP? be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * DONE make sure we ran all windowbrown variants
-  * DONE report results for all windowbrown variants
-  * edit text to reflect results for all windowbrown variants
 
 ## multilingual
   * pick languages we want to use
@@ -174,6 +171,9 @@ hack up squoia again if necessary
   * SKIP how does this look for words with more examples, versus fewer?
   * DONE finish up analysis and writeup
   * DONE make charts & graphs
+  * DONE make sure we ran all windowbrown variants
+  * DONE report results for all windowbrown variants
+  * DONE edit text to reflect results for all windowbrown variants
 
 ## sequence
 CANCELED!!
