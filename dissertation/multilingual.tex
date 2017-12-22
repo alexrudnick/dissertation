@@ -6,25 +6,25 @@ As discussed in the previous chapter, while our target languages are
 under-resourced, we have many useful resources for our source languages. One of
 them is a relative abundance of bitext, from which we can learn translations
 between resource-rich languages. When this works well, this can give a better
-sense about the meanings of words in context, in the resource-rich source
+sense about the meanings of words in a context in the resource-rich source
 language; translation from \emph{e.g.} Spanish to English can be thought of as
 word-sense disambiguation, which can be used to add annotations for use in
 translating into the under-resourced target languages with which we're
 currently concerned. In this chapter, we will investigate making use of some of
 the available multilingual corpora resources.
 
-We want a CL-WSD system to be able to learn the relationships between the
+We would like our CL-WSD system to be able to learn relationships between the
 senses of a given source word that are lexicalized in different ways in various
 languages.
-Two target languages may happen to surface the same sense distinctions, perhaps
-due to being related languages, or simply by coincidence.
-Alternatively, a combination of translations into several languages may provide
-evidence for a certain lexical choice in the target language of interest.
+Two target languages may happen to surface similar sense distinctions, perhaps
+due to being related languages, or simply by coincidence. Alternatively, a
+combination of translations into several languages may provide evidence for a
+certain lexical choice in the target language of interest.
 
 For some languages, such as those of the European Union, we have multiple
 bitext corpora available, covering several different language pairs with the
 same source language. Through the Europarl corpus \cite{europarl}, for example,
-we have bitext corpora in which English is paired with Spanish, German, French,
+we have bitext corpora in which Spanish is paired with English, German, French,
 and 17 other European languages.
 We would like to be able to make use of evidence from all of these corpora when
 translating into any particular target language, ideally even when the corpora
@@ -32,18 +32,20 @@ involved are not all mutually parallel.
 Each corpus may contain useful examples of a given source language word,
 and senses of that word may be lexicalized in varying, non-overlapping ways in
 the different target languages.
-This approach is particularly informed by the work of Els Lefever
-\emph{et. al} (see especially \cite{lefever-hoste-decock:2011:ACL-HLT2011}), in
-which the entire source sentence is machine-translated into several different
-target languages just before inference time. One drawback is that this
-technique requires one or more an entire MT systems to perform CL-WSD, which
-seems unwieldy when we want to use CL-WSD as a subcomponent of a machine
-translation system.
 
-So considering this work, we developed some prototype CL-WSD systems that made
-use of multilingual evidence \cite{rudnick-liu-gasser:2013:SemEval-2013} and
-produced some of the best results in a SemEval shared task on CL-WSD
-\cite{task10}.
+The approaches in this chapter are particularly informed by the work of Els
+Lefever \emph{et. al} (see especially
+\cite{lefever-hoste-decock:2011:ACL-HLT2011}), in which the entire source
+sentence is machine-translated into several different target languages just
+before inference time. One drawback of this technique is that it requires
+multiple complete MT systems to perform CL-WSD, which seems unwieldy when we
+want to use CL-WSD as a subcomponent of a machine translation system in the
+first place.
+
+So considering the work of Lefever \emph{et. al}, we developed some prototype
+CL-WSD systems that made use of multilingual evidence
+\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the best
+results in a SemEval shared task on CL-WSD \cite{task10}.
 Here our systems that took into account evidence from multiple sources had
 better performance on the task than the one that used monolingual features; our
 top results in every language came from either classifier stacking or the MRF
@@ -117,6 +119,7 @@ While we were able to achieve fairly good results with these MRF-based
 classifiers on the Semeval CL-WSD task, our strategy for setting the weights in
 the Markov network requires, for each edge in the graph, a parallel corpus for
 the corresponding language pair.
+%% XXX working here
 It thus seems less easily extensible than the classifier stacking approach, in
 which it is clear how we can include information from many heterogeneous
 sources. The benefit of the Markov network approach is that it takes seriously
@@ -152,4 +155,11 @@ they need not be trained from the same source text, depend on the same
 features, or even output words as labels.
 
 \section{Experiments}
+\label{sec:multilingual-experiments}
 ... same as before, right?
+
+\section{Experimental Results}
+\label{sec:multilingual-results}
+
+\section{Discussion}
+
