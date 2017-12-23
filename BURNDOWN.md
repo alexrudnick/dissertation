@@ -2,8 +2,13 @@
 
 ## general
   * SKIP? be able to draw curves of word training data size versus accuracy
+  * set up new laptop and latex build environment there
 
 ## monolingual
+  * make a list of all of Sandra's notes
+  * make sure we handled them all
+  * come up with a good bold/italic/whatever scheme to highlight strongest
+  result in a table
 
 ## multilingual
   * pick languages we want to use
