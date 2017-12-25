@@ -1,0 +1,69 @@
+This is the list of all notes that Sandra put on the pdf we sent out for
+chapter 6.
+
+[[ page 72 ]]
+highlight "but these will be left to future work"
+"for a thesis, it's better ty say they are outisde the scope of the thesis. the
+thesis is supposed to be a finished piece of work, so you don't really want to
+have loose ends."
+
+[[ page 74 ]]
+highlight "The dependency parses output by MaltParser are stored on disk in
+CONLL-X format."
+"Is that really relevant?"
+
+[[ page 75 ]]
+highlight "each token's immediate syntactic head"
+"here an example of a dependency parse and the extracted features would help"
+
+note: "can you give us a non-technical, big picture explanation of Brown
+clustering first?"
+
+[[ page 77 ]]
+
+note: "this sounds like comparing europarl apples to wikipedia oranges. Would
+it be a lot of work to also try a 2 million subset of wikipedia, ie same size
+as europarl, but different domain?"
+
+highlight "perhaps"
+"this sound more like you are uncertain than you are considering different
+possibilities, can you change this to "it is possible" or similar?
+
+[[ page 82 ]]
+highlight "but we will try them both"
+"try may not be the best word here, that implies random choice"
+
+[[ page 84 ]]
+highlight "try out"
+
+[[ page 86 ]]
+highlight "try"
+
+note: "what would be your hypotheses, how these different methods differ wrt
+what they represent?"
+
+[[ page 89 ]]
+highlight "tried"
+highlight "try"
+highlight "tried"
+
+highlight "following feature sets"
+"why those?"
+
+highlight "pyramid"
+"what is that?"
+
+[[ page 92 ]]
+note: "it would help if you bolded the best results per language in the tables"
+
+note: "what happens with europarl surface, window only? and with either corpus
++ lemma + window only?"
+
+[[ page 96 ]]
+highlight "beat"
+"very colloquial"
+
+[[ page 97 ]]
+highlight "Probably something like doc2vec embeddings could be made to work
+well in this setting, but more experimentation would be needed."
+"You may want to delete this or rephrase it, no loose ends ... :) "
