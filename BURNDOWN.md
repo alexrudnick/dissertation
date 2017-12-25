@@ -4,8 +4,7 @@
   * SKIP? be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * make a list of all of Sandra's notes
-  * make sure we handled them all
+  * make sure we handled all of Sandra's notes for monolingual
   * come up with a good bold/italic/whatever scheme to highlight strongest
   result in a table
 
@@ -180,6 +179,7 @@ hack up squoia again if necessary
   * DONE make sure we ran all windowbrown variants
   * DONE report results for all windowbrown variants
   * DONE edit text to reflect results for all windowbrown variants
+  * DONE make a list of all of Sandra's notes for monolingual
 
 ## sequence
 CANCELED!!
