@@ -3,67 +3,87 @@ chapter 6.
 
 [[ page 72 ]]
 highlight "but these will be left to future work"
-"for a thesis, it's better ty say they are outisde the scope of the thesis. the
+"for a thesis, it's better to say they are outisde the scope of the thesis. the
 thesis is supposed to be a finished piece of work, so you don't really want to
 have loose ends."
+--> reworded to "outside the scope of this work"
 
 [[ page 74 ]]
 highlight "The dependency parses output by MaltParser are stored on disk in
 CONLL-X format."
 "Is that really relevant?"
+--> not super relevant, reworded to make the process clear
+
 
 [[ page 75 ]]
 highlight "each token's immediate syntactic head"
 "here an example of a dependency parse and the extracted features would help"
+TODO(alexr): add a nice example with a diagram
 
 note: "can you give us a non-technical, big picture explanation of Brown
 clustering first?"
+--> reworded to explain the purpose of the clustering a bit
 
 [[ page 77 ]]
 
 note: "this sounds like comparing europarl apples to wikipedia oranges. Would
 it be a lot of work to also try a 2 million subset of wikipedia, ie same size
 as europarl, but different domain?"
+--> It wouldn't be that much work, but since the results were not that
+different between europarl and wikipedia anyway, it doesn't seem worth doing.
+Added an explanation about this; thanks for bringing it up.
 
 highlight "perhaps"
 "this sound more like you are uncertain than you are considering different
 possibilities, can you change this to "it is possible" or similar?
+--> reworded a bit
 
 [[ page 82 ]]
 highlight "but we will try them both"
 "try may not be the best word here, that implies random choice"
+--> reworded a bit
 
 [[ page 84 ]]
 highlight "try out"
+--> reworded
 
 [[ page 86 ]]
 highlight "try"
+--> reworded
 
 note: "what would be your hypotheses, how these different methods differ wrt
 what they represent?"
 
 [[ page 89 ]]
 highlight "tried"
+--> reworded
 highlight "try"
+--> reworded
 highlight "tried"
+--> reworded
 
 highlight "following feature sets"
 "why those?"
 
 highlight "pyramid"
 "what is that?"
+--> this was explained earlier, but added a quick reminder here
 
 [[ page 92 ]]
 note: "it would help if you bolded the best results per language in the tables"
 
 note: "what happens with europarl surface, window only? and with either corpus
 + lemma + window only?"
+--> I actually ran these experiments earlier, but didn't add them to the table
+for some reason! Added them to the table and the discussion.
 
 [[ page 96 ]]
 highlight "beat"
 "very colloquial"
+--> reworded
 
 [[ page 97 ]]
 highlight "Probably something like doc2vec embeddings could be made to work
 well in this setting, but more experimentation would be needed."
 "You may want to delete this or rephrase it, no loose ends ... :) "
+--> reworded
