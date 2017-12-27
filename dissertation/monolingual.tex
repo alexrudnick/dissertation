@@ -414,8 +414,15 @@ tokens in the entire sentence. We could only consider the words in a narrow
 window around the focus word. Or we could perform a weighted sum, in which
 words nearer to the focus word are given more weight, but these weights drop
 off according to some function, scaling with the distance from the focus word.
-We run experiments using these three different approaches, resulting in three
-different feature sets.
+We might expect the tokens closest to the current focus word to be most
+important for building a representation of the meaning of that word -- which
+would lead us to expect the best results from summing uniformly over the
+context window, or a weighted sum with gradually dropping weights -- or perhaps
+we might expect that we want to represent the meaning of the entire sentence,
+and so could sum over all the tokens.
+How well any of these approaches work in practice is an empirical question, so
+we run experiments using each of these these different approaches, resulting in
+three different feature sets.
 
 In the first feature set, called ``window", we present the classifier with the
 element-wise sum of the vectors for the focus word (or the token containing the

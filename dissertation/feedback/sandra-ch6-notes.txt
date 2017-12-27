@@ -53,6 +53,7 @@ highlight "try"
 
 note: "what would be your hypotheses, how these different methods differ wrt
 what they represent?"
+--> added some discussion
 
 [[ page 89 ]]
 highlight "tried"
