@@ -65,6 +65,8 @@ highlight "tried"
 
 highlight "following feature sets"
 "why those?"
+--> because they are the ones that fall out from the techniques described
+throughout the chapter.
 
 highlight "pyramid"
 "what is that?"
