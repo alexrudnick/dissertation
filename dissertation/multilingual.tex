@@ -4,15 +4,20 @@
 \section{Evidence from multilingual corpora}
 As discussed in the previous chapter, while our target languages are
 under-resourced, we have many useful resources for our source languages. One of
-them is a relative abundance of bitext, from which we can learn translations
-between resource-rich languages. When this works well, this can give a better
-sense about the meanings of words in a context in the resource-rich source
-language; translation from \emph{e.g.} Spanish to English can be thought of as
-word-sense disambiguation, which can be used to add annotations for use in
-translating into the under-resourced target languages with which we're
-currently concerned. In this chapter, we will investigate making use of some of
-the available multilingual corpora resources.
+them is a relative abundance of bitext, from which we can learn to effectively
+translate between resource-rich languages. When this works well, we can
+correctly infer the meaning of a word in context in the resource-rich source
+language, at least implicitly, in as far as we are able to select the correct
+translation for a word or phrase in a resource-rich target language.
+Thus translation from \emph{e.g.} Spanish to English can be thought of as
+word-sense disambiguation.
 
+These translations into other target languages can then be used as annotations
+when translating into the under-resourced target languages with which we are
+currently concerned. In this chapter, we will investigate making use of some of
+the available multilingual corpora resources in exactly this way.
+
+%% XXX working around here
 We would like our CL-WSD system to be able to learn relationships between the
 senses of a given source word that are lexicalized in different ways in various
 languages.
