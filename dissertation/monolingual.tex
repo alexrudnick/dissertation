@@ -133,6 +133,27 @@ syntactic features made available to the classifier is given in Figure
   \label{fig:syntacticfeatures}
 \end{figure*}
 
+\begin{figure*}
+	\xytext{
+    %% XXX Add some dependency arcs and give examples of extracted features.
+    %% XXX also maybe pick a better example sentence.
+		\xybarnode{The}
+		\xybarnode{quick}
+		\xybarnode{brown}
+		\xybarnode{fox}
+		\xybarnode{jumped}
+		\xybarnode{over}
+		\xybarnode{the}
+		\xybarnode{lazy}
+		\xybarnode{sleeping}
+		\xybarnode{dog}
+		\xybarnode{.}
+	}
+	\caption{An example dependency graph, with the features that would be
+extracted from it.}
+  \label{fig:syntacticfeatures:example}
+\end{figure*}
+
 \section{Brown Clustering}
 The Brown clustering algorithm\cite{brown1992class}, also known as IBM
 clustering, as it was developed by the Candide group at IBM, finds a
