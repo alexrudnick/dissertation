@@ -138,30 +138,36 @@ classifiers, solving the entire problem jointly.
 The Markov network approach may be useful for future CL-WSD systems in other
 settings, but we will not make further use of it for now, for the setting of
 translating into under-resourced languages, since we do not have many parallel
+%% XXX add accent
 corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
 The classifier stacking approach, in order to predict the translation of a word
 into a given target language, uses translations into other available target
 languages as features.
-For example, for the SemEval prototype systems, in order to translate an
-English word into Spanish, we would give the classifier features encoding that
-word's translations into French, Italian, Dutch and German.
+For example, for our SemEval prototype systems, in order to translate an
+English word into Spanish, we predict that word's translations into French,
+Italian, Dutch and German, and then encode those predicted translations as
+features for our English to Spanish classifier.
+
+%% XXX this needs some editing
 At training time during SemEval, we were provided with parallel corpora for six
-languages, we found these translations in the given parallel corpora, but
+languages, found these translations in the given parallel corpora, but
 for test sentences, the translations were not available, they were predicted
 with the simpler non-multilingual classifiers.
 %% XXX: we're not doing this going forward, right? just run the classifiers.
 
 The classifier stacking approach could likely be improved by adding features
 derived from more sources.
+
 We would like to try adding classifiers trained on the other Europarl
 languages, as well as completely different corpora; this would require that for
-the stacked classifier, we would train on predicted translations rather than
+the stacked classifier, we would train on predicted translations rather than...
+
 This approach only requires that the monolingual classifiers make \emph{some}
-prediction based on text in the source language;
-they need not be trained from the same source text, depend on the same
-features, or even output words as labels.
+prediction based on text in the source language; they need not be trained from
+the same source text, depend on the same features, or even output words as
+labels.
 
 \section{Experiments}
 \label{sec:multilingual-experiments}
