@@ -15,25 +15,20 @@
   we think we're going to do. Should be basically like the en-es data
   preparation script.
     * DONE pick lemmatizer/stemmer to use (can just use FreeLing!)
-  * make an annotation script to stick classifier answers on all words we have a
-  classifier for.
-  * make features out of those annotations
+    * make features out of those annotations
 
   * This is roughly our "classifier stacking" approach, or basically "L2",
   except that in the semeval paper we trained on the real answers and tested on
   classifier answers, which was goofy
 
-  * And furthermore, what we can do is just run the classifiers in "annotator"
-  mode -- we blow through an input file and we classify with an existing
-  classifier, then just save the classifier as an annotation.
+  * Run the classifiers in "annotator" mode -- we blow through an input file and
+  we classify with an existing classifier, then just save the classification as
+  an annotation.
     * notably, we want to write down the answer *on the particular token* that
     we are going to try to classify later -- it is not a property of the
     sentence as a whole. The sentence as a whole is not a classification
     problem; it could have multiple different tokens that need to get
     classified.
-  * What we're going to need to do is build preprocessing for Europarl. We need
-  to get Europarl text into the format the Chipa expects and aligned in the same
-  way as the bibles.
 
 ## integration
 hack up squoia again if necessary
