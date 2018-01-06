@@ -31,7 +31,19 @@
     classified.
 
 ## integration
-hack up squoia again if necessary
+
+  * pull all gn text from guarani-nee and gn-wikipedia.
+  * train surface and lemmatized LMs.
+  * consider: hack up squoia again if necessary?
+  * consider: write up how we hacked up squoia?
+  * consider: integrate chipa into Phrasal
+  * consider: integrate chipa into Mike's current RBMT systems.
+    * understand Mike's current RBMT systems well enough to hack them up
+  * super important: get a clear answer out of Mike and Sandra whether they'll
+  consider it convincing if we can integrate into one PBMT and one RBMT system
+  * come up with a good plan for evaluation here
+
+### integration: possibly obsolete ideas here
 
   * CANCELED! build tiniest possible cdec system for es-gn (switched to moses)
   * SKIP Learn to use CMU's morphogen or whatever it's called -- or we could
@@ -42,9 +54,6 @@ hack up squoia again if necessary
   * HARD How hard is it to do phrase-based for cdec? We need to figure out how
   to load PB-SMT tables. Also how to build them . Can cdec tools even generate
   them?
-
-  * pull all gn text from guarani-nee and gn-wikipedia.
-  * train surface and lemmatized LMs.
 
   * SKIP Port cdec-as-python-module stuff to py3k.
   * STARTED Add chipa as phrase table feature 
