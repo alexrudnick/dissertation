@@ -1,6 +1,5 @@
 \documentclass[12pt]{iuthesis}
 
-\usepackage{xytree}
 \usepackage{tikz}
 \usepackage{xltxtra}
 \usepackage{bigstrut}
@@ -21,6 +20,11 @@
 \usepackage{lmodern}
 \usepackage{subcaption}
 \usepackage{tabulary}
+\usepackage{savesym}
+
+\savesymbol{xcb}
+\usepackage{tikz-dependency}
+\restoresymbol{IGNORE}{xcb}
 
 \title{Cross-lingual Word Sense Disambiguation for Low-Resource Hybrid Machine
 Translation}
