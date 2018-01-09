@@ -4,6 +4,8 @@
   * SKIP? be able to draw curves of word training data size versus accuracy
 
 ## monolingual
+  * figure out how to sensibly draw dependency trees such that it doesn't ruin
+  the whole build process
   * make sure we handled all of Sandra's notes for monolingual
   * come up with a good bold/italic/whatever scheme to highlight strongest
   result in a table
@@ -31,17 +33,20 @@
     classified.
 
 ## integration
+  * figure out what the simplest thing we can do is that demonstrates an
+  integration story
+  * get buy-in from 
 
   * pull all gn text from guarani-nee and gn-wikipedia.
   * train surface and lemmatized LMs.
-  * consider: hack up squoia again if necessary?
-  * consider: write up how we hacked up squoia?
   * consider: integrate chipa into Phrasal
   * consider: integrate chipa into Mike's current RBMT systems.
     * understand Mike's current RBMT systems well enough to hack them up
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
   * come up with a good plan for evaluation here
+  * UNLIKELY consider: hack up squoia again if necessary?
+  * UNLIKELY consider: write up how we hacked up squoia?
 
 ### integration: possibly obsolete ideas here
 
