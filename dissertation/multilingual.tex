@@ -48,27 +48,26 @@ multiple complete MT systems to perform CL-WSD, which seems unwieldy when we
 want to use CL-WSD as a subcomponent of a machine translation system in the
 first place.
 
-So considering the work of Lefever \emph{et. al}, we developed some prototype
-CL-WSD systems that made use of multilingual evidence
-\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the best
+In earlier work, considering the work of Lefever \emph{et. al}, we developed
+some prototype CL-WSD systems that made use of multilingual evidence
+\cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the top
 results in a SemEval shared task on CL-WSD \cite{task10}.
 Here our systems that took into account evidence from multiple sources had
 better performance on the task than the one that used monolingual features; our
-top results in every language came from either classifier stacking or the MRF
-classifier. This suggests that it is possible to make use of the evidence in
-several parallel corpora in a CL-WSD task without translating every word in a
-source sentence into many target languages.
+top results in every language came from either classifier stacking or the
+Markov network classifier. This suggests that it is possible to make use
+of the evidence in several parallel corpora in a CL-WSD task without
+translating every word in a source sentence into many target languages.
 
-In our SemEval paper, we presented two different approaches for
-making use of multilingual evidence. The more complex of them was a system
-based on graphical models that performed loopy belief propagation over Markov
-networks, which we will discuss briefly here, in the next section.
-The simpler approach described in that work was a relatively straightforward
-classifier stacking approach, where the outputs of several CL-WSD classifiers
-were used as input features for one final classifier. This approach is more
-immediately applicable to lexical selection when our target language is
-under-resourced, as it does not require bitext corpora between all of the
-involved languages.
+In this SemEval paper, we presented two different approaches for making use of
+multilingual evidence. The more complex of them was a system based on graphical
+models that performed loopy belief propagation over Markov networks, which we
+will discuss briefly in the next section. The simpler approach described in
+that work was a relatively straightforward classifier stacking approach, where
+the outputs of several CL-WSD classifiers were used as input features for one
+final classifier. This approach is more immediately applicable to lexical
+selection when our target language is under-resourced, as it does not require
+bitext corpora between all of the involved languages.
 
 \section{CL-WSD with Markov Networks}
 In our SemEval entry, we investigated an approach based on Markov networks
