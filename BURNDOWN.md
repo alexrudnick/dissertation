@@ -16,6 +16,15 @@
   * make scripts for preparing data for Europarl for all the European languages
   we think we're going to do. Should be basically like the en-es data
   preparation script.
+    * data preparation script is going to need to keep track of annotated
+    version of *both* input corpora.
+      * this probably means that we should refactor how we keep input corpora in
+      memory.
+      * the approach where we have these global variables sitting around on
+      modules is kind of gross. we have objects for a reason; encapsulate
+      everything we need to know about a given corpus in one object. Pass the
+      corpora objects around as arguments like you're a marginally competent
+      software engineer. 
     * DONE pick lemmatizer/stemmer to use (can just use FreeLing!)
     * make features out of those annotations
 
