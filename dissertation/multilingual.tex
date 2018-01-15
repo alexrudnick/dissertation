@@ -7,6 +7,27 @@ under-resourced, we have many useful resources for our source languages.
 Notably for Spanish and many other resource-rich languages, we have a relative
 abundance of bitext, which allows us to learn translations between our source
 language and these other languages.
+We would like to be able to learn from all of these corpora when translating
+into our target language, especially when the available corpora are
+not all mutually parallel. Each bitext corpus may contain useful examples of a
+given source language word, and senses of that word may be lexicalized in
+varying, non-overlapping ways in the different target languages.
+
+
+For some languages, such as those of the European Union, we have multiple
+bitext corpora available, covering several different language pairs with the
+same source language. Through the Europarl corpus \cite{europarl}, for example,
+we have bitext corpora in which Spanish is paired with English, German, French,
+and 17 other European languages.
+
+
+We would like our CL-WSD system to be able to learn relationships between the
+senses of a given source word that are lexicalized in different ways in various
+languages.
+Two target languages may happen to surface similar sense distinctions, perhaps
+due to being related languages, or simply by coincidence. Alternatively, a
+combination of translations into several languages may provide evidence for a
+certain lexical choice in the target language of interest.
 Selecting a contextually correct translation for source-language words is
 evidence that we are able to infer the meaning of those words, at least
 implicitly, in as far as the sense distinctions that we care about are surfaced
@@ -16,29 +37,11 @@ disambiguation.
 
 These translations into \emph{other} target languages can then be used as
 annotations when translating into the under-resourced target languages that
-concern us in the current work. In this chapter, we will investigate making use
+concern us in the current work.
+
+In this chapter, we will investigate making use
 of some of the available multilingual corpora resources in exactly this way.
 
-%% XXX working around here
-We would like our CL-WSD system to be able to learn relationships between the
-senses of a given source word that are lexicalized in different ways in various
-languages.
-Two target languages may happen to surface similar sense distinctions, perhaps
-due to being related languages, or simply by coincidence. Alternatively, a
-combination of translations into several languages may provide evidence for a
-certain lexical choice in the target language of interest.
-
-For some languages, such as those of the European Union, we have multiple
-bitext corpora available, covering several different language pairs with the
-same source language. Through the Europarl corpus \cite{europarl}, for example,
-we have bitext corpora in which Spanish is paired with English, German, French,
-and 17 other European languages.
-We would like to be able to make use of evidence from all of these corpora when
-translating into any particular target language, including when the available
-corpora are not all mutually parallel.
-Each bitext corpus may contain useful examples of a given source language word,
-and senses of that word may be lexicalized in varying, non-overlapping ways in
-the different target languages.
 
 The approaches in this chapter are particularly informed by the work of Els
 Lefever \emph{et. al} (see especially
