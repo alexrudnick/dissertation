@@ -156,14 +156,6 @@ Italian, Dutch and German, and then encode those predicted translations as
 features for our English to Spanish classifier.
 
 %% XXX this needs some editing
-At training time during SemEval, we were provided with parallel corpora for six
-languages, found these translations in the given parallel corpora, but
-for test sentences, the translations were not available, they were predicted
-with the simpler non-multilingual classifiers.
-%% XXX: we're not doing this going forward, right? just run the classifiers.
-
-The classifier stacking approach could likely be improved by adding features
-derived from more sources.
 
 We would like to try adding classifiers trained on the other Europarl
 languages, as well as completely different corpora; this would require that for
