@@ -2,6 +2,7 @@ NAME=dissertation
 
 $(NAME).pdf: *.tex *.bib is-abbrv.bst figures
 	make -C charts
+	make -C dependencygraphs
 	xelatex $(NAME).tex
 	bibtex $(NAME)
 	xelatex $(NAME).tex
