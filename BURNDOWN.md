@@ -4,8 +4,8 @@
   * SKIP? be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * figure out how to sensibly draw dependency trees such that it doesn't ruin
-  the whole build process
+  * DONE figure out how to sensibly draw dependency trees such that it doesn't
+  ruin the whole build process
   * make sure we handled all of Sandra's notes for monolingual
   * come up with a good bold/italic/whatever scheme to highlight strongest
   result in a table
