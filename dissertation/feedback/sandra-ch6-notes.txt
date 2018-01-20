@@ -18,7 +18,7 @@ CONLL-X format."
 [[ page 75 ]]
 highlight "each token's immediate syntactic head"
 "here an example of a dependency parse and the extracted features would help"
-TODO(alexr): add a nice example with a diagram
+--> added a sample dependency parse and discussed the extracted features
 
 note: "can you give us a non-technical, big picture explanation of Brown
 clustering first?"

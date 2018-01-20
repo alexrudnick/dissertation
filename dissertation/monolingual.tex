@@ -100,8 +100,19 @@ available during feature extraction. Then at feature extraction time, chipa
 turns these stored annotations into sparse binary features. The list of all
 syntactic features made available to the classifier is given in Figure
 \ref{fig:syntacticfeatures}.
-%% XXX: TODO, add a nice example of how a dependency parse becomes features,
-%% with a diagram.
+
+To give a concrete example, consider the dependency graph in
+Figure~\ref{fig:syntacticfeatures:example}, and the case in which we want to
+classify the main verb of the sentence, ``chased". The syntactic features that
+we would extract for this situation would be as follows:
+\texttt{postag(VERB)}, \texttt{postag\_left(NOUN)}, \texttt{postag\_right(DET)}
+(assuming that the English sentence has been labeled with Universal POS tags),
+\texttt{head\_lemma(ROOT)}, \texttt{head\_surface(ROOT)} (since the main verb is
+attached to the ROOT node of the dependency tree),
+\texttt{child\_lemma(dog)}, \texttt{child\_lemma(ball)} (the lemmas of the
+subject and object of the verb), and finally 
+\texttt{child\_lemma(dogs)}, and \texttt{child\_lemma(balls)} (the surface forms
+of the subject and object of the verb).
 
 \begin{figure*}
   \begin{centering}
@@ -135,8 +146,7 @@ syntactic features made available to the classifier is given in Figure
 
 \begin{figure*}
   \includegraphics{monolingual-ex1.pdf}
-  \caption{An example dependency graph, with the features that would be
-  extracted from it.}
+  \caption{An example dependency graph for an English sentence.}
   \label{fig:syntacticfeatures:example}
 \end{figure*}
 
