@@ -1,11 +1,8 @@
 # things left undone
 
 ## general
-  * SKIP? be able to draw curves of word training data size versus accuracy
 
 ## monolingual
-  * DONE figure out how to sensibly draw dependency trees such that it doesn't
-  ruin the whole build process
   * make sure we handled all of Sandra's notes for monolingual
   * come up with a good bold/italic/whatever scheme to highlight strongest
   result in a table
@@ -84,6 +81,7 @@
 
 ## general done things
   * DONE set up new laptop and latex build environment there
+  * SKIP be able to draw curves of word training data size versus accuracy
 
 ## baseline done things
   * DONE maybe rerun the experiments from the baseline chapter so we know that the results are comparable; we're using explicit lists of top words now.
@@ -198,6 +196,10 @@
   * DONE report results for all windowbrown variants
   * DONE edit text to reflect results for all windowbrown variants
   * DONE make a list of all of Sandra's notes for monolingual
+  * DONE figure out how to sensibly draw dependency trees such that it doesn't
+  ruin the whole build process
+
+## multilingual
 
 ## sequence
 CANCELED!!
