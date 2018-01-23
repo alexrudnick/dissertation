@@ -3,9 +3,6 @@
 ## general
 
 ## monolingual
-  * make sure we handled all of Sandra's notes for monolingual
-  * come up with a good bold/italic/whatever scheme to highlight strongest
-  result in a table
 
 ## multilingual
   * pick languages we want to use
@@ -198,6 +195,9 @@
   * DONE make a list of all of Sandra's notes for monolingual
   * DONE figure out how to sensibly draw dependency trees such that it doesn't
   ruin the whole build process
+  * DONE come up with a good bold/italic/whatever scheme to highlight strongest
+  result in a table
+  * DONE make sure we handled all of Sandra's notes for monolingual
 
 ## multilingual
 

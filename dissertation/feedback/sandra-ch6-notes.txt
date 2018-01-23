@@ -74,6 +74,8 @@ highlight "pyramid"
 
 [[ page 92 ]]
 note: "it would help if you bolded the best results per language in the tables"
+--> bolded the best overall results, italicised the best results introduced in a
+particular table
 
 note: "what happens with europarl surface, window only? and with either corpus
 + lemma + window only?"
