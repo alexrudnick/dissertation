@@ -19,6 +19,10 @@
       everything we need to know about a given corpus in one object. Pass the
       corpora objects around as arguments like you're a marginally competent
       software engineer. 
+      * can we actually skip this? Maybe we can. We train classifiers for es-en,
+      for example, and then we just need to take the "annotated" version of a
+      Spanish sentence and turn it into a classification problem, just extract
+      features from it. That's not so hard, right?
     * DONE pick lemmatizer/stemmer to use (can just use FreeLing!)
     * make features out of those annotations
 
