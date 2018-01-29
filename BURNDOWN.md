@@ -10,6 +10,8 @@
   * make scripts for preparing data for Europarl for all the European languages
   we think we're going to do. Should be basically like the en-es data
   preparation script.
+    * make a version of the trainingdata\_for function that loads training data
+    for a particular lemma from disk, rather than from memory.
     * data preparation script is going to need to keep track of annotated
     version of *both* input corpora.
       * this probably means that we should refactor how we keep input corpora in
