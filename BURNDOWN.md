@@ -7,26 +7,12 @@
 ## multilingual
   * pick languages we want to use
     * freeling supports: cs, de, en, es, fr, it, nb, pt, ru, sl... so plenty
+    * probably actually just do es, fr, it, de, nl like semeval
+      * can we do nl?
   * make scripts for preparing data for Europarl for all the European languages
   we think we're going to do. Should be basically like the en-es data
   preparation script.
-    * make a version of the trainingdata\_for function that loads training data
-    for a particular lemma from disk, rather than from memory.
-    * data preparation script is going to need to keep track of annotated
-    version of *both* input corpora.
-      * this probably means that we should refactor how we keep input corpora in
-      memory.
-      * the approach where we have these global variables sitting around on
-      modules is kind of gross. we have objects for a reason; encapsulate
-      everything we need to know about a given corpus in one object. Pass the
-      corpora objects around as arguments like you're a marginally competent
-      software engineer. 
-      * can we actually skip this? Maybe we can. We train classifiers for es-en,
-      for example, and then we just need to take the "annotated" version of a
-      Spanish sentence and turn it into a classification problem, just extract
-      features from it. That's not so hard, right?
-    * DONE pick lemmatizer/stemmer to use (can just use FreeLing!)
-    * make features out of those annotations
+  * make features out of those annotations
 
   * This is roughly our "classifier stacking" approach, or basically "L2",
   except that in the semeval paper we trained on the real answers and tested on
@@ -43,8 +29,8 @@
 
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
-  integration story
-  * get buy-in from 
+  integration story: SQUOIA and phrasal?
+  * get buy-in from Mike and Sandra
 
   * pull all gn text from guarani-nee and gn-wikipedia.
   * train surface and lemmatized LMs.
@@ -206,6 +192,22 @@
   * DONE make sure we handled all of Sandra's notes for monolingual
 
 ## multilingual
+  * DONE make a version of the trainingdata\_for function that loads training
+  data for a particular lemma from disk, rather than from memory.
+  * DONE data preparation script is going to need to keep track of annotated
+  version of *both* input corpora.
+    * DONE this probably means that we should refactor how we keep input corpora in
+    memory.
+    * SKIP the approach where we have these global variables sitting around on
+    modules is kind of gross. we have objects for a reason; encapsulate
+    everything we need to know about a given corpus in one object. Pass the
+    corpora objects around as arguments like you're a marginally competent
+    software engineer. 
+    * can we actually skip this? Maybe we can. We train classifiers for es-en,
+    for example, and then we just need to take the "annotated" version of a
+    Spanish sentence and turn it into a classification problem, just extract
+    features from it. That's not so hard, right?
+  * DONE pick lemmatizer/stemmer to use (can just use FreeLing!)
 
 ## sequence
 CANCELED!!
