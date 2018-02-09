@@ -7,8 +7,10 @@
 ## multilingual
   * pick languages we want to use
     * freeling supports: cs, de, en, es, fr, it, nb, pt, ru, sl... so plenty
-    * probably actually just do es, fr, it, de, nl like semeval
-      * can we do nl?
+    * probably actually just do es, fr, it, de, nl like semeval ?
+      * ACTUALLY NO: can we do nl?
+        * how did we do nl for semeval? probably with TreeTagger? Let's skip it
+        probably. We can do some other language(s) for simplicity.
   * make scripts for preparing data for Europarl for all the European languages
   we think we're going to do. Should be basically like the en-es data
   preparation script.
