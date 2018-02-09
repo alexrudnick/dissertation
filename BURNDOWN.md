@@ -16,19 +16,6 @@
   preparation script.
   * make features out of those annotations
 
-  * This is roughly our "classifier stacking" approach, or basically "L2",
-  except that in the semeval paper we trained on the real answers and tested on
-  classifier answers, which was goofy
-
-  * Run the classifiers in "annotator" mode -- we blow through an input file and
-  we classify with an existing classifier, then just save the classification as
-  an annotation.
-    * notably, we want to write down the answer *on the particular token* that
-    we are going to try to classify later -- it is not a property of the
-    sentence as a whole. The sentence as a whole is not a classification
-    problem; it could have multiple different tokens that need to get
-    classified.
-
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
   integration story: SQUOIA and phrasal?
@@ -210,6 +197,17 @@
     Spanish sentence and turn it into a classification problem, just extract
     features from it. That's not so hard, right?
   * DONE pick lemmatizer/stemmer to use (can just use FreeLing!)
+  * OK NOTED: This is roughly our "classifier stacking" approach, or basically
+  "L2", except that in the semeval paper we trained on the real answers and
+  tested on classifier answers, which was goofy.
+  * DONE Run the classifiers in "annotator" mode -- we blow through an input
+  file and we classify with an existing classifier, then just save the
+  classification as an annotation.
+    * DONE notably, we want to write down the answer *on the particular token*
+    that we are going to try to classify later -- it is not a property of the
+    sentence as a whole. The sentence as a whole is not a classification
+    problem; it could have multiple different tokens that need to get
+    classified.
 
 ## sequence
 CANCELED!!
