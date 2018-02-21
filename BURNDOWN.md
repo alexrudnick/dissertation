@@ -10,6 +10,7 @@
     * probably actually just do es, fr, it, de, nl like semeval ?
       * how did we do nl for semeval? TreeTagger? 
       * yes: we can use frog (Maarten made it!) to lemmatize Dutch
+        * DONE got frog via LaMachine: https://proycon.github.io/LaMachine/
   * TODO labeling: es-de, es-it, es-nl (or other)
   * make features out of those annotations
 
