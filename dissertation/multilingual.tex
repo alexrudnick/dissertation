@@ -164,6 +164,23 @@ prediction based on text in the source language; they need not be trained from
 the same source text, depend on the same features, or even output words as
 labels.
 
+\subsection{Classifier stacking in practice}
+Here we train the baseline Chipa system, with the baseline feature set, on the
+Europarl bitext pairing Spanish with each of five other languages. Following
+earlier work, including our system for SemEval and that of Lefever \emph{et
+al.}, the target languages used are Dutch, English, French, German, and
+Italian.
+
+The bitext corpora are prepared with the tools distributed with the Europarl
+corpus; once we have sentence-aligned bitext, we preprocess the bitext in a
+similar way to the Bible text, described in
+Section~\label{sec:datasetsandpreprocessing}. Where possible, we lemmatize the
+target-language text with FreeLing. However, as of this writing FreeLing does
+not support Dutch, so for Dutch, we use the Frog text analysis
+tool\footnote{Frog was developed by groups at Tilburg
+University and the University of Antwerp. It is available at
+\url{http://languagemachines.github.io/frog/}} \cite{tadpole2007}.
+
 \section{Experiments}
 \label{sec:multilingual-experiments}
 ... same as before, right?
