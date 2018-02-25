@@ -5,15 +5,15 @@
 ## monolingual
 
 ## multilingual
-  * pick languages we want to use
+  * DONE pick languages we want to use
     * freeling supports: cs, de, en, es, fr, it, nb, pt, ru, sl... so plenty
     * probably actually just do es, fr, it, de, nl like semeval ?
       * yes: we can use frog (Maarten made it!) to lemmatize Dutch
         * DONE got frog via LaMachine: https://proycon.github.io/LaMachine/
-      * write a script to lemmatize Dutch with frog
-
-  * TODO labeling: es-de, es-it, es-nl (or other)
+      * DONE?? write a script to lemmatize Dutch with frog
+  * TODO labeling: es-nl
   * make features out of those annotations
+  * actually run experiments
 
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
@@ -210,7 +210,7 @@
   * BASICALLY DONE make scripts for preparing data for Europarl for the European
   languages we think we're going to do. Should be basically like the en-es data
   preparation script.
-  * DONE labeling: es-en, es-fr, es-it
+  * DONE labeling: es-en, es-fr, es-it, es-de
   * SKIP TreeTagger! how did we do nl for semeval? TreeTagger? 
 
 ## sequence
