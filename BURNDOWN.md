@@ -11,7 +11,6 @@
       * yes: we can use frog (Maarten made it!) to lemmatize Dutch
         * DONE got frog via LaMachine: https://proycon.github.io/LaMachine/
       * DONE?? write a script to lemmatize Dutch with frog
-  * TODO labeling: es-nl
   * make features out of those annotations
   * actually run experiments
 
@@ -210,7 +209,7 @@
   * BASICALLY DONE make scripts for preparing data for Europarl for the European
   languages we think we're going to do. Should be basically like the en-es data
   preparation script.
-  * DONE labeling: es-en, es-fr, es-it, es-de
+  * DONE labeling: es-en, es-fr, es-it, es-de, es-nl
   * SKIP TreeTagger! how did we do nl for semeval? TreeTagger? 
 
 ## sequence
