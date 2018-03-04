@@ -5,13 +5,9 @@
 ## monolingual
 
 ## multilingual
-  * DONE pick languages we want to use
-    * freeling supports: cs, de, en, es, fr, it, nb, pt, ru, sl... so plenty
-    * probably actually just do es, fr, it, de, nl like semeval ?
-      * yes: we can use frog (Maarten made it!) to lemmatize Dutch
-        * DONE got frog via LaMachine: https://proycon.github.io/LaMachine/
-      * DONE?? write a script to lemmatize Dutch with frog
-  * make features out of those annotations
+  * what's the accuracy of the trained classifiers on europarl? that would be
+  good to report.
+  * extra feature: window of stack annotations
   * actually run experiments
 
 ## integration
@@ -211,6 +207,13 @@
   preparation script.
   * DONE labeling: es-en, es-fr, es-it, es-de, es-nl
   * SKIP TreeTagger! how did we do nl for semeval? TreeTagger? 
+  * DONE pick languages we want to use
+    * freeling supports: cs, de, en, es, fr, it, nb, pt, ru, sl... so plenty
+    * probably actually just do es, fr, it, de, nl like semeval ?
+      * yes: we can use frog (Maarten made it!) to lemmatize Dutch
+        * DONE got frog via LaMachine: https://proycon.github.io/LaMachine/
+      * DONE?? write a script to lemmatize Dutch with frog
+  * DONE make features out of those annotations
 
 ## sequence
 CANCELED!!
