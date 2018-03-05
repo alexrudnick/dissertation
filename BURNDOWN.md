@@ -8,6 +8,12 @@
   * what's the accuracy of the trained classifiers on europarl? that would be
   good to report.
   * extra feature: window of stack annotations
+  * what if it turns out that the domain mismatch is too bad?
+    * maybe the sense distinctions in europarl aren't similar enough to the
+    bible.
+    * so that would suggest... train classifiers on the bible! we have quite a
+    few bibles available.
+    * just try es-en first probably! add more bibles if that seems to help?
   * actually run experiments
 
 ## integration
