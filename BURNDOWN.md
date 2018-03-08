@@ -7,14 +7,19 @@
 ## multilingual
   * what's the accuracy of the trained classifiers on europarl? that would be
   good to report.
-  * extra feature: window of stack annotations
+  * DONE extra feature: window of stack annotations
+  * DONE run europarl experiments
   * what if it turns out that the domain mismatch is too bad?
     * maybe the sense distinctions in europarl aren't similar enough to the
     bible.
     * so that would suggest... train classifiers on the bible! we have quite a
     few bibles available.
-    * just try es-en first probably! add more bibles if that seems to help?
-  * actually run experiments
+    * DONE just try es-en first probably! add more bibles if that seems to help?
+      * seems to help actually, by a few tenths of a percent
+  * get more bibles for other languages!!
+  * measure which/how many words we care about for the es bible have enough
+  support in europarl for us to get a classifier.
+
 
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
