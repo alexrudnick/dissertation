@@ -17,6 +17,8 @@
     * DONE just try es-en first probably! add more bibles if that seems to help?
       * seems to help actually, by a few tenths of a percent
   * get more bibles for other languages!!
+    * DONE here you go: https://github.com/christos-c/bible-corpus-tools
+    * now extract them into the formats that terere expects
   * measure which/how many words we care about for the es bible have enough
   support in europarl for us to get a classifier.
 
