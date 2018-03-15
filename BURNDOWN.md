@@ -20,7 +20,7 @@
     * DONE here you go: https://github.com/christos-c/bible-corpus-tools
     * DONE now extract them into the formats that terere expects
     * DONE annotate es-gn with those classifiers
-    * annotate es-qu with those classifiers
+    * DONE annotate es-qu with those classifiers
   * measure which/how many words we care about for the es bible have enough
   support in europarl for us to get a classifier.
 
