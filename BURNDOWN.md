@@ -7,20 +7,12 @@
 ## multilingual
   * what's the accuracy of the trained classifiers on europarl? that would be
   good to report.
-  * DONE extra feature: window of stack annotations
-  * DONE run europarl experiments
+  * run stacking-trained-on-europarl experiments: es-qu
+  * run stacking-trained-on-bible experiments: es-gn
+  * run stacking-trained-on-bible experiments: es-qu
   * what if it turns out that the domain mismatch is too bad?
     * maybe the sense distinctions in europarl aren't similar enough to the
     bible.
-    * so that would suggest... train classifiers on the bible! we have quite a
-    few bibles available.
-    * DONE just try es-en first probably! add more bibles if that seems to help?
-      * seems to help actually, by a few tenths of a percent
-  * get more bibles for other languages!!
-    * DONE here you go: https://github.com/christos-c/bible-corpus-tools
-    * DONE now extract them into the formats that terere expects
-    * DONE annotate es-gn with those classifiers
-    * DONE annotate es-qu with those classifiers
   * measure which/how many words we care about for the es bible have enough
   support in europarl for us to get a classifier.
 
@@ -229,6 +221,17 @@
         * DONE got frog via LaMachine: https://proycon.github.io/LaMachine/
       * DONE?? write a script to lemmatize Dutch with frog
   * DONE make features out of those annotations
+  * DONE extra feature: window of stack annotations
+  * DONE run stacking-trained-on-europarl experiments: es-gn
+  * DONE es-en bible stacking
+    * seems to help actually, by a few tenths of a percent
+  * get more bibles for other languages!!
+    * DONE here you go: https://github.com/christos-c/bible-corpus-tools
+    * DONE now extract them into the formats that terere expects
+    * DONE annotate es-gn with those classifiers
+    * DONE annotate es-qu with those classifiers
+  * TRUE so that would suggest... train classifiers on the bible! we have quite
+  a few bibles available.  add more bibles if that seems to help?
 
 ## sequence
 CANCELED!!
