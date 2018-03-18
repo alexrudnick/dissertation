@@ -188,5 +188,62 @@ University and the University of Antwerp. It is available at
 \section{Experimental Results}
 \label{sec:multilingual-results}
 
+\subsection{Results: classifier stacking with Bibles}
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l1} \\
+    \hline
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
+    \hline
+bible stacking, en only & 0.463 & 0.508 & 0.446 & 0.416 \\
+    \hline
+bible stacking, en only +syntactic & 0.466 & 0.513 & 0.451 & 0.425 \\
+    \hline
+bible stacking, 5 languages & 0.466 & 0.512 & 0.449 & 0.419 \\
+    \hline
+bible stacking, 5 languages +syntactic & 0.469 & 0.516 & 0.453 & 0.427 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l2} \\
+    \hline
+    baseline features & 0.475 & 0.524 & 0.458 & 0.431 \\
+    \hline
+bible stacking, en only & 0.478 & 0.527 & 0.461 & 0.435 \\
+    \hline
+bible stacking, en only +syntactic & 0.482 & 0.532 & 0.467 & 0.444 \\
+    \hline
+bible stacking, 5 languages & 0.484 & 0.533 & 0.468 & 0.443 \\
+    \hline
+bible stacking, 5 languages +syntactic & 0.487 & 0.538 & 0.472 & 0.450 \\
+    \hline
+
+    \multicolumn{5}{|l|}{random forest} \\
+    \hline
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
+    \hline
+bible stacking, en only & 0.484 & 0.525 & 0.466 & 0.428 \\
+    \hline
+bible stacking, en only +syntactic & 0.488 & 0.529 & 0.473 & 0.439 \\
+    \hline
+bible stacking, 5 languages & 0.488 & 0.530 & 0.470 & 0.434 \\
+    \hline
+bible stacking, 5 languages +syntactic & 0.492 & 0.533 & 0.476 & 0.441 \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{Results for stacking with Bibles.}
+  \label{fig:bible-stacking-results}
+\end{figure*}
+
 \section{Discussion}
 
