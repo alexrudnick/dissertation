@@ -8,13 +8,12 @@
   * what's the accuracy of the trained classifiers on europarl? that would be
   good to report.
   * run stacking-trained-on-europarl experiments: es-qu
-  * run stacking-trained-on-bible experiments: es-gn
-  * run stacking-trained-on-bible experiments: es-qu
   * what if it turns out that the domain mismatch is too bad?
     * maybe the sense distinctions in europarl aren't similar enough to the
     bible.
   * measure which/how many words we care about for the es bible have enough
   support in europarl for us to get a classifier.
+  * maybe also be like "here are the sense distinctions present in Europarl"
 
 
 ## integration
@@ -232,6 +231,8 @@
     * DONE annotate es-qu with those classifiers
   * TRUE so that would suggest... train classifiers on the bible! we have quite
   a few bibles available.  add more bibles if that seems to help?
+  * DONE run stacking-trained-on-bible experiments: es-gn
+  * DONE run stacking-trained-on-bible experiments: es-qu
 
 ## sequence
 CANCELED!!
