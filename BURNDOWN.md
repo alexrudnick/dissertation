@@ -1,6 +1,8 @@
 # things left undone
 
 ## general
+  * pick a spelling for Guarani. It's probably the one with no accent, right?
+    * Yes, use the no-accent version; accented is how you spell it in Spanish.
 
 ## monolingual
 
@@ -19,6 +21,7 @@
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
   integration story: SQUOIA and phrasal?
+    * we could do SQUOIA for Quechua and Phrasal for Guarani!
   * get buy-in from Mike and Sandra
 
   * pull all gn text from guarani-nee and gn-wikipedia.
