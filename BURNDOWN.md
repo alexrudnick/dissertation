@@ -9,6 +9,8 @@
 ## multilingual
   * what's the accuracy of the trained classifiers on europarl? that would be
   good to report.
+  * do we need to run bible stacking + all sparse features, together? that's not
+  hard to do, and it might be nice to see for comparison
   * run stacking-trained-on-europarl experiments: es-qu
   * what if it turns out that the domain mismatch is too bad?
     * maybe the sense distinctions in europarl aren't similar enough to the
