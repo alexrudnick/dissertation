@@ -8,7 +8,7 @@ approaches considered in this chapter make additional features or different
 representations available to the CL-WSD classifiers based on knowledge of the
 source language, either gleaned through unsupervised methods or baked into
 extant tools. Since we have relatively little bitext available for
-Spanish-Guaraní and Spanish-Quechua, we will need to lean more on our Spanish
+Spanish-Guarani and Spanish-Quechua, we will need to lean more on our Spanish
 resources, software and data, in order to make better sense of the input text.
 
 Perhaps most saliently for Spanish, we have abundant monolingual text
@@ -536,7 +536,7 @@ algorithm we like, as we did with the vectors based on word2vec, previously.
 \section{Experiments}
 \label{sec:monolingual-experiments}
 Here we repeat the experiments from Chapter \ref{chap:baseline} for
-Spanish-Guaraní and Spanish-Quechua, using the features extracted from
+Spanish-Guarani and Spanish-Quechua, using the features extracted from
 syntactic tools, Brown clusters, and the various kinds of neural embeddings
 presented in this chapter.
 These experiments were carried out with the top classification algorithms that
@@ -549,7 +549,7 @@ combinations of the features, we did not run experiments for all (exponentially
 many) possibilities exhaustively.
 
 Specifically, we experimented with the following feature sets, based on the
-techniques described in this chapter, for both Spanish-Guaraní and
+techniques described in this chapter, for both Spanish-Guarani and
 Spanish-Quechua.
 
 \begin{itemize}
@@ -1198,7 +1198,7 @@ Using each of these different tools, we were able to overcome the relatively
 strong most-frequent sense baseline, and with many of the different feature
 sets, we were able to show small but consistent gains over the baseline feature
 set described in the previous chapter. Overall, the best results posted for
-Spanish-Guaraní were with the combined sparse features; the random forest
+Spanish-Guarani were with the combined sparse features; the random forest
 classifier had the strongest results for the ``regular" setting, and the
 maximum entropy classifier with L2 regularization came out ahead for the
 non-null setting (this result was tied with the one for using the syntactic
