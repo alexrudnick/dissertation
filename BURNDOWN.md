@@ -1,8 +1,6 @@
 # things left undone
 
 ## general
-  * pick a spelling for Guarani. It's probably the one with no accent, right?
-    * Yes, use the no-accent version; accented is how you spell it in Spanish.
 
 ## monolingual
 
@@ -65,6 +63,8 @@
 ## general done things
   * DONE set up new laptop and latex build environment there
   * SKIP be able to draw curves of word training data size versus accuracy
+  * DONE pick a spelling for Guarani. It's probably the one with no accent, right?
+    * DONE Yes, use the no-accent version; accented is how you spell it in Spanish.
 
 ## baseline done things
   * DONE maybe rerun the experiments from the baseline chapter so we know that the results are comparable; we're using explicit lists of top words now.
