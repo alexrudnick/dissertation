@@ -200,6 +200,52 @@ Spanish-German, and Spanish-Italian bitext corpora.
 
 \subsection{Results: classifier stacking with Europarl}
 
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l1} \\
+    \hline
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
+    \hline
+europarl stacking, 5 languages & 0.460 & 0.505 & 0.444 & 0.414 \\
+    \hline
+europarl stacking, 5 languages +syntactic & 0.464 & 0.510 & 0.449 & 0.422 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l2} \\
+    \hline
+    baseline features & 0.475 & 0.524 & 0.458 & 0.431 \\
+    \hline
+europarl stacking, 5 languages & 0.477 & 0.526 & 0.461 & 0.435 \\
+    \hline
+europarl stacking, 5 languages +syntactic & 0.482 & 0.531 & 0.467 & 0.444 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{random forest} \\
+    \hline
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
+    \hline
+europarl stacking, 5 languages & 0.483 & 0.523 & 0.466 & 0.428 \\
+    \hline
+europarl stacking, 5 languages +syntactic & 0.487 & 0.527 & 0.473 & 0.438 \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{Results for stacking with Europarl.}
+  \label{fig:europarl-stacking-results}
+\end{figure*}
+
+
 %% XXX: probably add syntactic-feature results from last chapter for comparison
 \subsection{Results: classifier stacking with Bibles}
 \begin{figure*}
