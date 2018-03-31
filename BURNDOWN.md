@@ -9,7 +9,7 @@
   good to report.
   * do we need to run bible stacking + all sparse features, together? that's not
   hard to do, and it might be nice to see for comparison
-  * run stacking-trained-on-europarl experiments: es-qu
+  * run stacking-trained-on-europarl experiments with just en stacking
   * what if it turns out that the domain mismatch is too bad?
     * maybe the sense distinctions in europarl aren't similar enough to the
     bible.
@@ -238,6 +238,8 @@
   a few bibles available.  add more bibles if that seems to help?
   * DONE run stacking-trained-on-bible experiments: es-gn
   * DONE run stacking-trained-on-bible experiments: es-qu
+  * DONE run stacking-trained-on-europarl experiments: es-gn
+  * DONE run stacking-trained-on-europarl experiments: es-qu
 
 ## sequence
 CANCELED!!
