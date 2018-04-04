@@ -303,7 +303,7 @@ features.
 
 As a concrete example using the lemmatized Wikipedia clusters, if we find that
 the lemma \emph{rioplatense} is in a three-token window around the current
-focus word, and that this lemma in in cluster ``111110111111111110", then we
+focus word, and that this lemma is in cluster ``111110111111111110", then we
 extract the following features, setting each of them to $1$.
 
 \begin{itemize}
@@ -520,18 +520,19 @@ we use the implementation of doc2vec provided by the gensim package
 default settings, which uses the ``distributed memory" model
 \cite{rehurek-lrec}.
 
-During training data annotation, we pass over our bitext corpus, take the
-source-language sentence from each training pair, and infer a new embedding for
-it based on a doc2vec model trained on our 20 million sentences from
-Spanish-language Wikipedia. These sentence-level embeddings are stored as a
-token annotation on the first token of each sentence, so they can be made
-available during feature extraction. We can also show the gensim software a
-small context window around the focus word, rather than the entire sentence to
-generate a more focused representation.
+In order to use doc2vec for our experiments, we train and save a doc2vec model
+on our 20 million sentences from Spanish-language Wikipedia. Then, during
+training data annotation for the CL-WSD model, we pass over our bitext corpus,
+take the source-language sentence from each training pair, and infer a new
+embedding for it based on that doc2vec model. These sentence-level embeddings
+are stored as a token annotation on the first token of each sentence, so they
+can be made available during feature extraction. We can also show the gensim
+software a small context window around the focus word, rather than the entire
+sentence to generate a more focused representation.
 
 In either case, the result is a dense vector of the specified dimensionality,
 again typically a few hundred, which we can pass to whichever machine learning
-algorithm we like, as we did with the vectors based on word2vec, previously.
+algorithm we like, as we did previously with the vectors based on word2vec.
 
 \section{Experiments}
 \label{sec:monolingual-experiments}
