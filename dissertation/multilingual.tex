@@ -7,9 +7,10 @@ under-resourced, we have many resources available for our source languages.
 For Spanish and many other languages, in addition to the large amounts of
 monolingual text and off-the-shelf NLP tools discussed in Chapter
 \ref{chap:monolingual}, we have a relative abundance of bitext, pairing Spanish
-with other resource-rich languages.
-We would like to be able to learn from these bitext corpora when translating
-from resource-rich source languages into under-resourced target languages.
+with other languages, especially other resource-rich languages.
+We would like to be able to learn from these other bitext corpora when
+translating from resource-rich source languages into under-resourced target
+languages.
 Each bitext corpus may contain useful examples of a given source language word,
 and senses of that word may be lexicalized in varying ways in different target
 languages.
@@ -18,36 +19,26 @@ Selecting a contextually correct translation for source-language words is
 evidence that we are able to infer the meaning of those words at least
 implicitly, in as far as sense distinctions are surfaced in the target
 language.
-As we have mentioned previously, translation,
-\emph{e.g.} from Spanish to English can be thought of as word-sense
-disambiguation.
-%% XXX working here
 
-We would like our system to be able to learn relationships between the
+So we would like our system to be able to learn relationships between the
 senses of a given source word that are lexicalized in different ways in
-different languages.
-Two target languages may happen to surface similar sense distinctions, perhaps
-due to being related languages, or simply by coincidence. Alternatively, a
-combination of translations into several languages may provide evidence for a
-certain lexical choice in the target language of interest.
+different languages.  Two target languages may happen to surface similar sense
+distinctions, perhaps due to being related languages, or simply by coincidence.
+Alternatively, a combination of translations into several languages may provide
+evidence for a certain lexical choice in the target language of interest.
 
 These translations into \emph{other} target languages can then be used as
 annotations when translating into the under-resourced target languages that
 concern us in the current work. In this chapter, we will investigate making use
 of some of the available multilingual corpora resources in exactly this way.
 
-\section{Multilingual evidence from the Europarl corpus and from Bible
-translations}
-
+\section{Multilingual evidence from the Europarl corpus} 
 For some languages, such as those of the European Union, we have multiple
 bitext corpora available, covering several different language pairs with the
 same source language. Through the Europarl corpus \cite{europarl}, for example,
 we have bitext corpora in which Spanish is paired with English, German, French,
 and 17 other European languages.
-
-%% XXX man, this is all a mess. Need a smooth segue in to talking about using
-%% Bible translations.
-%% especially when the available corpora are not all mutually parallel.
+%%% XXX working here
 
 The approaches in this chapter are particularly informed by the work of Els
 Lefever \emph{et. al} (see especially
@@ -79,6 +70,7 @@ final classifier. This approach is more immediately applicable to lexical
 selection when our target language is under-resourced, as it does not require
 bitext corpora between all of the involved languages.
 
+\section{Multilingual evidence from Bible translations}
 %% XXX we're also going to have to write about training on the bibles here.
 
 \section{CL-WSD with Markov Networks}
