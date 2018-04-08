@@ -5,16 +5,16 @@
 ## monolingual
 
 ## multilingual
-  * what's the accuracy of the trained classifiers on europarl? that would be
-  good to report.
+  * consider running experiment with both kinds of stacking -- does that help?
   * do we need to run bible stacking + all sparse features, together? that's not
   hard to do, and it might be nice to see for comparison
   * what if it turns out that the domain mismatch is too bad?
     * maybe the sense distinctions in europarl aren't similar enough to the
     bible.
-  * measure which/how many words we care about for the es bible have enough
-  support in europarl for us to get a classifier.
-  * maybe also be like "here are the sense distinctions present in Europarl"
+  * MAYBE SKIP maybe also be like "here are the sense distinctions present in
+  Europarl"
+  * MAYBE SKIP what's the accuracy of the trained classifiers on europarl? would
+  that be good to report?
 
 
 ## integration
@@ -240,6 +240,8 @@
   * DONE run stacking-trained-on-europarl experiments: es-gn
   * DONE run stacking-trained-on-europarl experiments: es-qu
   * DONE run stacking-trained-on-europarl experiments with just en stacking
+  * DONE measure which/how many words we care about for the es bible have enough
+  support in europarl for us to get a classifier.
 
 ## sequence
 CANCELED!!
