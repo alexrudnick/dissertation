@@ -1,36 +1,38 @@
 \chapter{Learning from Multilingual Data}
 \label{chap:multilingual}
 
-\section{Evidence from multilingual corpora}
+\section{Evidence from other available bitext corpora}
 As discussed in previous chapters, while our target languages are
 under-resourced, we have many resources available for our source languages.
-For Spanish and many other languages, in addition to the large amounts of
-monolingual text and off-the-shelf NLP tools discussed in Chapter
-\ref{chap:monolingual}, we have a relative abundance of bitext, pairing Spanish
-with other languages, especially other resource-rich languages.
-We would like to be able to learn from these other bitext corpora when
-translating from resource-rich source languages into under-resourced target
-languages.
+Concretely for Spanish, in addition to the abundant monolingual text and
+off-the-shelf NLP tools, as discussed in Chapter \ref{chap:monolingual}, we
+have a significant amount of bitext, pairing Spanish with languages other than
+our under-resourced target languages. We would like to be able to learn from
+these other bitext corpora when translating from Spanish to Guarani and
+Quechua, and ideally in general from resource-rich source languages into
+under-resourced target languages.
+
 Each bitext corpus may contain useful examples of a given source language word,
-and senses of that word may be lexicalized in varying ways in different target
-languages.
-
+and senses of that word may be lexicalized differently in the various target
+languages, giving us clues about the meaning of each token in its context.
 Selecting a contextually correct translation for source-language words is
-evidence that we are able to infer the meaning of those words at least
+evidence that we have understood the meaning of those words, at least
 implicitly, in as far as sense distinctions are surfaced in the target
-language.
-
-So we would like our system to be able to learn relationships between the
-senses of a given source word that are lexicalized in different ways in
-different languages.  Two target languages may happen to surface similar sense
-distinctions, perhaps due to being related languages, or simply by coincidence.
-Alternatively, a combination of translations into several languages may provide
+language. So we would like our system to be able to learn relationships between
+the senses of a given source word, as they are represented in different target
+languages. Two target languages may happen to surface similar sense
+distinctions, perhaps due to being related languages, or perhaps because a word
+sense ambiguity is unusual in the source language, or simply by coincidence.
+Additionally, a combination of translations into several languages may provide
 evidence for a certain lexical choice in the target language of interest.
 
-These translations into \emph{other} target languages can then be used as
-annotations when translating into the under-resourced target languages that
-concern us in the current work. In this chapter, we will investigate making use
-of some of the available multilingual corpora resources in exactly this way.
+In this chapter, we present strategies for learning from the available bitext
+corpora that do not include our under-resourced target languages, to help us
+make better CL-WSD decisions when translating into them. Primarily we discuss a
+``classifier stacking" approach, in which we train CL-WSD classifiers
+translating from Spanish to other European languages, and use the outputs of
+these classifiers as features for Spanish to Quechua and Spanish to Guarani.
+
 
 \section{Multilingual evidence from the Europarl corpus} 
 For some languages, such as those of the European Union, we have multiple
