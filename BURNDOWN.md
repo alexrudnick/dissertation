@@ -5,7 +5,6 @@
 ## monolingual
 
 ## multilingual
-  * consider running experiment with both kinds of stacking -- does that help?
   * do we need to run bible stacking + all sparse features, together? that's not
   hard to do, and it might be nice to see for comparison
   * what if it turns out that the domain mismatch is too bad?
@@ -242,6 +241,8 @@
   * DONE run stacking-trained-on-europarl experiments with just en stacking
   * DONE measure which/how many words we care about for the es bible have enough
   support in europarl for us to get a classifier.
+  * DONE consider running experiment with both kinds of stacking -- does that
+  help? -- you know, it really doesn't help.
 
 ## sequence
 CANCELED!!
