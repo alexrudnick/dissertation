@@ -141,18 +141,19 @@ classifiers on the Semeval CL-WSD task, our strategy for setting the weights in
 the Markov network requires, for each edge in the graph, a parallel corpus for
 the corresponding language pair. The bitext for each language pair need not be
 mutually parallel among all of the languages present; each edge in the graph
-may correspond to an unrelated bitext corpus.
+may correspond to an unrelated bitext corpus.  Also, in principle the graph
+need not be fully connected, as it was for our SemEval entry, but does require
+bitext between the source language, our target language of interest, and at
+least one of the other language.
 
 It thus seems less easily extensible than the classifier stacking approach, in
 which it is clear how we can include information from many heterogeneous
 sources. The benefit of the Markov network approach is that it takes seriously
 the uncertainty present in the predictions of each of the component
-classifiers, solving the entire problem jointly.
-
-The Markov network approach may be useful for future CL-WSD systems in other
-settings, but we will not make further use of it for now, for the setting of
-translating into under-resourced languages, since we do not have many parallel
-corpora available for Guarani or Quechua.
+classifiers, solving the entire problem jointly. The Markov network approach
+may be useful for future CL-WSD systems in other settings, but we will not make
+further use of it for translating into under-resourced languages, since we do
+not have many parallel corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
 The classifier stacking approach, in order to predict the translation of a word
