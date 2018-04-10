@@ -80,27 +80,31 @@ European languages.
 In our SemEval entry \cite{rudnick-liu-gasser:2013:SemEval-2013}, we
 investigated a CL-WSD approach based on Markov networks (also known as ``Markov
 Random Fields"), building a network of interacting variables (see Figure
-\ref{fig:pentagram}) to solve the CL-WSD classification problem for the five
+\ref{fig:pentagram}) to solve CL-WSD classification problems for the five
 target languages of the SemEval 2013 task \cite{task10}. In this task, we were
 given English source sentences with an annotated focus word (from a given set
 of possible focus words types), and asked to make correct lexical selections
-for translating into Dutch, French, German, Italian and Spanish.  The ground
+for translating into Dutch, French, German, Italian and Spanish. The ground
 truth for the task was determined by human annotators familiar with those
 languages.
 
 Here the nodes in our Markov network represent random variables that take on
-values corresponding to possible translations for the corresponding target
-language. The distributions over these different translations are produced by
-language-specific maximum entropy classifiers, roughly by simply running the
-baseline Chipa system on the given input sentence.  The edges in the graph
-represent pairwise potentials that are derived from the joint probabilities of
-target language labels co-occurring in the available bitext.
+values corresponding to the possible translations for each of the five target
+languages. The probability distributions over these translations are produced
+by language-specific maximum entropy classifiers, effectively applying the
+baseline Chipa system on the given input sentence.
 
-%% XXX: working here
+The edges in the graph correspond to pairwise potentials that are derived from
+the joint probabilities of target language labels co-occurring in the available
+bitext for the two target languages along that edge of the graph. This approach
+thus requires a bitext corpus for each pair of languages in the set of
+languages involved; for the SemEval task, we worked with a subset of the
+Europarl corpus, provided by the task organizers, in which every sentence was
+provided for all six languages.
+
 We frame the task of finding the optimal translations into five languages
 jointly as a MAP inference problem, wherein we try to maximize the joint
-probability of all five variables, given the evidence of the features extracted
-from the source language sentence.
+probability of all five variables, given the single source language sentence.
 We perform inference with loopy belief propagation
 \cite{DBLP:conf/uai/MurphyWJ99}, which is an approximate but tractable
 inference algorithm that, while giving no guarantees, often produces good
@@ -135,8 +139,10 @@ estimated from our Dutch-French bitext, and the messages from the \emph{es},
 While we were able to achieve fairly good results with these MRF-based
 classifiers on the Semeval CL-WSD task, our strategy for setting the weights in
 the Markov network requires, for each edge in the graph, a parallel corpus for
-the corresponding language pair.
-%% XXX working here
+the corresponding language pair. The bitext for each language pair need not be
+mutually parallel among all of the languages present; each edge in the graph
+may correspond to an unrelated bitext corpus.
+
 It thus seems less easily extensible than the classifier stacking approach, in
 which it is clear how we can include information from many heterogeneous
 sources. The benefit of the Markov network approach is that it takes seriously
@@ -146,7 +152,6 @@ classifiers, solving the entire problem jointly.
 The Markov network approach may be useful for future CL-WSD systems in other
 settings, but we will not make further use of it for now, for the setting of
 translating into under-resourced languages, since we do not have many parallel
-%% XXX add accent
 corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
