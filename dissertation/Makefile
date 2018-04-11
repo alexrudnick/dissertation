@@ -8,10 +8,13 @@ $(NAME).pdf: *.tex *.bib is-abbrv.bst figures
 	xelatex $(NAME).tex
 	xelatex $(NAME).tex
 
-figures: pentagram.pdf
+figures: pentagram.pdf gn-qu-mrf.pdf
 
 pentagram.pdf: pentagram.dot
 	neato -Tpdf pentagram.dot -o pentagram.pdf
+
+gn-qu-mrf.pdf: gn-qu-mrf.dot
+	neato  -Tpdf gn-qu-mrf.dot -o gn-qu-mrf.pdf
 
 is-abbrv.bst:
 	wget http://ftp.math.utah.edu/pub/tex/bibtex/is-abbrv.bst

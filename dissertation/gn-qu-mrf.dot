@@ -1,0 +1,26 @@
+digraph G {
+  overlap=scale;
+  {node [style=filled,pos="0,0!"] es}
+  {node [pos="2,2"] en}
+  {node [pos="2,1"] de}
+  {node [pos="2,0!"] gn}
+  {node [pos="0,2"] qu}
+
+  subgraph Edges {
+    edge [dir=none,len=2];
+    en -> de;
+    qu -> de;
+    es -> en;
+    es -> de;
+    es -> qu;
+    es -> gn;
+  }
+
+  subgraph Constraints {
+    es -> de [style=invis];
+    es -> en [style=invis];
+    es -> qu [style=invis];
+    es -> gn [style=invis];
+  }
+
+}
