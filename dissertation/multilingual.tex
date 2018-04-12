@@ -112,7 +112,10 @@ solutions in practice.
 We used the formulation for pairwise Markov networks that passes messages
 directly between the nodes rather than first constructing a ``cluster graph",
 which is described in \cite[\S 11.3.5.1]{Koller+Friedman:09} of Koller and
-Friedman's book on graphical models.
+Friedman's book on graphical models. This Markov network approach has the
+theoretically satisfying property that it takes seriously the uncertainty
+present in the predictions of each of the component classifiers and solves the
+entire problem jointly. 
 
 Intuitively, at each time step loopy belief propagation passes messages around
 the graph that inform each neighbor about the estimate, from the perspective of
@@ -136,14 +139,18 @@ estimated from our Dutch-French bitext, and the messages from the \emph{es},
   \label{fig:pentagram}
 \end{figure}
 
+%% XXX: this needs a better explanation; we can't help the gn classifier with
+%% the MRF in this graph.
 \begin{figure}
   \begin{center}
   \includegraphics[width=5cm]{gn-qu-mrf.pdf}
   \end{center}
   \caption{Hypothetical network structure -- not fully connected -- that could
   be used for a Markov network, if we had a bitext corpus for Spanish and every
-  other language, for German-English, and for German-Quechua.}
-  \label{fig:pentagram}
+  other language, for German-English, and for German-Quechua. Here we draw a
+  shaded node for Spanish, representing the bitext between the source language
+  and each of the }
+  \label{fig:gn-qu-mrf}
 \end{figure}
 
 While we were able to achieve fairly good results with these MRF-based
@@ -152,18 +159,19 @@ the Markov network requires, for each edge in the graph, a parallel corpus for
 the corresponding language pair. The bitext for each language pair need not be
 mutually parallel among all of the languages present; each edge in the graph
 may correspond to an unrelated bitext corpus.  Also, in principle the graph
-need not be fully connected, as it was for our SemEval entry, but does require
-bitext between the source language, our target language of interest, and at
-least one of the other language.
+need not be fully connected, as it was for our SemEval entry, but this approach
+does require bitext between the source language, our target language of
+interest, and at least one of the other language; see
+Figure~\ref{fig:gn-qu-mrf} for a hypothetical network structure that could be
+used, given the right bitext.
 
-It thus seems less easily extensible than the classifier stacking approach, in
-which it is clear how we can include information from many heterogeneous
-sources. The benefit of the Markov network approach is that it takes seriously
-the uncertainty present in the predictions of each of the component
-classifiers, solving the entire problem jointly. The Markov network approach
-may be useful for future CL-WSD systems in other settings, but we will not make
-further use of it for translating into under-resourced languages, since we do
-not have many parallel corpora available for Guarani or Quechua.
+Considering the limited bitext resources available, this approach is less
+easily applicable for the under-resourced target language use case.  In the
+classifier stacking approach, it is clear how we can include information from
+many heterogeneous sources. The Markov network approach may be useful for
+future CL-WSD systems in other settings, but we will not make further use of it
+for translating into under-resourced languages, since we do not have many
+parallel corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
 The classifier stacking approach, in order to predict the translation of a word
