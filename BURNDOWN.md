@@ -10,11 +10,6 @@
   * what if it turns out that the domain mismatch is too bad?
     * maybe the sense distinctions in europarl aren't similar enough to the
     bible.
-  * MAYBE SKIP maybe also be like "here are the sense distinctions present in
-  Europarl"
-  * MAYBE SKIP what's the accuracy of the trained classifiers on europarl? would
-  that be good to report?
-
 
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
@@ -243,6 +238,8 @@
   support in europarl for us to get a classifier.
   * DONE consider running experiment with both kinds of stacking -- does that
   help? -- you know, it really doesn't help.
+  * SKIP maybe also be like "here are the sense distinctions present in Europarl"
+  * SKIP what's the accuracy of the trained classifiers on europarl? would that be good to report?
 
 ## sequence
 CANCELED!!
