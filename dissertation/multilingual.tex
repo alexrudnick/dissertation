@@ -175,45 +175,42 @@ parallel corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
 The classifier stacking approach, in order to predict the translation of a word
-into a given target language, uses translations into other available target
-languages as features.
+into a given target language, uses translations into \emph{other} available
+target languages as features.
 For example, for our SemEval prototype systems, in order to translate an
 English word into Spanish, we predict that word's translations into French,
 Italian, Dutch and German, and then encode those predicted translations as
 features for our English to Spanish classifier.
 
-%% XXX this needs some editing
-
-We would like to try adding classifiers trained on the other Europarl
-languages, as well as completely different corpora; this would require that for
-the stacked classifier, we would train on predicted translations rather than...
-
-This approach only requires that the monolingual classifiers make \emph{some}
-prediction based on text in the source language; they need not be trained from
-the same source text, depend on the same features, or even output words as
-labels.
+This approach only requires that the classifiers make \emph{some} prediction
+based on text in the source language; they need not be trained from the same
+source text, depend on the same features, or even output words as labels.
+%% XXX: ... wait, what?
 
 \subsection{Classifier stacking in practice}
 Here we train the baseline Chipa system, with the baseline feature set, on both
-Europarl bitext pairing Spanish with each of five other languages, and on
-verse-aligned Bible translations. Following
+Europarl bitext pairing Spanish with five other languages, and on verse-aligned
+Bible translations, for the same five European target languages. Following
 earlier work, including our system for SemEval and that of Lefever \emph{et
 al.}, the target languages used are Dutch, English, French, German, and
 Italian.
 
 The bitext corpora are prepared with the tools distributed with the Europarl
-corpus; once we have sentence-aligned bitext, we preprocess the bitext in a
-similar way to the Bible text, as described in
-Section~\label{sec:datasetsandpreprocessing}. Where possible, we lemmatize the
-target-language text with FreeLing. However, as of this writing FreeLing does
-not support Dutch, so for Dutch, we use the Frog text analysis
-tool\footnote{Frog was developed by groups at Tilburg
-University and the University of Antwerp. It is available at
+corpus, which conveniently produce sentence-aligned and tokenized bitext.  We
+then preprocess the bitext with the same steps we used on our Bible text, as
+described in Section~\label{sec:datasetsandpreprocessing}. Where possible, we
+lemmatize the target-language text with FreeLing.  However, as of this writing
+FreeLing does not support Dutch, so for Dutch, we use the Frog text analysis
+tool\footnote{Frog was developed by groups at Tilburg University and the
+University of Antwerp. It is available at
 \url{http://languagemachines.github.io/frog/}} \cite{tadpole2007}. With the
 exception of the different lemmatizer for Dutch, the preprocessing steps are
 analogous to those described in the previous chapters, resulting in
 automatically aligned Spanish-Dutch, Spanish-English, Spanish-French,
 Spanish-German, and Spanish-Italian bitext corpora.
+
+%% XXX maybe move all this text into the sections about the individual corpora?
+%% XXX probably talk about how many sentence pairs we end up with?
 
 \section{Domain mismatches}
 
