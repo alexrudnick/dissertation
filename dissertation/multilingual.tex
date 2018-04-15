@@ -354,5 +354,60 @@ bible stacking, 5 languages +syntactic & \textbf{0.492} & 0.533 & \textbf{0.476}
   \label{fig:bible-stacking-results}
 \end{figure*}
 
+\subsection{Results: classifier stacking with both Europarl and Bibles}
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
+    \hline
+    classifier & es-gn regular & es-gn non-null & es-qu regular & es-qu non-null \\
+
+    \hline
+    MFS    & 0.456 & 0.498 & 0.435 & 0.391 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l1} \\
+    \hline
+    baseline features & 0.461 & 0.506 & 0.444 & 0.414 \\
+    \hline
+    +all syntactic features & 0.465 & 0.511 & 0.450 & 0.422 \\
+    \hline
+both stacking, 5 languages & 0.465 & 0.511 & 0.448 & 0.419 \\
+    \hline
+both stacking, 5 languages +syntactic & 0.468 & 0.516 & 0.452 & 0.426 \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{maxent l2} \\
+    \hline
+    baseline features & 0.475 & 0.524 & 0.458 & 0.431 \\
+    \hline
+    +all syntactic features & 0.480 & 0.530 & 0.465 & 0.441 \\
+    \hline
+both stacking, 5 languages & 0.484 & 0.533 & 0.469 & 0.444 \\
+    \hline
+both stacking, 5 languages +syntactic & 0.487 & \textbf{0.538} & 0.473 & \textbf{0.450} \\
+    \hline
+    \hline
+
+    \multicolumn{5}{|l|}{random forest} \\
+    \hline
+    baseline features & 0.481 & 0.520 & 0.464 & 0.424 \\
+    \hline
+    +all syntactic features & 0.486 & 0.527 & 0.471 & 0.434 \\
+    \hline
+both stacking, 5 languages & 0.489 & 0.530 & 0.471 & 0.434 \\
+    \hline
+both stacking, 5 languages +syntactic & \textbf{0.492} & 0.533 & \emph{0.475} & 0.443 \\
+    \hline
+    \hline
+
+  \end{tabulary}
+  \end{centering}
+  \caption{Results for stacking with Bibles.}
+  \label{fig:bible-stacking-results}
+\end{figure*}
+
 \section{Discussion}
 
