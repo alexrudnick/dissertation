@@ -214,6 +214,16 @@ Spanish-German, and Spanish-Italian bitext corpora.
 
 \section{Domain mismatches}
 
+In comparing the use of different corpora for our classifier stacking approach,
+we want to ask to what extent the domain mismatch will play a role.
+The subjets discussed in European Parliament may not match that of our
+Spanish-Guarani and Spanish-Quechua corpora; furthermore, perhaps the Spanish
+words used may not match at all.
+
+Exploring the corpora a bit, we find that, indeed, many of the word types used
+in our Spanish Bible translation either never appear, or only appear very
+rarely in the Europarl text.
+
 \section{Experiments}
 \label{sec:multilingual-experiments}
 ... same as before, right?
@@ -227,6 +237,9 @@ experimental results presented, the top result for each setting is presented in
 is presented in \textbf{bold}.
 
 \subsection{Results: classifier stacking with Europarl}
+
+In Figure \ref{fig:europarl-stacking-results}, we present results for the
+experiments with stacking using the Europarl bitext.
 
 \begin{figure*}
   \begin{centering}
@@ -292,6 +305,11 @@ europarl stacking, 5 languages +syntactic & \emph{0.487} & 0.527 & \emph{0.473} 
 \end{figure*}
 
 \subsection{Results: classifier stacking with Bibles}
+
+In Figure \ref{fig:bible-stacking-results}, we see our results for the
+experiments with stacking using Bibles as bitext.
+
+
 \begin{figure*}
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
@@ -356,6 +374,12 @@ bible stacking, 5 languages +syntactic & \textbf{0.492} & 0.533 & \textbf{0.476}
 
 \subsection{Results: classifier stacking with both Europarl and Bibles}
 
+Finally, in Figure \ref{fig:both-stacking-results}, we show the results for
+experiments where we used stacking features from both Bibles and the Europarl
+corpus. The results in general were quite similar those we saw with using Bible
+stacking features alone; the addition of the features from classifiers trained
+on Europarl did not help.
+
 \begin{figure*}
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|L|L|L|}
@@ -406,7 +430,7 @@ both stacking, 5 languages +syntactic & \textbf{0.492} & 0.533 & \emph{0.475} & 
   \end{tabulary}
   \end{centering}
   \caption{Results for stacking with Bibles.}
-  \label{fig:bible-stacking-results}
+  \label{fig:both-stacking-results}
 \end{figure*}
 
 \section{Discussion}
