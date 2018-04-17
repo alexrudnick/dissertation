@@ -226,7 +226,45 @@ rarely in the Europarl text.
 
 \section{Experiments}
 \label{sec:multilingual-experiments}
-... same as before, right?
+
+The experiments in this chapter are analogous to the ones in previous chapters,
+with the addition of features based on classifier stacking. Following the work
+of Lefever \emph{et al.} and our earlier SemEval entry, we trained
+classifiers mapping from Spanish to Dutch, English, French German and Italian,
+based on both the Europarl corpus and our available Bible translations. When
+annotating the bitext for Spanish-Guarani, we trained classifiers for each of
+the in-vocabulary focus words for that language pair (see Section
+\ref{sec:exploring}), and likewise for Spanish-Quechua.
+
+All classifiers were trained with the baseline features described in
+Chapter~\ref{chap:baseline}, and some were trained with the syntactic features
+described in Chapter~\ref{chap:monolingual}. The new features introduced in
+this chapter are presented in Figure~\ref{fig:stackingfeatures}.
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|p{3.5cm}|p{11cm}|}
+    \hline
+    name          & description  \\
+    \hline
+    \texttt{stacking\_en} & Predicted translation of the current token into
+    English, if one was available. Feature is not present if no prediction was
+    made for this token. \\
+    \hline
+    \texttt{stacking\_de}, \texttt{stacking\_fr}, \texttt{stacking\_it},
+    \texttt{stacking\_nl} & \emph{ibid.}, but with a prediction into the
+    corresponding language.\\
+    \hline
+    \texttt{stacking\_window} & The predictions for any tokens in the
+    surrounding context window, into any of the available languages for this
+    run. \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Classifier features based on classifier stacking, used in these
+  experiments}
+  \label{fig:stackingfeatures}
+\end{figure*}
 
 \section{Experimental Results}
 \label{sec:multilingual-results}
