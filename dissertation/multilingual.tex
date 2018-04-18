@@ -187,13 +187,16 @@ based on text in the source language; they need not be trained from the same
 source text, depend on the same features, or even output words as labels.
 %% XXX: ... wait, what?
 
-\subsection{Classifier stacking in practice}
+\subsection{Annotating the bitext with stacking predictions}
+
 Here we train the baseline Chipa system, with the baseline feature set, on both
 Europarl bitext pairing Spanish with five other languages, and on verse-aligned
 Bible translations, for the same five European target languages. Following
 earlier work, including our system for SemEval and that of Lefever \emph{et
 al.}, the target languages used are Dutch, English, French, German, and
-Italian.
+Italian. For all of the stacking classifiers mapping from Spanish to another
+European language, we used a random forest classifier and the ``regular"
+setting.
 
 The bitext corpora are prepared with the tools distributed with the Europarl
 corpus, which conveniently produce sentence-aligned and tokenized bitext.  We
@@ -212,6 +215,13 @@ Spanish-German, and Spanish-Italian bitext corpora.
 %% XXX maybe move all this text into the sections about the individual corpora?
 %% XXX probably talk about how many sentence pairs we end up with?
 
+%% XXX need a better segue
+We annotated our bitext for Spanish-Guarani and Spanish-Quechua,
+training classifiers for each of the in-vocabulary focus words for that
+language pair (see Section \ref{sec:exploring}) based on the additional
+provided bitext, and marking up each source-language word in the bitext with
+its predicted translation into the available European languages.
+
 \section{Domain mismatches}
 
 In comparing the use of different corpora for our classifier stacking approach,
@@ -229,17 +239,17 @@ rarely in the Europarl text.
 
 The experiments in this chapter are analogous to the ones in previous chapters,
 with the addition of features based on classifier stacking. Following the work
-of Lefever \emph{et al.} and our earlier SemEval entry, we trained
-classifiers mapping from Spanish to Dutch, English, French German and Italian,
-based on both the Europarl corpus and our available Bible translations. When
-annotating the bitext for Spanish-Guarani, we trained classifiers for each of
-the in-vocabulary focus words for that language pair (see Section
-\ref{sec:exploring}), and likewise for Spanish-Quechua.
+of Lefever \emph{et al.} and our earlier SemEval entry, to get our stacking
+features, we trained classifiers mapping from Spanish to Dutch, English, French
+German and Italian, based on both the Europarl corpus and our available Bible
+translations.
 
-All classifiers were trained with the baseline features described in
-Chapter~\ref{chap:baseline}, and some were trained with the syntactic features
-described in Chapter~\ref{chap:monolingual}. The new features introduced in
-this chapter are presented in Figure~\ref{fig:stackingfeatures}.
+All classifiers used for the Spanish-Guarani and Spanish-Quechua tasks in this
+section were trained with the baseline features described in
+Chapter~\ref{chap:baseline}, as well as the new features introduced in this
+chapter; these are presented in Figure~\ref{fig:stackingfeatures}.
+We also trained classifiers with the addition of the syntactic features
+described in Chapter~\ref{chap:monolingual}.
 
 \begin{figure*}
   \begin{centering}
