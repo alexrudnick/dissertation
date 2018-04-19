@@ -238,18 +238,21 @@ rarely in the Europarl text.
 \label{sec:multilingual-experiments}
 
 The experiments in this chapter are analogous to the ones in previous chapters,
-with the addition of features based on classifier stacking. Following the work
-of Lefever \emph{et al.} and our earlier SemEval entry, to get our stacking
-features, we trained classifiers mapping from Spanish to Dutch, English, French
-German and Italian, based on both the Europarl corpus and our available Bible
-translations.
+with the addition of features based on classifier stacking. We ran the same
+machine learning algorithms on the same training and test sentences as in
+previous chapters, for both Spanish-Guarani and Spanish-Quechua.
 
-All classifiers used for the Spanish-Guarani and Spanish-Quechua tasks in this
-section were trained with the baseline features described in
-Chapter~\ref{chap:baseline}, as well as the new features introduced in this
-chapter; these are presented in Figure~\ref{fig:stackingfeatures}.
-We also trained classifiers with the addition of the syntactic features
-described in Chapter~\ref{chap:monolingual}.
+For all tasks in this section, we trained with the baseline features described
+in Chapter~\ref{chap:baseline}, as well as the new features introduced in this
+chapter; these are presented in Figure~\ref{fig:stackingfeatures}.  We also
+trained classifiers with the addition of the syntactic features described in
+Chapter~\ref{chap:monolingual}. Classifier stacking experiments were done with
+both ``English only" variants, in which the only additional features added were
+based on the Spanish-English classifier, and the ``five languages" variant,
+where we added features based on the predictions for Spanish to Dutch, English,
+French German and Italian. The predictions provided were based on classifiers
+trained on Europarl, on the Bible, and then both classifiers together; this
+last approach added two separate sets of stacking features to the classifiers.
 
 \begin{figure*}
   \begin{centering}
@@ -279,10 +282,10 @@ described in Chapter~\ref{chap:monolingual}.
 \section{Experimental Results}
 \label{sec:multilingual-results}
 
-This section contains many tables of numbers; in general, for each set of
+This section contains several tables of numbers; in general, for each set of
 experimental results presented, the top result for each setting is presented in
-\emph{italics}, and the top result for a setting presented in the whole chapter
-is presented in \textbf{bold}.
+\emph{italics}, and the top result for a setting presented in the whole
+chapter, or a result tied for the top result, is presented in \textbf{bold}.
 
 \subsection{Results: classifier stacking with Europarl}
 
