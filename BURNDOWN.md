@@ -7,9 +7,6 @@
 ## multilingual
   * do we need to run bible stacking + all sparse features, together? that's not
   hard to do, and it might be nice to see for comparison
-  * what if it turns out that the domain mismatch is too bad?
-    * maybe the sense distinctions in europarl aren't similar enough to the
-    bible.
 
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
@@ -240,6 +237,8 @@
   help? -- you know, it really doesn't help.
   * SKIP maybe also be like "here are the sense distinctions present in Europarl"
   * SKIP what's the accuracy of the trained classifiers on europarl? would that be good to report?
+  * DONE what if it turns out that the domain mismatch is too bad?
+  * SKIP maybe the sense distinctions in europarl aren't similar enough to the bible.
 
 ## sequence
 CANCELED!!
