@@ -75,6 +75,19 @@ European languages.
 \section{Multilingual evidence from Bible translations}
 %% XXX we're also going to have to write about training on the bibles here.
 
+
+\section{Considering domain mismatches}
+In comparing the use of different corpora for our classifier stacking approach,
+we want to ask to what extent the domain mismatch will play a role.
+The subjets discussed in European Parliament may not match that of our
+Spanish-Guarani and Spanish-Quechua corpora; furthermore, perhaps the Spanish
+words used may not match at all.
+
+Exploring the corpora a bit, we find that, indeed, many of the word types used
+in our Spanish Bible translation either never appear, or only appear very
+rarely in the Europarl text.
+
+
 \section{CL-WSD with Markov Networks}
 \label{sec:multilingual-mrf}
 In our SemEval entry \cite{rudnick-liu-gasser:2013:SemEval-2013}, we
@@ -146,10 +159,9 @@ estimated from our Dutch-French bitext, and the messages from the \emph{es},
   \includegraphics[width=5cm]{gn-qu-mrf.pdf}
   \end{center}
   \caption{Hypothetical network structure -- not fully connected -- that could
-  be used for a Markov network, if we had a bitext corpus for Spanish and every
-  other language, for German-English, and for German-Quechua. Here we draw a
-  shaded node for Spanish, representing the bitext between the source language
-  and each of the }
+  be used for a Markov network translating from Spanish to all of the six
+  languages shown, if we had a bitext corpus for Spanish and every
+  other language, for also for German-Quechua.}
   \label{fig:gn-qu-mrf}
 \end{figure}
 
@@ -161,9 +173,8 @@ mutually parallel among all of the languages present; each edge in the graph
 may correspond to an unrelated bitext corpus.  Also, in principle the graph
 need not be fully connected, as it was for our SemEval entry, but this approach
 does require bitext between the source language, our target language of
-interest, and at least one of the other language; see
-Figure~\ref{fig:gn-qu-mrf} for a hypothetical network structure that could be
-used, given the right bitext.
+interest, and at least one of the other language, so that our choices for that
+other language can inform our choices for the target language of interest.
 
 Considering the limited bitext resources available, this approach is less
 easily applicable for the under-resourced target language use case.  In the
@@ -221,18 +232,6 @@ training classifiers for each of the in-vocabulary focus words for that
 language pair (see Section \ref{sec:exploring}) based on the additional
 provided bitext, and marking up each source-language word in the bitext with
 its predicted translation into the available European languages.
-
-\section{Domain mismatches}
-
-In comparing the use of different corpora for our classifier stacking approach,
-we want to ask to what extent the domain mismatch will play a role.
-The subjets discussed in European Parliament may not match that of our
-Spanish-Guarani and Spanish-Quechua corpora; furthermore, perhaps the Spanish
-words used may not match at all.
-
-Exploring the corpora a bit, we find that, indeed, many of the word types used
-in our Spanish Bible translation either never appear, or only appear very
-rarely in the Europarl text.
 
 \section{Experiments}
 \label{sec:multilingual-experiments}
