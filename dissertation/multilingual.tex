@@ -1,13 +1,12 @@
 \chapter{Learning from Multilingual Data}
 \label{chap:multilingual}
-
 As discussed in previous chapters, while our target languages are
 under-resourced, we have many resources available for our source languages.
 Concretely for Spanish, in addition to the abundant monolingual text and
 off-the-shelf NLP tools, as discussed in Chapter \ref{chap:monolingual}, we
 have a significant amount of bitext, pairing Spanish with languages other than
 our under-resourced target languages. We would like to be able to learn from
-these other bitext corpora when translating from Spanish to Guarani and
+these available bitext corpora when translating from Spanish to Guarani and
 Quechua, and ideally in general from resource-rich source languages into
 under-resourced target languages.
 
@@ -44,26 +43,25 @@ want to use CL-WSD as a subcomponent of a machine translation system in the
 first place.
 
 In earlier work, considering the work of Lefever \emph{et. al}, we developed
-some prototype CL-WSD systems that made use of multilingual evidence
+prototype CL-WSD systems that made use of multilingual evidence
 \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the top
 results in a SemEval shared task on CL-WSD \cite{task10}.
-Here our systems trained with multilingual evidence posted better performance
-than the one that used monolingual features; our top results in every language
-came from either classifier stacking or the Markov network classifier. This
+Our systems trained with multilingual evidence posted better performance than
+the one that used monolingual features; our top results in every language came
+from either classifier stacking or the classifier based on Markov networks,
+which we will discuss briefly in Section~\ref{sec:multilingual-mrf}. This
 suggests that it is possible to use evidence in several parallel corpora for
 CL-WSD without translating source sentences into many target languages.
 
-In this SemEval paper, we presented two different approaches for making use of
-multilingual evidence. The more complex of them was a system based on graphical
-models that performed loopy belief propagation over Markov networks, which we
-will discuss briefly in Section~\ref{sec:multilingual-mrf}. The simpler
-approach described in that work was a relatively straightforward classifier
-stacking approach, where the outputs of several CL-WSD classifiers were used as
-input features for one final classifier. This approach is more immediately
-applicable to lexical selection when our target language is under-resourced, as
-it does not require bitext corpora between all of the involved languages.
+For the rest of the chapter, we will describe some of the bitext corpora that
+we can use for Spanish, the Markov network approach described in our SemEval
+entry, the classifier stacking approach, and present experiments using the
+classifier stacking approach for Spanish-Guarani and Spanish-Quechua CL-WSD
+tasks.
 
-\section{Multilingual evidence from the Europarl corpus} 
+\section{Multilingual corpora} 
+
+\subsection{Europarl}
 There are quite a few bitext resources available for many European languages,
 especially the official languages of the European Union.
 Through the Europarl corpus \cite{europarl}, for example, we have bitext
@@ -72,9 +70,9 @@ European languages.
 
 %% XXX what else to say about Europarl?
 
-\section{Multilingual evidence from Bible translations}
-%% XXX we're also going to have to write about training on the bibles here.
+\subsection{Bible translations}
 
+%% XXX Bible translations
 
 \section{Considering domain mismatches}
 In comparing the use of different corpora for our classifier stacking approach,
@@ -360,6 +358,11 @@ europarl stacking, 5 languages +syntactic & \emph{0.487} & 0.527 & \emph{0.473} 
 
 In Figure \ref{fig:bible-stacking-results}, we see our results for the
 experiments with stacking using Bibles as bitext.
+
+For the additional European languages, translations were made available as part
+of a project by Christodouloupoulos \emph{et
+al.}\cite{Christodouloupoulos2015}\footnote{Their provided Bible text is
+available online at \url{https://github.com/christos-c/bible-corpus}}
 
 
 \begin{figure*}
