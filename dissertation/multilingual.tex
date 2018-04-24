@@ -69,8 +69,16 @@ corpora in which Spanish is paired with English, German, French, and 17 other
 European languages.
 
 %% XXX what else to say about Europarl?
+%% XXX probably talk about how many sentence pairs we end up with?
+%% XXX also how the parallel sentence extraction happens, what scripts get
+%% used, how they're distributed with the corpus...
 
 \subsection{Bible translations}
+
+For the additional European languages, translations were made available as part
+of a project by Christodouloupoulos \emph{et
+al.}\cite{Christodouloupoulos2015}\footnote{Their provided Bible text is
+available online at \url{https://github.com/christos-c/bible-corpus}}
 
 %% XXX Bible translations
 
@@ -83,8 +91,12 @@ words used may not match at all.
 
 Exploring the corpora a bit, we find that, indeed, many of the word types used
 in our Spanish Bible translation either never appear, or only appear very
-rarely in the Europarl text.
+rarely in the Europarl text. And while there are many word types that are
+relatively commonly used in the Bible text that never appear in our Europarl
+corpus, these comprise a small fraction of the Bible text overall, and thus a
+small number of the CL-WSD problem instances in our experiments.
 
+%% XXX measurements go here
 
 \section{CL-WSD with Markov Networks}
 \label{sec:multilingual-mrf}
@@ -223,9 +235,6 @@ analogous to those described in the previous chapters, resulting in
 automatically aligned Spanish-Dutch, Spanish-English, Spanish-French,
 Spanish-German, and Spanish-Italian bitext corpora.
 
-%% XXX maybe move all this text into the sections about the individual corpora?
-%% XXX probably talk about how many sentence pairs we end up with?
-
 %% XXX need a better segue
 We annotated our bitext for Spanish-Guarani and Spanish-Quechua,
 training classifiers for each of the in-vocabulary focus words for that
@@ -358,11 +367,6 @@ europarl stacking, 5 languages +syntactic & \emph{0.487} & 0.527 & \emph{0.473} 
 
 In Figure \ref{fig:bible-stacking-results}, we see our results for the
 experiments with stacking using Bibles as bitext.
-
-For the additional European languages, translations were made available as part
-of a project by Christodouloupoulos \emph{et
-al.}\cite{Christodouloupoulos2015}\footnote{Their provided Bible text is
-available online at \url{https://github.com/christos-c/bible-corpus}}
 
 
 \begin{figure*}
