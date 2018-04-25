@@ -5,6 +5,11 @@
 ## monolingual
 
 ## multilingual
+  * note that there's a bunch of XML markup in the europarl corpus sentence
+  pair output, so you can't really count those lines when you're talking about
+  the size of the corpus. It looks like you get 2.5 million sentences for the
+  es-de and es-it (etc) corpora, but it's really just about the same size as the
+  es-en one.
   * do we need to run bible stacking + all sparse features, together? that's not
   hard to do, and it might be nice to see for comparison
 
