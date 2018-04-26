@@ -63,18 +63,33 @@ tasks.
 
 \subsection{Europarl}
 There are quite a few bitext resources available for many European languages,
-especially the official languages of the European Union.
-Through the Europarl corpus \cite{europarl}, for example, we have bitext
-corpora in which Spanish is paired with English, German, French, and 17 other
-European languages.
+especially the official languages of the European Union. Through the Europarl
+corpus \cite{europarl}, for example, we have bitext corpora in which Spanish is
+paired with English, German, French, and 17 other European languages.
 
-Using the automatic tools distributed with the Europarl corpus distribution, we
-produced sentence-aligned bitext, ending up with roughly 1.7 sentence pairs 
+Using the automatic tools distributed with the corpus\footnote{Available
+online at \url{http://statmt.org/europarl/}}, we produced sentence-aligned
+bitext, ending up with roughly 1.7 sentence pairs per language pair, though
+this number varies somewhat. After extracting these sentence pairs, we ran the
+extracted bitext through our standard preprocessing pipeline.
+
+%% XXX merge these two bits together
+The bitext corpora are prepared with the tools distributed with the Europarl
+corpus, which conveniently produce sentence-aligned and tokenized bitext.  We
+then preprocess the bitext with the same steps we used on our Bible text, as
+described in Section~\label{sec:datasetsandpreprocessing}. Where possible, we
+lemmatize the target-language text with FreeLing.  However, as of this writing
+FreeLing does not support Dutch, so for Dutch, we use the Frog text analysis
+tool\footnote{Frog was developed by groups at Tilburg University and the
+University of Antwerp. It is available at
+\url{http://languagemachines.github.io/frog/}} \cite{tadpole2007}. With the
+exception of the different lemmatizer for Dutch, the preprocessing steps are
+analogous to those described in the previous chapters, resulting in
+automatically aligned Spanish-Dutch, Spanish-English, Spanish-French,
+Spanish-German, and Spanish-Italian bitext corpora.
+
 
 %% XXX what else to say about Europarl?
-%% XXX probably talk about how many sentence pairs we end up with?
-%% XXX also how the parallel sentence extraction happens, what scripts get
-%% used, how they're distributed with the corpus...
 
 \subsection{Bible translations}
 
@@ -223,20 +238,6 @@ al.}, the target languages used are Dutch, English, French, German, and
 Italian. For all of the stacking classifiers mapping from Spanish to another
 European language, we used a random forest classifier and the ``regular"
 setting.
-
-The bitext corpora are prepared with the tools distributed with the Europarl
-corpus, which conveniently produce sentence-aligned and tokenized bitext.  We
-then preprocess the bitext with the same steps we used on our Bible text, as
-described in Section~\label{sec:datasetsandpreprocessing}. Where possible, we
-lemmatize the target-language text with FreeLing.  However, as of this writing
-FreeLing does not support Dutch, so for Dutch, we use the Frog text analysis
-tool\footnote{Frog was developed by groups at Tilburg University and the
-University of Antwerp. It is available at
-\url{http://languagemachines.github.io/frog/}} \cite{tadpole2007}. With the
-exception of the different lemmatizer for Dutch, the preprocessing steps are
-analogous to those described in the previous chapters, resulting in
-automatically aligned Spanish-Dutch, Spanish-English, Spanish-French,
-Spanish-German, and Spanish-Italian bitext corpora.
 
 %% XXX need a better segue
 We annotated our bitext for Spanish-Guarani and Spanish-Quechua,
