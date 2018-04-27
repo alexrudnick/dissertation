@@ -5,8 +5,11 @@
 ## monolingual
 
 ## multilingual
-  * do we need to run bible stacking + all sparse features, together? that's not
-  hard to do, and it might be nice to see for comparison
+  * talk about data sets and data preparation more coherently
+  * report measurements about domain mismatches
+  * explain results and write good outro
+  * MAYBESKIP do we need to run bible stacking + all sparse features, together?
+  that's not hard to do, and it might be nice to see for comparison
 
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
