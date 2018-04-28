@@ -215,18 +215,24 @@ use of it for translating into under-resourced languages, since we do not have
 many parallel corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
-The classifier stacking approach, in order to predict the translation of a word
-into a given target language, uses translations into \emph{other} available
-target languages as features.
+
+The simpler approach that we use in practice in this work in a form of
+classifier stacking. In order to predict the translation of a word into our
+intended target language, we use features based on our predictions for
+translations of tokens in the current sentence into \emph{other} available
+target languages.
 For example, for our SemEval prototype systems, in order to translate an
 English word into Spanish, we predict that word's translations into French,
 Italian, Dutch and German, and then encode those predicted translations as
 features for our English to Spanish classifier.
 
-This approach only requires that the classifiers make \emph{some} prediction
-based on text in the source language; they need not be trained from the same
-source text, depend on the same features, or even output words as labels.
-%% XXX: ... wait, what?
+This approach only requires that the classifiers used for generating new
+features make \emph{some} prediction based on the input text. These classifiers 
+need not be trained from the same source text, or depend on the same features,
+or even necessarily output words as features. Any annotation on the text that
+we believe is meaningful could be used for feature extraction; for example, we
+could use this technique using a monolingual WSD system that output word sense
+annotations.
 
 \subsection{Annotating the bitext with stacking predictions}
 
@@ -294,7 +300,7 @@ last approach added two separate sets of stacking features to the classifiers.
 \section{Experimental Results}
 \label{sec:multilingual-results}
 
-This section contains several tables of numbers; in general, for each set of
+This section contains several tables of numbers; as before, for each set of
 experimental results presented, the top result for each setting is presented in
 \emph{italics}, and the top result for a setting presented in the whole
 chapter, or a result tied for the top result, is presented in \textbf{bold}.
