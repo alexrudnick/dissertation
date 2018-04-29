@@ -221,7 +221,7 @@ classifier stacking. In order to predict the translation of a word into our
 intended target language, we use features based on our predictions for
 translations of tokens in the current sentence into \emph{other} available
 target languages.
-For example, for our SemEval prototype systems, in order to translate an
+For example, in our SemEval prototype systems, in order to translate an
 English word into Spanish, we predict that word's translations into French,
 Italian, Dutch and German, and then encode those predicted translations as
 features for our English to Spanish classifier.
@@ -229,10 +229,26 @@ features for our English to Spanish classifier.
 This approach only requires that the classifiers used for generating new
 features make \emph{some} prediction based on the input text. These classifiers 
 need not be trained from the same source text, or depend on the same features,
-or even necessarily output words as features. Any annotation on the text that
-we believe is meaningful could be used for feature extraction; for example, we
-could use this technique using a monolingual WSD system that output word sense
-annotations.
+or even necessarily output words as features. Similar to our use of syntactic
+NLP tools in the previous chapter, we could use any annotation on the text for
+extracting features, if we expect it will provide a meaningful clue about the
+meaning of the input. For example, we could use this technique with a
+monolingual WSD system that output word sense annotations and extract features
+from these sense labels.
+
+As a concrete example, say we are trying to translate a Spanish sentence to
+English, and we would like to make a lexical selection for the word
+\emph{estación}, which can translate to English as either ``station" (like a
+train station) or ``season".
+
+\enumsentence{
+Mi \emph{estación} favorita es la primavera. }
+\label{sent:estacion}
+
+If we had a Spanish to French CL-WSD system, and this system returned
+\emph{saison} (rather than \emph{gare}, the French word for a train station)
+for this instance of \emph{estación}, we would expect that this would be a very
+useful signal for our Spanish to English classifier.
 
 \subsection{Annotating the bitext with stacking predictions}
 
