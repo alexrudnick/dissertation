@@ -26,21 +26,22 @@ evidence for a certain lexical choice in the target language of interest.
 
 In this chapter, we present strategies for learning from the available bitext
 corpora that do not include our under-resourced target languages, to help us
-make better CL-WSD decisions when translating into them. Primarily we discuss a
-``classifier stacking" approach, in which we train CL-WSD classifiers
-translating from Spanish to other European languages, and use the outputs of
-these classifiers as features for Spanish to Quechua and Spanish to Guarani.
+make better CL-WSD decisions when translating into them. To establish
+consistent terminology, we will call these \emph{supplemental} bitext corpora.
+Primarily we discuss a ``classifier stacking" approach, in which we train
+CL-WSD classifiers translating from Spanish to other European languages, based
+on our supplemental corpora, and use the outputs of these classifiers as
+features for Spanish to Quechua and Spanish to Guarani.
 
 The approaches in this chapter are particularly informed by the work of Els
 Lefever \emph{et. al} (see especially
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}), in which entire source sentences
 are machine-translated into several different target languages just before
-feature extraction, and these entire sentences are used to produce signals for
-CL-WSD classifiers. One drawback of this technique is that it could be
+feature extraction, and these translated sentences are used to produce features
+for CL-WSD classifiers. One drawback of this technique is that it could be
 considered unwieldy from a software engineering perspective; it requires
-multiple complete MT systems to perform CL-WSD, which is rather complex when we
-want to use CL-WSD as a subcomponent of a machine translation system in the
-first place.
+multiple complete MT systems to perform CL-WSD, when we want to use CL-WSD as a
+subcomponent of a machine translation system in the first place.
 
 In earlier work, considering the work of Lefever \emph{et. al}, we developed
 prototype CL-WSD systems that made use of multilingual evidence
@@ -48,48 +49,52 @@ prototype CL-WSD systems that made use of multilingual evidence
 results in a SemEval shared task on CL-WSD \cite{task10}.
 Our systems trained with multilingual evidence posted better performance than
 the one that used monolingual features; our top results in every language came
-from either classifier stacking or the classifier based on Markov networks,
+from either classifier stacking or a classifier based on Markov networks,
 which we will discuss briefly in Section~\ref{sec:multilingual-mrf}. This
 suggests that it is possible to use evidence in several parallel corpora for
-CL-WSD without translating source sentences into many target languages.
+CL-WSD without translating input sentences into many target languages.
 
-For the rest of the chapter, we will describe some of the bitext corpora that
-we can use for Spanish, the Markov network approach described in our SemEval
-entry, the classifier stacking approach, and present experiments using the
-classifier stacking approach for Spanish-Guarani and Spanish-Quechua CL-WSD
-tasks.
+For the rest of the chapter, we will describe some of the supplemental bitext
+corpora that we can use for CL-WSD from Spanish, the Markov network approach
+described in our SemEval entry, and the classifier stacking approach. Then we
+present experiments and experimental results for Spanish-Guarani and
+Spanish-Quechua CL-WSD tasks, using the classifier stacking approach.
 
 \section{Multilingual corpora} 
 
+Following our earlier work, and that of Lefever \emph{et. al}, we limit the
+scope of our supplemental corpora to adding five additional languages; there is
+an enormous combinatorial potential for running experiments with different
+subsets of the available languages; in the interest of not only constraining
+the search space, but also not fishing for impressive-seeming results when we
+only have a small amount of bitext for the language pairs directly addressed in
+this work, we will only make use of Spanish to Dutch, English, French, German,
+and Italian. Experimenting with more language pairs, or different language
+pairs, may be effective or appropriate in other settings, but we consider it
+outside the scope of the current effort.
+
 \subsection{Europarl}
-There are quite a few bitext resources available for many European languages,
-especially the official languages of the European Union. Through the Europarl
-corpus \cite{europarl}, for example, we have bitext corpora in which Spanish is
-paired with English, German, French, and 17 other European languages.
+There are several freely available bitext resources for many European
+languages, especially the official languages of the European Union. Through the
+Europarl corpus \cite{europarl}, for example, we have bitext corpora in which
+Spanish is paired with English, German, French, and 17 other European
+languages.
 
 Using the automatic tools distributed with the corpus\footnote{Available
 online at \url{http://statmt.org/europarl/}}, we produced sentence-aligned
-bitext, ending up with roughly 1.7 sentence pairs per language pair, though
-this number varies somewhat. After extracting these sentence pairs, we ran the
-extracted bitext through our standard preprocessing pipeline.
-
-%% XXX merge these two bits together
-The bitext corpora are prepared with the tools distributed with the Europarl
-corpus, which conveniently produce sentence-aligned and tokenized bitext.  We
-then preprocess the bitext with the same steps we used on our Bible text, as
-described in Section~\label{sec:datasetsandpreprocessing}. Where possible, we
-lemmatize the target-language text with FreeLing.  However, as of this writing
-FreeLing does not support Dutch, so for Dutch, we use the Frog text analysis
-tool\footnote{Frog was developed by groups at Tilburg University and the
-University of Antwerp. It is available at
+and tokenized bitext, ending up with roughly 1.7 sentence pairs per language
+pair, though this number varies somewhat.
+We then preprocess the extracted bitext with the same steps used on our Bible
+text, as described in Section~\label{sec:datasetsandpreprocessing}. Where
+possible, we lemmatize the target-language text with FreeLing. However, as of
+this writing FreeLing does not support Dutch, so for Dutch, we use the Frog
+text analysis tool\footnote{Frog was developed by groups at Tilburg University
+and the University of Antwerp. It is available at
 \url{http://languagemachines.github.io/frog/}} \cite{tadpole2007}. With the
 exception of the different lemmatizer for Dutch, the preprocessing steps are
 analogous to those described in the previous chapters, resulting in
 automatically aligned Spanish-Dutch, Spanish-English, Spanish-French,
 Spanish-German, and Spanish-Italian bitext corpora.
-
-
-%% XXX what else to say about Europarl?
 
 \subsection{Bible translations}
 
@@ -103,9 +108,15 @@ available online at \url{https://github.com/christos-c/bible-corpus}}
 \section{Considering domain mismatches}
 In comparing the use of different corpora for our classifier stacking approach,
 we want to ask to what extent the domain mismatch will play a role.
-The subjets discussed in European Parliament may not match that of our
-Spanish-Guarani and Spanish-Quechua corpora; furthermore, perhaps the Spanish
-words used may not match at all.
+The subjects discussed in European Parliament may not match that of our
+Spanish-Guarani and Spanish-Quechua Bible corpora; furthermore, perhaps the
+word types used may not match at all. This issue is especially relevant for the
+techniques described in this chapter; if we do not have any examples of a given
+word type in our additional bitext corpus ...
+
+%% XXX working here
+%% corpus to help us 
+%% to train a classifier
 
 Exploring the corpora a bit, we find that, indeed, many of the word types used
 in our Spanish Bible translation either never appear, or only appear very
