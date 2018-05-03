@@ -280,21 +280,23 @@ useful signal for our Spanish to English classifier.
 
 \subsection{Annotating the bitext with stacking predictions}
 
-Here we train the baseline Chipa system, with the baseline feature set, on both
-Europarl bitext pairing Spanish with five other languages, and on verse-aligned
-Bible translations, for the same five European target languages. Following
-earlier work, including our system for SemEval and that of Lefever \emph{et
-al.}, the target languages used are Dutch, English, French, German, and
-Italian. For all of the stacking classifiers mapping from Spanish to another
-European language, we used a random forest classifier and the ``regular"
-setting.
+Here we train the baseline Chipa system with the default feature set described
+in Chapter~\ref{chap:baseline}, on both Europarl bitext and on verse-aligned
+Bible translations, for the same five European target languages. For all of
+the stacking classifiers mapping from Spanish to another European language, we
+used a random forest classifier and the ``regular" setting. So as a result, we
+came up with ten different sets of stacking classifiers, the first five of
+which were trained with Europarl data, and the latter five with Bible data.
 
-%% XXX need a better segue
-We annotated our bitext for Spanish-Guarani and Spanish-Quechua,
-training classifiers for each of the in-vocabulary focus words for that
-language pair (see Section \ref{sec:exploring}) based on the additional
-provided bitext, and marking up each source-language word in the bitext with
-its predicted translation into the available European languages.
+We then annotate our bitext for Spanish-Guarani and Spanish-Quechua, finding
+each instance of the in-vocabulary focus words for that language pair (see
+Section \ref{sec:exploring}) and classifying that instance with each of the
+trained CL-WSD classifiers. The prediction for each instance, for each
+classifier, is recorded as an annotation on that token (see Section
+\ref{sec:annotations}), for use in later feature extraction. If no prediction
+was made for a given token, either because a word is not in our list of focus
+words for the given language pair, or because there were too few instances of
+that word in the supplemental bitext, then no annotation is recorded.
 
 \section{Experiments}
 \label{sec:multilingual-experiments}
@@ -315,6 +317,10 @@ where we added features based on the predictions for Spanish to Dutch, English,
 French German and Italian. The predictions provided were based on classifiers
 trained on Europarl, on the Bible, and then both classifiers together; this
 last approach added two separate sets of stacking features to the classifiers.
+In addition to simply including the predictions for the current focus word as
+features, we also include features based on predictions that we were able to
+make for any tokens in a context window three tokens on either side of the
+current focus word.
 
 \begin{figure*}
   \begin{centering}
@@ -327,7 +333,7 @@ last approach added two separate sets of stacking features to the classifiers.
     made for this token. \\
     \hline
     \texttt{stacking\_de}, \texttt{stacking\_fr}, \texttt{stacking\_it},
-    \texttt{stacking\_nl} & \emph{ibid.}, but with a prediction into the
+    \texttt{stacking\_nl} & as before, but with a prediction into the
     corresponding language.\\
     \hline
     \texttt{stacking\_window} & The predictions for any tokens in the
@@ -352,7 +358,7 @@ chapter, or a result tied for the top result, is presented in \textbf{bold}.
 \subsection{Results: classifier stacking with Europarl}
 
 In Figure \ref{fig:europarl-stacking-results}, we present results for the
-experiments with stacking using the Europarl bitext.
+experiments with stacking using the Europarl bitext. We see a modest... 
 
 \begin{figure*}
   \begin{centering}
