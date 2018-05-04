@@ -358,7 +358,11 @@ chapter, or a result tied for the top result, is presented in \textbf{bold}.
 \subsection{Results: classifier stacking with Europarl}
 
 In Figure \ref{fig:europarl-stacking-results}, we present results for the
-experiments with stacking using the Europarl bitext. We see a modest... 
+experiments with stacking using the Europarl bitext. We see a performance
+improvement here for the L2-norm maximum entropy and random forest classifiers;
+for both language pairs and both settings, we see an improvement of two to four
+tenths of a percentage point when using all five Europarl languages, and a
+smaller benefit from using Spanish-English only.
 
 \begin{figure*}
   \begin{centering}
@@ -553,4 +557,22 @@ both stacking, 5 languages +syntactic & \textbf{0.492} & 0.533 & \emph{0.475} & 
 \end{figure*}
 
 \section{Discussion}
+In this chapter we have described a straightforward approach for making use of
+supplemental bitext corpora that pair our resource-rich source language with
+languages other than our under-resourced target languages, adding annotations
+to our bitext corpus based on the predictions of CL-WSD classifiers trained on
+these supplemental bitext corpora.
 
+We see a small but consistent performance gains from this approach when we
+train on corpora of a different domain (the Europarl corpora), and a larger
+gain when we train on corpora that match the domain of our bitext for the
+under-resourced languages (our multilingual Bibles). The gain from using the
+supplemental corpora with a close domain match was roughly as large as that
+from adding syntactic annotations, described in the previous chapter.
+Happily, we find that multilingual evidence and syntactic annotations can be
+used together effectively; we can train the highest-performing CL-WSD
+classifiers in this work so far by adding both sets of features.
+
+In the next chapter, we will switch our focus to practical applications of
+CL-WSD and the Chipa software, showing how it can be integrated into a sampling
+of MT systems of different architectures, improving MT performance in practice.
