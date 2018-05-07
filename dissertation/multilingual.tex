@@ -11,13 +11,13 @@ Quechua, and ideally in general from resource-rich source languages into
 under-resourced target languages.
 
 Each bitext corpus may contain useful examples of a given source language word,
-and senses of that word may be lexicalized differently in the various target
+and senses of that word may be lexicalized in distinct ways in different target
 languages, giving us clues about the meaning of each token in its context.
 Selecting a contextually correct translation for source-language words is
 evidence that we have understood the meaning of those words, at least
 implicitly, in as far as sense distinctions are surfaced in the target
 language. So we would like our system to be able to learn relationships between
-the senses of a given source word, as they are represented in different target
+the senses of a given source word as they are represented in different target
 languages. Two target languages may happen to surface similar sense
 distinctions, perhaps due to being related languages, or perhaps because a word
 sense ambiguity is unusual in the source language, or simply by coincidence.
@@ -29,9 +29,9 @@ corpora that do not include our under-resourced target languages, to help us
 make better CL-WSD decisions when translating into them. To establish
 consistent terminology, we will call these \emph{supplemental} bitext corpora.
 Primarily we discuss a ``classifier stacking" approach, in which we train
-CL-WSD classifiers translating from Spanish to other European languages, based
-on our supplemental corpora, and use the outputs of these classifiers as
-features for Spanish to Quechua and Spanish to Guarani.
+``supplemental" CL-WSD classifiers translating from Spanish to other European
+languages, based on our supplemental corpora, and use the outputs of these
+classifiers as features for Spanish to Quechua and Spanish to Guarani.
 
 The approaches in this chapter are particularly informed by the work of Els
 Lefever \emph{et. al} (see especially
@@ -50,17 +50,18 @@ results in a SemEval shared task on CL-WSD \cite{task10}.
 Our systems trained with multilingual evidence posted better performance than
 the one that used monolingual features; our top results in every language came
 from either classifier stacking or a classifier based on Markov networks,
-which we will discuss briefly in Section~\ref{sec:multilingual-mrf}. This
-suggests that it is possible to use evidence in several parallel corpora for
-CL-WSD without translating input sentences into many target languages.
+an approach which we will discuss briefly in
+Section~\ref{sec:multilingual-mrf}. This suggests that it is possible to use
+evidence in several parallel corpora for CL-WSD without translating input
+sentences into many target languages.
 
 For the rest of the chapter, we will describe some of the supplemental bitext
 corpora that we can use for CL-WSD from Spanish, the Markov network approach
 described in our SemEval entry, and the classifier stacking approach. Then we
-present experiments and experimental results for Spanish-Guarani and
-Spanish-Quechua CL-WSD tasks, using the classifier stacking approach.
+present experiments and experimental results using classifier stacking for
+Spanish-Guarani and Spanish-Quechua CL-WSD tasks.
 
-\section{Multilingual corpora} 
+\section{Supplemental multilingual corpora} 
 
 Following our earlier work, and that of Lefever \emph{et. al}, we limit the
 scope of our supplemental corpora to adding five additional languages; there is
@@ -78,7 +79,14 @@ There are several freely available bitext resources for many European
 languages, especially the official languages of the European Union. Through the
 Europarl corpus \cite{europarl}, for example, we have bitext corpora in which
 Spanish is paired with English, German, French, and 17 other European
-languages.
+languages. This corpus is derived from the human-translated proceedings of
+European Parliament, and so its subject matter pertains to parliamentary
+procedure and discussions pertinent to modern-day European policy issues; while
+it provides a substantial sample of bitext, it does not at first glance seem
+particularly similar to our Bible bitext for Spanish-Guarani and
+Spanish-Quechua. We will investigate the differences in text domain further in
+Section~\ref{sec:domainmismatches}, but whether this text is helpful in
+practice is an empirical question.
 
 Using the automatic tools distributed with the corpus\footnote{Available
 online at \url{http://statmt.org/europarl/}}, we produced sentence-aligned
@@ -90,22 +98,28 @@ possible, we lemmatize the target-language text with FreeLing. However, as of
 this writing FreeLing does not support Dutch, so for Dutch, we use the Frog
 text analysis tool\footnote{Frog was developed by groups at Tilburg University
 and the University of Antwerp. It is available at
-\url{http://languagemachines.github.io/frog/}} \cite{tadpole2007}. With the
-exception of the different lemmatizer for Dutch, the preprocessing steps are
-analogous to those described in the previous chapters, resulting in
-automatically aligned Spanish-Dutch, Spanish-English, Spanish-French,
-Spanish-German, and Spanish-Italian bitext corpora.
+\url{http://languagemachines.github.io/frog/}} \cite{tadpole2007} for
+lemmatization. With the exception of the different lemmatizer for Dutch, the
+preprocessing steps are the same as those described in the previous chapters,
+resulting in automatically aligned Spanish-Dutch, Spanish-English,
+Spanish-French, Spanish-German, and Spanish-Italian bitext corpora for our
+experiments.
 
 \subsection{Bible translations}
 
-For the additional European languages, translations were made available as part
-of a project by Christodouloupoulos \emph{et
+For the additional European languages, Bible translations were made available
+as part of a project by Christodouloupoulos \emph{et
 al.}\cite{Christodouloupoulos2015}\footnote{Their provided Bible text is
-available online at \url{https://github.com/christos-c/bible-corpus}}
-
-%% XXX Bible translations
+available online at \url{https://github.com/christos-c/bible-corpus}}. It is
+fortunate that these translations are freely available online; as discussed
+previously in Section~\label{sec:datasetsandpreprocessing}, not all languages
+have publicly redistributable full-text Bibles available. As an additional
+convenience, the Bible translations provided by Christodouloupoulos \emph{et
+al.} come in a standardized XML-based format\footnote{Appropriately called the
+Corpus Encoding Standard, described at \url{https://www.cs.vassar.edu/CES/}}.
 
 \section{Considering domain mismatches}
+\label{sec:domainmismatches}
 In comparing the use of different corpora for our classifier stacking approach,
 we want investigate to what extent the domain mismatch will play a role.
 The subjects discussed in European Parliament may not match that of our
