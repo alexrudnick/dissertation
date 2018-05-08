@@ -6,7 +6,6 @@
 
 ## multilingual
   * talk about data sets and data preparation more coherently
-  * report measurements about domain mismatches
   * explain results and write good outro
   * MAYBESKIP do we need to run bible stacking + all sparse features, together?
   that's not hard to do, and it might be nice to see for comparison
@@ -247,6 +246,7 @@
   talking about the size of the corpus. It looks like you get 2.5 million
   sentences for the es-de and es-it (etc) corpora, but it's really just about
   the same size as the es-en one.
+  * DONE report measurements about domain mismatches
 
 ## sequence
 CANCELED!!
