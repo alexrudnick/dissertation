@@ -124,18 +124,16 @@ In comparing the use of different corpora for our classifier stacking approach,
 we want investigate to what extent the domain mismatch will play a role.
 The subjects discussed in European Parliament may not match that of our
 Spanish-Guarani and Spanish-Quechua Bible corpora; furthermore, perhaps the
-word types used may not match at all. This issue is especially relevant for the
-techniques described in this chapter; if we do not have any examples of a given
-word type in our supplemental bitext, then we cannot train supplemental
-classifiers to help us with our main classification task.
+word types used in the text may not match at all. This issue is especially
+relevant for the techniques described in this chapter; if we do not have any
+examples of a given word type in our supplemental bitext, then we cannot train
+supplemental classifiers to help us with our main classification task.
 
-%% XXX working here
-
-Exploring the corpora a bit, we find that, indeed, many of the word types used
+Comparing our bitext corpora, we find that, indeed, many of the word types used
 in our Spanish Bible translation either never appear, or only appear very
 rarely in the Europarl text. However, while there are many word types that are
-relatively commonly used in the Bible text that never appear in our Europarl
-corpus, these comprise a small fraction of the Bible text overall, and thus a
+commonly used in the Bible text that never appear in our Europarl corpus, these
+make up a small fraction of the tokens of the Bible text overall, and thus a
 small number of the CL-WSD problem instances in our experiments.
 
 Here we focus on word types that appear at least fifty times in the Bible
@@ -152,10 +150,13 @@ bitext, the majority are either names for people (\emph{e.g.}, \emph{Zacarías},
 \emph{Galaad}). Other common themes are colocations referring to God (these are
 joined into a single token during preprocessing; \emph{e.g.},
 \emph{Cristo\_Jesús}, \emph{Señor\_Jesucristo} and \emph{Dios\_de\_Israel}. We
-also see concepts that are simply not the who are not often discussed in
-European Parliament, such as \emph{fornicación} ('fornication'), \emph{ungir}
-('to anoint'), \emph{heredad} ('inheritance'), and \emph{querubín}
-('cherub').
+also see concepts that are simply not often discussed in European Parliament,
+such as \emph{fornicación} ('fornication'), \emph{ungir} ('to anoint'),
+\emph{heredad} ('inheritance'), and \emph{querubín} ('cherub')\footnote{Those
+familiar with the English word ``cherub" and its Hebrew-style plural
+``cherubim" might expect that the Spanish \emph{cherubín} would be plural.
+However, this word refers to a singular angel, and the plural of
+\emph{cherubín} is \emph{cherubines}.}.
 
 However, turning our focus to tokens, rather than word types, our annotation
 process based on the Europarl bitext is able to come up with some prediction
