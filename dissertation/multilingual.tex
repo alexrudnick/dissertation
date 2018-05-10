@@ -274,7 +274,6 @@ use of it for translating into under-resourced languages, since we do not have
 many parallel corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
-
 The simpler approach that we use in practice in this work in a form of
 classifier stacking. In order to predict the translation of a word into our
 intended target language, we use features based on our predictions for
@@ -307,10 +306,39 @@ Mi \emph{estación} favorita es la primavera. }
 If we had a Spanish to French CL-WSD system, and this system returned
 \emph{saison} (rather than \emph{gare}, the French word for a train station)
 for this instance of \emph{estación}, we would expect that this would be a very
-useful signal for our Spanish to English classifier.
+useful signal for our Spanish to English classifier, helping it pick the
+``season" sense.
+
+See Figure~\ref{fig:stackingfeatures} for an overview of the features made
+available to classifiers based on these supplemental classifiers in our
+stacking experiments.
+
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|p{3.5cm}|p{11cm}|}
+    \hline
+    name          & description  \\
+    \hline
+    \texttt{stacking\_en} & Predicted translation of the current token into
+    English, if one was available. Feature is not present if no prediction was
+    made for this token. \\
+    \hline
+    \texttt{stacking\_de}, \texttt{stacking\_fr}, \texttt{stacking\_it},
+    \texttt{stacking\_nl} & as before, but with a prediction into the
+    corresponding language.\\
+    \hline
+    \texttt{stacking\_window} & The predictions for any tokens in the
+    surrounding context window, into any of the available languages for this
+    run. \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Classifier features based on classifier stacking, used in the
+  experiments in this chapter.}
+  \label{fig:stackingfeatures}
+\end{figure*}
 
 \subsection{Annotating the bitext with stacking predictions}
-
 Here we train the baseline Chipa system with the default feature set described
 in Chapter~\ref{chap:baseline}, on both Europarl bitext and on verse-aligned
 Bible translations, for the same five European target languages. For all of
@@ -337,46 +365,21 @@ with the addition of features based on classifier stacking. We ran the same
 machine learning algorithms on the same training and test sentences as in
 previous chapters, for both Spanish-Guarani and Spanish-Quechua.
 
-For all tasks in this section, we trained with the baseline features described
-in Chapter~\ref{chap:baseline}, as well as the new features introduced in this
-chapter; these are presented in Figure~\ref{fig:stackingfeatures}.  We also
-trained classifiers with the addition of the syntactic features described in
-Chapter~\ref{chap:monolingual}. Classifier stacking experiments were done with
-both ``English only" variants, in which the only additional features added were
-based on the Spanish-English classifier, and the ``five languages" variant,
-where we added features based on the predictions for Spanish to Dutch, English,
-French German and Italian. The predictions provided were based on classifiers
-trained on Europarl, on the Bible, and then both classifiers together; this
-last approach added two separate sets of stacking features to the classifiers.
-In addition to simply including the predictions for the current focus word as
-features, we also include features based on predictions that we were able to
-make for any tokens in a context window three tokens on either side of the
-current focus word.
-
-\begin{figure*}
-  \begin{centering}
-  \begin{tabular}{|p{3.5cm}|p{11cm}|}
-    \hline
-    name          & description  \\
-    \hline
-    \texttt{stacking\_en} & Predicted translation of the current token into
-    English, if one was available. Feature is not present if no prediction was
-    made for this token. \\
-    \hline
-    \texttt{stacking\_de}, \texttt{stacking\_fr}, \texttt{stacking\_it},
-    \texttt{stacking\_nl} & as before, but with a prediction into the
-    corresponding language.\\
-    \hline
-    \texttt{stacking\_window} & The predictions for any tokens in the
-    surrounding context window, into any of the available languages for this
-    run. \\
-    \hline
-  \end{tabular}
-  \end{centering}
-  \caption{Classifier features based on classifier stacking, used in these
-  experiments}
-  \label{fig:stackingfeatures}
-\end{figure*}
+For all tasks in this section, we trained classifiers with the baseline
+features described in Chapter~\ref{chap:baseline}, as well as the new features
+introduced in this chapter; these are presented in
+Figure~\ref{fig:stackingfeatures}.  We also trained classifiers with the
+addition of the syntactic features described in Chapter~\ref{chap:monolingual}.
+Classifier stacking experiments were done with both ``English only" variants,
+in which the only additional features added were based on the Spanish-English
+classifier, and the ``five languages" variant, where we added features based on
+the predictions for Spanish to Dutch, English, French German and Italian. The
+predictions provided were based on classifiers trained on Europarl, on the
+Bible, and then both classifiers together; this last approach added two
+distinct sets of stacking features to the classifiers.  In addition to simply
+including the predictions for the current focus word as features, we also
+include features based on predictions that we were able to make for any tokens
+in a context window three tokens on either side of the current focus word.
 
 \section{Experimental Results}
 \label{sec:multilingual-results}
@@ -461,8 +464,15 @@ europarl stacking, 5 languages +syntactic & \emph{0.487} & 0.527 & \emph{0.473} 
 \subsection{Results: classifier stacking with Bibles}
 
 In Figure \ref{fig:bible-stacking-results}, we see our results for the
-experiments with stacking using Bibles as bitext.
-
+experiments with stacking using Bibles as bitext. In general, we see some of
+the most significant improvements in this work in these experiments. The
+addition of features based on the classifiers trained on European-language
+Bibles provided a performance boost comparable with (and largely greater than)
+that of using syntactic analysis features. In general, we gain a few tenths of
+a percentage point by simply adding the English-language Bible features, and
+then a few more tenths of a percent by adding stacking predictions for the
+other four languages. In all of these cases, adding syntactic features seems to
+additionally help.
 
 \begin{figure*}
   \begin{centering}
