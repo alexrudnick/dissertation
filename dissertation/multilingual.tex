@@ -3,12 +3,12 @@
 As discussed in previous chapters, while our target languages are
 under-resourced, we have many resources available for our source languages.
 Concretely for Spanish, in addition to the abundant monolingual text and
-off-the-shelf NLP tools, as discussed in Chapter \ref{chap:monolingual}, we
+off-the-shelf NLP tools discussed in Chapter \ref{chap:monolingual}, we
 have a significant amount of bitext, pairing Spanish with languages other than
 our under-resourced target languages. We would like to be able to learn from
 these available bitext corpora when translating from Spanish to Guarani and
-Quechua, and ideally in general from resource-rich source languages into
-under-resourced target languages.
+Quechua, and ideally when translating from resource-rich source languages into
+under-resourced target languages in general.
 
 Each bitext corpus may contain useful examples of a given source language word,
 and senses of that word may be lexicalized in distinct ways in different target
@@ -16,7 +16,7 @@ languages, giving us clues about the meaning of each token in its context.
 Selecting a contextually correct translation for source-language words is
 evidence that we have understood the meaning of those words, at least
 implicitly, in as far as sense distinctions are surfaced in the target
-language. So we would like our system to be able to learn relationships between
+language. So we would like to be able to learn relationships between
 the senses of a given source word as they are represented in different target
 languages. Two target languages may happen to surface similar sense
 distinctions, perhaps due to being related languages, or perhaps because a word
@@ -30,8 +30,9 @@ make better CL-WSD decisions when translating into them. To establish
 consistent terminology, we will call these \emph{supplemental} bitext corpora.
 Primarily we discuss a ``classifier stacking" approach, in which we train
 ``supplemental" CL-WSD classifiers translating from Spanish to other European
-languages, based on our supplemental corpora, and use the outputs of these
-classifiers as features for Spanish to Quechua and Spanish to Guarani.
+languages, based on our supplemental corpora, and use their outputs 
+to provide more features for the Spanish to Quechua and Spanish to
+Guarani classifiers.
 
 The approaches in this chapter are particularly informed by the work of Els
 Lefever \emph{et. al} (see especially
@@ -71,8 +72,8 @@ the search space, but also not fishing for impressive-seeming results when we
 only have a small amount of bitext for the language pairs directly addressed in
 this work, we will only make use of Spanish to Dutch, English, French, German,
 and Italian. Experimenting with more language pairs, or different language
-pairs, may be effective or appropriate in other settings, but we consider it
-outside the scope of the current effort.
+pairs, may be effective or appropriate in other settings, but here we consider
+it outside the scope of the current effort.
 
 \subsection{Europarl}
 There are several freely available bitext resources for many European
@@ -81,19 +82,20 @@ Europarl corpus \cite{europarl}, for example, we have bitext corpora in which
 Spanish is paired with English, German, French, and 17 other European
 languages. This corpus is derived from the human-translated proceedings of
 European Parliament, and so its subject matter pertains to parliamentary
-procedure and discussions pertinent to modern-day European policy issues; while
+procedure and modern-day European policy issues; while
 it provides a substantial sample of bitext, it does not at first glance seem
 particularly similar to our Bible bitext for Spanish-Guarani and
 Spanish-Quechua. We will investigate the differences in text domain further in
-Section~\ref{sec:domainmismatches}, but whether this text is helpful in
-practice is an empirical question.
+Section~\ref{sec:domainmismatches}, but whether this text is helpful for our
+task in practice is an empirical question.
 
 Using the automatic tools distributed with the corpus\footnote{Available
 online at \url{http://statmt.org/europarl/}}, we produced sentence-aligned
-and tokenized bitext, ending up with roughly 1.7 sentence pairs per language
-pair, though this number varies somewhat.
+and tokenized bitext, ending up with roughly 1.8 million sentence pairs per
+language pair, though this number varies somewhat; see
+Figure~\ref{fig:europarlsize} for specific bitext corpora sizes.
 We then preprocess the extracted bitext with the same steps used on our Bible
-text, as described in Section~\label{sec:datasetsandpreprocessing}. Where
+text, as described in Section~\ref{sec:datasetsandpreprocessing}. Where
 possible, we lemmatize the target-language text with FreeLing. However, as of
 this writing FreeLing does not support Dutch, so for Dutch, we use the Frog
 text analysis tool\footnote{Frog was developed by groups at Tilburg University
@@ -105,6 +107,29 @@ resulting in automatically aligned Spanish-Dutch, Spanish-English,
 Spanish-French, Spanish-German, and Spanish-Italian bitext corpora for our
 experiments.
 
+\begin{figure*}
+  \begin{centering}
+  \begin{tabular}{|r|l|}
+    \hline
+    Language pair & number of bitext sentences \\
+    \hline
+    Spanish-Dutch & $1,801,844$ \\
+    \hline
+    Spanish-English & $1,816,554$ \\
+    \hline
+    Spanish-French & $1,834,957$ \\
+    \hline
+    Spanish-German & $1,747,525$ \\
+    \hline
+    Spanish-Italian & $1,740,939$ \\
+    \hline
+  \end{tabular}
+  \end{centering}
+  \caption{Classifier features based on classifier stacking, used in the
+  experiments in this chapter.}
+  \label{fig:europarlsize}
+\end{figure*}
+
 \subsection{Bible translations}
 
 For the additional European languages, Bible translations were made available
@@ -112,11 +137,13 @@ as part of a project by Christodouloupoulos \emph{et
 al.}\cite{Christodouloupoulos2015}\footnote{Their provided Bible text is
 available online at \url{https://github.com/christos-c/bible-corpus}}. It is
 fortunate that these translations are freely available online; as discussed
-previously in Section~\label{sec:datasetsandpreprocessing}, not all languages
+previously in Section~\ref{sec:datasetsandpreprocessing}, not all languages
 have publicly redistributable full-text Bibles available. As an additional
 convenience, the Bible translations provided by Christodouloupoulos \emph{et
 al.} come in a standardized XML-based format\footnote{Appropriately called the
-Corpus Encoding Standard, described at \url{https://www.cs.vassar.edu/CES/}}.
+Corpus Encoding Standard, described at \url{https://www.cs.vassar.edu/CES/}},
+making extraction of the text and reuse of the rest of our tooling
+straightforward.
 
 \section{Considering domain mismatches}
 \label{sec:domainmismatches}
