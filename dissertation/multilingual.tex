@@ -143,18 +143,23 @@ convenience, the Bible translations provided by Christodouloupoulos \emph{et
 al.} come in a standardized XML-based format\footnote{Appropriately called the
 Corpus Encoding Standard, described at \url{https://www.cs.vassar.edu/CES/}},
 making extraction of the text and reuse of the rest of our tooling
-straightforward.
+straightforward. Preparation and preprocessing for the supplemental Bible
+corpora proceeds as before, similarly to the preparation done for our Europarl
+supplemental bitext and the Spanish-Guarani and Spanish-Quechua Bibles bitext.
 
 \section{Considering domain mismatches}
 \label{sec:domainmismatches}
-In comparing the use of different corpora for our classifier stacking approach,
-we want investigate to what extent the domain mismatch will play a role.
+We might be concerned about the domain mismatch between our larger supplemental
+bitexts, from the Europarl corpus, and the Bible text that we are using for
+Spanish-Guarani and Spanish-Quechua.
 The subjects discussed in European Parliament may not match that of our
-Spanish-Guarani and Spanish-Quechua Bible corpora; furthermore, perhaps the
-word types used in the text may not match at all. This issue is especially
-relevant for the techniques described in this chapter; if we do not have any
-examples of a given word type in our supplemental bitext, then we cannot train
-supplemental classifiers to help us with our main classification task.
+Spanish-Guarani and Spanish-Quechua Bible corpora; we could imagine a very
+unfortunate scenario in which common word types used in the different corpora
+simply do not have large overlaps.
+This issue is especially relevant for the techniques described in this chapter;
+if we do not have any examples of a given word type in our supplemental bitext,
+then we cannot train supplemental classifiers to help us with our main
+classification task.
 
 Comparing our bitext corpora, we find that, indeed, many of the word types used
 in our Spanish Bible translation either never appear, or only appear very
