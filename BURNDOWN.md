@@ -5,11 +5,6 @@
 ## monolingual
 
 ## multilingual
-  * ... is the writing here mostly done? take a good edit pass and send it in!
-  * DONE talk about data sets and data preparation more coherently
-  * DONE explain results and write good outro
-  * MAYBESKIP do we need to run bible stacking + all sparse features, together?
-  that's not hard to do, and it might be nice to see for comparison
 
 ## integration
   * figure out what the simplest thing we can do is that demonstrates an
@@ -248,6 +243,11 @@
   sentences for the es-de and es-it (etc) corpora, but it's really just about
   the same size as the es-en one.
   * DONE report measurements about domain mismatches
+  * DONE ... is the writing here mostly done? take a good edit pass and send it in!
+  * DONE talk about data sets and data preparation more coherently
+  * DONE explain results and write good outro
+  * MAYBESKIP do we need to run bible stacking + all sparse features, together?
+  that's not hard to do, and it might be nice to see for comparison
 
 ## sequence
 CANCELED!!
