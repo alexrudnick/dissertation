@@ -64,16 +64,16 @@ Spanish-Guarani and Spanish-Quechua CL-WSD tasks.
 
 \section{Supplemental multilingual corpora} 
 
-Following our earlier work, and that of Lefever \emph{et. al}, we limit the
+Following our earlier work and that of Lefever \emph{et. al}, we limit the
 scope of our supplemental corpora to adding five additional languages; there is
-an enormous combinatorial potential for running experiments with different
-subsets of the available languages; in the interest of not only constraining
-the search space, but also not fishing for impressive-seeming results when we
-only have a small amount of bitext for the language pairs directly addressed in
-this work, we will only make use of Spanish to Dutch, English, French, German,
-and Italian. Experimenting with more language pairs, or different language
-pairs, may be effective or appropriate in other settings, but here we consider
-it outside the scope of the current effort.
+an enormous combinatorial space for running experiments with different subsets
+of the available bitexts in different languages; in the interest of not only
+constraining the search space, but also not fishing for impressive-seeming
+results when we only have a small amount of bitext for the language pairs
+directly addressed in this work, we will only make use of Spanish to Dutch,
+English, French, German, and Italian. Experimenting with more language pairs,
+or different language pairs, may be effective or appropriate in other settings,
+but here we consider it outside the scope of the current effort.
 
 \subsection{Europarl}
 There are several freely available bitext resources for many European
@@ -111,7 +111,7 @@ experiments.
   \begin{centering}
   \begin{tabular}{|r|l|}
     \hline
-    Language pair & number of bitext sentences \\
+    Language pair & number of sentence pairs \\
     \hline
     Spanish-Dutch & $1,801,844$ \\
     \hline
@@ -142,7 +142,7 @@ have publicly redistributable full-text Bibles available. As an additional
 convenience, the Bible translations provided by Christodouloupoulos \emph{et
 al.} come in a standardized XML-based format\footnote{Appropriately called the
 Corpus Encoding Standard, described at \url{https://www.cs.vassar.edu/CES/}},
-making extraction of the text and reuse of the rest of our tooling
+making extraction of the text and reuse of the text with our tooling
 straightforward. Preparation and preprocessing for the supplemental Bible
 corpora proceeds as before, similarly to the preparation done for our Europarl
 supplemental bitext and the Spanish-Guarani and Spanish-Quechua Bibles bitext.
@@ -246,7 +246,7 @@ use of it for translating into under-resourced languages, since we do not have
 many parallel corpora available for Guarani or Quechua.
 
 \section{Classifier stacking}
-The simpler approach that we use in practice in this work in a form of
+The simpler approach that we use in practice in this work is a form of
 classifier stacking. In order to predict the translation of a word into our
 intended target language, we use features based on our predictions for
 translations of tokens in the current sentence into \emph{other} available
@@ -259,7 +259,7 @@ features for our English to Spanish classifier.
 This approach only requires that the classifiers used for generating new
 features make \emph{some} prediction based on the input text. These classifiers 
 need not be trained from the same source text, or depend on the same features,
-or even necessarily output words as features. Similar to our use of syntactic
+or even necessarily produce words as output. Similar to our use of syntactic
 NLP tools in the previous chapter, we could use any annotation on the text for
 extracting features, if we expect it will provide a meaningful clue about the
 meaning of the input. For example, we could use this technique with a
@@ -312,11 +312,11 @@ stacking experiments.
 
 \subsection{Annotating the bitext with stacking predictions}
 Here we train the baseline Chipa system with the default feature set described
-in Chapter~\ref{chap:baseline}, on both Europarl bitext and on verse-aligned
+in Chapter~\ref{chap:baseline}, separately on Europarl bitext and verse-aligned
 Bible translations, for the same five European target languages. For all of
 the stacking classifiers mapping from Spanish to another European language, we
-used a random forest classifier and the ``regular" setting. So as a result, we
-came up with ten different sets of stacking classifiers, the first five of
+trained a random forest classifier on the ``nonnull" setting. So as a result,
+we came up with ten different sets of stacking classifiers, the first five of
 which were trained with Europarl data, and the latter five with Bible data.
 
 We then annotate our bitext for Spanish-Guarani and Spanish-Quechua, finding
@@ -335,7 +335,7 @@ We might be concerned about the domain mismatch between our larger supplemental
 bitexts, from the Europarl corpus, and the Bible text that we are using for
 Spanish-Guarani and Spanish-Quechua.
 The subjects discussed in European Parliament may not match that of our
-Spanish-Guarani and Spanish-Quechua Bible corpora; we could imagine a very
+Spanish-Guarani and Spanish-Quechua Bible corpora; we could imagine an
 unfortunate scenario in which common word types used in the different corpora
 simply do not have large overlaps.
 This issue is especially relevant for the techniques described in this chapter;
@@ -504,8 +504,8 @@ Bibles provided a performance boost comparable with (and largely greater than)
 that of using syntactic analysis features. In general, we gain a few tenths of
 a percentage point by simply adding the English-language Bible features, and
 then a few more tenths of a percent by adding stacking predictions for the
-other four languages. In all of these cases, adding syntactic features seems to
-additionally help.
+other four languages. In all of these cases, the inclusion of syntactic
+features along with the stacking features seems to additionally help.
 
 \begin{figure*}
   \begin{centering}
@@ -574,8 +574,9 @@ bible stacking, 5 languages +syntactic & \textbf{0.492} & 0.533 & \textbf{0.476}
 Finally, in Figure \ref{fig:both-stacking-results}, we show the results for
 experiments where we used stacking features from both Bibles and the Europarl
 corpus. The results in general were quite similar those we saw with using Bible
-stacking features alone; the addition of the features from classifiers trained
-on Europarl did not help.
+stacking features alone; the inclusion of the features from classifiers trained
+on Europarl did not provide additional benefit for our task, over using the
+features from the supplemental Bible bitexts.
 
 \begin{figure*}
   \begin{centering}
@@ -622,8 +623,6 @@ both stacking, 5 languages & 0.489 & 0.530 & 0.471 & 0.434 \\
     \hline
 both stacking, 5 languages +syntactic & \textbf{0.492} & 0.533 & \emph{0.475} & 0.443 \\
     \hline
-    \hline
-
   \end{tabulary}
   \end{centering}
   \caption{Results for stacking with Bibles.}
