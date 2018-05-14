@@ -147,66 +147,6 @@ straightforward. Preparation and preprocessing for the supplemental Bible
 corpora proceeds as before, similarly to the preparation done for our Europarl
 supplemental bitext and the Spanish-Guarani and Spanish-Quechua Bibles bitext.
 
-\section{Considering domain mismatches}
-\label{sec:domainmismatches}
-We might be concerned about the domain mismatch between our larger supplemental
-bitexts, from the Europarl corpus, and the Bible text that we are using for
-Spanish-Guarani and Spanish-Quechua.
-The subjects discussed in European Parliament may not match that of our
-Spanish-Guarani and Spanish-Quechua Bible corpora; we could imagine a very
-unfortunate scenario in which common word types used in the different corpora
-simply do not have large overlaps.
-This issue is especially relevant for the techniques described in this chapter;
-if we do not have any examples of a given word type in our supplemental bitext,
-then we cannot train supplemental classifiers to help us with our main
-classification task.
-
-Comparing our bitext corpora, we find that, indeed, many of the word types used
-in our Spanish Bible translation either never appear, or only appear very
-rarely in the Europarl text. However, while there are many word types that are
-commonly used in the Bible text that never appear in our Europarl corpus, these
-make up a small fraction of the tokens of the Bible text overall, and thus a
-small number of the CL-WSD problem instances in our experiments.
-
-Here we focus on word types that appear at least fifty times in the Bible
-bitext and are thus included in our set of CL-WSD classification instances,
-per the standard established in Chapter~\ref{chap:evaluation}.
-Comparing, for example, our Spanish-German Europarl text with our
-Spanish-Guarani Bible corpus, 24\% of the focus word types for which we want to
-build classifiers appear fewer than fifty times in the Europarl corpus. 13\%
-appear fewer than ten times, and 6\% of the word types never appear at all.
-
-Out of the word types that appear in our Bible bitext but never in the Europarl
-bitext, the majority are either names for people (\emph{e.g.}, \emph{Zacarías},
-\emph{Nabucodonosor}, \emph{Balaam}) or Biblical locations (\emph{Galilea},
-\emph{Galaad}). Other common themes are colocations referring to God (these are
-joined into a single token during preprocessing; \emph{e.g.},
-\emph{Cristo\_Jesús}, \emph{Señor\_Jesucristo} and \emph{Dios\_de\_Israel}. We
-also see concepts that are simply not often discussed in European Parliament,
-such as \emph{fornicación} ('fornication'), \emph{ungir} ('to anoint'),
-\emph{heredad} ('inheritance'), and \emph{querubín} ('cherub')\footnote{Those
-familiar with the English word ``cherub" and its Hebrew-style plural
-``cherubim" might expect that the Spanish \emph{querubín} would be plural.
-However, this word refers to a singular angel, and the plural of
-\emph{querubín} is \emph{querubines}.}.
-
-However, turning our focus to tokens, rather than word types, our annotation
-process based on the Europarl bitext is able to come up with some prediction
-for about 96.4\% of the Spanish-Guarani CL-WSD problems, so the absence of
-these particular word types, should not, on its own, prevent the Europarl
-corpus from providing useful signal for the great majority of our CL-WSD
-problems.
-
-%% this many appear >= 50: 714 / 934 = 0.76
-%% this many appear >= 10: 815 / 934 = 0.87
-%% this many never appear: 58 / 934 = 0.062
-
-%% output for running compare_stacking on the es-gn training data
-%% this many total instances 228698
-%% this many with bible 228610
-%% this many with europarl 220613
-
-
 \section{CL-WSD with Markov Networks}
 \label{sec:multilingual-mrf}
 In our SemEval entry \cite{rudnick-liu-gasser:2013:SemEval-2013}, we
@@ -388,6 +328,67 @@ classifier, is recorded as an annotation on that token (see Section
 was made for a given token, either because a word is not in our list of focus
 words for the given language pair, or because there were too few instances of
 that word in the supplemental bitext, then no annotation is recorded.
+
+\section{Considering domain mismatches}
+\label{sec:domainmismatches}
+We might be concerned about the domain mismatch between our larger supplemental
+bitexts, from the Europarl corpus, and the Bible text that we are using for
+Spanish-Guarani and Spanish-Quechua.
+The subjects discussed in European Parliament may not match that of our
+Spanish-Guarani and Spanish-Quechua Bible corpora; we could imagine a very
+unfortunate scenario in which common word types used in the different corpora
+simply do not have large overlaps.
+This issue is especially relevant for the techniques described in this chapter;
+if we do not have any examples of a given word type in our supplemental bitext,
+then we cannot train supplemental classifiers to help us with our main
+classification task.
+
+Comparing our bitext corpora, we find that, indeed, many of the word types used
+in our Spanish Bible translation either never appear, or only appear very
+rarely in the Europarl text. However, while there are many word types that are
+commonly used in the Bible text that never appear in our Europarl corpus, these
+make up a small fraction of the tokens of the Bible text overall, and thus a
+small number of the CL-WSD problem instances in our experiments.
+
+Here we focus on word types that appear at least fifty times in the Bible
+bitext and are thus included in our set of CL-WSD classification instances,
+per the standard established in Chapter~\ref{chap:evaluation}.
+Comparing, for example, our Spanish-German Europarl text with our
+Spanish-Guarani Bible corpus, 24\% of the focus word types for which we want to
+build classifiers appear fewer than fifty times in the Europarl corpus. 13\%
+appear fewer than ten times, and 6\% of the word types never appear at all.
+
+Out of the word types that appear in our Bible bitext but never in the Europarl
+bitext, the majority are either names for people (\emph{e.g.}, \emph{Zacarías},
+\emph{Nabucodonosor}, \emph{Balaam}) or Biblical locations (\emph{Galilea},
+\emph{Galaad}). Other common themes are colocations referring to God (these are
+joined into a single token during preprocessing; \emph{e.g.},
+\emph{Cristo\_Jesús}, \emph{Señor\_Jesucristo} and \emph{Dios\_de\_Israel}. We
+also see concepts that are simply not often discussed in European Parliament,
+such as \emph{fornicación} ('fornication'), \emph{ungir} ('to anoint'),
+\emph{heredad} ('inheritance'), and \emph{querubín} ('cherub')\footnote{Those
+familiar with the English word ``cherub" and its Hebrew-style plural
+``cherubim" might expect that the Spanish \emph{querubín} would be plural.
+However, this word refers to a singular angel, and the plural of
+\emph{querubín} is \emph{querubines}.}.
+
+However, turning our focus to tokens, rather than word types, our annotation
+process based on the Europarl bitext is able to come up with some prediction
+for about 96.4\% of the Spanish-Guarani CL-WSD problems, so the absence of
+these particular word types, should not, on its own, prevent the Europarl
+corpus from providing useful signal for the great majority of our CL-WSD
+problems.
+
+%% this many appear >= 50: 714 / 934 = 0.76
+%% this many appear >= 10: 815 / 934 = 0.87
+%% this many never appear: 58 / 934 = 0.062
+
+%% output for running compare_stacking on the es-gn training data
+%% this many total instances 228698
+%% this many with bible 228610
+%% this many with europarl 220613
+
+
 
 \section{Experiments}
 \label{sec:multilingual-experiments}
