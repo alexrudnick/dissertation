@@ -7,6 +7,11 @@
 ## multilingual
 
 ## integration
+  * download and set up phrasal
+  * train a simple PBMT system for Guarani
+  * pick a test set
+  * make a feature function that calls out to chipa
+
   * figure out what the simplest thing we can do is that demonstrates an
   integration story: SQUOIA and phrasal?
     * we could do SQUOIA for Quechua and Phrasal for Guarani!
@@ -15,7 +20,7 @@
   * pull all gn text from guarani-nee and gn-wikipedia.
   * train surface and lemmatized LMs.
   * consider: integrate chipa into Phrasal
-  * consider: integrate chipa into Mike's current RBMT systems.
+  * PROBABLY SKIP consider: integrate chipa into Mike's current RBMT systems.
     * understand Mike's current RBMT systems well enough to hack them up
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
@@ -25,7 +30,7 @@
 
 ### integration: possibly obsolete ideas here
 
-  * CANCELED! build tiniest possible cdec system for es-gn (switched to moses)
+  * CANCELED! build tiniest possible cdec system for es-gn (switched to moses??)
   * SKIP Learn to use CMU's morphogen or whatever it's called -- or we could
   just punt and target lemmatized gn.
   * DONE built tiny pb-smt system for es-gn, now pretty good at spinning these
