@@ -15,18 +15,16 @@
   * figure out what the simplest thing we can do is that demonstrates an
   integration story: SQUOIA and phrasal?
     * we could do SQUOIA for Quechua and Phrasal for Guarani!
-  * get buy-in from Mike and Sandra
+      * squoia now at https://github.com/a-rios/squoia
 
   * pull all gn text from guarani-nee and gn-wikipedia.
   * train surface and lemmatized LMs.
   * consider: integrate chipa into Phrasal
-  * PROBABLY SKIP consider: integrate chipa into Mike's current RBMT systems.
-    * understand Mike's current RBMT systems well enough to hack them up
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
   * come up with a good plan for evaluation here
-  * UNLIKELY consider: hack up squoia again if necessary?
-  * UNLIKELY consider: write up how we hacked up squoia?
+  * consider: hack up squoia again if necessary?
+  * consider: write up how we hacked up squoia?
 
 ### integration: possibly obsolete ideas here
 
@@ -261,3 +259,7 @@ CANCELED!!
   * CANCELED?? As a chapter anyway. Just do combinations as we go.
   * try combinations.
 
+## integration done things
+  * PROBABLY SKIP consider: integrate chipa into Mike's current RBMT systems.
+    * understand Mike's current RBMT systems well enough to hack them up
+  * DONE get buy-in from Sandra (Mike is probably OK with this?)
