@@ -7,18 +7,6 @@ translation systems, with the goal of improving lexical selection in practice.
 Subsequently, we cover Chipa's effect on MT quality over a variety of test
 sets, translating from Spanish into Guarani, Quechua, and English.
 
-\begin{itemize}
-\item Tereré, a hybrid SCFG-based system that makes use of both bilingual
-transfer rules and a monolingual language model, translating from Spanish to
-Guarani.
-
-%% Maybe in fact we won't do SQUOIA? Can we just do Apertium instead? Would
-%% that be easier to work with? Can we still run SQUOIA? Apertium is certainly
-%% a little more widely known.
-\item Apertium, a system based on shallow transfer, which has been
-applied to a large number of language pairs.
-\end{itemize}
-
 A hyperparameter that we need to check is: what's the minimum number of tokens
 we train a classifier, before it does us any good?
 More common word types are going to be both easier to train and have more
@@ -29,26 +17,30 @@ So we should try a number of settings for this parameter.
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
 \label{sec:terere}
+
+We're probably actually going to do Phrasal here; it's probably easier to add
+features to a Java program...
+
+
 Moses \cite{koehn-EtAl:2007:PosterDemo} is a mature, well-maintained and
 popular statistical machine translation package, used by researchers and for
 practical purposes around the world.
 
 We built a baseline phrase-based SMT system with Moses, for simplicity and
-comparability with other approaches. We had originally intended to use cdec,
-which in principle supports non-hierarchical phrase-based MT, but in practice
-Moses was the better-supported platform for non-hierarchical models. cdec
-remains an excellent tool for experiments with hierarchical SCFG-based MT.
+comparability with other approaches.
 
 We refer to this combination of the Moses decoder with the Chipa CL-WSD
 software as Tereré \footnote{\url{http://github.com/alexrudnick/terere}
 Tereré is a cold variety of yerba mate brewed with ice water; it is a
-specifically Paraguayan specialty.}. This works through adding an additional
-feature function to the Moses phrase-based decoder. During the search through
-the space of possible translations, Moses proposes candidate translations for
-each source word to Chipa, which provides a score based on how likely the
-translation seems to the CL-WSD system, based on the entire source-language
-sentence context. This score is returned to Moses, which combines all of the
-available features in a log-linear combination.
+specifically Paraguayan specialty.}.
+
+This works through adding an additional feature function to the Moses
+phrase-based decoder. During the search through the space of possible
+translations, Moses proposes candidate translations for each source word to
+Chipa, which provides a score based on how likely the translation seems to the
+CL-WSD system, based on the entire source-language sentence context. This score
+is returned to Moses, which combines all of the available features in a
+log-linear combination.
 
 Then the weights for all of the features provided to the system (translation
 probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned with
@@ -57,7 +49,7 @@ achieving high BLEU scores on the development set sentences, Chipa's feature
 function will be afforded a higher weight. If not, its advice could carry less
 weight, than, for example, that of the language model.
 
-\subsection{Interfacing between Moses and Chipa}
+\subsection{Interfacing between Phrasal and Chipa}
 We implemented a simple protocol for communication between the Moses C++ code
 and the Chipa server, based on Unix pipes. In earlier work with SQUOIA
 \cite{rudnick:saltmil2014}, we had communicated between Chipa and the machine
@@ -74,7 +66,7 @@ considers that phrase.
 \section{SQUOIA}
 SQUOIA\footnote{Described in detail at
 \url{http://www.cl.uzh.ch/research/maschinelleuebersetzung/hybridmt_en.html}; 
-Code available at \url{http://code.google.com/p/squoia/}}
+Code available at \url{https://github.com/a-rios/squoia}}
 is a project for MT from Spanish to Quechua.
 
 SQUOIA is being developed by a team at the University of Zurich. For the most
