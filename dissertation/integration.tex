@@ -20,17 +20,16 @@ So we should try a number of settings for this parameter.
 
 We're probably actually going to do Phrasal here; it's probably easier to add
 features to a Java program...
-
+We built a baseline phrase-based SMT system with Phrasal, for simplicity and
+comparability with other approaches.
 
 Moses \cite{koehn-EtAl:2007:PosterDemo} is a mature, well-maintained and
 popular statistical machine translation package, used by researchers and for
 practical purposes around the world.
 
-We built a baseline phrase-based SMT system with Moses, for simplicity and
-comparability with other approaches.
-
 We refer to this combination of the Moses decoder with the Chipa CL-WSD
-software as Tereré \footnote{\url{http://github.com/alexrudnick/terere}
+software as Tereré
+\footnote{\url{http://github.com/alexrudnick/terere}
 Tereré is a cold variety of yerba mate brewed with ice water; it is a
 specifically Paraguayan specialty.}.
 
@@ -50,6 +49,8 @@ function will be afforded a higher weight. If not, its advice could carry less
 weight, than, for example, that of the language model.
 
 \subsection{Interfacing between Phrasal and Chipa}
+%% XXX: this is probably way too complicated -- can't we just annotate the
+%% phrase table for individual sentences just before decoding?
 We implemented a simple protocol for communication between the Moses C++ code
 and the Chipa server, based on Unix pipes. In earlier work with SQUOIA
 \cite{rudnick:saltmil2014}, we had communicated between Chipa and the machine
@@ -189,18 +190,13 @@ SQUOIA dictionary may not be attested in the training data.
 \section{Translation Evaluation}
 In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate two Spanish passages for which we
-had reference Quechua translations. The first is simply a thousand sentences
+had reference Quechua translations.
+
+The first is simply a thousand sentences
 from the Bible; the second is adapted from the Peruvian government's public
 advocacy website,\footnote{\emph{Defensoría del Pueblo},
-\url{http://www.defensoria.gob.pe/quechua.php}} which is bilingual and
-presumably contains native-quality Quechua. We collected and hand-aligned
-thirty-five sentences from this site.
+\url{http://www.defensoria.gob.pe/quechua.php}} which is bilingual.
+We collected and hand-aligned thirty-five sentences from this site.
 
 %% XXX: this is probably not a good test set; we need to pick a better one.
 %% Maybe also just sample some sentences from the Bible.
-
-We do see a slight improvement in lexical selection when enabling Chipa on the
-Bible test set; the three feature settings listed actually all produce
-different translation output, but they are of equal quality. Here the in-domain
-training data allowed the classifiers to be used more often; 736 of the
-thousand sentences were influenced by the classifiers in this test set.
