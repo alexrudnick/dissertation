@@ -8,6 +8,8 @@
 
 ## integration
   * download and set up phrasal
+    * see how hard it is to use their discriminative feature situation
+      * can you pass the context for the whole sentence?
   * train a simple PBMT system for Guarani
   * pick a test set
   * make a feature function that calls out to chipa
