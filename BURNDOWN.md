@@ -7,26 +7,24 @@
 ## multilingual
 
 ## integration
-  * download and set up phrasal
-    * see how hard it is to use their discriminative feature situation
-      * can you pass the context for the whole sentence?
-  * train a simple PBMT system for Guarani
+  * come up with a good plan for evaluation here
+  * train a simple PBMT system for Guarani: use Moses for now!
   * pick a test set
-  * make a feature function that calls out to chipa
+  * finish building feature function that calls out to chipa
+  * super important: get a clear answer out of Mike and Sandra whether they'll
+  consider it convincing if we can integrate into one PBMT and one RBMT system
+  * hack up squoia again if necessary
+  * write up how we hacked up squoia
 
   * figure out what the simplest thing we can do is that demonstrates an
   integration story: SQUOIA and phrasal?
-    * we could do SQUOIA for Quechua and Phrasal for Guarani!
-      * squoia now at https://github.com/a-rios/squoia
+  * we could do SQUOIA for Quechua and Moses for Guarani!
+    * squoia now at https://github.com/a-rios/squoia
 
-  * pull all gn text from guarani-nee and gn-wikipedia.
-  * train surface and lemmatized LMs.
-  * consider: integrate chipa into Phrasal
-  * super important: get a clear answer out of Mike and Sandra whether they'll
-  consider it convincing if we can integrate into one PBMT and one RBMT system
-  * come up with a good plan for evaluation here
-  * consider: hack up squoia again if necessary?
-  * consider: write up how we hacked up squoia?
+  * language modeling for gn
+    * pull all gn text from guarani-nee and gn-wikipedia
+    * lemmatize it
+    * train LM
 
 ### integration: possibly obsolete ideas here
 
@@ -265,3 +263,8 @@ CANCELED!!
   * PROBABLY SKIP consider: integrate chipa into Mike's current RBMT systems.
     * understand Mike's current RBMT systems well enough to hack them up
   * DONE get buy-in from Sandra (Mike is probably OK with this?)
+  * SKIP download and set up phrasal
+    * see how hard it is to use their discriminative feature situation
+      * can you pass the context for the whole sentence?
+  * SKIP consider: integrate chipa into Phrasal
+  * MAYBESKIP: train surface and lemmatized LMs.
