@@ -14,14 +14,10 @@
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
   * hack up squoia again if necessary
+    * how changed is it? is it very different from before?
   * write up how we hacked up squoia
 
-  * figure out what the simplest thing we can do is that demonstrates an
-  integration story: SQUOIA and phrasal?
-  * we could do SQUOIA for Quechua and Moses for Guarani!
-    * squoia now at https://github.com/a-rios/squoia
-
-  * language modeling for gn
+  * language modeling for gn, maybe?
     * pull all gn text from guarani-nee and gn-wikipedia
     * lemmatize it
     * train LM
@@ -268,3 +264,5 @@ CANCELED!!
       * can you pass the context for the whole sentence?
   * SKIP consider: integrate chipa into Phrasal
   * MAYBESKIP: train surface and lemmatized LMs.
+  * DONE figure out what the simplest thing we can do is that demonstrates an
+  integration story: SQUOIA and Moses!!
