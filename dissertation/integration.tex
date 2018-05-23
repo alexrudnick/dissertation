@@ -1,19 +1,20 @@
 \chapter{Integration Into Machine Translation Systems}
 \label{chap:integration}
 
-In this chapter, I discuss how the Chipa software, along with its extensions
+In this chapter, we discuss how the Chipa software, along with its extensions
 developed in the previous chapters, can be integrated into running machine
 translation systems, with the goal of improving lexical selection in practice.
-Subsequently, we cover Chipa's effect on MT quality over a variety of test
-sets, translating from Spanish into Guarani, Quechua, and English.
+Subsequently, we look at evaluating Chipa's effect on MT output, translating
+from Spanish into Guarani with a simple statistical MT system, and from Spanish
+to Quechua with a rule-based MT system.
 
-A hyperparameter that we need to check is: what's the minimum number of tokens
-we train a classifier, before it does us any good?
-More common word types are going to be both easier to train and have more
-impact on the test sentences that we want to translate, presumably. But if our
-classifiers are in fact helpful, then having classifications for more input
-tokens is going to be helpful.
-So we should try a number of settings for this parameter.
+%% A hyperparameter that we need to check is: what's the minimum number of tokens
+%% we train a classifier, before it does us any good?
+%% More common word types are going to be both easier to train and have more
+%% impact on the test sentences that we want to translate, presumably. But if our
+%% classifiers are in fact helpful, then having classifications for more input
+%% tokens is going to be helpful.
+%% So we should try a number of settings for this parameter.
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
 \label{sec:terere}
@@ -64,9 +65,8 @@ source-language phrase, and Chipa returns a score based on how likely it
 considers that phrase.
 
 \section{SQUOIA}
-SQUOIA\footnote{Described in detail at
-\url{http://www.cl.uzh.ch/research/maschinelleuebersetzung/hybridmt_en.html}; 
-Code available at \url{https://github.com/a-rios/squoia}}
+SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia};
+XXX is there a good description for the project online?}
 is a project for MT from Spanish to Quechua.
 
 SQUOIA is being developed by a team at the University of Zurich. For the most
