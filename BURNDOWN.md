@@ -11,19 +11,22 @@
     * pick a test set
   * train a simple PBMT system for Guarani with Moses
     * DONE default system
+    * make default system translate from es surface to gn lemmas
     * DONE system where phrases have 1 es word to many gn words
   * finish building feature function that calls out to chipa
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
 
+  * language modeling for gn, maybe?
+    * DONE pull all gn text from gn-wikipedia
+    * MAYBESKIP? pull all gn text from guarani-nee
+    * lemmatize it
+    * train LM
+
   * hack up squoia again if necessary
     * how changed is it? is it very different from before?
   * write up how we hacked up squoia
 
-  * language modeling for gn, maybe?
-    * pull all gn text from guarani-nee and gn-wikipedia
-    * lemmatize it
-    * train LM
 
 ### integration: possibly obsolete ideas here
 
@@ -269,3 +272,4 @@ CANCELED!!
   * MAYBESKIP: train surface and lemmatized LMs.
   * DONE figure out what the simplest thing we can do is that demonstrates an
   integration story: SQUOIA and Moses!!
+  * DONE be clear about what we're doing here -- surface es to gn lemmas
