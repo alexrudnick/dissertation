@@ -8,11 +8,14 @@
 
 ## integration
   * come up with a good plan for evaluation here
-  * train a simple PBMT system for Guarani: use Moses for now!
-  * pick a test set
+    * pick a test set
+  * train a simple PBMT system for Guarani with Moses
+    * DONE default system
+    * DONE system where phrases have 1 es word to many gn words
   * finish building feature function that calls out to chipa
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
+
   * hack up squoia again if necessary
     * how changed is it? is it very different from before?
   * write up how we hacked up squoia
