@@ -11,7 +11,7 @@
     * pick a test set
   * train a simple PBMT system for Guarani with Moses
     * DONE default system
-    * make default system translate from es surface to gn lemmas
+    * DONE make default system translate from es surface to gn lemmas
     * DONE system where phrases have 1 es word to many gn words
   * finish building feature function that calls out to chipa
   * super important: get a clear answer out of Mike and Sandra whether they'll
