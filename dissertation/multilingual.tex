@@ -34,6 +34,21 @@ languages, based on our supplemental corpora, and use their outputs
 to provide more features for the Spanish to Quechua and Spanish to
 Guarani classifiers.
 
+As a concrete example of how we can use classifier stacking, say we are trying
+to translate a Spanish sentence to English and we would like to make a lexical
+selection for the word \emph{estación}, which can translate to English as
+either ``station" (like a train station) or ``season".
+
+\enumsentence{
+Mi \emph{estación} favorita es la primavera. }
+\label{sent:estacion}
+
+If we had a Spanish to French CL-WSD system, and this system returned
+\emph{saison} (rather than \emph{gare}, the French word for a train station)
+for this instance of \emph{estación}, we would expect that this would be a
+useful signal for our Spanish to English classifier, helping it pick the
+``season" sense.
+
 The approaches in this chapter are particularly informed by the work of Els
 Lefever \emph{et. al} (see especially
 \cite{lefever-hoste-decock:2011:ACL-HLT2011}), in which entire source sentences
@@ -48,9 +63,10 @@ In earlier work, considering the work of Lefever \emph{et. al}, we developed
 prototype CL-WSD systems that made use of multilingual evidence
 \cite{rudnick-liu-gasser:2013:SemEval-2013} and produced some of the top
 results in a SemEval shared task on CL-WSD \cite{task10}.
-Our systems trained with multilingual evidence posted better performance than
-the one that used monolingual features; our top results in every language came
-from either classifier stacking or a classifier based on Markov networks,
+We found here that our systems that used multilingual evidence had better
+performance than
+the one that used only monolingual features. our top results in every language
+came from either classifier stacking or a classifier based on Markov networks,
 an approach which we will discuss briefly in
 Section~\ref{sec:multilingual-mrf}. This suggests that it is possible to use
 evidence in several parallel corpora for CL-WSD without translating input
@@ -71,9 +87,13 @@ of the available bitexts in different languages; in the interest of not only
 constraining the search space, but also not fishing for impressive-seeming
 results when we only have a small amount of bitext for the language pairs
 directly addressed in this work, we will only make use of Spanish to Dutch,
-English, French, German, and Italian. Experimenting with more language pairs,
-or different language pairs, may be effective or appropriate in other settings,
-but here we consider it outside the scope of the current effort.
+English, French, German, and Italian. Note that these are all resource-rich
+European languages, not related to our indigenous American target languages. So
+if we can learn from bitext pairing Spanish with these languages, it suggests
+that our approaches can be applied to a broad range of target languages.
+Experimenting with more language pairs, or different language pairs, may be
+effective or appropriate in other settings, but here we consider it outside the
+scope of the current effort.
 
 \subsection{Europarl}
 There are several freely available bitext resources for many European
@@ -264,22 +284,11 @@ NLP tools in the previous chapter, we could use any annotation on the text for
 extracting features, if we expect it will provide a meaningful clue about the
 meaning of the input. For example, we could use this technique with a
 monolingual WSD system that output word sense annotations and extract features
-from these sense labels.
-
-As a concrete example, say we are trying to translate a Spanish sentence to
-English, and we would like to make a lexical selection for the word
-\emph{estación}, which can translate to English as either ``station" (like a
-train station) or ``season".
-
-\enumsentence{
-Mi \emph{estación} favorita es la primavera. }
-\label{sent:estacion}
-
-If we had a Spanish to French CL-WSD system, and this system returned
-\emph{saison} (rather than \emph{gare}, the French word for a train station)
-for this instance of \emph{estación}, we would expect that this would be a very
-useful signal for our Spanish to English classifier, helping it pick the
-``season" sense.
+from these sense labels. However, in this work, our classifiers output
+predicted translations for source-language tokens into other languages, having
+been trained on supplemental corpora. We can use as features not only the
+predicted translation for the current token, but also predicted translations
+for any tokens in the input sentence.
 
 See Figure~\ref{fig:stackingfeatures} for an overview of the features made
 available to classifiers based on these supplemental classifiers in our
@@ -377,7 +386,9 @@ process based on the Europarl bitext is able to come up with some prediction
 for about 96.4\% of the Spanish-Guarani CL-WSD problems, so the absence of
 these particular word types, should not, on its own, prevent the Europarl
 corpus from providing useful signal for the great majority of our CL-WSD
-problems.
+problems. We are left with the empirical matter of whether training classifiers
+on a larger out-of-domain supplemental corpus will be more helpful for our task
+than a small in-domain supplemental corpus.
 
 %% this many appear >= 50: 714 / 934 = 0.76
 %% this many appear >= 10: 815 / 934 = 0.87
@@ -387,8 +398,6 @@ problems.
 %% this many total instances 228698
 %% this many with bible 228610
 %% this many with europarl 220613
-
-
 
 \section{Experiments}
 \label{sec:multilingual-experiments}

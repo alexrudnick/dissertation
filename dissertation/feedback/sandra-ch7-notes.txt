@@ -1,0 +1,24 @@
+This is the list of all notes that Sandra put on the pdf we sent out for
+chapter 7.
+
+[[ page 103 ]]
+highlight "Our systems trained with multilingual evidence posted ..."
+"I am gardenpathing here."
+--> reworded! Ha, this is syntactically the same as "the horse raced past the
+barn fell". Nice.
+
+[[ page 104 ]]
+"I would add that these are the five languages with the most resources, and not
+related to the target languages. In other words, if this setup works, this is
+reason to believe it would work for other target languages, too."
+--> Great point. Added a bit about this.
+
+[[ page 110 ]]
+"I would like this example much earlier in the chapter. I think that would help
+the reader understand the setup better."
+--> moved the example to the beginning of the chapter
+
+[[ page 112 ]]
+"Can you raise the question whether it is better to have a large, out of domain
+data set, or a small, in-domain one? Is that what you are comparing?"
+--> That's it, yes! Added a note to make that more explicit.
