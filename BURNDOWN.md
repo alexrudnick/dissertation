@@ -9,6 +9,7 @@
 ## integration
   * come up with a good plan for evaluation here
     * pick a test set
+    * be able to compute BLEU with Moses tools
   * train a simple PBMT system for Guarani with Moses
     * DONE default system
     * DONE make default system translate from es surface to gn lemmas
@@ -19,12 +20,13 @@
 
   * language modeling for gn, maybe?
     * DONE pull all gn text from gn-wikipedia
+    * DONE lemmatize it
+    * DONE train LM
     * MAYBESKIP? pull all gn text from guarani-nee
-    * lemmatize it
-    * train LM
 
   * hack up squoia again if necessary
     * how changed is it? is it very different from before?
+  * also need a good evaluation plan for es-qu
   * write up how we hacked up squoia
 
 
