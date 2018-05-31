@@ -9,7 +9,9 @@
 ## integration
   * come up with a good plan for evaluation here
     * pick a test set
-    * be able to compute BLEU with Moses tools
+      * picked a bad test set; need to do better here
+    * DONE be able to compute BLEU with Moses tools
+      * although we should use mteval-v14.pl instead apparently
   * train a simple PBMT system for Guarani with Moses
     * DONE default system
     * DONE make default system translate from es surface to gn lemmas
