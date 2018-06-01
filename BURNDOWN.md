@@ -11,7 +11,8 @@
     * pick a test set
       * picked a bad test set; need to do better here
     * DONE be able to compute BLEU with Moses tools
-      * although we should use mteval-v14.pl instead apparently
+      * SKIP although we should use mteval-v14.pl instead apparently
+      * DONE actually for reals, we should use sacrebleu
   * train a simple PBMT system for Guarani with Moses
     * DONE default system
     * DONE make default system translate from es surface to gn lemmas
