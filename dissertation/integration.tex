@@ -1,12 +1,15 @@
 \chapter{Integration Into Machine Translation Systems}
 \label{chap:integration}
 
-In this chapter, we discuss how the Chipa software, along with its extensions
-developed in the previous chapters, can be integrated into running machine
-translation systems, with the goal of improving lexical selection in practice.
-Subsequently, we look at evaluating Chipa's effect on MT output, translating
-from Spanish into Guarani with a simple statistical MT system, and from Spanish
-to Quechua with a rule-based MT system.
+In this chapter, we discuss how our CL-WSD techniques can be integrated into
+running machine translation systems, with the goal of improving lexical
+selection in practice. We translate from Spanish to Guarani with an
+off-the-shelf phrase-based statistical MT system, and from Spanish to Quechua
+with a custom-built rule-based MT system. These two integrations are meant to
+be simple proofs-of-concept, and not reflect what one would necessarily do for
+optimal translations.
+Afterwards, we look at evaluating Chipa's effect on MT output in both of these
+use cases.
 
 %% A hyperparameter that we need to check is: what's the minimum number of tokens
 %% we train a classifier, before it does us any good?
@@ -19,18 +22,17 @@ to Quechua with a rule-based MT system.
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
 \label{sec:terere}
 
-We built a baseline phrase-based SMT system with Moses, for simplicity and
-comparability with other approaches.
-
 Moses \cite{koehn-EtAl:2007:PosterDemo} is a mature, well-maintained and
 popular statistical machine translation package, used by researchers and for
 practical purposes around the world.
 
-We refer to this combination of the Moses decoder with the Chipa CL-WSD
-software as Tereré
-\footnote{\url{http://github.com/alexrudnick/terere}
-Tereré is a cold variety of yerba mate brewed with ice water; it is a
-specifically Paraguayan specialty.}.
+We built a baseline phrase-based SMT system with Moses.
+
+Among other pieces of software related to this work, especially the corpus
+preparation scripts, the code to integrate Chipa into the Moses decoder is in a
+package called Tereré \footnote{Available at
+\url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
+mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
 This works through adding an additional feature function to the Moses
 phrase-based decoder. During the search through the space of possible
