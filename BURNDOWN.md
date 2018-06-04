@@ -13,6 +13,11 @@
     * DONE be able to compute BLEU with Moses tools
       * SKIP although we should use mteval-v14.pl instead apparently
       * DONE actually for reals, we should use sacrebleu
+  * make a fiforpc server that talks to the ChipaFF client.
+    * read sentence over the fifo
+    * lemmatize it
+    * run any other annotators
+    * get classifier for that lemma and return classification
   * train a simple PBMT system for Guarani with Moses
     * DONE default system
     * DONE make default system translate from es surface to gn lemmas
