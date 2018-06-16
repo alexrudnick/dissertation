@@ -14,8 +14,15 @@
       * SKIP although we should use mteval-v14.pl instead apparently
       * DONE actually for reals, we should use sacrebleu
   * make a fiforpc server that talks to the ChipaFF client.
-    * read sentence over the fifo
-    * lemmatize it
+    * DONE read sentence over the fifo
+    * DONE lemmatize it
+    * there's the issue of where we should represent MWEs.
+      * it's kind of weird to have the training data for Moses have the joined
+      collocations, isn't it?
+      * but we get those out of preprocessing from freeling
+      * ideally you'd just want to have one preprocessing step at the front of
+      the whole pipeline rather than having your WSD system futz with running a
+      tagger and worrying about tokenization; that's really not great design
     * run any other annotators
     * get classifier for that lemma and return classification
   * train a simple PBMT system for Guarani with Moses
