@@ -6,8 +6,9 @@ running machine translation systems, with the goal of improving lexical
 selection in practice. We translate from Spanish to Guarani with an
 off-the-shelf phrase-based statistical MT system, and from Spanish to Quechua
 with a custom-built rule-based MT system. These two integrations are meant to
-be simple proofs-of-concept, and not reflect what one would necessarily do for
-optimal translations.
+be simple proofs of concept, rather than production-ready code, but they
+demonstrate at least conceptually how CL-WSD can be used with these translation
+systems.
 Afterwards, we look at evaluating Chipa's effect on MT output in both of these
 use cases.
 
@@ -35,15 +36,17 @@ used for both research and practical purposes. Conveniently for our work here,
 it features a straightforward interface for adding feature functions to guide
 its decoding process while it is constructing translations.
 
-We built a baseline phrase-based SMT system with Moses.
+We built a baseline phrase-based SMT system with Moses, with the added
+constraint that the source side of all phrases must be at most one token long,
+to match the alignments used in the Chipa experiments.
 
-This works through adding an additional feature function to the Moses
-phrase-based decoder. During the search through the space of possible
-translations, Moses proposes candidate translations for each source word to
-Chipa, which provides a score based on how likely the translation seems to the
-CL-WSD system, based on the entire source-language sentence context. This score
-is returned to Moses, which combines all of the available features in a
-log-linear combination.
+Here the integration of Chipa is done through adding an additional feature
+function to the Moses phrase-based decoder. During the search through the space
+of possible translations, Moses proposes candidate translations for each source
+word to Chipa, which provides a score based on how likely the translation seems
+to the CL-WSD system, based on the entire source-language sentence context.
+This score is returned to Moses, which combines all of the available features
+in a log-linear combination.
 
 Then the weights for all of the features provided to the system (translation
 probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned with
@@ -70,18 +73,17 @@ Here Moses requests an evaluation for a certain translation of a
 source-language phrase, and Chipa returns a score based on how likely it
 considers that phrase.
 
-\section{SQUOIA}
+\section{Integrating Chipa into Rule-Based Machine Translation}
 SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia};
 XXX is there a good description for the project online?}
 is a project for MT from Spanish to Quechua.
 
 SQUOIA is being developed by a team at the University of Zurich. For the most
 part, it is a classical rule-based transfer system, although the team has
-recently developed techniques for predicting verb morphology with machine
+developed techniques for predicting verb morphology with machine
 learning methods, in cases when rules cannot reliably disambiguate
-\cite{riosgonzales-gohring:2013:HyTra}. It does not currently use machine
-learning for lexical selection, although we have been in contact with the team
-and are planning to collaborate to add CL-WSD features.
+\cite{riosgonzales-gohring:2013:HyTra}. It does not, by default, use machine
+learning for lexical selection.
 
 SQUOIA's architecture is based on the Matxin system \cite{matxin2005}, which
 was originally intended for translating from Spanish to Basque.
