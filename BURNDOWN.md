@@ -7,12 +7,7 @@
 ## multilingual
 
 ## integration
-  * come up with a good plan for evaluation here
-    * pick a test set
-      * picked a bad test set; need to do better here
-    * DONE be able to compute BLEU with Moses tools
-      * SKIP although we should use mteval-v14.pl instead apparently
-      * DONE actually for reals, we should use sacrebleu
+  * sample a dev set and run MERT for moses
   * make a fiforpc server that talks to the ChipaFF client.
     * DONE read sentence over the fifo
     * DONE lemmatize it
@@ -24,20 +19,14 @@
       the whole pipeline rather than having your WSD system futz with running a
       tagger and worrying about tokenization; that's really not great design
     * run any other annotators
-    * get classifier for that lemma and return classification
+    * DONE get classifier for that lemma and return classification
   * train a simple PBMT system for Guarani with Moses
     * DONE default system
     * DONE make default system translate from es surface to gn lemmas
     * DONE system where phrases have 1 es word to many gn words
-  * finish building feature function that calls out to chipa
+  * DONE finish building feature function that calls out to chipa
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
-
-  * language modeling for gn, maybe?
-    * DONE pull all gn text from gn-wikipedia
-    * DONE lemmatize it
-    * DONE train LM
-    * MAYBESKIP? pull all gn text from guarani-nee
 
   * hack up squoia again if necessary
     * how changed is it? is it very different from before?
@@ -290,3 +279,14 @@ CANCELED!!
   * DONE figure out what the simplest thing we can do is that demonstrates an
   integration story: SQUOIA and Moses!!
   * DONE be clear about what we're doing here -- surface es to gn lemmas
+  * DONE language modeling for gn, maybe?
+    * DONE pull all gn text from gn-wikipedia
+    * DONE lemmatize it
+    * DONE train LM
+    * MAYBESKIP? pull all gn text from guarani-nee
+  * DONE come up with a plan for evaluation here
+    * pick a test set
+      * picked a bad test set; need to do better here
+    * DONE be able to compute BLEU with Moses tools
+      * SKIP although we should use mteval-v14.pl instead apparently
+      * DONE actually for reals, we should use sacrebleu
