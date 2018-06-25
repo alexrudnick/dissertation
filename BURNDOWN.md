@@ -7,24 +7,7 @@
 ## multilingual
 
 ## integration
-  * sample a dev set and run MERT for moses
-  * make a fiforpc server that talks to the ChipaFF client.
-    * DONE read sentence over the fifo
-    * DONE lemmatize it
-    * there's the issue of where we should represent MWEs.
-      * it's kind of weird to have the training data for Moses have the joined
-      collocations, isn't it?
-      * but we get those out of preprocessing from freeling
-      * ideally you'd just want to have one preprocessing step at the front of
-      the whole pipeline rather than having your WSD system futz with running a
-      tagger and worrying about tokenization; that's really not great design
-    * run any other annotators
-    * DONE get classifier for that lemma and return classification
-  * train a simple PBMT system for Guarani with Moses
-    * DONE default system
-    * DONE make default system translate from es surface to gn lemmas
-    * DONE system where phrases have 1 es word to many gn words
-  * DONE finish building feature function that calls out to chipa
+  * for chipa-from-moses: run any other annotators on input maybe?
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
 
@@ -290,3 +273,20 @@ CANCELED!!
     * DONE be able to compute BLEU with Moses tools
       * SKIP although we should use mteval-v14.pl instead apparently
       * DONE actually for reals, we should use sacrebleu
+  * DONE sample a dev set and run MERT for moses
+  * make a fiforpc server that talks to the ChipaFF client.
+    * DONE read sentence over the fifo
+    * DONE lemmatize it
+    * HANDLED there's the issue of where we should represent MWEs.
+      * it's kind of weird to have the training data for Moses have the joined
+      collocations, isn't it?
+      * but we get those out of preprocessing from freeling
+      * ideally you'd just want to have one preprocessing step at the front of
+      the whole pipeline rather than having your WSD system futz with running a
+      tagger and worrying about tokenization; that's really not great design
+    * DONE get classifier for that lemma and return classification
+  * DONE train a simple PBMT system for Guarani with Moses
+    * DONE default system
+    * DONE make default system translate from es surface to gn lemmas
+    * DONE system where phrases have 1 es word to many gn words
+  * DONE finish building moses feature function that calls out to chipa
