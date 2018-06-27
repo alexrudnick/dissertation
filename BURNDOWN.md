@@ -7,30 +7,16 @@
 ## multilingual
 
 ## integration
-  * for chipa-from-moses: run any other annotators on input maybe?
+  * MAYBESKIP for chipa-from-moses: run any other annotators on input maybe?
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
+    * DONE-ish: Sandra seems OK with it.
 
-  * hack up squoia again if necessary
+  * hack up squoia again.
     * how changed is it? is it very different from before?
   * also need a good evaluation plan for es-qu
+    * probably just do the same thing we did for es-gn: BLEU scores??
   * write up how we hacked up squoia
-
-
-### integration: possibly obsolete ideas here
-
-  * CANCELED! build tiniest possible cdec system for es-gn (switched to moses??)
-  * SKIP Learn to use CMU's morphogen or whatever it's called -- or we could
-  just punt and target lemmatized gn.
-  * DONE built tiny pb-smt system for es-gn, now pretty good at spinning these
-  things up.
-
-  * HARD How hard is it to do phrase-based for cdec? We need to figure out how
-  to load PB-SMT tables. Also how to build them . Can cdec tools even generate
-  them?
-
-  * SKIP Port cdec-as-python-module stuff to py3k.
-  * STARTED Add chipa as phrase table feature 
 
 ## outro
   * Look, it's some experiments!
@@ -249,6 +235,19 @@ CANCELED!!
 ## combinations
   * CANCELED?? As a chapter anyway. Just do combinations as we go.
   * try combinations.
+
+### integration: possibly obsolete ideas here
+  * CANCELED! build tiniest possible cdec system for es-gn (switched to moses??)
+  * SKIP Learn to use CMU's morphogen or whatever it's called -- or we could
+  just punt and target lemmatized gn.
+  * DONE built tiny pb-smt system for es-gn, now pretty good at spinning these
+  things up.
+  * HARD How hard is it to do phrase-based for cdec? We need to figure out how
+  to load PB-SMT tables. Also how to build them . Can cdec tools even generate
+  them?
+  * SKIP Port cdec-as-python-module stuff to py3k.
+  * STARTED Add chipa as phrase table feature 
+
 
 ## integration done things
   * PROBABLY SKIP consider: integrate chipa into Mike's current RBMT systems.
