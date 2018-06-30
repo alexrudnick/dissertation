@@ -15,9 +15,12 @@
   * hack up squoia again.
     * how changed is it? is it very different from before?
     * decide: resurrect old version of squoia or start with the latest?
+      * still have old version, dependencies need to be rebuilt though
+      * new version running fine in VM, can translate test set.
     * deep issue here: does squoia use the same representation of lemmas as our
     training data? how did we deal with this before? is there a canonical
     representation for Quechua lemmas?
+      * input to SQUOIA is really surface level Spanish, no joined MWEs 
   * also need a good evaluation plan for es-qu
     * probably just do the same thing we did for es-gn: BLEU scores??
   * write up how we hacked up squoia
