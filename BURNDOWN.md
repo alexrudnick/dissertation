@@ -7,11 +7,6 @@
 ## multilingual
 
 ## integration
-  * MAYBESKIP for chipa-from-moses: run any other annotators on input maybe?
-  * super important: get a clear answer out of Mike and Sandra whether they'll
-  consider it convincing if we can integrate into one PBMT and one RBMT system
-    * DONE-ish: Sandra seems OK with it.
-
   * hack up squoia again.
     * how changed is it? is it very different from before?
     * decide: resurrect old version of squoia or start with the latest?
@@ -24,6 +19,7 @@
   * also need a good evaluation plan for es-qu
     * probably just do the same thing we did for es-gn: BLEU scores??
   * write up how we hacked up squoia
+  * SKIP for chipa-from-moses: run any other annotators on input maybe?
 
 ## outro
   * Look, it's some experiments!
@@ -296,3 +292,7 @@ CANCELED!!
     * DONE make default system translate from es surface to gn lemmas
     * DONE system where phrases have 1 es word to many gn words
   * DONE finish building moses feature function that calls out to chipa
+  * super important: get a clear answer out of Mike and Sandra whether they'll
+  consider it convincing if we can integrate into one PBMT and one RBMT system
+    * DONE-ish: Sandra seems OK with it.
+
