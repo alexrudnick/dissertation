@@ -7,11 +7,9 @@
 ## multilingual
 
 ## integration
+  * make script that works on intermediate state from squoia, output of
+  "lexdisamb" phase.
   * hack up squoia again.
-    * how changed is it? is it very different from before?
-    * decide: resurrect old version of squoia or start with the latest?
-      * still have old version, dependencies need to be rebuilt though
-      * new version running fine in VM, can translate test set.
     * deep issue here: does squoia use the same representation of lemmas as our
     training data? how did we deal with this before? is there a canonical
     representation for Quechua lemmas?
@@ -295,4 +293,10 @@ CANCELED!!
   * super important: get a clear answer out of Mike and Sandra whether they'll
   consider it convincing if we can integrate into one PBMT and one RBMT system
     * DONE-ish: Sandra seems OK with it.
+  * DONE how changed is squoia? is it very different from before?
+  * DONE decide: resurrect old version of squoia or start with the latest?
+    * DONE still have old version, dependencies need to be rebuilt though
+    * DONE new version running fine in VM, can translate test set.
+    * DECIDED: use the new version, which works, and we can inspect the
+    intermediate state!
 
