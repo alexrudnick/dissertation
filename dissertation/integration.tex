@@ -5,36 +5,25 @@ In this chapter, we discuss how our CL-WSD techniques can be integrated into
 running machine translation systems, with the goal of improving lexical
 selection in practice. We translate from Spanish to Guarani with an
 off-the-shelf phrase-based statistical MT system, and from Spanish to Quechua
-with a custom-built rule-based MT system. These two integrations are meant to
-be simple proofs of concept, rather than production-ready code, but they
-demonstrate at least conceptually how CL-WSD can be used with these translation
-systems.
-Afterwards, we look at evaluating Chipa's effect on MT output in both of these
-use cases.
+with a rule-based MT system that was developed by a different research group.
+These two integrations are meant to be simple proofs of concept, rather than
+production-ready code, but they demonstrate at least conceptually how CL-WSD
+can be used with these translation systems.  Afterwards, we look at evaluating
+Chipa's effect on MT output in both of these use cases.
 
 Among other pieces of software related to this work, especially the corpus
-preparation scripts, the code to integrate Chipa into the Moses decoder is in a
-package called Tereré \footnote{Available at
-\url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
-mate brewed with ice water; it is a specifically Paraguayan specialty.}.
-
-%% A hyperparameter that we need to check is: what's the minimum number of tokens
-%% we train a classifier, before it does us any good?
-%% More common word types are going to be both easier to train and have more
-%% impact on the test sentences that we want to translate, presumably. But if our
-%% classifiers are in fact helpful, then having classifications for more input
-%% tokens is going to be helpful.
-%% So we should try a number of settings for this parameter.
+preparation scripts, the code to integrate Chipa into these external machine
+translation systems is in a software package called Tereré \footnote{Available
+at \url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of
+yerba mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
-\label{sec:terere}
-
 Moses\footnote{Available at
 \url{http://statmt.org/moses/}}\cite{koehn-EtAl:2007:PosterDemo} is a mature,
 well-maintained and popular statistical machine translation package, broadly
 used for both research and practical purposes. Conveniently for our work here,
 it features a straightforward interface for adding feature functions to guide
-its decoding process while it is constructing translations.
+the decoding process while it is constructing translations.
 
 We built a baseline phrase-based SMT system with Moses, with the added
 constraint that the source side of all phrases must be at most one token long,
@@ -48,12 +37,12 @@ to the CL-WSD system, based on the entire source-language sentence context.
 This score is returned to Moses, which combines all of the available features
 in a log-linear combination.
 
-Then the weights for all of the features provided to the system (translation
-probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned with
-MERT \cite{och:2003:ACL}; thus, if CL-WSD scores turn out to be useful for
-achieving high BLEU scores on the development set sentences, Chipa's feature
-function will be afforded a higher weight. If not, its advice could carry less
-weight, than, for example, that of the language model.
+The weights for all of the features provided to the system (translation
+probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned on a
+development set with MERT \cite{och:2003:ACL}; thus, if CL-WSD scores turn out
+to be useful for achieving high BLEU scores on the development set sentences,
+Chipa's feature function will be assigned a higher weight. If not, its advice
+carries less weight, than, for example, that of the language model.
 
 
 \subsection{Interfacing between Moses and Chipa}
