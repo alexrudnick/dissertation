@@ -7,13 +7,15 @@
 ## multilingual
 
 ## integration
-  * make script that works on intermediate state from squoia, output of
-  "lexdisamb" phase.
-  * hack up squoia again.
-    * deep issue here: does squoia use the same representation of lemmas as our
-    training data? how did we deal with this before? is there a canonical
-    representation for Quechua lemmas?
-      * input to SQUOIA is really surface level Spanish, no joined MWEs 
+  * something of an issue: for evaluation, SQUOIA outputs a sentence at a time,
+  but out test set is one verse per line, and verses can be several sentences.
+  need a way to either reconstitute the output sentences into a single "output
+  verse", or alternatively split on sentences and say that our test set is now
+  composed of the sentences.
+  * deep issue here: does squoia use the same representation of lemmas as our
+  training data? how did we deal with this before? is there a canonical
+  representation for Quechua lemmas?
+      * YES WE KNOW input to SQUOIA is surface level Spanish, no joined MWEs 
   * also need a good evaluation plan for es-qu
     * probably just do the same thing we did for es-gn: BLEU scores??
   * write up how we hacked up squoia
@@ -299,4 +301,5 @@ CANCELED!!
     * DONE new version running fine in VM, can translate test set.
     * DECIDED: use the new version, which works, and we can inspect the
     intermediate state!
-
+  * FAIRLY DONE make script that works on intermediate state from squoia, output of "lexdisamb" phase.
+  * MINIMAL HACKING UP NECESSARY hack up squoia again.
