@@ -7,11 +7,6 @@
 ## multilingual
 
 ## integration
-  * something of an issue: for evaluation, SQUOIA outputs a sentence at a time,
-  but out test set is one verse per line, and verses can be several sentences.
-  need a way to either reconstitute the output sentences into a single "output
-  verse", or alternatively split on sentences and say that our test set is now
-  composed of the sentences.
   * deep issue here: does squoia use the same representation of lemmas as our
   training data? how did we deal with this before? is there a canonical
   representation for Quechua lemmas?
@@ -303,3 +298,9 @@ CANCELED!!
     intermediate state!
   * FAIRLY DONE make script that works on intermediate state from squoia, output of "lexdisamb" phase.
   * MINIMAL HACKING UP NECESSARY hack up squoia again.
+  * HANDLED something of an issue: for evaluation, SQUOIA outputs a sentence at
+  a time, but out test set is one verse per line, and verses can be several
+  sentences.  need a way to either reconstitute the output sentences into a
+  single "output verse", or alternatively split on sentences and say that our
+  test set is now composed of the sentences.
+    * DONE: did the "reconstitute verses together" thing, our test set is verses
