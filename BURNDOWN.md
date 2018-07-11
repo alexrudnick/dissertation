@@ -12,9 +12,12 @@
   representation for Quechua lemmas?
       * YES WE KNOW input to SQUOIA is surface level Spanish, no joined MWEs 
   * also need a good evaluation plan for es-qu
-    * probably just do the same thing we did for es-gn: BLEU scores??
+    * NOPE probably just do the same thing we did for es-gn: BLEU scores??
+    * BLEU scores are really not that appropriate here, since we're generating
+      inflected Quechua and you don't get any credit for getting the lemma right.
+    * we're going to have to highlight some differences that we get when we turn
+    on Chipa
   * write up how we hacked up squoia
-  * SKIP for chipa-from-moses: run any other annotators on input maybe?
 
 ## outro
   * Look, it's some experiments!
@@ -304,3 +307,4 @@ CANCELED!!
   single "output verse", or alternatively split on sentences and say that our
   test set is now composed of the sentences.
     * DONE: did the "reconstitute verses together" thing, our test set is verses
+  * SKIP for chipa-from-moses: run any other annotators on input maybe?
