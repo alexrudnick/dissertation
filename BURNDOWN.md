@@ -15,8 +15,11 @@
     * NOPE probably just do the same thing we did for es-gn: BLEU scores??
     * BLEU scores are really not that appropriate here, since we're generating
       inflected Quechua and you don't get any credit for getting the lemma right.
+      * also you need 4-grams correct before you get good BLEU scores
     * we're going to have to highlight some differences that we get when we turn
     on Chipa
+      * find our es-qu dictionary. we have one somewhere...
+      * this is what Francis recommends too; Mike & Sandra like it too
   * write up how we hacked up squoia
 
 ## outro
