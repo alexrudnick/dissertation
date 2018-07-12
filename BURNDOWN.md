@@ -18,7 +18,7 @@
       * also you need 4-grams correct before you get good BLEU scores
     * we're going to have to highlight some differences that we get when we turn
     on Chipa
-      * find our es-qu dictionary. we have one somewhere...
+      * DONE find our es-qu dictionary: the one from the Academia Mayor de la Lengua Quechua!
       * this is what Francis recommends too; Mike & Sandra like it too
   * write up how we hacked up squoia
 
