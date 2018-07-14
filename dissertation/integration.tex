@@ -65,28 +65,29 @@ considers that phrase.
 \section{Integrating Chipa into Rule-Based Machine Translation}
 SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia};
 XXX is there a good description for the project online?}
-is a project for MT from Spanish to Quechua.
+is a project for rule-based machine translation from Spanish to Quechua.
 
-SQUOIA is being developed by a team at the University of Zurich. For the most
+SQUOIA was developed by a team at the University of Zurich. For the most
 part, it is a classical rule-based transfer system, although the team has
 developed techniques for predicting verb morphology with machine
 learning methods, in cases when rules cannot reliably disambiguate
 \cite{riosgonzales-gohring:2013:HyTra}. It does not, by default, use machine
-learning for lexical selection.
+learning for lexical selection as such, although it does include a language
+model to select among the licensed alternatives.
 
 SQUOIA's architecture is based on the Matxin system \cite{matxin2005}, which
 was originally intended for translating from Spanish to Basque.
-It consists of a pipeline of scripts, each of which passes along a tree
+It consists of a pipeline of smaller steps, each of which passes along a tree
 describing the current input sentence, in XML form. Adding CL-WSD to this
-system will involve adding another script somewhere in the pipeline that
-extracts features from the current annotated sentence, makes lexical choices,
-and then passes these choices to subsequent scripts.
+system involves adding a step to the pipeline that interprets the XML
+representation of the current sentence, constrains the lexical choices based on
+the recommendations of the Chipa software, and then passes these choices to
+subsequent scripts.
 
 The core system relies on a classical transfer approach and is mostly
 rule-based, with a few components based on machine learning.
-SQUOIA uses a pipeline approach, both in an abstract architectural sense and in
-the sense that its pieces are instantiated as a series of scripts that communicate
-via UNIX pipes. Each module performs some transformation on its input and
+
+Each module performs some transformation on its input and
 passes along the updated version to the next stage. Many modules focus on very
 particular parts of the representation, leaving most of their input unchanged.
 
@@ -94,26 +95,24 @@ Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
 earlier work on extending the SQUOIA MT system with machine learning modules.
 
 \section{Integrating Chipa into SQUOIA}
-
 Lexical ambiguity is a significant problem facing rule-based machine
 translation systems, as many words have several possible translations in a
 given target language, each of which can be considered a sense of the word from
 the source language.
+
 The difficulty of resolving these ambiguities is mitigated for 
 statistical machine translation systems for language pairs with large bilingual
 corpora, as large n-gram language models and phrase tables containing common
 multi-word expressions can encourage coherent word choices.
 For most language pairs these resources are not available, so a primarily
 rule-based approach becomes attractive.
+
 In cases where some training data is available, though, we can
 investigate hybrid RBMT and machine learning approaches, leveraging small and
-potentially growing bilingual corpora. In this paper we
-describe the integration of statistical cross-lingual word-sense disambiguation
-software with SQUOIA, an existing rule-based MT system for the Spanish-Quechua
-language pair, and show how it allows us to learn from the available bitext to
-make better lexical choices, with very few code changes to the base system. We
-also describe Chipa, the new open source CL-WSD software used for these
-experiments.
+potentially growing bilingual corpora.
+
+... show how it allows us to learn from the available bitext to
+make better lexical choices, with very few code changes to the base system.
 
 The integration enables SQUOIA to take advantage of any available bitext
 without significantly changing its design, and to improve its word choices as
@@ -188,7 +187,9 @@ In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate two Spanish passages for which we
 had reference Quechua translations.
 
-The first is simply a thousand sentences
+The first is simply a hundred verses sampled from 
+
+
 from the Bible; the second is adapted from the Peruvian government's public
 advocacy website,\footnote{\emph{Defensoría del Pueblo},
 \url{http://www.defensoria.gob.pe/quechua.php}} which is bilingual.
