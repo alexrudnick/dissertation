@@ -168,14 +168,20 @@ generated through a finite state transducer.
 
 In order to integrate Chipa into SQUOIA, we added an additional lexical
 selection stage to the SQUOIA pipeline, occurring after the rule-based
-disambiguation modules. This new module connects to the Chipa server to request
-translation suggestions -- possibly several per word, ranked by their
-probability estimates -- then looks for words that SQUOIA currently has marked
-as ambiguous.
+disambiguation modules, but before a number of other steps. This new module
+examines the XML tree structure of a SQUOIA translation in progress, and finds
+nodes in the tree where there are several possible Quechua lemmas that may be
+chosen as a translation. It then extracts the surface forms and lemmas of the
+input sentence from the current XML tree structure, and passes these along to
+the Chipa system so that we can make a prediction as to what the correct
+translation for that input token should be.
 
-For each word with multiple translation possibilities, we consider each of the
-translations known to SQUOIA and take the one ranked most highly in the
-results from the classifiers. If there are no such overlapping translations, we
+For each word with such multiple translation possibilities, we look at each of
+the translations under consideration by SQUOIA, and if any of them was the top 
+classification output from the Chipa classifiers, we constrain SQUOIA to take
+that choice.
+%% XXX: working here
+If there are no such overlapping translations, we
 take the default entry suggested by SQUOIA's dictionary.
 Notably, since Chipa and SQUOIA do not share the same lexicon and bitext alignments
 may be noisy, translations
