@@ -190,6 +190,15 @@ SQUOIA dictionary may not be attested in the training data.
 
 \section{Translation Evaluation for Spanish-Guarani}
 
+%% TODO: explain how we sampled test sets, what it means that we picked verses
+%% rather than sentences
+
+%% with Chipa, tuned with MERT
+%% BLEU+case.mixed+numrefs.1+smooth.exp+tok.13a+version.1.2.10 = 15.99 47.8/21.5/12.7/7.5 (BP = 0.905 ratio = 0.909 hyp_len = 3845 ref_len = 4229)
+
+%% with Chipa features turned off, did not re-run MERT
+%% BLEU+case.mixed+numrefs.1+smooth.exp+tok.13a+version.1.2.10 = 9.50 40.2/13.7/7.5/4.2 (BP = 0.830 ratio = 0.843 hyp_len = 3563 ref_len = 4229)
+
 
 \section{Translation Evaluation for Spanish-Quechua}
 In order to evaluate the effect of Chipa on lexical selection in a live
