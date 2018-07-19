@@ -1,43 +1,44 @@
 \chapter{Integration Into Machine Translation Systems}
 \label{chap:integration}
-
-In this chapter, we discuss how our CL-WSD techniques can be integrated into
-running machine translation systems, with the goal of improving lexical
-selection in practice with relatively small code changes to the MT software. We
-translate from Spanish to Guarani with an off-the-shelf phrase-based
-statistical MT system, and from Spanish to Quechua with a rule-based MT system
-that was developed by a different research group. These two integrations are
-meant to be simple proofs of concept, rather than production-ready code, but
-they demonstrate at least conceptually how CL-WSD can be used with these
-translation systems. Afterwards, we look at evaluating Chipa's effect on MT
-output in both of these use cases.
+In this chapter, we demonstrate how our CL-WSD techniques can be integrated
+into running machine translation systems, with the goal of improving lexical
+selection in practice, while minimizing code changes to the MT software. We
+translate from Spanish to Guarani with Moses\cite{koehn-EtAl:2007:PosterDemo},
+an off-the-shelf phrase-based statistical MT system, and from Spanish to
+Quechua with SQUOIA, a rule-based MT system that was developed by Rios \emph{et
+al.} at the University of Zürich. These two integrations are meant to be simple
+proofs of concept, rather than production-ready code, but they demonstrate at
+least conceptually how CL-WSD can be used with these translation systems.
+Afterwards, we look at evaluating Chipa's effect on MT output in both of these
+use cases.
 
 Among other pieces of software related to this work, especially the corpus
 preparation scripts, the code to integrate Chipa into these external machine
-translation systems is in a software package called Tereré \footnote{Available
-at \url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of
-yerba mate brewed with ice water; it is a specifically Paraguayan specialty.}.
+translation systems is in a package called Tereré \footnote{Available at
+\url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
+mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
 Moses\footnote{Available at
-\url{http://statmt.org/moses/}}\cite{koehn-EtAl:2007:PosterDemo} is a mature,
-well-maintained and popular statistical machine translation package, broadly
-used for both research and practical purposes. Conveniently for our work here,
-it features a straightforward interface for adding feature functions to guide
-the decoding process while it is constructing translations.
+\url{http://statmt.org/moses/}} is a mature,
+well-maintained and popular statistical machine translation package, in broad
+use for both research and practical purposes. Conveniently for our work here,
+it includes an interface for adding feature functions\footnote{See
+\url{http://www.statmt.org/moses/?n=Moses.FeatureFunctions} for documentation.}
+to guide the decoding process while it is constructing translations.
 
 We built a baseline phrase-based SMT system with Moses and used this feature
 function API to have Chipa evaluate candidate translations.
-We also the added constraint that the source side of all phrases must be at
-most one token long, to match the alignments used in the Chipa experiments.
+For simplicity, we added a constraint in the Moses phrase-extraction system
+so that the source side of all phrases must be at most one token long, to match
+the alignments used in the previous chapters.
 
-Here the integration of Chipa is done through adding an additional feature
-function to the Moses phrase-based decoder. During the search through the space
-of possible translations, Moses proposes candidate translations for each source
-word to Chipa, which provides a score based on how likely the translation seems
-to the CL-WSD system, based on the entire source-language sentence context.
-This score is returned to Moses, which combines all of the available features
-in a log-linear combination.
+During the search through the space of possible translations, Moses proposes
+candidate translations for each source word to Chipa ...
+which provides a score based on how likely the translation seems to the CL-WSD
+system, based on the entire source-language sentence context. This score is
+returned to Moses, which combines all of the available features in a log-linear
+combination.
 
 The weights for all of the features provided to the system (translation
 probabilities, LM scores, CL-WSD scores, and perhaps others) can be tuned on a
@@ -64,9 +65,25 @@ Here Moses requests an evaluation for a certain translation of a
 source-language phrase, and Chipa returns a score based on how likely it
 considers that phrase.
 
+\begin{figure}
+  \begin{centering}
+  \includegraphics[width=15cm]{moses-chipa-diagram.png}
+  \end{centering}
+  \caption{Schematic diagram showing the relationship between the Moses decoder
+  process, running the custom-made Chipa feature function, which communicates
+  with the Chipa server process. The Chipa server returns probability
+  estimates for proposed target-language phrases based on the given
+  source-sentence context, when available.}
+  \label{fig:wordnet-senses-take}
+\end{figure}
+
 \section{Integrating Chipa into Rule-Based Machine Translation}
-SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia};
-XXX is there a good description for the project online?}
+
+
+\subsection{The SQUOIA RBMT system}
+SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia} ;
+the project is more broadly described at
+\url{https://www.cl.uzh.ch/en/research/machine-translation/hybridmt.html}}
 is a project for rule-based machine translation from Spanish to Quechua.
 
 SQUOIA was developed by a team at the University of Zurich. For the most
@@ -193,7 +210,6 @@ SQUOIA dictionary may not be attested in the training data.
 
 %% TODO: explain how we sampled test sets, what it means that we picked verses
 %% rather than sentences
-
 
 \subsection{Results: BLEU scores for Spanish-Guarani}
 \begin{figure*}
