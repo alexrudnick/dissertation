@@ -129,8 +129,7 @@ some rules for lexical selection, they have been written by hand and only cover
 a small subset of the vocabulary in a limited number of contexts.
 
 In this work, we supplement these rules with classifiers learned from
-Spanish-Quechua bitext.
-These classifiers make use of regularities that may not
+Spanish-Quechua bitext.  These classifiers make use of regularities that may not
 be obvious to human rule-writers, providing improved lexical selection for
 any word type that has adequate coverage in the training corpus.
 
@@ -188,19 +187,35 @@ may be noisy, translations
 observed in the bitext may be unknown to the SQUOIA system, and lexical entries in the
 SQUOIA dictionary may not be attested in the training data.
 
-\section{Translation Evaluation for Spanish-Guarani}
+\section{Evaluation}
+
+\subsection{Translation Evaluation for Spanish-Guarani}
 
 %% TODO: explain how we sampled test sets, what it means that we picked verses
 %% rather than sentences
 
-%% with Chipa, tuned with MERT
-%% BLEU+case.mixed+numrefs.1+smooth.exp+tok.13a+version.1.2.10 = 15.99 47.8/21.5/12.7/7.5 (BP = 0.905 ratio = 0.909 hyp_len = 3845 ref_len = 4229)
 
-%% with Chipa features turned off, did not re-run MERT
-%% BLEU+case.mixed+numrefs.1+smooth.exp+tok.13a+version.1.2.10 = 9.50 40.2/13.7/7.5/4.2 (BP = 0.830 ratio = 0.843 hyp_len = 3563 ref_len = 4229)
+\subsection{Results: BLEU scores for Spanish-Guarani}
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|}
+    \hline
+    setting & BLEU \\
+    \hline
+    Moses with Chipa enabled &  16.24 \\
+    \hline
+    Same system, with Chipa disabled &  10.01 \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{BLEU scores on our Spanish-Guarani test set. Note that this is
+  translating to \emph{lemmatized} Guarani, rather than having to predict
+  fully-inflected forms.}
+  \label{fig:pyramid-extras-results}
+\end{figure*}
 
 
-\section{Translation Evaluation for Spanish-Quechua}
+\subsection{Translation Evaluation Spanish-Quechua}
 In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate Spanish passages for which we
 had reference Quechua translations.
