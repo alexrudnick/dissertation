@@ -232,18 +232,17 @@ SQUOIA dictionary may not be attested in the training data.
 
 
 \subsection{Translation Evaluation Spanish-Quechua}
+
 In order to evaluate the effect of Chipa on lexical selection in a live
-translation task, we used SQUOIA to translate Spanish passages for which we
-had reference Quechua translations.
+translation task, we used SQUOIA to translate a hundred verses sampled from our
+Spanish-Quechua Bible bitext, both in its default settings, and with the
+addition of Chipa. The BLEU scores for SQUOIA output on this test set were
+quite low (lower than one BLEU point), and were not improved by adding the
+Chipa CL-WSD, but this is a rather more difficult task, since we are attempting
+to generate fully-inflected Quechua surface forms, rather than selecting
+appropriate lemmas.
 
-The first is simply a hundred verses sampled from our Spanish-Quechua Bible
-bitext.
-
-
-from the Bible; the second is adapted from the Peruvian government's public
-advocacy website,\footnote{\emph{Defensoría del Pueblo},
-\url{http://www.defensoria.gob.pe/quechua.php}} which is bilingual.
-We collected and hand-aligned thirty-five sentences from this site.
-
-%% XXX: this is probably not a good test set; we need to pick a better one.
-%% Maybe also just sample some sentences from the Bible.
+In any case, here we will show examples of word choices that were changed with
+the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
+\cite{academiamayor}, determine whether they are more or less appropriate than
+the choices that the SQUOIA system would have made on its own.
