@@ -27,6 +27,27 @@ it includes an interface for adding feature functions\footnote{See
 \url{http://www.statmt.org/moses/?n=Moses.FeatureFunctions} for documentation.}
 to guide its decoding process.
 
+Moses, like many SMT systems, combines signals from different subcomponents
+when searching through the space of possible translations. It does this using a
+log-linear model, in which each component scores a candidate translation, and
+then the scores from the different components are combined with a weighted sum.
+Some typical components are the probabilities learned for a given phrase during
+phrase extraction (without regard to context) in both translation directions,
+scores from the target-language language model, learned distortion models that
+reflect estimated differences in word order between source and target
+languages, and a handful of other features\footnote{For an overview of
+techniques commonly used in phrase-based statistical MT, please see Koehn's
+book on the subject \cite{koehn2010statistical}.}. The weights for each
+subcomponent are typically tuned with Minimum Error-Rate Training, or ``MERT"
+\cite{och:2003:ACL}.
+
+Scores in this framework are expected to represent log probabilities, meaning
+that, concretely, they are real numbers less than 0, as the logarithm of a
+number between 0 and 1 will be negative. The beam search procedure then
+attempts to maximize the total score for a translation, which means finding a
+translation with a score as high as possible, \emph{i.e.}, maximally close to
+0.
+
 We built a simple phrase-based SMT system with Moses and used this feature
 function API to have Chipa evaluate candidate translations.
 For simplicity, we added a constraint in the Moses phrase-extraction system
