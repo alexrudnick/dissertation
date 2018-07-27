@@ -225,9 +225,7 @@ may be noisy, translations
 observed in the bitext may be unknown to the SQUOIA system, and lexical entries in the
 SQUOIA dictionary may not be attested in the training data.
 
-\section{Evaluation}
-
-\subsection{Translation Evaluation for Spanish-Guarani}
+\section{Translation Evaluation for Spanish-Guarani}
 
 %% TODO: explain how we sampled test sets, what it means that we picked verses
 %% rather than sentences
@@ -252,7 +250,7 @@ SQUOIA dictionary may not be attested in the training data.
 \end{figure*}
 
 
-\subsection{Translation Evaluation Spanish-Quechua}
+\section{Translation Evaluation for Spanish-Quechua}
 
 In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate a hundred verses sampled from our
@@ -267,6 +265,7 @@ In any case, here we will show examples of word choices that were changed with
 the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
 \cite{academiamayor}, determine whether they are more or less appropriate than
 the choices that the SQUOIA system would have made on its own.
+
 
 One pattern that we find is that Chipa tends to encourage SQUOIA to choose
 \emph{churi} (a son, when discussed with regard to his father) rather than the
@@ -284,7 +283,18 @@ is the sense of ``llamar" that refers to naming. However, with Chipa, SQUOIA
 picks \emph{waqyaspa}, where \emph{waqyay} is the communicative sense, rather
 than the naming sense.
 
+\begin{figure*}
 \enumsentence{
 Pilato se sorprendió de que ya hubiera muerto, y llamando al centurión, le
 preguntó si ya estaba muerto.}
 \label{sent:alreadydead}
+
+\enumsentence{
+Jehová dijo a Moisés: -- Toma a Josué hijo de Nun, hombre en el cual hay
+espíritu, y pon tu mano sobre él.}
+\label{sent:putyourhand}
+
+  \caption{Selected Spanish passages for which adding Chipa generated different
+  Quechua translations}
+  \label{fig:some-spanish-verses-with-changes}
+\end{figure*}
