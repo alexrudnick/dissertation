@@ -231,6 +231,12 @@ SQUOIA dictionary may not be attested in the training data.
 %% rather than sentences
 
 \subsection{Results: BLEU scores for Spanish-Guarani}
+
+In Figure \ref{fig:bleu-es-gn}, we report BLEU scores for our PBMT system with
+Chipa enabled.
+%% TODO Explain what's up with training with MERT and then turning off that
+%% feature.
+
 \begin{figure*}
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|}
@@ -246,7 +252,7 @@ SQUOIA dictionary may not be attested in the training data.
   \caption{BLEU scores on our Spanish-Guarani test set. Note that this is
   translating to \emph{lemmatized} Guarani, rather than having to predict
   fully-inflected forms.}
-  \label{fig:pyramid-extras-results}
+  \label{fig:bleu-es-gn}
 \end{figure*}
 
 
@@ -264,33 +270,39 @@ appropriate lemmas.
 In any case, here we will show examples of word choices that were changed with
 the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
 \cite{academiamayor}, determine whether they are more or less appropriate than
-the choices that the SQUOIA system would have made on its own.
+the choices that the SQUOIA system would have made on its own. For some
+examples chosen from the sampled test set, see Figure
+\ref{fig:some-spanish-verses-with-changes}. 
 
+One pattern that we find among the changed output is that Chipa tends to
+encourage SQUOIA to choose \emph{churi} (a son, when discussed with regard to
+his father) rather than the more generic \emph{wawa}, which can refer to any
+child; for most of the test sentences where we saw this change happen, it
+seemed like an appropriate choice. For example, in Sentence
+\ref{sent:putyourhand}, we are referring to a son of a particular man, so this
+seems like a good choice.
 
-One pattern that we find is that Chipa tends to encourage SQUOIA to choose
-\emph{churi} (a son, when discussed with regard to his father) rather than the
-more generic \emph{wawa}, which can refer to any child; in all of the test
-sentences where we saw this choice happen, it was an appropriate choice.
-
-But more generally, we see some good word choices... XXX
-
-
-For some examples chosen from the sampled test set, see Figure
-\ref{fig:some-spanish-verses-with-changes}. We see when translating Sentence
-\ref{sent:alreadydead}  from Spanish to
+We see when translating Sentence \ref{sent:alreadydead}  from Spanish to
 Quechua, without Chipa, SQUOIA translates \emph{llamando} ('calling') to
 \emph{sutikuspa}, where \emph{suti} is the sense of ``llamar" that refers to
 naming. However, with Chipa, SQUOIA picks \emph{waqyaspa}, where \emph{waqyay}
-is the communicative sense, rather than the naming sense. In Sentence \
+is the communicative sense, rather than the naming sense.
+
+Many changes caused by Chipa seem to be different choices among near synonyms.
+For example, in Sentence \ref{sent:burning}, without Chipa, we translate
+\emph{ardiente} as \emph{k'anaq}, which seems to be a good translation, meaning
+``glowing, ardently burning". With Chipa, it becomes \emph{'yawraq'} 'burning,
+glowing'. And one difference revealed an ambiguity in Spanish that is clearly
+distinguished in Quechua: in Sentence \ref{sent:reins}, without Chipa, we
+translate \emph{labios} 'lips' as an inflection of \emph{wirp'a}, which seems
+to only refer to the lower lip; with Chipa, we choose an inflection of
+\emph{sirphi}, which seems to refer to only the upper lip
+\footnote{Also, more modern English translations seem to choose something like
+``innermost being" rather than referring to one's innards, but the King James
+Version uses the term ``reins", which apparently historically referred to the
+kidneys.}.
 
 \begin{figure*}
-\enumsentence{
-Pilato se sorprendió de que ya hubiera muerto, y llamando al centurión, le
-preguntó si ya estaba muerto. \emph{``Pilate was surprised to hear that he had
-already died, and calling the centurion, asked him if he was already dead.",
-Mark 15:44}}
-\label{sent:alreadydead}
-
 \enumsentence{
 Jehová dijo a Moisés: -- Toma a Josué hijo de Nun, hombre en el cual hay
 espíritu, y pon tu mano sobre él. \emph{``Jehovah said to Moses: - Take Joshua
@@ -299,10 +311,11 @@ son of Nun, man in whom there is spirit, and put your hand on him.", Numbers
 \label{sent:putyourhand}
 
 \enumsentence{
-Y cualquiera que no se postre y adore, inmediatamente será echado dentro de un
-horno de fuego ardiente. \emph{``And whoever does not fall down and worship
-will immediately be thrown into a blazing furnace.", Daniel 3:6}}
-\label{sent:burning}
+Pilato se sorprendió de que ya hubiera muerto, y llamando al centurión, le
+preguntó si ya estaba muerto. \emph{``Pilate was surprised to hear that he had
+already died, and calling the centurion, asked him if he was already dead.",
+Mark 15:44}}
+\label{sent:alreadydead}
 
 \enumsentence{
 Y cualquiera que no se postre y adore, inmediatamente será echado dentro de un
@@ -311,10 +324,11 @@ will immediately be thrown into a blazing furnace.", Daniel 3:6}}
 \label{sent:burning}
 
 \enumsentence{
-Y mis entrañas también se alegrarán cuando tus labios hablen con rectitud.
-\emph{Proverbs 23:16}}
+Y mis entrañas también se alegrarán cuando tus labios hablen con rectitud. \emph{Proverbs 23:16}}
 \label{sent:reins}
   \caption{Selected Spanish passages for which adding Chipa generated different
   Quechua translations.}
   \label{fig:some-spanish-verses-with-changes}
 \end{figure*}
+
+\section{Discussion}
