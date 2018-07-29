@@ -306,11 +306,12 @@ We note in Sentence \ref{sent:llama} a serious word-sense issue that Chipa did
 not manage to fix; in both cases, SQUOIA failed to interpret \emph{llama} as
 'flame'\footnote{The Spanish token \emph{llama} can be an inflection of the
 verb \emph{llamar} 'to call', or as a noun, 'flame', or of course it can refer
-to llama the animal, which is a loan word from Quechua.}, which seems strange,
-since this should be caught by part-of-speech tagging. In any case, without
-SQUOIA, we choose an inflection of \emph{waqya}, which is the 'call out' sense
-of \emph{llamar}, and with Chipa, we choose an inflection of \emph{suti}, the
-'naming' sense. Neither of these are correct.
+to llama the animal, which is a loan word from Quechua.}; this seems to be a
+cascading error from part-of-speech tagging, as SQUOIA's bundled tagger marked
+it as a verb. In any case, without SQUOIA, we choose an inflection of
+\emph{waqya}, which is the 'call out' sense of \emph{llamar}, and with Chipa,
+we choose an inflection of \emph{suti}, the 'naming' sense. Neither of these
+are correct.
 
 \begin{figure*}
 \enumsentence{
