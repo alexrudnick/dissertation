@@ -105,35 +105,43 @@ considers that phrase, represented as log probabilities.
 SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia} ;
 the project is more broadly described at
 \url{https://www.cl.uzh.ch/en/research/machine-translation/hybridmt.html}}
-is a project for rule-based machine translation from Spanish to Quechua.
-
+is a system for machine translation, primarily from Spanish to Quechua.
 SQUOIA was developed by a team at the University of Zurich. For the most
-part, it is a classical rule-based transfer system, although the team has
+part, it is a classical rule-based system, although the team has
 developed techniques for predicting verb morphology with machine
-learning methods, in cases when rules cannot reliably disambiguate
+learning methods, in cases when its rules cannot reliably disambiguate
 \cite{riosgonzales-gohring:2013:HyTra}. It does not, by default, use machine
 learning for lexical selection as such, although it does include a language
-model to select among the licensed alternatives.
+model to help select among the licensed alternatives.
 
 SQUOIA's architecture is based on the Matxin system \cite{matxin2005}, which
-was originally intended for translating from Spanish to Basque.
-It consists of a pipeline of smaller steps, each of which passes along a tree
-describing the current input sentence, in XML form. Adding CL-WSD to this
-system involves adding a step to the pipeline that interprets the XML
-representation of the current sentence, constrains the lexical choices based on
-the recommendations of the Chipa software, and then passes these choices to
-subsequent scripts.
+was originally intended for translating from Spanish to Basque. It consists of
+a pipeline of smaller steps, each of which passes along a tree describing the
+current input text and transformations that have been applied to it, in XML
+form. As the steps progress, the input Spanish is analyzed and gradually
+transformed into Quechua output. Many modules focus on very particular parts of
+the representation, leaving most of their input unchanged; for example, one
+phase performs coreference resolution, and another phase uses rules to try to
+decide whether an instance of the Spanish preposition \emph{de} should be
+translated into Quechua as indicating the ablative case (direction of motion),
+or the genitive case (posession).
 
-The core system relies on a classical transfer approach and is mostly
-rule-based, with a few components based on machine learning.
+In the first stages, Spanish source sentences are analyzed with off-the-shelf
+open-source NLP tools. To analyze the input Spanish text, SQUOIA uses FreeLing
+\cite{padro12} for morphological analysis and named-entity recognition, Wapiti
+\cite{lavergne2010practical} for tagging, and DeSr
+\cite{attardi-EtAl:2007:EMNLP-CoNLL2007} for parsing.  All of these modules
+rely on statistical models.
 
-Each module performs some transformation on its input and
-passes along the updated version to the next stage. Many modules focus on very
-particular parts of the representation, leaving most of their input unchanged.
 
-Rios and G\"{o}hring \cite{riosgonzales-gohring:2013:HyTra} describe
-earlier work on extending the SQUOIA MT system with machine learning modules.
 
+In order to add Chipa CL-WSD to SQUOIA, we added an additional intermediate
+step to the pipeline that reads the XML representation of the input sentences,
+finds lexical-selection ambiguities that we can attempt to resolve with Chipa,
+constrains those choices lexical choices based on the recommendations of our
+classifiers, and then passes these choices to subsequent steps.
+
+%% XXX: working here what's with all this text
 Lexical ambiguity is a significant problem facing rule-based machine
 translation systems, as many words have several possible translations in a
 given target language, each of which can be considered a sense of the word from
@@ -152,10 +160,10 @@ potentially growing bilingual corpora.
 
 ... show how it allows us to learn from the available bitext to
 make better lexical choices, with very few code changes to the base system.
-
 The integration enables SQUOIA to take advantage of any available bitext
 without significantly changing its design, and to improve its word choices as
 additional bitext becomes available.
+
 
 In its current design, SQUOIA makes word choices based on its bilingual
 lexicon; the possible translations for a given word or multi-word expression
@@ -166,22 +174,20 @@ then the first entry retrieved from the lexicon is selected. While there are
 some rules for lexical selection, they have been written by hand and only cover
 a small subset of the vocabulary in a limited number of contexts.
 
+
 In this work, we supplement these rules with classifiers learned from
-Spanish-Quechua bitext.  These classifiers make use of regularities that may not
-be obvious to human rule-writers, providing improved lexical selection for
-any word type that has adequate coverage in the training corpus.
+Spanish-Quechua bitext.
+These classifiers make use of regularities that may not be obvious to human
+rule-writers, providing improved lexical selection for any word type that has
+adequate coverage in the training corpus.
 
-There are many dialects of Quechua; SQUOIA focuses on the
-Cuzco dialect, spoken around the Peruvian city of Cuzco.
 
-In the first stages, Spanish source sentences are analyzed with off-the-shelf
-open-source NLP tools. To analyze the input Spanish text,
-SQUOIA uses FreeLing \cite{padro12} for morphological analysis and named-entity
-recognition,
-Wapiti \cite{lavergne2010practical} for tagging,
-and DeSr \cite{attardi-EtAl:2007:EMNLP-CoNLL2007} for parsing.
-All of these modules rely on statistical models.
+There are many dialects of Quechua; SQUOIA focuses on the Cuzco dialect, spoken
+around the Peruvian city of Cuzco.
 
+
+%% XXX: all this text, yow. we gotta pick the good parts and edit it together
+%% XXX: do we need this much detail about SQUOIA?
 In the next step, the Spanish verbs must be disambiguated in order to assign
 them a Quechua verb form for generation: a rule-based module tries to assign a
 verb form to each verb chunk based on contextual information. If the rules fail to
