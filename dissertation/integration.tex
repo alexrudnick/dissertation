@@ -18,6 +18,44 @@ translation systems is in a package called Tereré \footnote{Available at
 \url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
 mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
+
+
+%% XXX working here
+Lexical ambiguity is a significant problem facing rule-based machine
+translation systems (CITATION NEEDED), as many words have several possible
+translations in a given target language, each of which can be considered a
+sense of the word from the source language.
+
+The difficulty of resolving these ambiguities is mitigated for 
+statistical machine translation systems for language pairs with large bilingual
+corpora, as large n-gram language models and phrase tables containing common
+multi-word expressions can encourage coherent word choices.
+For most language pairs these resources are not available, so a primarily
+rule-based approach becomes attractive.
+
+In cases where some training data is available, though, we can
+investigate hybrid RBMT and machine learning approaches, leveraging small and
+potentially growing bilingual corpora.
+
+... show how it allows us to learn from the available bitext to
+make better lexical choices, with very few code changes to the base system.
+The integration enables SQUOIA to take advantage of any available bitext
+without significantly changing its design, and to improve its word choices as
+additional bitext becomes available.
+
+While there are some rules for lexical selection, they have been written by
+hand and only cover a small subset of the vocabulary in a limited number of
+contexts.
+In this work, we supplement these rules with classifiers learned from
+Spanish-Quechua bitext.
+These classifiers make use of regularities that may not be obvious to human
+rule-writers, providing improved lexical selection for any word type that has
+adequate coverage in the training corpus.
+
+
+
+
+
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
 Moses\footnote{Available at
 \url{http://statmt.org/moses/}} is a mature,
@@ -105,14 +143,21 @@ considers that phrase, represented as log probabilities.
 SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia} ;
 the project is more broadly described at
 \url{https://www.cl.uzh.ch/en/research/machine-translation/hybridmt.html}}
-is a system for machine translation, primarily from Spanish to Quechua.
+is a system for machine translation, primarily from Spanish to the Cuzco
+dialect of Quechua, spoken around the Peruvian city of Cuzco.
+
 SQUOIA was developed by a team at the University of Zurich. For the most
 part, it is a classical rule-based system, although the team has
 developed techniques for predicting verb morphology with machine
 learning methods, in cases when its rules cannot reliably disambiguate
 \cite{riosgonzales-gohring:2013:HyTra}. It does not, by default, use machine
-learning for lexical selection as such, although it does include a language
-model to help select among the licensed alternatives.
+learning for lexical selection as such,
+although it does include a language model to help select among the
+translations licensed by its transfer rules, and the initial input analysis
+stages use open-source NLP tools based on learned models. SQUOIA uses
+FreeLing \cite{padro12} for morphological analysis and named-entity
+recognition, Wapiti \cite{lavergne2010practical} for tagging, and DeSr
+\cite{attardi-EtAl:2007:EMNLP-CoNLL2007} for parsing.
 
 SQUOIA's architecture is based on the Matxin system \cite{matxin2005}, which
 was originally intended for translating from Spanish to Basque. It consists of
@@ -124,16 +169,10 @@ the representation, leaving most of their input unchanged; for example, one
 phase performs coreference resolution, and another phase uses rules to try to
 decide whether an instance of the Spanish preposition \emph{de} should be
 translated into Quechua as indicating the ablative case (direction of motion),
-or the genitive case (posession).
+or the genitive case (posession). Please see Figure \ref{fig:squoia-steps} for
+an overview of the most important steps in the SQUOIA pipeline.
 
-In the first stages, Spanish source sentences are analyzed with off-the-shelf
-open-source NLP tools. To analyze the input Spanish text, SQUOIA uses FreeLing
-\cite{padro12} for morphological analysis and named-entity recognition, Wapiti
-\cite{lavergne2010practical} for tagging, and DeSr
-\cite{attardi-EtAl:2007:EMNLP-CoNLL2007} for parsing.  All of these modules
-rely on statistical models.
-
-
+%% XXX working here
 
 In order to add Chipa CL-WSD to SQUOIA, we added an additional intermediate
 step to the pipeline that reads the XML representation of the input sentences,
@@ -141,74 +180,49 @@ finds lexical-selection ambiguities that we can attempt to resolve with Chipa,
 constrains those choices lexical choices based on the recommendations of our
 classifiers, and then passes these choices to subsequent steps.
 
+\begin{figure}
+  \begin{itemize}
+  \item Tokenization, morphological analysis, tagging, parsing.
+  \item Disambiguating Spanish verbs with rules that match on contextual clues
+  (low recall; the rules are manually crafted by linguists)
+  \item Disambiguating Spanish verbs with an SVM classifier.
+  \item Lexical lookup and transfer: insert all possible translations for every
+  input token from the bilingual dictionary.
+  \item Rule-based disambiguation, attempting to eliminate possible
+  lexical-selection ambiguities and morphological choices. (similarly low
+  coverage; it is not feasible for linguists to write rules for all possible
+  contexts for every word type in the lexicon)
+  \item \emph{DISAMBIGUATION WITH CHIPA INSERTED HERE}
+
+
+  \end{itemize}
+
+  \caption{An overview of the steps in the SQUOIA MT system}
+  \label{fig:squoia-steps}
+\end{figure}
+
 %% XXX: working here what's with all this text
-Lexical ambiguity is a significant problem facing rule-based machine
-translation systems, as many words have several possible translations in a
-given target language, each of which can be considered a sense of the word from
-the source language.
-
-The difficulty of resolving these ambiguities is mitigated for 
-statistical machine translation systems for language pairs with large bilingual
-corpora, as large n-gram language models and phrase tables containing common
-multi-word expressions can encourage coherent word choices.
-For most language pairs these resources are not available, so a primarily
-rule-based approach becomes attractive.
-
-In cases where some training data is available, though, we can
-investigate hybrid RBMT and machine learning approaches, leveraging small and
-potentially growing bilingual corpora.
-
-... show how it allows us to learn from the available bitext to
-make better lexical choices, with very few code changes to the base system.
-The integration enables SQUOIA to take advantage of any available bitext
-without significantly changing its design, and to improve its word choices as
-additional bitext becomes available.
-
 
 In its current design, SQUOIA makes word choices based on its bilingual
 lexicon; the possible translations for a given word or multi-word expression
-are retrieved from a dictionary on demand. If there are several possible
-translations for a lexical item, these are passed along the pipeline so
-that later stages can make a decision, but if the ambiguity persists,
-then the first entry retrieved from the lexicon is selected. While there are
-some rules for lexical selection, they have been written by hand and only cover
-a small subset of the vocabulary in a limited number of contexts.
+are retrieved from a dictionary on demand.
 
+In the next
+step, a lexical transfer module inserts all possible translations for every
+word from a bilingual dictionary.
 
-In this work, we supplement these rules with classifiers learned from
-Spanish-Quechua bitext.
-These classifiers make use of regularities that may not be obvious to human
-rule-writers, providing improved lexical selection for any word type that has
-adequate coverage in the training corpus.
+Then a set of rules disambiguates the forms
+with lexical or morphological ambiguities. However, this rule-based lexical
+disambiguation is very limited, as it is not feasible to cover all possible
+contexts for every ambiguous word with rules.
 
+The rest of the system makes use of a classical transfer procedure. A following
+module moves syntactic information between the nodes and the chunks in the
+tree, and finally, the tree is reordered according to the basic word order in
+the target language. In the last step, the Quechua surface forms are
+morphologically generated through a finite state transducer.
 
-There are many dialects of Quechua; SQUOIA focuses on the Cuzco dialect, spoken
-around the Peruvian city of Cuzco.
-
-
-%% XXX: all this text, yow. we gotta pick the good parts and edit it together
-%% XXX: do we need this much detail about SQUOIA?
-In the next step, the Spanish verbs must be disambiguated in order to assign
-them a Quechua verb form for generation: a rule-based module tries to assign a
-verb form to each verb chunk based on contextual information. If the rules fail to
-do so due to parsing or tagging errors, the verb is marked as ambiguous and
-passed on to an SVM classifier, which assigns a verb form even if the context
-of that verb does not unambiguously select a target form. This is among the
-most difficult parts of the
-translation process, as the grammatical categories encoded in verbs differ
-substantially between Spanish and Quechua. In the next step, a lexical transfer
-module inserts all possible translations for every word from a bilingual dictionary.
-Then a set of rules disambiguates the forms with lexical or morphological
-ambiguities. However, this rule-based lexical disambiguation is very limited,
-as it is not feasible to cover all possible contexts for every ambiguous word
-with rules.
-
-The rest of the system makes use of a classical transfer procedure. A following module
-moves syntactic information between the nodes and the chunks in the tree, and
-finally, the tree is reordered according to the basic word order in the target
-language. In the last step, the Quechua surface forms are morphologically
-generated through a finite state transducer.
-
+%% XXX: working here
 In order to integrate Chipa into SQUOIA, we added an additional lexical
 selection stage to the SQUOIA pipeline, occurring after the rule-based
 disambiguation modules, but before a number of other steps. This new module
@@ -223,13 +237,13 @@ For each word with such multiple translation possibilities, we look at each of
 the translations under consideration by SQUOIA, and if any of them was the top 
 classification output from the Chipa classifiers, we constrain SQUOIA to take
 that choice.
-%% XXX: working here
-If there are no such overlapping translations, we
-take the default entry suggested by SQUOIA's dictionary.
-Notably, since Chipa and SQUOIA do not share the same lexicon and bitext alignments
-may be noisy, translations
-observed in the bitext may be unknown to the SQUOIA system, and lexical entries in the
+
+If there are no such overlapping translations, we take the default entry
+suggested by SQUOIA's dictionary.  Notably, since Chipa and SQUOIA do not share
+the same lexicon and bitext alignments may be noisy, translations observed in
+the bitext may be unknown to the SQUOIA system, and lexical entries in the
 SQUOIA dictionary may not be attested in the training data.
+
 
 \section{Translation Evaluation for Spanish-Guarani}
 
