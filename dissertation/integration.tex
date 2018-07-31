@@ -193,11 +193,17 @@ classifiers, and then passes these choices to subsequent steps.
   coverage; it is not feasible for linguists to write rules for all possible
   contexts for every word type in the lexicon)
   \item \emph{DISAMBIGUATION WITH CHIPA INSERTED HERE}
-
-
+  \item Syntactic transfer, building more Quechua-like syntactic structures
+  (rule-based).
+  \item Reordering based on new syntactic trees (rule-based).
+  \item Use KenLM language models trained over Quechua words and morphemes to
+  choose most likely alternatives remaining.
+  \item Morphological generation: produce Quechua surface forms with a finite
+  state transducer, output n-best list.
   \end{itemize}
 
-  \caption{An overview of the steps in the SQUOIA MT system}
+  \caption{An overview of the steps in the SQUOIA MT system; there are a few
+  more, handling specific circumstances and parts of speech.}
   \label{fig:squoia-steps}
 \end{figure}
 
@@ -207,20 +213,11 @@ In its current design, SQUOIA makes word choices based on its bilingual
 lexicon; the possible translations for a given word or multi-word expression
 are retrieved from a dictionary on demand.
 
-In the next
-step, a lexical transfer module inserts all possible translations for every
-word from a bilingual dictionary.
-
-Then a set of rules disambiguates the forms
-with lexical or morphological ambiguities. However, this rule-based lexical
-disambiguation is very limited, as it is not feasible to cover all possible
-contexts for every ambiguous word with rules.
-
-The rest of the system makes use of a classical transfer procedure. A following
+The rest of the system makes use of a classical transfer procedure.
+A following
 module moves syntactic information between the nodes and the chunks in the
 tree, and finally, the tree is reordered according to the basic word order in
-the target language. In the last step, the Quechua surface forms are
-morphologically generated through a finite state transducer.
+the target language.
 
 %% XXX: working here
 In order to integrate Chipa into SQUOIA, we added an additional lexical
@@ -236,13 +233,13 @@ translation for that input token should be.
 For each word with such multiple translation possibilities, we look at each of
 the translations under consideration by SQUOIA, and if any of them was the top 
 classification output from the Chipa classifiers, we constrain SQUOIA to take
-that choice.
+that choice by removing the other available options.
 
-If there are no such overlapping translations, we take the default entry
-suggested by SQUOIA's dictionary.  Notably, since Chipa and SQUOIA do not share
-the same lexicon and bitext alignments may be noisy, translations observed in
-the bitext may be unknown to the SQUOIA system, and lexical entries in the
-SQUOIA dictionary may not be attested in the training data.
+If there are no such overlapping translations, we make no changes to the input
+tree, and allow SQUOIA to proceed as normal. Notably, since Chipa and SQUOIA
+do not share the same lexicon and bitext alignments may be noisy, translations
+observed in the bitext may be unknown to the SQUOIA system, and lexical entries
+in the SQUOIA dictionary may not be attested in the training data.
 
 
 \section{Translation Evaluation for Spanish-Guarani}
