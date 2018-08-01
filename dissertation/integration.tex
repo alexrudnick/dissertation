@@ -275,18 +275,19 @@ Chipa enabled.
 In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate a hundred verses sampled from our
 Spanish-Quechua Bible bitext, both in its default settings, and with the
-addition of Chipa. The BLEU scores for SQUOIA output on this test set were
-quite low (lower than one BLEU point), and were not improved by adding Chipa's
-CL-WSD. But this is a rather more difficult task, since we are attempting to
-generate fully-inflected Quechua surface forms, rather than selecting
-appropriate lemmas, and BLEU scoring requires us to match n-grams exactly,
-which is made less likely by the rich morphology, including evidential markers,
-of Quechua. Additionally, as Rios notes \cite[\S 5.9]{rios2015basic},
-translations into Quechua tend to be fairly free, rather than close analogues
-of the source Spanish.
+addition of Chipa. The addition of SQUOIA resulted in some change for the
+SQUOIA output for 55 of the 100 verses translated; some of the changes were
+only in order or punctuation, but the majority were local differences in word
+choice.
 
-%% TODO: put counts of how many verses changed, and how many of the changes
-%% were clearly good, clearly bad, and unclear from my perspective.
+The BLEU scores for SQUOIA output on this test set were quite low (lower than
+one BLEU point), and were not improved by adding Chipa's CL-WSD. But this is a
+rather more difficult task, since we are attempting to generate fully-inflected
+Quechua surface forms, rather than selecting appropriate lemmas, and BLEU
+scoring requires us to match n-grams exactly, which is made less likely by the
+rich morphology, including evidential markers, of Quechua. Additionally, as
+Rios notes \cite[\S 5.9]{rios2015basic}, translations into Quechua tend to be
+fairly free, rather than close analogues of the source Spanish.
 
 In any case, here we will show examples of word choices that were changed with
 the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
@@ -294,6 +295,9 @@ the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
 the choices that the SQUOIA system would have made on its own. For some
 examples chosen from the sampled test set, see Figure
 \ref{fig:some-spanish-verses-with-changes}. 
+
+%% TODO: put counts of how many verses changed, and how many of the changes
+%% were clearly good, clearly bad, and unclear from my perspective.
 
 One pattern that we find among the changed output is that Chipa tends to
 encourage SQUOIA to choose \emph{churi} (a son, when discussed with regard to
