@@ -9,7 +9,7 @@ Quechua with SQUOIA, a rule-based MT system that was developed by Rios \emph{et
 al.} at the University of Zürich. These two integrations are meant to be simple
 proofs of concept, rather than an attempt to define a best practice, but they
 demonstrate at least conceptually how CL-WSD can be used with these translation
-systems.  Afterwards, we look at evaluating Chipa's effect on MT output in both
+systems. Afterwards, we look at evaluating Chipa's effect on MT output in both
 of these use cases.
 
 Among other pieces of software related to this work, especially the corpus
@@ -19,8 +19,7 @@ translation systems is in a package called Tereré \footnote{Available at
 mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
 
-
-%% XXX working here
+%% XXX stitch all this together
 Lexical ambiguity is a significant problem facing rule-based machine
 translation systems (CITATION NEEDED), as many words have several possible
 translations in a given target language, each of which can be considered a
@@ -42,18 +41,13 @@ make better lexical choices, with very few code changes to the base system.
 The integration enables SQUOIA to take advantage of any available bitext
 without significantly changing its design, and to improve its word choices as
 additional bitext becomes available.
+CL-WSD classifiers can make use of regularities that may not be obvious to
+human rule-writers, providing improved lexical selection for any word type that
+has adequate coverage in the training corpus.
 
 While there are some rules for lexical selection, they have been written by
 hand and only cover a small subset of the vocabulary in a limited number of
 contexts.
-In this work, we supplement these rules with classifiers learned from
-Spanish-Quechua bitext.
-These classifiers make use of regularities that may not be obvious to human
-rule-writers, providing improved lexical selection for any word type that has
-adequate coverage in the training corpus.
-
-
-
 
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
@@ -93,7 +87,7 @@ so that the source side of all phrases must be at most one token long, to match
 the alignments used in the previous chapters.
 
 During the search through the space of possible translations, Moses proposes
-candidate translations for each source word to Chipa ...
+candidate translations for each source word to Chipa ... %% XXX working here
 which provides a score based on how likely the translation seems to the CL-WSD
 system, based on the entire source-language sentence context. This score is
 returned to Moses, which combines all of the available features in a log-linear
@@ -114,7 +108,7 @@ carries less weight, than, for example, that of the language model.
 We implemented a simple protocol for communication between the Moses C++ code
 and the Chipa server, based on Unix pipes; see Figure
 \ref{fig:moses-chipa-diagram} for a visual aid. In earlier work with SQUOIA
-\cite{rudnick:saltmil2014}, we had communicated between Chipa and the machine
+\cite{rudnick:saltmil2014}, we had communicated between Chipa and a machine
 translation system with XML-RPC \footnote{\url{http://xmlrpc.scripting.com/}},
 but for simplicity of implementation, we built a simpler text-based protocol.
 
@@ -279,10 +273,13 @@ In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate a hundred verses sampled from our
 Spanish-Quechua Bible bitext, both in its default settings, and with the
 addition of Chipa. The BLEU scores for SQUOIA output on this test set were
-quite low (lower than one BLEU point), and were not improved by adding the
-Chipa CL-WSD, but this is a rather more difficult task, since we are attempting
-to generate fully-inflected Quechua surface forms, rather than selecting
+quite low (lower than one BLEU point), and were not improved by adding Chipa's
+CL-WSD, but this is a rather more difficult task, since we are attempting to
+generate fully-inflected Quechua surface forms, rather than selecting
 appropriate lemmas.
+
+%% TODO: put counts of how many verses changed, and how many of the changes
+%% were clearly good, clearly bad, and unclear from my perspective.
 
 In any case, here we will show examples of word choices that were changed with
 the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
@@ -367,3 +364,4 @@ Santo de Israel. \emph{Isaiah 5:24}}
 \end{figure*}
 
 \section{Discussion}
+%% TODO
