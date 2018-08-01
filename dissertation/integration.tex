@@ -5,12 +5,12 @@ into running machine translation systems, with the goal of improving lexical
 selection in practice, while minimizing code changes to the MT software. We
 translate from Spanish to Guarani with Moses\cite{koehn-EtAl:2007:PosterDemo},
 an off-the-shelf phrase-based statistical MT system, and from Spanish to
-Quechua with SQUOIA, a rule-based MT system that was developed by Rios \emph{et
-al.} at the University of Zürich. These two integrations are meant to be simple
-proofs of concept, rather than an attempt to define a best practice, but they
-demonstrate at least conceptually how CL-WSD can be used with these translation
-systems. Afterwards, we look at evaluating Chipa's effect on MT output in both
-of these use cases.
+Quechua with SQUOIA\cite{rios2015basic}, a primarily rule-based MT system that
+was developed by Rios \emph{et al.} at the University of Zürich. These two
+integrations are meant to be simple proofs of concept, rather than an attempt
+to define a best practice, but they demonstrate at least conceptually how
+CL-WSD can be used with these translation systems. Afterwards, we look at
+evaluating Chipa's effect on MT output in both of these use cases.
 
 Among other pieces of software related to this work, especially the corpus
 preparation scripts, the code to integrate Chipa into these machine
@@ -18,8 +18,11 @@ translation systems is in a package called Tereré \footnote{Available at
 \url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
 mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
+Our goal with integrating Chipa into these MT systems is to provide a prototype
+for how we can add CL-WSD to different kinds of MT systems, especially focusing
+on cases where there is a relatively small amount of text available for
+training the target-side language model. Here  %% XXX working here
 
-%% XXX stitch all this together
 Lexical ambiguity is a significant problem facing rule-based machine
 translation systems (CITATION NEEDED), as many words have several possible
 translations in a given target language, each of which can be considered a
@@ -274,9 +277,13 @@ translation task, we used SQUOIA to translate a hundred verses sampled from our
 Spanish-Quechua Bible bitext, both in its default settings, and with the
 addition of Chipa. The BLEU scores for SQUOIA output on this test set were
 quite low (lower than one BLEU point), and were not improved by adding Chipa's
-CL-WSD, but this is a rather more difficult task, since we are attempting to
+CL-WSD. But this is a rather more difficult task, since we are attempting to
 generate fully-inflected Quechua surface forms, rather than selecting
-appropriate lemmas.
+appropriate lemmas, and BLEU scoring requires us to match n-grams exactly,
+which is made less likely by the rich morphology, including evidential markers,
+of Quechua. Additionally, as Rios notes \cite[\S 5.9]{rios2015basic},
+translations into Quechua tend to be fairly free, rather than close analogues
+of the source Spanish.
 
 %% TODO: put counts of how many verses changed, and how many of the changes
 %% were clearly good, clearly bad, and unclear from my perspective.
