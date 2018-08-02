@@ -5,12 +5,48 @@ into running machine translation systems, with the goal of improving lexical
 selection in practice, while minimizing code changes to the MT software. We
 translate from Spanish to Guarani with Moses\cite{koehn-EtAl:2007:PosterDemo},
 an off-the-shelf phrase-based statistical MT system, and from Spanish to
-Quechua with SQUOIA\cite{rios2015basic}, a primarily rule-based MT system that
-was developed by Rios \emph{et al.} at the University of Zürich. These two
+Quechua with SQUOIA\cite{rios2015basic}, a primarily rule-based MT system 
+developed by Rios \emph{et al.} at the University of Zürich. These two
 integrations are meant to be simple proofs of concept, rather than an attempt
 to define a best practice, but they demonstrate at least conceptually how
-CL-WSD can be used with these translation systems. Afterwards, we look at
-evaluating Chipa's effect on MT output in both of these use cases.
+CL-WSD can be used with these kinds of translation systems. Afterwards, we look
+at evaluating Chipa's effect on MT output in both of these use cases.
+
+A common thread in the MT settings addressed in this work is that there is a
+relatively small amount of text available for training a target-side language
+model, so we should not rely on the LM on its own for making
+contextually-appropriate word choices. This problem is especially significant
+for RBMT systems without weights built into their lexicons; many translation
+options will be licensed for a given input word, and selecting among them can
+be difficult. In SQUOIA, for example, there are some rules for lexical
+selection, but they were written by hand and only cover a small subset of the
+vocabulary and a limited number of contexts.
+
+The difficulty of resolving these ambiguities is mitigated for statistical
+machine translation systems for language pairs with large bilingual corpora, as
+large n-gram language models and phrase tables containing common multi-word
+expressions can encourage coherent word choices. However, for most language
+pairs these resources are not available; as a result, many research groups,
+have sought to build MT systems with rule-based approaches for under-resourced
+language pairs.
+
+%% XXX write a bit more about how we're doing PBMT with low resources too
+
+In cases where some training data is available, though, we can investigate
+combining machine learning and rule-based approaches, resulting in hybrid MT
+systems that can benefit from the small, but potentially growing resources for
+the relevant language pair. These could include bitext corpora for the language
+pair, or with techniques like the ones described in Chapters
+\ref{chap:monolingual} and \ref{chap:multilingual}, monolingual source-language
+corpora and tools, or even bitext matching the source language with other
+target languages. So adding trained CL-WSD classifiers to existing lexical
+selection rules can allow our MT systems to find regularities that may not be
+obvious to human rule-writers, providing lexical selection guidance for word
+types with sufficient coverage in the training corpus.
+With these additional classifiers, a primarily RBMT system can take advantage
+of statistical evidence without significantly changing its design, and to
+improve its word choices as additional bitext or other resources become
+available.
 
 Among other pieces of software related to this work, especially the corpus
 preparation scripts, the code to integrate Chipa into these machine
@@ -18,39 +54,6 @@ translation systems is in a package called Tereré \footnote{Available at
 \url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
 mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
-Our goal with integrating Chipa into these MT systems is to provide a prototype
-for how we can add CL-WSD to different kinds of MT systems, especially focusing
-on cases where there is a relatively small amount of text available for
-training the target-side language model. Here  %% XXX working here
-
-Lexical ambiguity is a significant problem facing rule-based machine
-translation systems (CITATION NEEDED), as many words have several possible
-translations in a given target language, each of which can be considered a
-sense of the word from the source language.
-
-The difficulty of resolving these ambiguities is mitigated for 
-statistical machine translation systems for language pairs with large bilingual
-corpora, as large n-gram language models and phrase tables containing common
-multi-word expressions can encourage coherent word choices.
-For most language pairs these resources are not available, so a primarily
-rule-based approach becomes attractive.
-
-In cases where some training data is available, though, we can
-investigate hybrid RBMT and machine learning approaches, leveraging small and
-potentially growing bilingual corpora.
-
-... show how it allows us to learn from the available bitext to
-make better lexical choices, with very few code changes to the base system.
-The integration enables SQUOIA to take advantage of any available bitext
-without significantly changing its design, and to improve its word choices as
-additional bitext becomes available.
-CL-WSD classifiers can make use of regularities that may not be obvious to
-human rule-writers, providing improved lexical selection for any word type that
-has adequate coverage in the training corpus.
-
-While there are some rules for lexical selection, they have been written by
-hand and only cover a small subset of the vocabulary in a limited number of
-contexts.
 
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
@@ -376,3 +379,4 @@ Santo de Israel. \emph{Isaiah 5:24}}
 
 \section{Discussion}
 %% TODO
+
