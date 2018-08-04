@@ -174,13 +174,24 @@ translated into Quechua as indicating the ablative case (direction of motion),
 or the genitive case (posession). Please see Figure \ref{fig:squoia-steps} for
 an overview of the most important steps in the SQUOIA pipeline.
 
+%% XXX: working here what's with all this text
+In its current design, SQUOIA makes word choices based on its bilingual
+lexicon; the possible translations for a given word or multi-word expression
+are retrieved from a dictionary on demand.
+A following module moves syntactic information between the nodes and the chunks
+in the tree, and finally, the tree is reordered according to the basic word
+order in the target language.
+
 %% XXX working here
 
-In order to add Chipa CL-WSD to SQUOIA, we added an additional intermediate
-step to the pipeline that reads the XML representation of the input sentences,
-finds lexical-selection ambiguities that we can attempt to resolve with Chipa,
-constrains those choices lexical choices based on the recommendations of our
-classifiers, and then passes these choices to subsequent steps.
+In order to integrate Chipa CL-WSD into SQUOIA, we added an additional
+intermediate step to the pipeline that reads the XML representation of the
+current state of the transformation (after rule-based lexical disambiguation),
+extracts the original Spanish input text and finds lexical-selection ambiguities
+that we can attempt to resolve with Chipa.  After finding potentially resolvable
+ambiguities and getting recommendations from our CL-WSD classifiers, we
+constrain the lexical choices based on the classifier outputs, and then update
+the XML tree to pass the choices along to subsequent steps.
 
 \begin{figure}
   \begin{itemize}
@@ -209,19 +220,8 @@ classifiers, and then passes these choices to subsequent steps.
   \label{fig:squoia-steps}
 \end{figure}
 
-%% XXX: working here what's with all this text
 
-In its current design, SQUOIA makes word choices based on its bilingual
-lexicon; the possible translations for a given word or multi-word expression
-are retrieved from a dictionary on demand.
-
-The rest of the system makes use of a classical transfer procedure.
-A following
-module moves syntactic information between the nodes and the chunks in the
-tree, and finally, the tree is reordered according to the basic word order in
-the target language.
-
-%% XXX: working here
+%% XXX: working here, is this mostly duplicated above?
 In order to integrate Chipa into SQUOIA, we added an additional lexical
 selection stage to the SQUOIA pipeline, occurring after the rule-based
 disambiguation modules, but before a number of other steps. This new module
