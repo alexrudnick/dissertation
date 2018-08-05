@@ -109,22 +109,24 @@ be assigned a higher weight. If not, its advice carries less weight, than, for
 example, that of the language model.
 
 \subsection{Interfacing between Moses and Chipa}
-The Moses decoder is written in C++, and ...
 %% write about how we can't we just annotate the phrase table for individual
 %% sentences just before decoding -- we need to know about the phrase *in a
 %% context* and that's the point.
-We implemented a simple protocol for communication between the Moses C++ code
-and the Chipa server, based on Unix pipes; see Figure
-\ref{fig:moses-chipa-diagram} for a visual aid. In earlier work with SQUOIA
-\cite{rudnick:saltmil2014}, we had communicated between Chipa and a machine
-translation system with XML-RPC \footnote{\url{http://xmlrpc.scripting.com/}},
-but for simplicity of implementation, we built a simpler text-based protocol.
-
-Named Unix pipes, or FIFOs, allow the creation of a special kind of filesystem
-object whereby messages can be passed between processes in the same computer.
-Here Moses requests an evaluation for a certain translation of a
-source-language phrase, and Chipa returns a score based on how likely it
-considers that phrase, represented as log probabilities. 
+The Moses decoder is written in C++, and the typical approach for adding new
+feature functions is to write new C++ classes, which are linked in with the
+decoder binary. However, the Chipa software is built in Python, so for
+simplicity, we implemented a protocol for communication between the Moses C++
+code and the Chipa server, based on Unix pipes\footnote{In earlier work with
+SQUOIA \cite{rudnick:saltmil2014}, we had communicated between Chipa and a
+machine translation system with XML-RPC
+\footnote{\url{http://xmlrpc.scripting.com/}}, but for simplicity of
+implementation, we built a new text-based protocol.}; see Figure
+\ref{fig:moses-chipa-diagram} for a visual aid.  Named Unix pipes, or FIFOs,
+allow the creation of a special kind of filesystem object whereby messages can
+be passed between processes in the same computer.  Here Moses requests an
+evaluation for a certain translation of a source-language phrase, and Chipa
+returns a score based on how likely it considers that phrase, represented as log
+probabilities. 
 
 \begin{figure}
   \begin{centering}
