@@ -11,15 +11,6 @@
   training data? how did we deal with this before? is there a canonical
   representation for Quechua lemmas?
       * YES WE KNOW input to SQUOIA is surface level Spanish, no joined MWEs 
-  * also need a good evaluation plan for es-qu
-    * NOPE probably just do the same thing we did for es-gn: BLEU scores??
-    * BLEU scores are really not that appropriate here, since we're generating
-      inflected Quechua and you don't get any credit for getting the lemma right.
-      * also you need 4-grams correct before you get good BLEU scores
-    * we're going to have to highlight some differences that we get when we turn
-    on Chipa
-      * DONE find our es-qu dictionary: the one from the Academia Mayor de la Lengua Quechua!
-      * this is what Francis recommends too; Mike & Sandra like it too
   * write up how we hacked up squoia
 
 ## outro
@@ -311,3 +302,12 @@ CANCELED!!
   test set is now composed of the sentences.
     * DONE: did the "reconstitute verses together" thing, our test set is verses
   * SKIP for chipa-from-moses: run any other annotators on input maybe?
+  * PLANNED also need a good evaluation plan for es-qu
+    * NOPE probably just do the same thing we did for es-gn: BLEU scores??
+    * BLEU scores are really not that appropriate here, since we're generating
+      inflected Quechua and you don't get any credit for getting the lemma right.
+      * also you need 4-grams correct before you get good BLEU scores
+    * we're going to have to highlight some differences that we get when we turn
+    on Chipa
+      * DONE find our es-qu dictionary: the one from the Academia Mayor de la Lengua Quechua!
+      * this is what Francis recommends too; Mike & Sandra like it too
