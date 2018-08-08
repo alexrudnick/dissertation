@@ -109,9 +109,9 @@ be assigned a higher weight. If not, its advice carries less weight, than, for
 example, that of the language model.
 
 \subsection{Interfacing between Moses and Chipa}
-%% write about how we can't we just annotate the phrase table for individual
-%% sentences just before decoding -- we need to know about the phrase *in a
-%% context* and that's the point.
+%% XXX write about how we can't we just annotate the phrase table for
+%individual % sentences just before decoding -- we need to know about the
+%phrase *in a % context* and that's the point.
 The Moses decoder is written in C++, and the typical approach for adding new
 feature functions is to write new C++ classes, which are linked in with the
 decoder binary. However, the Chipa software is built in Python, so for
@@ -142,7 +142,6 @@ probabilities.
 
 \section{Integrating Chipa into Rule-Based Machine Translation}
 
-
 \subsection{The SQUOIA RBMT system}
 SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia} ;
 the project is more broadly described at
@@ -168,24 +167,15 @@ was originally intended for translating from Spanish to Basque. It consists of
 a pipeline of smaller steps, each of which passes along a tree describing the
 current input text and transformations that have been applied to it, in XML
 form. As the steps progress, the input Spanish is analyzed and gradually
-transformed into Quechua output. Many modules focus on very particular parts of
-the representation, leaving most of their input unchanged; for example, one
+transformed into Quechua output. Many modules focus on very particular aspects
+of the representation, leaving most of their input unchanged; for example, one
 phase performs coreference resolution, and another phase uses rules to try to
 decide whether an instance of the Spanish preposition \emph{de} should be
 translated into Quechua as indicating the ablative case (direction of motion),
 or the genitive case (posession). Please see Figure \ref{fig:squoia-steps} for
 an overview of the most important steps in the SQUOIA pipeline.
 
-%% XXX: working here what's with all this text
-In its current design, SQUOIA makes word choices based on its bilingual
-lexicon; the possible translations for a given word or multi-word expression
-are retrieved from a dictionary on demand.
-A following module moves syntactic information between the nodes and the chunks
-in the tree, and finally, the tree is reordered according to the basic word
-order in the target language.
-
 %% XXX working here
-
 In order to integrate Chipa CL-WSD into SQUOIA, we added an additional
 intermediate step to the pipeline that reads the XML representation of the
 current state of the transformation, occurring just after rule-based lexical
