@@ -5,7 +5,7 @@ into running machine translation systems, with the goal of improving lexical
 selection in practice, while minimizing code changes to the MT software. We
 translate from Spanish to Guarani with Moses\cite{koehn-EtAl:2007:PosterDemo},
 an off-the-shelf phrase-based statistical MT system, and from Spanish to
-Quechua with SQUOIA\cite{rios2015basic}, a primarily rule-based MT system 
+Quechua with SQUOIA\cite{rios2015basic}, a primarily rule-based MT system
 developed by Rios \emph{et al.} at the University of Zürich. These two
 integrations are meant to be simple proofs of concept, rather than an attempt
 to define a best practice, but they demonstrate at least conceptually how
@@ -83,9 +83,9 @@ book on the subject \cite{koehn2010statistical}.}.
 Scores in this framework are expected to represent log probabilities, meaning
 that, concretely, they are real numbers less than 0, as the logarithm of a
 number between 0 and 1 will be negative. The decoder's beam search procedure
-then attempts to maximize the total score for a translation, which means finding
-a translation with a score as high as possible, \emph{i.e.}, maximally close to
-0.
+then attempts to maximize the total score for a translation, which means
+finding a translation with a score as high as possible, \emph{i.e.}, maximally
+close to 0.
 
 We built a simple phrase-based SMT system with Moses and used this feature
 function API to have Chipa evaluate candidate translations. For simplicity, we
@@ -109,9 +109,6 @@ be assigned a higher weight. If not, its advice carries less weight, than, for
 example, that of the language model.
 
 \subsection{Interfacing between Moses and Chipa}
-%% XXX write about how we can't we just annotate the phrase table for
-%individual % sentences just before decoding -- we need to know about the
-%phrase *in a % context* and that's the point.
 The Moses decoder is written in C++, and the typical approach for adding new
 feature functions is to write new C++ classes, which are linked in with the
 decoder binary. However, the Chipa software is built in Python, so for
@@ -120,13 +117,25 @@ code and the Chipa server, based on Unix pipes\footnote{In earlier work with
 SQUOIA \cite{rudnick:saltmil2014}, we had communicated between Chipa and a
 machine translation system with XML-RPC
 \footnote{\url{http://xmlrpc.scripting.com/}}, but for simplicity of
-implementation, we built a new text-based protocol.}; see Figure
+implementation, here we built a new text-based protocol.}; see Figure
 \ref{fig:moses-chipa-diagram} for a visual aid.  Named Unix pipes, or FIFOs,
 allow the creation of a special kind of filesystem object whereby messages can
-be passed between processes in the same computer.  Here Moses requests an
-evaluation for a certain translation of a source-language phrase, and Chipa
-returns a score based on how likely it considers that phrase, represented as log
-probabilities. 
+be passed between processes in the same computer. Here Moses requests an
+evaluation for a certain translation of a source-language phrase given the
+source-language sentence as context, and Chipa returns a score based on how
+likely it considers that phrase, represented as log probabilities.
+
+Moses also allows for phrase tables to contain arbitrary annotations in its
+phrase table, and one might ask whether it would be possible to avoid the
+trouble of implementing a new feature function in C++, when we could simply
+add features to a translation of a phrase, in the phrase table on disk.
+However, this misses the point of using our CL-WSD classifiers -- we want to
+know about which translation is most appropriate for a given source-language
+phrase, \emph{in this context}. We could imagine running our classifiers as a
+preprocessing step, and simply producing a phrase table specific to each
+individual sentence that we want to translate, but there could be multiple
+instances of a source phrase in a single input sentence. So here we run our
+classifiers during decoding, using the current source sentence as context.
 
 \begin{figure}
   \begin{centering}
@@ -281,7 +290,7 @@ the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
 \cite{academiamayor}, determine whether they are more or less appropriate than
 the choices that the SQUOIA system would have made on its own. For some
 examples chosen from the sampled test set, see Figure
-\ref{fig:some-spanish-verses-with-changes}. 
+\ref{fig:some-spanish-verses-with-changes}.
 
 %% TODO: put counts of how many verses changed, and how many of the changes
 %% were clearly good, clearly bad, and unclear from my perspective.
@@ -362,6 +371,7 @@ Santo de Israel. \emph{Isaiah 5:24}}
 \end{figure*}
 
 \section{Discussion}
+%% XXX: working here
 In this chapter we have demonstrated approaches for integrating our CL-WSD
 classifiers into two different MT systems of completely different styles and
 architectures. First, we added Chipa through feature functions for Moses, a
@@ -371,3 +381,6 @@ computational linguists especially for an under-resourced language pair. Both
 of these integrations provide a proof-of-concept for how to add CL-WSD, which
 can benefit from the available bilingual and monolingual resources, and can
 result in often-better lexical selection.
+%% XXX: weasel words, make this better
+
+In the final chapter,
