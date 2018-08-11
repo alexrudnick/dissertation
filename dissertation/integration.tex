@@ -156,20 +156,19 @@ SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia} ;
 the project is more broadly described at
 \url{https://www.cl.uzh.ch/en/research/machine-translation/hybridmt.html}}
 is a system for machine translation, primarily from Spanish to the Cuzco
-dialect of Quechua, spoken around the Peruvian city of Cuzco.
+dialect of Quechua, which is spoken around the Peruvian city of Cuzco.
 
-SQUOIA was developed by a team at the University of Zurich. For the most
-part, it is a classical rule-based system, although the team has
-developed techniques for predicting verb morphology with machine
-learning methods, in cases when its rules cannot reliably disambiguate
+SQUOIA was developed by a team at the University of Zurich. For the most part,
+it is a classical rule-based system, although the team has added machine
+learning techniques to a few subcomponents, such as predicting verb morphology
+for cases when its rules cannot reliably disambiguate
 \cite{riosgonzales-gohring:2013:HyTra}. It does not, by default, use machine
-learning for lexical selection as such,
-although it does include a language model to help select among the
-translations licensed by its transfer rules, and the initial input analysis
-stages use open-source NLP tools based on learned models. SQUOIA uses
-FreeLing \cite{padro12} for morphological analysis and named-entity
-recognition, Wapiti \cite{lavergne2010practical} for tagging, and DeSr
-\cite{attardi-EtAl:2007:EMNLP-CoNLL2007} for parsing.
+learning for lexical selection as such, although it does include a language
+model to help select among the translations licensed by its transfer rules.
+Also its initial input analysis stages call open-source NLP tools based on
+learned models. SQUOIA uses FreeLing \cite{padro12} for morphological analysis
+and named-entity recognition, Wapiti \cite{lavergne2010practical} for tagging,
+and DeSr \cite{attardi-EtAl:2007:EMNLP-CoNLL2007} for parsing.
 
 SQUOIA's architecture is based on the Matxin system \cite{matxin2005}, which
 was originally intended for translating from Spanish to Basque. It consists of
@@ -188,12 +187,13 @@ an overview of the most important steps in the SQUOIA pipeline.
 In order to integrate Chipa CL-WSD into SQUOIA, we added an additional
 intermediate step to the pipeline that reads the XML representation of the
 current state of the transformation, occurring just after rule-based lexical
-disambiguation.
-This new module extracts the original Spanish input text from the intermediate
-representation and finds lexical-selection ambiguities
-that we can attempt to resolve with Chipa, \emph{i.e.}, nodes in the tree where
-there are several possible Quechua lemmas that could be chosen as a
-translation.
+disambiguation. This new module extracts the original Spanish input text from
+the intermediate representation and finds lexical-selection ambiguities that we
+can attempt to resolve with Chipa, \emph{i.e.}, nodes in the tree where there
+are several possible Quechua lemmas that could be chosen as a translation. It
+then calls the Chipa CL-WSD classifiers to get an estimated probability
+distribution over possible translations for that input focus word, in its
+particular context.
 
 For each such node with such multiple translation possibilities, we look at
 each of the translations under consideration by SQUOIA, and if any of them was
@@ -201,11 +201,12 @@ the top classification output from the Chipa classifiers, we constrain SQUOIA
 to take that choice by removing the other available options.
 We then update the XML tree to pass the choices along to subsequent steps.
 
-If there are no such overlapping translations, we make no changes to the input
-tree, and allow SQUOIA to proceed as normal. Notably, since Chipa and SQUOIA
-do not share the same lexicon and bitext alignments may be noisy, translations
-observed in the bitext may be unknown to the SQUOIA system, and lexical entries
-in the SQUOIA dictionary may not be attested in the training data.
+If there are no such overlapping translations, or if no Chipa classifier was
+available for that word, we make no changes to the input tree, and allow SQUOIA
+to proceed as normal. Notably, since Chipa and SQUOIA do not share the same
+lexicon and bitext alignments may be noisy, translations observed in the bitext
+may be unknown to the SQUOIA system, and lexical entries in the SQUOIA
+dictionary may not be attested in the training data.
 
 \begin{figure}
   \begin{itemize}
