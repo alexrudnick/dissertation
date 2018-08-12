@@ -60,25 +60,26 @@ mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
 
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
-Moses\footnote{Available at
-\url{http://statmt.org/moses/}} is a mature,
+Moses\footnote{Available at \url{http://statmt.org/moses/}} is a mature,
 well-maintained and popular statistical machine translation package, in broad
-use for both research and practical purposes. Conveniently for our work here,
-it includes an interface for adding feature functions\footnote{See
-\url{http://www.statmt.org/moses/?n=Moses.FeatureFunctions} for documentation.}
-to guide its decoding process.
+use for both research and practical purposes.
+Like many SMT systems, Moses combines signals from different subcomponents when
+searching through the space of possible translations for an input sentence. It
+does this using a log-linear model, in which each component scores a candidate
+translation, and then the scores from the different components are combined in
+a weighted sum. Some typical components are the probabilities learned for a
+given phrase during phrase extraction (without regard to context) in both
+translation directions, scores from the target-language language model, learned
+distortion models that reflect estimated differences in word order between
+source and target languages, and a handful of other features\footnote{For an
+overview of techniques commonly used in phrase-based statistical MT, please see
+Koehn's book on the subject \cite{koehn2010statistical}.}.
 
-Moses, like many SMT systems, combines signals from different subcomponents
-when searching through the space of possible translations. It does this using a
-log-linear model, in which each component scores a candidate translation, and
-then the scores from the different components are combined in a weighted sum.
-Some typical components are the probabilities learned for a given phrase during
-phrase extraction (without regard to context) in both translation directions,
-scores from the target-language language model, learned distortion models that
-reflect estimated differences in word order between source and target
-languages, and a handful of other features\footnote{For an overview of
-techniques commonly used in phrase-based statistical MT, please see Koehn's
-book on the subject \cite{koehn2010statistical}.}.
+Conveniently for our work here, Moses includes an interface for adding new
+feature functions\footnote{See
+\url{http://www.statmt.org/moses/?n=Moses.FeatureFunctions} for documentation.}
+to be combined in the log-linear model, so we can add new information to help
+guide the decoding process.
 
 Scores in this framework are expected to represent log probabilities, meaning
 that, concretely, they are real numbers less than 0, as the logarithm of a
@@ -89,9 +90,9 @@ close to 0.
 
 We built a simple phrase-based SMT system with Moses and used this feature
 function API to have Chipa evaluate candidate translations. For simplicity, we
-added a constraint in the Moses phrase-extraction system so that the source side
-of all phrases must be at most one token long, to match the alignments used in
-the previous chapters.
+added a constraint in the Moses phrase-extraction system so that the source
+side of all phrases must be at most one token long, to match the alignments
+used in the previous chapters.
 
 During the search through the space of possible translations, Moses proposes
 candidate translations for each source word to the Chipa feature function, and
