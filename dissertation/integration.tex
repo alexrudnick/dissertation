@@ -241,6 +241,21 @@ dictionary may not be attested in the training data.
 
 %% TODO: explain how we sampled test sets, what it means that we picked verses
 %% rather than sentences
+In order to evaluate our phrase-based statistical machine translation system,
+with the included CL-WSD classifiers, we sampled development and test sets from
+our bilingual Bible corpus, each of which consists of 100 Bible verses. Verses
+are roughly sentence length, and many in the corpus are complete sentences, but
+it is also common for verses to be part of a longer sentence, or even to
+contain several sentences.  For phrase-based SMT, this does not require any
+particular changes to the system; the decoder is simply trying to produce a
+sequence of tokens and has no explicit concept of syntax.
+
+%% XXX: citation for KenLM?
+We trained a target-language model with KenLM, based on the target side of the
+bitext corpus, as well as the text of the Guarani-language Wikipedia.
+%% XXX: number of sentences/verses for all these things, make a little table.
+We tuned with MERT on the sampled development set.
+
 
 \subsection{Results: BLEU scores for Spanish-Guarani}
 
