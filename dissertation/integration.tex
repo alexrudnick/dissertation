@@ -17,26 +17,28 @@ relatively small amount of text available for training a target-side language
 model, so we should not rely on the LM on its own for making
 contextually-appropriate word choices. This problem is especially significant
 for RBMT systems without weights built into their lexicons; many translation
-options will be licensed for a given input word, and selecting among them can
-be difficult. In SQUOIA, for example, there are some rules for lexical
-selection, but they were written by hand and only cover a small subset of the
-vocabulary and a limited number of contexts.
+options will be licensed for a given input word, and selecting the most
+contextually appropriate choice among them can be difficult. In SQUOIA, for
+example, there are some rules for lexical selection, but they were written by
+hand and only cover a small subset of the vocabulary and a limited number of
+contexts.
 
 The difficulty of resolving these ambiguities is mitigated for statistical
 machine translation systems for language pairs with large bilingual corpora, as
 large n-gram language models and phrase tables containing common multi-word
 expressions can encourage coherent word choices. However, for most language
-pairs these resources are not available; as a result, many research groups,
-have sought to build MT systems with rule-based approaches for under-resourced
-language pairs.
+pairs in the world, these resources are not readily available. As a result,
+many research groups, especially those with backgrounds in Linguistics, have
+sought to build MT systems based around rule-based approaches for
+under-resourced language pairs.
 
-In cases where some training data is available, though, we can investigate
-combining machine learning and rule-based approaches, resulting in hybrid MT
-systems that can benefit from the small, but potentially growing resources for
-the relevant language pair. These could include bitext corpora for the language
-pair, or with techniques like the ones described in Chapters
-\ref{chap:monolingual} and \ref{chap:multilingual}, monolingual source-language
-corpora and tools, or even bitext matching the source language with other
+In cases where some training data is available, we can investigate combining
+machine learning and rule-based approaches, resulting in hybrid MT systems that
+can benefit from the small, but potentially growing resources for the relevant
+language pair. These could include bitext corpora for the language pair, or
+with techniques like the ones described in Chapters \ref{chap:monolingual} and
+\ref{chap:multilingual}, monolingual resources such as source-language corpora
+and NLP tools, or even bitext corpora pairing the source language with other
 target languages. So adding trained CL-WSD classifiers to existing lexical
 selection rules can allow our MT systems to find regularities that may not be
 obvious to human rule-writers, providing lexical selection guidance for word
@@ -47,10 +49,10 @@ of statistical evidence without significantly changing its design, and to
 improve its word choices as additional bitext or other resources become
 available.
 WSD techniques can also be applied to statistical machine translation, as has
-been shown by, for example, Carpuat \emph{et al.} \cite{carpuatpsd} and Tamchyna
-\emph{et al.} \cite{tamchyna2014integrating}. In this chapter we demonstrate
-specifically how to add the Chipa CL-WSD system to Moses, for a language pair
-with an under-resourced target language.
+been shown by, for example, Carpuat \emph{et al.} \cite{carpuatpsd} and
+Tamchyna \emph{et al.} \cite{tamchyna2014integrating}. In this chapter we
+demonstrate specifically how to add the Chipa CL-WSD system to Moses, for a
+language pair with an under-resourced target language.
 
 Among other pieces of software related to this work, especially the corpus
 preparation scripts, the code to integrate Chipa into these machine
