@@ -186,23 +186,23 @@ translated into Quechua as indicating the ablative case (direction of motion),
 or the genitive case (posession). Please see Figure \ref{fig:squoia-steps} for
 an overview of the most important steps in the SQUOIA pipeline.
 
-%% XXX working here
 In order to integrate Chipa CL-WSD into SQUOIA, we added an additional
-intermediate step to the pipeline that reads the XML representation of the
-current state of the transformation, occurring just after rule-based lexical
-disambiguation. This new module extracts the original Spanish input text from
-the intermediate representation and finds lexical-selection ambiguities that we
-can attempt to resolve with Chipa, \emph{i.e.}, nodes in the tree where there
-are several possible Quechua lemmas that could be chosen as a translation. It
-then calls the Chipa CL-WSD classifiers to get an estimated probability
-distribution over possible translations for that input focus word, in its
-particular context.
+intermediate step to the pipeline, occurring just after rule-based lexical
+disambiguation. This new module reads the XML representation output by the
+previous step, extracts the original Spanish input text from the intermediate
+representation, and finds lexical-selection ambiguities that we can attempt to
+resolve with Chipa. These ambiguities are found where there are nodes in the
+tree with several possible Quechua lemmas that could be chosen as a
+translation. It then calls the Chipa CL-WSD classifiers to get an estimated
+probability distribution over possible translations for that input focus word,
+in its particular context.
 
 For each such node with such multiple translation possibilities, we look at
 each of the translations under consideration by SQUOIA, and if any of them was
 the top classification output from the Chipa classifiers, we constrain SQUOIA
-to take that choice by removing the other available options.
-We then update the XML tree to pass the choices along to subsequent steps.
+to take that choice by removing the other available options. We could imagine
+other ways to use the output of the Chipa classifiers, such as removing lexical
+choices with low scores.
 
 If there are no such overlapping translations, or if no Chipa classifier was
 available for that word, we make no changes to the input tree, and allow SQUOIA
@@ -210,6 +210,10 @@ to proceed as normal. Notably, since Chipa and SQUOIA do not share the same
 lexicon and bitext alignments may be noisy, translations observed in the bitext
 may be unknown to the SQUOIA system, and lexical entries in the SQUOIA
 dictionary may not be attested in the training data.
+Having made any possible updates to the representation of our input sentences,
+we serialize the current state to XML again, to pass the choices along to
+subsequent steps.
+
 
 \begin{figure}
   \begin{itemize}
