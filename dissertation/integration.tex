@@ -201,8 +201,13 @@ For each such node with such multiple translation possibilities, we look at
 each of the translations under consideration by SQUOIA, and if any of them was
 the top classification output from the Chipa classifiers, we constrain SQUOIA
 to take that choice by removing the other available options. We could imagine
-other ways to use the output of the Chipa classifiers, such as removing lexical
-choices with low scores.
+other strategies for turning the output of the Chipa classifiers into
+constraints on lexical selection here, such as removing lexical choices that
+the classifier considers improbable, or enforcing that the MT system pick the
+available choice with the highest score from the classifier, even if the
+one-best output from the classifier was not under consideration. We did not
+experiment with other approaches here, only the strategy in which, if the
+one-best output is an available choice, we take it.
 
 If there are no such overlapping translations, or if no Chipa classifier was
 available for that word, we make no changes to the input tree, and allow SQUOIA
