@@ -322,10 +322,10 @@ Chipa enabled.
 In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate a hundred verses sampled from our
 Spanish-Quechua Bible bitext, both in its default settings, and with the
-addition of Chipa. The addition of SQUOIA resulted in some change for the
-SQUOIA output for 55 of the 100 verses translated; some of the changes were
-only in order or punctuation, but the majority were local differences in word
-choice.
+addition of Chipa. The addition of SQUOIA resulted in lexical selection changes
+for the SQUOIA output for 41 of the 100 verses translated; there were 15 more
+changes only in order or punctuation (for a total of 56 sentences that differed
+in some way), but the majority were local differences in word choice.
 
 The BLEU scores for SQUOIA output on this test set were quite low (lower than
 one BLEU point), and were not improved by adding Chipa's CL-WSD. But this is a
@@ -347,13 +347,13 @@ examples chosen from the sampled test set, see Figure
   \begin{centering}
   \begin{tabulary}{\textwidth}{|R|L|}
     \hline
-    Total verses with changes & 41 (out of 100) \\
+    Total verses with lexical changes & 41 (out of 100) \\
     \hline
-    Number of changes judged to be improvements &  XXX \\
+    Number of changes judged to be improvements &  12 \\
     \hline
-    Number of changes judged to be worse &  XXX \\
+    Number of changes judged to be neutral or unclear &  22 \\
     \hline
-    Number of changes judged to be neutral or unclear &  XXX \\
+    Number of changes judged to be worse &  7 \\
     \hline
   \end{tabulary}
   \end{centering}
