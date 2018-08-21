@@ -60,7 +60,6 @@ translation systems is in a package called Tereré \footnote{Available at
 \url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
 mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
-
 \section{Integrating Chipa into Phrase-Based Statistical Machine Translation}
 Moses\footnote{Available at \url{http://statmt.org/moses/}} is a mature,
 well-maintained and popular statistical machine translation package, in broad
@@ -439,21 +438,23 @@ Santo de Israel. \emph{Isaiah 5:24}}
 \end{figure*}
 
 \section{Discussion}
-%% XXX: working here
 In this chapter we have demonstrated approaches for integrating our CL-WSD
 classifiers into two different MT systems of completely different styles and
 architectures. First, we added Chipa to Moses, a phrase-based statistical MT
 system, by adding an additional feature function to the decoder's log-linear
-model.  Secondly, we added Chipa to SQUOIA, a primarily rule-based hybrid MT
-system developed by computational linguists for an under-resourced language
-pair, as a pass that acts after its rule-based lexical selection routines.
+model. Secondly, we integrated Chipa into SQUOIA, a primarily rule-based hybrid
+MT system developed by computational linguists for an under-resourced language
+pair. This second integration acts by making concrete lexical selection choices
+in cases where the rule-based lexical selection routines have not made a firm
+decision, but we have an available CL-WSD classifier.
 
 Both of these integrations provide a proof-of-concept for how to integrate our
 CL-WSD approaches into running MT systems, without changing the overall
-architecture of these systems, and with modest changes to their code. These
-integrations allow the MT systems to benefit from our available bilingual and
-monolingual resources, and can result in better lexical selection, or at least
-provide a means to adapt an existing system to a different domain.
+architecture of these systems, and with very modest changes to their code. These
+integrations allow the MT systems more ways to benefit from our available
+bilingual and monolingual resources, and can result in better lexical
+selection, or at least provide a means to adapt an existing system to a
+different domain.
 %% XXX: need to provide some good examples for this, earlier
 
 In the final chapter, we will summarize the contributions of this work overall
