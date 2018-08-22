@@ -89,12 +89,6 @@ then attempts to maximize the total score for a translation, which means
 finding a translation with a score as high as possible, \emph{i.e.}, maximally
 close to 0.
 
-We built a simple phrase-based SMT system with Moses and used this feature
-function API to have Chipa evaluate candidate translations. For simplicity, we
-added a constraint in the Moses phrase-extraction system so that the source
-side of all phrases must be at most one token long, to match the alignments
-used in the previous chapters.
-
 During the search through the space of possible translations, Moses proposes
 candidate translations for each source word to the Chipa feature function, and
 this function returns a score based on how likely the translation seems to the
@@ -150,6 +144,26 @@ classifiers during decoding, using the current source sentence as context.
   source-sentence context, when available.}
   \label{fig:moses-chipa-diagram}
 \end{figure}
+
+\subsection{Moses SMT for Spanish-Guarani}
+We built a simple phrase-based SMT system with Moses and used the feature
+function API mentioned previously to have Chipa score candidate translations.
+For simplicity, we added a constraint in the Moses phrase-extraction system so
+that the source side of all phrases must be at most one token long, to match
+the alignments used in the previous chapters. Our bitext, as with the CL-WSD
+classifiers, was our Spanish-Guarani Bible corpus.
+
+We trained a target-language model with KenLM\cite{Heafield-kenlm}, based on
+the target side of the bitext corpus, as well as the text of the
+Guarani-language Wikipedia\footnote{Available at
+\url{https://gn.wikipedia.org/} . Dumps of Wikimedia projects are available, in
+general, at \url{https://dumps.wikimedia.org/backup-index.html}}. All input
+text for the language model was preprocessed in the same way as our bitext, as
+described in Section \ref{sec:datasetsandpreprocessing}, and the language
+models were trained over lemmas.
+
+%% XXX working here
+We tuned with MERT on the sampled development set.
 
 \section{Integrating Chipa into Rule-Based Machine Translation}
 
@@ -256,10 +270,9 @@ with the included CL-WSD classifiers, we sampled development and test sets from
 our bilingual Bible corpus, each of which consists of 100 Bible verses. Verses
 are roughly sentence length, and many in the corpus are complete sentences, but
 it is also common for verses to be part of a longer sentence, or even to
-contain several sentences.  For phrase-based SMT, this does not require any
+contain several sentences. For phrase-based SMT, this does not require any
 particular changes to the system; the decoder is simply trying to produce a
 sequence of tokens and has no explicit concept of syntax.
-
 
 \begin{figure*}
   \begin{centering}
@@ -278,16 +291,6 @@ sequence of tokens and has no explicit concept of syntax.
 \end{figure*}
 
 
-We trained a target-language model with KenLM\cite{Heafield-kenlm}, based on
-the target side of the bitext corpus, as well as the text of the
-Guarani-language Wikipedia\footnote{Available at
-\url{https://gn.wikipedia.org/} . Dumps of Wikimedia projects are available, in
-general, at \url{https://dumps.wikimedia.org/backup-index.html}}. All input
-text for the language model was preprocessed in the same way as our bitext, as
-described in Section \ref{sec:datasetsandpreprocessing}, and the language
-models were trained over lemmas.
-
-We tuned with MERT on the sampled development set.
 
 
 \subsection{Results: BLEU scores for Spanish-Guarani}
