@@ -148,10 +148,12 @@ classifiers during decoding, using the current source sentence as context.
 \subsection{Moses SMT for Spanish-Guarani}
 We built a simple phrase-based SMT system with Moses and used the feature
 function API mentioned previously to have Chipa score candidate translations.
+Our bitext, as with the CL-WSD classifiers, was our Spanish-Guarani Bible
+corpus. We sampled our development and test sets from this bitext, taking the
+bitext for 100 Bible verses for tuning, and 100 for testing.
 For simplicity, we added a constraint in the Moses phrase-extraction system so
 that the source side of all phrases must be at most one token long, to match
-the alignments used in the previous chapters. Our bitext, as with the CL-WSD
-classifiers, was our Spanish-Guarani Bible corpus.
+the alignments used in the previous chapters.
 
 We trained a target-language model with KenLM\cite{Heafield-kenlm}, based on
 the target side of the bitext corpus, as well as the text of the
@@ -161,9 +163,24 @@ general, at \url{https://dumps.wikimedia.org/backup-index.html}}. All input
 text for the language model was preprocessed in the same way as our bitext, as
 described in Section \ref{sec:datasetsandpreprocessing}, and the language
 models were trained over lemmas.
+We tuned the decoder's feature function weights with MERT, using the standard
+Moses tuning scripts, on the sampled development set.
 
-%% XXX working here
-We tuned with MERT on the sampled development set.
+\begin{figure*}
+  \begin{centering}
+  \begin{tabulary}{\textwidth}{|R|L|}
+    \hline
+    Guarani-language corpus & size \\
+    \hline
+    Guarani side of Bible bitext &  $27,627$ verses \\
+    \hline
+    All articles from gn.wikipedia.org & $33,894$ sentences \\
+    \hline
+  \end{tabulary}
+  \end{centering}
+  \caption{Sizes of Guarani-language corpora for training the language model.}
+  \label{fig:gn-lm-sizes}
+\end{figure*}
 
 \section{Integrating Chipa into Rule-Based Machine Translation}
 
@@ -263,38 +280,16 @@ subsequent steps.
 
 \section{Translation Evaluation for Spanish-Guarani}
 
-%% TODO: explain how we sampled test sets, what it means that we picked verses
-%% rather than sentences
 In order to evaluate our phrase-based statistical machine translation system,
-with the included CL-WSD classifiers, we sampled development and test sets from
-our bilingual Bible corpus, each of which consists of 100 Bible verses. Verses
-are roughly sentence length, and many in the corpus are complete sentences, but
-it is also common for verses to be part of a longer sentence, or even to
-contain several sentences. For phrase-based SMT, this does not require any
-particular changes to the system; the decoder is simply trying to produce a
+with the included CL-WSD classifiers, we sampled a test set from our bilingual
+Bible corpus, which, like the development set, consists of 100 Bible verses.
+Verses are roughly sentence length, and many in the corpus are complete
+sentences, but it is also common for verses to be part of a longer sentence, or
+even to contain several sentences. For phrase-based SMT, this does not require
+any particular changes to the system; the decoder simply tries to produce a
 sequence of tokens and has no explicit concept of syntax.
 
-\begin{figure*}
-  \begin{centering}
-  \begin{tabulary}{\textwidth}{|R|L|}
-    \hline
-    Guarani-language corpus & size \\
-    \hline
-    Guarani side of Bible bitext &  $27,627$ verses \\
-    \hline
-    All articles from gn.wikipedia.org & $33,894$ sentences \\
-    \hline
-  \end{tabulary}
-  \end{centering}
-  \caption{Sizes of Guarani-language corpora for training the language model.}
-  \label{fig:gn-lm-sizes}
-\end{figure*}
-
-
-
-
-\subsection{Results: BLEU scores for Spanish-Guarani}
-
+For the experiments here, we 
 In Figure \ref{fig:bleu-es-gn}, we report BLEU scores for our PBMT system with
 Chipa enabled.
 %% TODO Explain what's up with training with MERT and then turning off that
