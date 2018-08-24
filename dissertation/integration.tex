@@ -14,14 +14,13 @@ at evaluating Chipa's effect on MT output in both of these use cases.
 
 A common thread in the MT settings addressed in this work is that there is a
 relatively small amount of text available for training a target-side language
-model, so we should not rely on the LM on its own for making
-contextually-appropriate word choices. This problem is especially significant
-for RBMT systems without weights built into their lexicons; many translation
-options will be licensed for a given input word, and selecting the most
-contextually appropriate choice among them can be difficult. In SQUOIA, for
-example, there are some rules for lexical selection, but they were written by
-hand and only cover a small subset of the vocabulary and a limited number of
-contexts.
+model, so we should not rely on the LM on its own for making contextually
+appropriate word choices. This problem is especially significant for RBMT
+systems without weights built into their lexicons; many translation options
+will be licensed for a given input word, and selecting the most appropriate
+choice among them can be difficult. In SQUOIA, for example, there are some
+rules for lexical selection, but they were written by hand and only cover a
+small subset of the vocabulary and a limited number of contexts.
 
 The difficulty of resolving these ambiguities is mitigated for statistical
 machine translation systems for language pairs with large bilingual corpora, as
@@ -32,22 +31,23 @@ many research groups, especially those with backgrounds in Linguistics, have
 sought to build MT systems based around rule-based approaches for
 under-resourced language pairs.
 
-In cases where some training data is available, we can investigate combining
-machine learning and rule-based approaches, resulting in hybrid MT systems that
-can benefit from the small, but potentially growing resources for the relevant
-language pair. These could include bitext corpora for the language pair, or
-with techniques like the ones described in Chapters \ref{chap:monolingual} and
-\ref{chap:multilingual}, monolingual resources such as source-language corpora
-and NLP tools, or even bitext corpora pairing the source language with other
-target languages. So adding trained CL-WSD classifiers to existing lexical
-selection rules can allow our MT systems to find regularities that may not be
-obvious to human rule-writers, providing lexical selection guidance for word
-types with sufficient coverage in the training corpus.
+Given such a rule-based system, in cases where some training data is available,
+we can investigate combining machine learning and rule-based approaches,
+resulting in hybrid MT systems that can benefit from the small, but potentially
+growing resources for the relevant language pair. These could include bitext
+corpora for the language pair, or with techniques like the ones described in
+Chapters \ref{chap:monolingual} and \ref{chap:multilingual}, monolingual
+resources such as source-language corpora and NLP tools, or even bitext corpora
+pairing the source language with other target languages. So adding trained
+CL-WSD classifiers to existing lexical selection rules can allow these hybrid
+MT systems to make use of regularities that may not be obvious to human
+rule-writers, providing lexical selection guidance for word types with
+sufficient coverage in the training corpus.
 
 With these additional classifiers, a primarily RBMT system can take advantage
-of statistical evidence without significantly changing its design, and to
-improve its word choices as additional bitext or other resources become
-available.
+of statistical evidence without significantly changing its design, and
+gradually improve its word choices as additional bitext or other resources
+become available.
 WSD techniques can also be applied to statistical machine translation, as has
 been shown by, for example, Carpuat \emph{et al.} \cite{carpuatpsd} and
 Tamchyna \emph{et al.} \cite{tamchyna2014integrating}. In this chapter we
@@ -70,7 +70,7 @@ does this using a log-linear model, in which each component scores a candidate
 translation, and then the scores from the different components are combined in
 a weighted sum. Some typical components are the probabilities learned for a
 given phrase during phrase extraction (without regard to context) in both
-translation directions, scores from the target-language language model, learned
+translation directions, scores from the target-language language model,
 distortion models that reflect estimated differences in word order between
 source and target languages, and a handful of other features\footnote{For an
 overview of techniques commonly used in phrase-based statistical MT, please see
@@ -99,10 +99,10 @@ combination.
 The weights for all of the features provided to the system (translation
 probabilities, LM scores, CL-WSD scores, and perhaps others) are typically
 tuned on a development set with Minimum Error-Rate Training, or ``MERT"
-\cite{och:2003:ACL} ; thus, if CL-WSD scores turn out to be useful for
-achieving high BLEU scores on the development set sentences, Chipa's feature
-function will be assigned a higher weight. If not, its advice carries less
-weight, than, for example, that of the language model.
+\cite{och:2003:ACL}; thus, if CL-WSD scores turn out to be useful for achieving
+high BLEU scores on the development set sentences, Chipa's feature function
+will be assigned more weight. If not, its advice will carry less weight, than,
+for example, that of the language model.
 
 \subsection{Interfacing between Moses and Chipa}
 The Moses decoder is written in C++, and the typical approach for adding new
