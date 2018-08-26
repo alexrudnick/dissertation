@@ -164,23 +164,30 @@ causing search errors, probabilities are clipped to be in the range $[0.01,
 We built a simple phrase-based SMT system with Moses and used the feature
 function API mentioned previously to have Chipa score candidate translations.
 Our bitext, as with the CL-WSD classifiers, was our Spanish-Guarani Bible
-corpus. We sampled our development and test sets from this bitext, taking the
-bitext for 100 Bible verses for tuning, and 100 for testing.
-For simplicity, we added a constraint to the Moses phrase-extraction system so
-that the source side of all phrases must be at most one token long, to match
-the alignments used in the previous chapters.
+corpus; specifically, we used the surface forms for Spanish, but lemmas for the
+output Guarani. We sampled our development and test sets from this bitext,
+taking 100 pairs of Bible verses for tuning, and 100 for testing.  For
+simplicity, we added a constraint to the Moses phrase-extraction
+system\footnote{Changes were made in \texttt{phrase-extract/extract-main.cpp},
+for those familiar with the Moses codebase} so that the source side of all
+phrases must be at most one token long, to match the alignments used in the
+previous chapters. Otherwise, we used the default settings for training a
+phrase-based SMT system with Moses.
 
-%% XXX working here
-We trained a target-language model with KenLM\cite{Heafield-kenlm}, based on
-the target side of the bitext corpus, as well as the text of the
+As is common practice with SMT systems, we trained our target-language model
+with KenLM\cite{Heafield-kenlm}, based on both the target side of the bitext
+corpus, together with some monolingual Guarani data, the text of the
 Guarani-language Wikipedia\footnote{Available at
 \url{https://gn.wikipedia.org/} . Dumps of Wikimedia projects are available, in
 general, at \url{https://dumps.wikimedia.org/backup-index.html}}. All input
 text for the language model was preprocessed in the same way as our bitext, as
 described in Section \ref{sec:datasetsandpreprocessing}, and the language
-models were trained over lemmas.
-We tuned the decoder's feature function weights with MERT, using the standard
-Moses tuning scripts, on the sampled development set.
+models were trained over lemmas, matching the target side of the bitext. We
+tuned the decoder's feature function weights with MERT, using the standard
+Moses tuning scripts, over the sampled development set.
+
+Experimental results for this MT system are discussed in Section
+\ref{sec:integration-es-gn-evaluation}.
 
 \begin{figure*}
   \begin{centering}
@@ -295,6 +302,7 @@ subsequent steps.
 
 
 \section{Translation Evaluation for Spanish-Guarani}
+\label{sec:integration-es-gn-evaluation}
 
 In order to evaluate our phrase-based statistical machine translation system,
 with the included CL-WSD classifiers, we sampled a test set from our bilingual
@@ -331,7 +339,7 @@ Chipa enabled.
 
 
 \section{Translation Evaluation for Spanish-Quechua}
-
+\label{sec:integration-es-qu-evaluation}
 In order to evaluate the effect of Chipa on lexical selection in a live
 translation task, we used SQUOIA to translate a hundred verses sampled from our
 Spanish-Quechua Bible bitext, both in its default settings, and with the
