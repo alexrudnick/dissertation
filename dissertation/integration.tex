@@ -20,16 +20,16 @@ systems without weights built into their lexicons; many translation options
 will be licensed for a given input word, and selecting the most appropriate
 choice among them can be difficult. In SQUOIA, for example, there are some
 rules for lexical selection, but they were written by hand and only cover a
-small subset of the vocabulary and a limited number of contexts.
+small subset of the system's lexicon, in a limited number of contexts.
 
 The difficulty of resolving these ambiguities is mitigated for statistical
-machine translation systems for language pairs with large bilingual corpora, as
-large n-gram language models and phrase tables containing common multi-word
-expressions can encourage coherent word choices. However, for most language
-pairs in the world, these resources are not readily available. As a result,
-many research groups, especially those with backgrounds in Linguistics, have
-sought to build MT systems based around rule-based approaches for
-under-resourced language pairs.
+machine translation systems for language pairs with substantial bitext corpora
+and target-language monolingual corpora, as large n-gram language models and
+phrase tables containing common multi-word expressions can encourage coherent
+word choices. However, for most language pairs in the world, these resources
+are not readily available. As a result, many research groups, especially those
+with backgrounds in Linguistics, have sought to build MT systems based around
+rule-based approaches for under-resourced language pairs.
 
 Given such a rule-based system, in cases where some training data is available,
 we can investigate combining machine learning and rule-based approaches,
@@ -55,8 +55,8 @@ demonstrate specifically how to add the Chipa CL-WSD system to Moses, for a
 language pair with an under-resourced target language.
 
 Among other pieces of software related to this work, especially the corpus
-preparation scripts, the code to integrate Chipa into these machine
-translation systems is in a package called Tereré \footnote{Available at
+preparation scripts, the code to integrate Chipa into these machine translation
+systems is bundled in a package called Tereré \footnote{Available at
 \url{http://github.com/alexrudnick/terere} ; Tereré is a cold variety of yerba
 mate brewed with ice water; it is a specifically Paraguayan specialty.}.
 
@@ -101,18 +101,20 @@ probabilities, LM scores, CL-WSD scores, and perhaps others) are typically
 tuned on a development set with Minimum Error-Rate Training, or ``MERT"
 \cite{och:2003:ACL}; thus, if CL-WSD scores turn out to be useful for achieving
 high BLEU scores on the development set sentences, Chipa's feature function
-will be assigned more weight. If not, its advice will carry less weight, than,
-for example, that of the language model.
+will be assigned more weight. If not, its advice will carry less weight than
+that of more informative feature functions.
 
 \subsection{Interfacing between Moses and Chipa}
 The Moses decoder is written in C++, and the typical approach for adding new
-feature functions is to write new C++ classes, which are linked in with the
-decoder binary. However, the Chipa software is built in Python, so for
-simplicity of implementation and to avoid having to add too many dependencies
-to Moses, we implemented a protocol for communication between the Moses C++
-code and the Chipa server, based on Unix pipes\footnote{In earlier work with
-SQUOIA \cite{rudnick:saltmil2014}, we had communicated between Chipa and a
-machine translation system with XML-RPC
+feature functions is to write new C++ classes following the feature function
+interface. All of the feature function classes are linked in with the decoder
+binary, and Moses users can configure their SMT systems to use specific feature
+functions with a configuration file that references these classes. However, the
+Chipa software is built in Python, so for simplicity of implementation and to
+avoid having to add too many dependencies to Moses, we implemented a protocol
+for communication between the Moses C++ code and the Chipa server, based on
+Unix pipes\footnote{In earlier work with SQUOIA \cite{rudnick:saltmil2014}, we
+had communicated between Chipa and a machine translation system with XML-RPC
 \footnote{\url{http://xmlrpc.scripting.com/}}, but for simplicity of
 implementation, here we built a new text-based protocol.}; see Figure
 \ref{fig:moses-chipa-diagram} for a visual aid. Named Unix pipes, or FIFOs,
@@ -134,6 +136,10 @@ individual sentence that we want to translate, but there could be multiple
 instances of a source phrase in a single input sentence. So here we run our
 classifiers during decoding, using the current source sentence as context.
 
+The Chipa server takes tokenized surface form Spanish as its input, running our
+standard text preprocessing pipeline for Spanish on demand ...
+% XXX working here
+
 \begin{figure}
   \begin{centering}
   \includegraphics[width=15cm]{moses-chipa-diagram.png}
@@ -148,17 +154,17 @@ classifiers during decoding, using the current source sentence as context.
 
 So concretely, during the search for a translation for an input sentence, the
 decoder requests a score for each candidate phrase used to translate a
-source-language phrase. The new Moses feature function then makes an IPC call
-to the Chipa server, which uses a CL-WSD classifier to build a distribution
-over the possible translations for that focus word, given the current context.
-The Chipa server passes back the log probability for the proposed translation
-for the current focus word. For performance reasons, trained CL-WSD classifiers
-are kept in cache, as are the probability distributions for the translations of
-a given token. For focus words for which we have no CL-WSD classifiers
-(\emph{i.e.}, they are not sufficiently supported in the training data, or are
-considered stop words), the server returns a constant ($log\ 0.5$), and to avoid
-causing search errors, probabilities are clipped to be in the range $[0.01,
-0.99]$.
+source-language phrase. The new Moses feature function then makes a call (over
+the FIFO communication channel) to the Chipa server, which uses a CL-WSD
+classifier to build a distribution over the possible translations for that
+focus word, given the current context.  The Chipa server passes back the log
+probability for the proposed translation for the current focus word. For
+performance reasons, trained CL-WSD classifiers are kept in cache, as are the
+probability distributions for the translations of a given token in context. For
+focus words for which we have no CL-WSD classifiers (\emph{i.e.}, they are not
+sufficiently supported in the training data, or are considered stop words), the
+server returns a constant ($log\ 0.5$), and to avoid causing search errors,
+probabilities are clipped to be in the range $[0.01, 0.99]$.
 
 \subsection{Moses SMT for Spanish-Guarani}
 We built a simple phrase-based SMT system with Moses and used the feature
