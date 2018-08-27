@@ -339,12 +339,23 @@ sentences, but it is also common for verses to be part of a longer sentence, or
 even to contain several sentences. For phrase-based SMT, this does not require
 any particular changes to the system; the decoder simply tries to produce a
 sequence of tokens and has no explicit concept of syntax.
+We tuned our Moses system on the development set with Chipa enabled, and then
+for comparison, to see if the system was getting useful information from
+CL-WSD, disabled the CL-WSD feature function.
 
-For the experiments here, we 
-In Figure \ref{fig:bleu-es-gn}, we report BLEU scores for our PBMT system with
-Chipa enabled.
-%% TODO Explain what's up with training with MERT and then turning off that
-%% feature.
+For our experimental results here, we report BLEU scores for our lemmatized
+Guarani output, compared with the lemmatized target side of the test set.
+See Figure \ref{fig:bleu-es-gn} for a table of the BLEU scores.
+Here we see that the system learned to rely on the output of Chipa for useful
+guidance; when running with the same MERT-tuned weights, but the CL-WSD
+classifiers disabled, we get a BLEU score drop of roughly six points. For
+comparison, we additionally tried tuning the same Moses system with the Chipa
+feature function disabled, but found that the variance among BLEU scores for
+runs of this experiment was quite high\footnote{This is due to the MERT search
+procedure starting at different, randomly-chosen points in the space of weight
+assignments; the phenomenon is sometimes called ``MERT noise" informally.}, so
+comparison with our results for the tuned system with Chipa enabled do not seem
+particularly illuminating.
 
 \begin{figure*}
   \begin{centering}
@@ -377,19 +388,25 @@ in some way), but the majority were local differences in word choice.
 
 The BLEU scores for SQUOIA output on this test set were quite low (lower than
 one BLEU point), and were not improved by adding Chipa's CL-WSD. But this is a
-rather more difficult task, since we are attempting to generate fully-inflected
-Quechua surface forms, rather than selecting appropriate lemmas, and BLEU
-scoring requires us to match n-grams exactly, which is made less likely by the
-rich morphology, including evidential markers, of Quechua. Additionally, as
-Rios notes \cite[\S 5.9]{rios2015basic}, translations into Quechua tend to be
-fairly free, rather than close analogues of the source Spanish.
+rather more difficult task than our Spanish-Guarani setting, since we are
+attempting to generate fully-inflected Quechua surface forms, rather than
+selecting appropriate lemmas, and BLEU scoring requires us to match n-grams
+exactly, which is made less likely by the rich morphology, including evidential
+markers, of Quechua. Additionally, as Rios notes \cite[\S 5.9]{rios2015basic},
+translations into Quechua tend to be fairly free, rather than close analogues
+of the source Spanish.
 
-In any case, here we show examples of word choices that were changed with the
-addition of Chipa CL-WSD, and, armed with our Spanish-Quechua dictionary
-\cite{academiamayor}, determine whether they are more or less appropriate than
-the choices that the SQUOIA system would have made on its own. For some
-examples chosen from the sampled test set, see Figure
-\ref{fig:some-spanish-verses-with-changes}.
+In any case, for evaluation, here we show examples of word choices that were
+changed with the addition of Chipa CL-WSD, and, armed with our Spanish-Quechua
+dictionary\cite{academiamayor}, determine whether they are more or less
+appropriate than the choices that the SQUOIA system would have made on its
+own\footnote{Specifically, in this case, by ``we", we mean the author, a native
+English speaker who can read and speak Spanish but not Quechua.}.
+For some examples chosen from the sampled test set, see Figure
+\ref{fig:some-spanish-verses-with-changes}. Counts of how many changes were
+judged by a non-expert reader to be improvements, neutral or unclear, or
+worse than the output without Chipa, are presented in Figure
+\ref{fig:es-qu-evaluation}.
 
 \begin{figure*}
   \begin{centering}
