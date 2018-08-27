@@ -136,10 +136,6 @@ individual sentence that we want to translate, but there could be multiple
 instances of a source phrase in a single input sentence. So here we run our
 classifiers during decoding, using the current source sentence as context.
 
-The Chipa server takes tokenized surface form Spanish as its input, running our
-standard text preprocessing pipeline for Spanish on demand ...
-% XXX working here
-
 \begin{figure}
   \begin{centering}
   \includegraphics[width=15cm]{moses-chipa-diagram.png}
@@ -155,16 +151,24 @@ standard text preprocessing pipeline for Spanish on demand ...
 So concretely, during the search for a translation for an input sentence, the
 decoder requests a score for each candidate phrase used to translate a
 source-language phrase. The new Moses feature function then makes a call (over
-the FIFO communication channel) to the Chipa server, which uses a CL-WSD
-classifier to build a distribution over the possible translations for that
-focus word, given the current context.  The Chipa server passes back the log
-probability for the proposed translation for the current focus word. For
-performance reasons, trained CL-WSD classifiers are kept in cache, as are the
-probability distributions for the translations of a given token in context. For
-focus words for which we have no CL-WSD classifiers (\emph{i.e.}, they are not
-sufficiently supported in the training data, or are considered stop words), the
-server returns a constant ($log\ 0.5$), and to avoid causing search errors,
-probabilities are clipped to be in the range $[0.01, 0.99]$.
+the FIFO communication channel) to the Chipa server, which takes a string of
+tokenized surface-form Spanish as its input. The Chipa server runs our standard
+text preprocessing pipeline for Spanish on demand, and then either trains or
+loads from memory a CL-WSD classifier for the lemma of the current focus token.
+It then extracts features and uses the CL-WSD classifier to estimate a
+probability distribution over the possible translations for that focus word,
+given the current context. The Chipa server passes back the log probability for
+the proposed translation for the current focus word.
+
+For performance reasons, trained CL-WSD classifiers are kept in cache, as are
+the probability distributions for the translations of a given token in context.
+For focus words for which we have no CL-WSD classifiers (\emph{i.e.}, they are
+not sufficiently supported in the training data, or are considered stop words),
+the server returns a constant ($log\ 0.5$), and to avoid causing search errors,
+probabilities are clipped to be in the range $[0.01, 0.99]$. Also, it should be
+noted that Moses internally stores phrases using XML escaping, rather than the
+Unicode strings, so the Chipa server must unescape these strings before working
+with them, and then pass escaped strings back to Moses.
 
 \subsection{Moses SMT for Spanish-Guarani}
 We built a simple phrase-based SMT system with Moses and used the feature
@@ -217,8 +221,11 @@ Experimental results for this MT system are discussed in Section
 SQUOIA\footnote{Code available at \url{https://github.com/a-rios/squoia} ;
 the project is more broadly described at
 \url{https://www.cl.uzh.ch/en/research/machine-translation/hybridmt.html}}
-is a system for machine translation, primarily from Spanish to the Cuzco
-dialect of Quechua, which is spoken around the Peruvian city of Cuzco.
+is a hybrid but primarily rule-based MT system, developed to translate Spanish
+to Quechua\footnote{Particularly the Cuzco dialect of Quechua, which is spoken
+around the Peruvian city of Cuzco. There are many varieties of Quechua, as
+noted in Section \ref{sec:quechua}, spoken across the Andes mountain range.
+SQUOIA also supports translating Spanish to German.}.
 
 SQUOIA was developed by a team at the University of Zurich. For the most part,
 it is a classical rule-based system, although the team has added machine
@@ -232,7 +239,7 @@ learned models. SQUOIA uses FreeLing \cite{padro12} for morphological analysis
 and named-entity recognition, Wapiti \cite{lavergne2010practical} for tagging,
 and DeSr \cite{attardi-EtAl:2007:EMNLP-CoNLL2007} for parsing.
 
-SQUOIA's architecture is based on the Matxin system \cite{matxin2005}, which
+SQUOIA's architecture is based on the Matxin system\cite{matxin2005}, which
 was originally intended for translating from Spanish to Basque. It consists of
 a pipeline of smaller steps, each of which passes along a tree describing the
 current input text and transformations that have been applied to it, in XML
@@ -268,15 +275,29 @@ one-best output from the classifier was not under consideration. We did not
 experiment with other approaches here, only the strategy in which, if the
 one-best output is an available choice, we take it.
 
+A wrinkle to consider is that since Chipa classifiers for Spanish-Quechua use
+one-to-many alignments, the classifier output can contain short Quechua
+phrases. Furthermore, the classifiers are trained on the output of the
+AntiMorfo morphological analyzer for Quechua (see Section \ref{sec:guaranima}
+for details), so morphological ambiguities can make their way into the Chipa
+output; this is represented by two or more lemmas adjoined with a slash. This
+happens, for example, when multiple lemmas can plausibly inflect to the same
+surface form. However, the SQUOIA bilingual lexicon contains specific lemmas;
+it means to pick a particular one, for a specific meaning. In order to overcome
+both of these ontological mismatches, we considering a candidate lemma to be a
+match if it is found anywhere in the Chipa output. 
+
 If there are no such overlapping translations, or if no Chipa classifier was
 available for that word, we make no changes to the input tree, and allow SQUOIA
 to proceed as normal. Notably, since Chipa and SQUOIA do not share the same
 lexicon and bitext alignments may be noisy, translations observed in the bitext
 may be unknown to the SQUOIA system, and lexical entries in the SQUOIA
 dictionary may not be attested in the training data.
+
 Having made any possible updates to the representation of our input sentences,
 we serialize the current state to XML again, to pass the choices along to
-subsequent steps.
+subsequent steps, which complete the process of turning the input into Quechua
+output.
 
 
 \begin{figure}
