@@ -1,10 +1,12 @@
 \chapter{Conclusions}
 \label{chap:conclusions}
 Thus far, we have prototyped our CL-WSD systems that make use of multilingual
-evidence and sequence labeling techniques and seen promising initial results
-with these approaches, as described in XXX and our papers
-mentioned in that section.
+evidence, monolingual evidence, and off-the-shelf NLP tools for analyzing our
+source languages.
+We have seen seen promising initial results with these approaches, as described
+in XXX and our papers mentioned in that section.
 
+%% XXX working here
 Initial experiments are underway with building Tereré on top of the cdec
 toolkit; we can already train Guarani-language LMs with KenLM
 \cite{Heafield-estimate}, trained on the Guarani-language Wikipedia.
@@ -26,23 +28,35 @@ available bitext corpus for a resource-poor language.
 
 \section{Future Work}
 
-\section{Morphological Generation}
-%% future work, necessary for a complete MT system into morphologically rich
-%% indigenous languages 
-In the second pass, we will predict the appropriate morphological features will
-with a discriminative sequence-labeling approach based on work at Microsoft
-Research \cite{toutanova-suzuki-ruopp:2008:ACLMain}.
-Thus both the transfer rules and the language model will be in terms of stemmed
-Guarani.
-As an alternative, we could adapt the techniques in
-\cite{chahuneau:2013:emnlp} to generate translation rules that contain the
-appropriately inflected target forms, just before running the decoder.
-Rule-based approaches may also be sensible for generating Guarani morphology,
-in some cases, and these will have to be investigated. In any case, once the
-appropriate morphological features have been predicted, surface forms of
-Guarani words will be generated with the FST-based morphological analyzer and
-generator developed by Michael Gasser and described in
-\cite{rudnick-gasser:2013:HyTra}.
+\section{Applying techniques like this to neural machine translation}
+Since the start of this work, the field of machine translation has undergone a
+dramatic shift, in which MT research has shifted almost entirely from
+phrase-based and tree-based SMT systems over to models based on neural
+networks.
+
+There are a number of open questions in neural machine translation; there do
+not seem to be widely-accepted approaches for leveraging existing resources to
+improve translation into under-resourced languages.
+
+
+%% probably just remove this section
+%% \section{Morphological Generation}
+%% %% future work, necessary for a complete MT system into morphologically rich
+%% %% indigenous languages 
+%% In the second pass, we will predict the appropriate morphological features will
+%% with a discriminative sequence-labeling approach based on work at Microsoft
+%% Research \cite{toutanova-suzuki-ruopp:2008:ACLMain}.
+%% Thus both the transfer rules and the language model will be in terms of stemmed
+%% Guarani.
+%% As an alternative, we could adapt the techniques in
+%% \cite{chahuneau:2013:emnlp} to generate translation rules that contain the
+%% appropriately inflected target forms, just before running the decoder.
+%% Rule-based approaches may also be sensible for generating Guarani morphology,
+%% in some cases, and these will have to be investigated. In any case, once the
+%% appropriate morphological features have been predicted, surface forms of
+%% Guarani words will be generated with the FST-based morphological analyzer and
+%% generator developed by Michael Gasser and described in
+%% \cite{rudnick-gasser:2013:HyTra}.
 
 %% This can probably just be moved into a future work section.
 %% We will also need to address both multi-word expressions and morphology and
