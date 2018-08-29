@@ -1,30 +1,22 @@
 \chapter{Conclusions}
 \label{chap:conclusions}
-Thus far, we have prototyped our CL-WSD systems that make use of multilingual
-evidence, monolingual evidence, and off-the-shelf NLP tools for analyzing our
-source languages.
+
+In this work, we have described some approaches and running software for
+cross-lingual word sense disambiguation, particularly in the setting where we
+aim to translate from a resource-rich language into an under-resourced one, and
+shown how they can be applicable for lexical selection when translating into
+two different indigenous languages of South America, Guarani and Quechua. We
+have extended our initial approach with the use of a number of techniques that
+make use of the resources, both textual and software, available for our source
+languages, including bitext corpora that pair our source language with
+languages other than our intended target language. Finally, we have
+demonstrated prototypes for how to integrate these CL-WSD classifiers into
+existing machine translation software.
+
 We have seen seen promising initial results with these approaches, as described
 in XXX and our papers mentioned in that section.
 
 %% XXX working here
-Initial experiments are underway with building Tereré on top of the cdec
-toolkit; we can already train Guarani-language LMs with KenLM
-\cite{Heafield-estimate}, trained on the Guarani-language Wikipedia.
-Additionally, we have mocked up the inclusion of CL-WSD features into the
-decoder and started experimenting with writing SCFG transfer rules.
-
-The Tahekami website is already well underway, and we have a web server on
-which we can run Tahekami and Guampa. Fairly enthusiastic volunteers, including
-developers from Paraguay, will likely continue helping in their development.
-
-As a result of this work, we will have developed some new approaches for
-CL-WSD and for building translation systems that target lower-resourced
-languages. In this setting, phrase-based SMT is not feasible, so we have to
-make effective use of our resources for the source language.
-Practically, we should also have a new MT system for the Spanish-Guarani
-language pair where there was previously none, an open-source reusable
-package for helping RBMT systems make appropriate lexical choices, and a freely
-available bitext corpus for a resource-poor language.
 
 \section{Future Work}
 
@@ -43,20 +35,6 @@ improve translation into under-resourced languages.
 %% \section{Morphological Generation}
 %% %% future work, necessary for a complete MT system into morphologically rich
 %% %% indigenous languages 
-%% In the second pass, we will predict the appropriate morphological features will
-%% with a discriminative sequence-labeling approach based on work at Microsoft
-%% Research \cite{toutanova-suzuki-ruopp:2008:ACLMain}.
-%% Thus both the transfer rules and the language model will be in terms of stemmed
-%% Guarani.
-%% As an alternative, we could adapt the techniques in
-%% \cite{chahuneau:2013:emnlp} to generate translation rules that contain the
-%% appropriately inflected target forms, just before running the decoder.
-%% Rule-based approaches may also be sensible for generating Guarani morphology,
-%% in some cases, and these will have to be investigated. In any case, once the
-%% appropriate morphological features have been predicted, surface forms of
-%% Guarani words will be generated with the FST-based morphological analyzer and
-%% generator developed by Michael Gasser and described in
-%% \cite{rudnick-gasser:2013:HyTra}.
 
 %% This can probably just be moved into a future work section.
 %% We will also need to address both multi-word expressions and morphology and
@@ -69,6 +47,7 @@ improve translation into under-resourced languages.
 
 \section{Acquiring larger bitext corpora}
 \label{sec:crowdsourcing}
+%% XXX this needs to be reworked for sure
 As part of the ongoing work for the practical goal of building a useful
 Spanish-Guarani MT system, we would like to build larger training corpora,
 containing both bitext and monolingual Guarani text.
@@ -78,10 +57,6 @@ and a searchable repository of Guarani and bilingual documents.
 Initial designs for both of these sites were done as a master's project in HCI
 by Alberto Samaniego\footnote{\url{http://albsama.com}}, who will hopefully
 continue collaborating on this project from his native Paraguay.
-We have also had helpful software contributions from
-Rodrigo Villalba Zayas\footnote{\url{http://github.com/rodrigovz}} --
-also from Paraguay -- and more potential collaborators have expressed
-interest in helping, from Paraguay, Indiana, and the broader open-source world.
 
 \section{Collecting Guarani Documents}
 The first website we will develop is called ``Tahekami", which means
