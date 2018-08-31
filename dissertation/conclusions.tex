@@ -60,7 +60,7 @@ translation; ...
 \section{Building resources for Guarani and other under-represented languages}
 \label{sec:crowdsourcing}
 
-While we have explored some techniques in this work that allow us to lean
+While we have explored techniques in this work that allow us to lean
 somewhat on the resources that we have available for resource-rich source
 languages, a clear way to improve translation for currently under-resourced
 languages is to make them less under-resourced. Languages like Guarani and
@@ -69,6 +69,16 @@ European languages, as well as engaged activist communities. For example,
 Icelandic has fewer than a million speakers... XXX maybe pick a different
 example
 What about Danish? How many Danish speakers?
+While this work has focused on languages spoken in South America, there are
+languages around the world with similar situations: millions or possibly many
+millions of speakers, but relatively little text on the web (thus far), and no
+easily available MT or other good NLP tools.
+
+%% XXX working here
+These languages are not yet broadly used in publications on the web,
+Internet usage is spreading quickly throughout the world, and
+the speakers of these languages are coming online, and . There are many languages in
+the world with similar 
 
 There have been fairly successful campaigns by technologists to work with
 speakers of these languages to build resources for them.
@@ -88,68 +98,33 @@ language\footnote{Post on the Google New Zealand blog:
 
 %% XXX this needs to be reworked for sure
 
-As part of the ongoing work for the practical goal of building a useful
-Spanish-Guarani MT system, we would like to build larger training corpora,
-containing both bitext and monolingual Guarani text.
-To help in the collection, we plan to build two websites:
-a collaborative online space for building translations of documents, 
-and a searchable repository of Guarani and bilingual documents.
-Initial designs for both of these sites were done as a master's project in HCI
-by Alberto Samaniego\footnote{\url{http://albsama.com}}, who will hopefully
-continue collaborating on this project from his native Paraguay.
 
-The first website we will develop is called ``Tahekami", which means
-\emph{let's search together} in Guarani.
-Tahekami is a repository of Guarani and bilingual documents that will allow
-searching, browsing documents by tag, and uploading new documents.
+We started some efforts along these lines, but a more sustained effort is
+needed. We (the author, working together with Alberto Samaniego and Taylor
+Skidmore, directed by Michael Gasser) prototyped two websites for collecting
+Guarani and Spanish-Guarani language resources, but these have not been used
+beyond the prototype stage.
+The first website was called ``Tahekami", which means \emph{let's search
+together} in Guarani. Tahekami\footnote{Prototype code at
+\url{http://github.com/hltdi/gn-documents}} is a repository of Guarani and
+bilingual documents that allows full-text search and browsing documents by tag.
+Our initial version of the site contained a collection of masters theses from
+the \emph{Ateneo de Lengua y Cultura Guaraní}.
+We developed a second website, called ``Guampa" \footnote{A ``guampa", in
+Paraguay, is the cup from which one drinks yerba mate or tereré. The term
+``guampa" is also local to Paraguay; in other parts of South America, the
+container itself is called a ``mate". The Guampa software is available at
+\url{https://github.com/hltdi/guampa}}, is a bilingual wiki, which was designed
+to be used by Guarani speakers and learners to collaboratively translate
+documents from Spanish to Guarani or vice-versa. We presented an initial version
+of this software at LREC 2014\cite{RUDNICK14.151}. This is meant to serve at
+least three purposes: helping Guarani-language learners practice and get
+feedback on their translations, creating more Guarani-language documents for the
+web (we started initially with translating Spanish Wikipedia), and building
+bitext corpora for training MT systems.
 
-An initial version of this site is already well underway
-\footnote{\url{http://github.com/hltdi/gn-documents}}.  We have a working
-search engine based on the Whoosh library
-\footnote{\url{http://bitbucket.org/mchaput/whoosh/wiki/Home}} and some sample
-documents -- twelve masters theses from the \emph{Ateneo}. We will need to
-develop policies for which documents are permissible for distribution through
-this site and work on integrating morphological analysis into the search
-engine. Currently, new documents must be approved by an administrator before
-being added to the index.
-
-The second website, tentatively called ``Guampa"
-\footnote{A ``guampa", in Paraguay, is the cup from which one drinks yerba mate
-or tereré. The term ``guampa" is also local to Paraguay; in other parts of
-South America, the container itself is called a ``mate".},
-will be used by Guarani speakers and learners to produce translations of
-relevant documents from Spanish to Guarani or vice-versa.
-It will be something like a bilingual wiki, although the interface will
-encourage users to edit sentences individually.
-The software will segment the sentences in the initial
-source-language documents and allow users to contribute translations for each
-source sentence in turn, while showing the complete document context.
-As a result of this, not only will will we be able to collect bitext training
-data, but we will also produce useful translations.
-
-We presented an initial version of this software at LREC
-2014\cite{RUDNICK14.151}.
-
-Initially, this site will be seeded with documents from the Spanish and Guarani
-Wikipedias. Successful translations of the Spanish-language articles could be
-fed back into the Guarani Wikipedia. Other documents will be added by
-Guarani-language educators and perhaps also pulled from Tahekami. Translations
-may be assigned as homework by Guarani-language teachers.
-
-The website will keep track of translations contributed by individual users;
-there may be game-like features and community voting, where large number of
-translations, or particularly good ones, are recognized, perhaps with virtual
-prizes and badges.
-Ideally, community management will be addressed by Paraguayan volunteers and
-the gamification features can be built by contributors from the open source
-world; this website and its richer features are not the primary focus of this
-dissertation.
-
-We may eventually collect enough bitext with this website such that it makes
-sense to develop approaches for determining which sentences are the most
-reliable and the most useful for training; this may correlate with quality
-judgements from the human volunteers.
-Investigating this relationship would make a good research question.
+Michael Gasser is developing successors to these websites, in the form of
+\emph{mitmita} and \emph{mainumby}, online computer-aided translation systems
 
 In the medium-term, this website will get an integrated ability to search
 a translation memory and automatic suggestions from a machine translation
