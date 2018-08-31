@@ -3,23 +3,19 @@
 
 In this work, we have described some approaches and running software for
 cross-lingual word sense disambiguation, particularly in the setting where we
-aim to translate from a resource-rich language into an under-resourced one, and
-shown how they can be applicable for lexical selection when translating into
+are translating from a resource-rich language into an under-resourced one.
+We have shown how these techniques can be applicable for translation targeting
 two different indigenous languages of South America, Guarani and Quechua.
 
 We have extended our initial approach with the use of a number of techniques
 that make use of the resources, both textual and software, available for our
-source languages, including bitext corpora that pair our source language with
-languages other than our intended target language. Finally, we have
-demonstrated prototypes for how to integrate these CL-WSD classifiers into
-existing machine translation software.
-
-We have seen seen promising initial results with these approaches, as described
-in XXX and our papers mentioned in that section.
+source language.
+including bitext corpora that pair our source language with languages other
+than our intended target language.
+Finally, we have demonstrated prototypes for how to integrate these CL-WSD
+classifiers into existing machine translation software.
 
 %% XXX working here
-
-\section{Future Work}
 
 \section{Applying techniques like this to neural machine translation}
 Since the start of this work, the field of machine translation has undergone a
@@ -50,25 +46,8 @@ not seem to be widely-accepted approaches for leveraging existing resources to
 improve translation into under-resourced languages. ... %% XXX working here
 
 
-%% probably just remove this section
-%% \section{Morphological Generation}
-%% %% future work, necessary for a complete MT system into morphologically rich
-%% %% indigenous languages 
-
-%% This can probably just be moved into a future work section.
-%% We will also need to address both multi-word expressions and morphology and
-%% how they interact with the CL-WSD system.  Thus far, we have assumed
-%% one-to-many alignments, and labeled each source word with zero or more
-%% lemmatized target words or word stems.  However in practice, we will want to
-%% make use of multi-word expressions, and our translation systems will need to
-%% generate appropriately inflected target language text.
-
-
-\section{Acquiring larger bitext corpora}
+\section{Building resources for Guarani and other under-represented languages}
 \label{sec:crowdsourcing}
-
-
-
 
 %% XXX this needs to be reworked for sure
 As part of the ongoing work for the practical goal of building a useful
@@ -81,7 +60,6 @@ Initial designs for both of these sites were done as a master's project in HCI
 by Alberto Samaniego\footnote{\url{http://albsama.com}}, who will hopefully
 continue collaborating on this project from his native Paraguay.
 
-\section{Collecting Guarani Documents}
 The first website we will develop is called ``Tahekami", which means
 \emph{let's search together} in Guarani.
 Tahekami is a repository of Guarani and bilingual documents that will allow
@@ -97,7 +75,6 @@ this site and work on integrating morphological analysis into the search
 engine. Currently, new documents must be approved by an administrator before
 being added to the index.
 
-\section{Collecting Translations}
 The second website, tentatively called ``Guampa"
 \footnote{A ``guampa", in Paraguay, is the cup from which one drinks yerba mate
 or tereré. The term ``guampa" is also local to Paraguay; in other parts of
@@ -111,6 +88,9 @@ source-language documents and allow users to contribute translations for each
 source sentence in turn, while showing the complete document context.
 As a result of this, not only will will we be able to collect bitext training
 data, but we will also produce useful translations.
+
+We presented an initial version of this software at LREC
+2014\cite{RUDNICK14.151}.
 
 Initially, this site will be seeded with documents from the Spanish and Guarani
 Wikipedias. Successful translations of the Spanish-language articles could be
