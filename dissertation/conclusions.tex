@@ -19,37 +19,75 @@ classifiers into existing machine translation software.
 
 \section{Applying techniques like this to neural machine translation}
 Since the start of this work, the field of machine translation has undergone a
-dramatic shift, in which MT research has moved almost entirely from
-phrase-based and tree-based SMT systems to models based on neural networks.
+dramatic shift, in which MT research, and in many cases, practice, has moved
+from phrase-based and tree-based SMT systems to models based on neural
+networks.
+%% XXX cite the GNMT paper!!
+
+It would be reasonable to consider NMT systems to be performing CL-WSD, in the
+sense that they have a representation of the whole input sentence available
+while they are making output decisions. This vector representation has is
+similar to the the doc2vec representations discussed in Chapter
+\ref{chap:monolingual}, but learned specifically for the translation task. This
+sentence-encoding process automates much of the feature engineering work that
+would go into building a CL-WSD system. Thus it may not be useful to add
+explicit CL-WSD classifiers to a neural MT system, although this is an
+empirical question.
 
 However, many of the difficulties addressed in this work still apply in the
-Neural Machine Translation (NMT) setting. It would be reasonable to consider
-NMT systems to be performing CL-WSD, in the sense that they have a
-representation of the whole input sentence available while they are making
-output decisions. This vector representation has been learned jointly with the
-task of translating into the target language, so this process encapsulates much
-of the feature engineering work that would go into building a CL-WSD system.
-Thus it may not be sensible to add explicit CL-WSD classifiers to a neural MT
-system, although this is an empirical question.
-
-This leaves us with the issue, however, of how to learn from the available
-corpora and tools that we have on hand when translating out of a resource-rich
-language. How can we make use of our NLP tools for well-supported European
-languages when translating into under-resourced languages?
+Neural Machine Translation (NMT) setting. We are left with the issue of how to
+learn from the available corpora and tools that we have on hand when
+translating out of a resource-rich language, when we have little available
+bitext. Can source-language parsers be integrated with NMT? Will this help when
+translating into under-resourced languages?
+How about other existing NLP tools, such as monolingual WSD?
 
 In this work, we did not find it overwhelmingly helpful to use neural
 embeddings based on relatively large corpora, at least not in a CL-WSD setting.
 But can these monolingual source-language resources be used for NMT?
+%% XXX find some references about this probably
 
 There are a number of open questions in neural machine translation; there do
 not seem to be widely-accepted approaches for leveraging existing resources to
 improve translation into under-resourced languages. ... %% XXX working here
 
+%% Maybe mention the multilingual NLP paper here?
+There has already been significant work on multilingual neural machine
+translation; ...
+
+
 
 \section{Building resources for Guarani and other under-represented languages}
 \label{sec:crowdsourcing}
 
+While we have explored some techniques in this work that allow us to lean
+somewhat on the resources that we have available for resource-rich source
+languages, a clear way to improve translation for currently under-resourced
+languages is to make them less under-resourced. Languages like Guarani and
+Quechua have a comparable number of speakers as some relatively resource-rich
+European languages, as well as engaged activist communities. For example,
+Icelandic has fewer than a million speakers... XXX maybe pick a different
+example
+What about Danish? How many Danish speakers?
+
+There have been fairly successful campaigns by technologists to work with
+speakers of these languages to build resources for them.
+%% XXX sentence needs work
+For example, Mozilla Paraguay managed to localize the Firefox web browser for
+Guarani, with the help of Guarani-speaking volunteers. Localizing an
+application as complex as a web browser is an enormous task, requiring the
+translation of XXX sentence-length messages; also notably, this task requires
+choosing appropriate Guarani-language terms for technical concepts.
+%% XXX needs citation, also when did this happen?
+
+As a success story directly pertinent to machine translation, in 2013, Google
+ran a crowdsourcing campaign in New Zealand that managed to collect
+enough training data to build a phrase-based SMT system for the Māori
+language\footnote{Post on the Google New Zealand blog:
+\url{https://newzealand.googleblog.com/2013/12/kua-puta-google-whakamaori-ki-te-reo.html}}
+
 %% XXX this needs to be reworked for sure
+
 As part of the ongoing work for the practical goal of building a useful
 Spanish-Guarani MT system, we would like to build larger training corpora,
 containing both bitext and monolingual Guarani text.
