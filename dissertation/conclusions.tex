@@ -4,16 +4,29 @@
 In this work, we have described some approaches and running software for
 cross-lingual word sense disambiguation, particularly in the setting where we
 are translating from a resource-rich language into an under-resourced one.
-We have shown how these techniques can be applicable for translation targeting
-two different indigenous languages of South America, Guarani and Quechua.
 
-We have extended our initial approach with the use of a number of techniques
-that make use of the resources, both textual and software, available for our
-source language.
+We have shown how these techniques can be applicable for translation targeting
+two different indigenous languages of South America, Guarani and Quechua. We
+demonstrated, in Chapter \ref{chap:baseline}, an initial version of the system
+based on common text classification features, and showed how it outperforms the
+relatively strong most-frequent sense baseline.
+
+We then extended that initial approach, in Chapter \ref{chap:monolingual} with
+techniques that make use of the resources that we have available for Spanish,
+including NLP tools for analyzing Spanish text, and unsupervised tools that
+allow us to learn representations for our classifiers from the wealth of
+available unannotated Spanish text, including Brown clusters and neural
+embeddings.
+
+In Chapter \ref{chap:multilingual}, we show how to ...
 including bitext corpora that pair our source language with languages other
 than our intended target language.
-Finally, we have demonstrated prototypes for how to integrate these CL-WSD
-classifiers into existing machine translation software.
+
+Finally, in Chapter \ref{chap:integration}, we have demonstrated prototypes for
+integrating these CL-WSD classifiers into existing machine translation
+software, demonstrating a phrase-based SMT system for
+Spanish-Guarani\footnote{Ignoring, for the moment, the admittedly substantial
+problem of morphological generation.} 
 
 %% XXX working here
 
