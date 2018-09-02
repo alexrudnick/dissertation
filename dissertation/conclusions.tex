@@ -1,20 +1,21 @@
 \chapter{Summary and Future Work}
 \label{chap:conclusions}
 
-In this work, we have described some approaches and running software for
-cross-lingual word sense disambiguation, particularly in the setting where we
-are translating from a resource-rich language into an under-resourced one.  We
-have shown how cross-lingual word sense disambiguation can be applied to
-lexical selection in a hybrid machine translation for language pairs with
-relatively modest resources, particularly, when translating from Spanish to two
+In this work, we have described approaches for cross-lingual word sense
+disambiguation in the setting where we are translating from a resource-rich
+language into an under-resourced one, and implemented those approaches in
+running software.
+We have shown how cross-lingual word sense disambiguation can be applied to
+lexical selection in hybrid machine translation for language pairs with
+relatively modest resources, particularly when translating from Spanish to two
 different indigenous languages of South America, Guarani and Quechua.
 
 We described, in Chapter \ref{chap:baseline}, an initial version of the Chipa
 software based on common text classification features, and showed how it
 outperforms the relatively strong most-frequent sense baseline. We also
 compared Chipa to other systems submitted to recent SemEval events for
-cross-lingual word sense disambiguation, when translating from English to other
-European languages.
+cross-lingual word sense disambiguation on the task of translating from English
+to other European languages.
 
 In Chapter \ref{chap:monolingual}, we extended our initial approach with
 strategies that make use of the available resources for Spanish, including NLP
@@ -136,10 +137,10 @@ language\footnote{Post on the Google New Zealand blog:
 \url{https://newzealand.googleblog.com/2013/12/kua-puta-google-whakamaori-ki-te-reo.html}};
 since then, Google Translate has operated a crowdsourcing platform called
 Google Translate Community\footnote{https://translate.google.com/community},
-on which volunteers can rate and submit translations, including for languages
-that are not currently supported by the main Google Translate product. For
-languages that have been launched, the submissions and ratings are used improve
-MT output.
+on which volunteers can rate and submit translations, including for some
+languages that are not currently supported by the main Google Translate
+product. For languages that are already supported by Google Translate, the
+submissions and ratings are used to improve MT output.
 
 Our research group has started some efforts along these lines, but a more
 sustained effort will be needed to provide benefits for language communities in
@@ -170,11 +171,11 @@ websites, in the form of \emph{mitmita} and \emph{mainumby}, online
 computer-aided translation systems for Amharic and Guarani
 respectively\footnote{Code for these sites is being developed at
 \url{https://github.com/hltdi/mitmita} and
-\url{https://github.com/hltdi/mainumby}}. The goals for these tools is to help
-users translate documents by providing searches over translation memories and
-automatic suggestions from an integrated machine translation system.
+\url{https://github.com/hltdi/mainumby}}. The goal of these tools is to help
+users translate documents by providing both searches over translation memories
+and automatic suggestions from an integrated machine translation system.
 
-In any case, while there remains much work to be done for supporting the
-under-represented languages of the world, both technical and social, it is
+In any case, while there remains much work to be done --- both technical and
+social --- for supporting the under-represented languages of the world, it is
 outside the scope of this dissertation, and will be addressed in the future,
 hopefully in part by the author.
