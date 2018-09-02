@@ -3,61 +3,70 @@
 
 In this work, we have described some approaches and running software for
 cross-lingual word sense disambiguation, particularly in the setting where we
-are translating from a resource-rich language into an under-resourced one.
+are translating from a resource-rich language into an under-resourced one.  We
+have shown how cross-lingual word sense disambiguation can be applied to
+lexical selection in a hybrid machine translation for language pairs with
+relatively modest resources, particularly, when translating from Spanish to two
+different indigenous languages of South America, Guarani and Quechua.
 
-We have shown how these techniques can be applicable for translation targeting
-two different indigenous languages of South America, Guarani and Quechua. We
-demonstrated, in Chapter \ref{chap:baseline}, an initial version of the system
-based on common text classification features, and showed how it outperforms the
-relatively strong most-frequent sense baseline.
+We described, in Chapter \ref{chap:baseline}, an initial version of the Chipa
+software based on common text classification features, and showed how it
+outperforms the relatively strong most-frequent sense baseline. We also
+compared Chipa to other systems submitted to recent SemEval events for
+cross-lingual word sense disambiguation, when translating from English to other
+European languages.
 
-We then extended that initial approach, in Chapter \ref{chap:monolingual} with
-techniques that make use of the resources that we have available for Spanish,
-including NLP tools for analyzing Spanish text, and unsupervised tools that
+In Chapter \ref{chap:monolingual}, we extended our initial approach with
+strategies that make use of the available resources for Spanish, including NLP
+tools for analyzing Spanish text and unsupervised learning techniques that
 allow us to learn representations for our classifiers from the wealth of
 available unannotated Spanish text, including Brown clusters and neural
-embeddings.
+embeddings that represent both individual word types and sequences of text.
 
-In Chapter \ref{chap:multilingual}, we show how to ...
-including bitext corpora that pair our source language with languages other
-than our intended target language.
+In Chapter \ref{chap:multilingual}, we showed how to use Chipa for classifier
+stacking, which allows us to learn from bitext corpora that pair our source
+language with languages other than our intended target language; this technique
+is broadly applicable when we want to translate out of a language with many
+available bitext resources, and could also be applied when we have a good
+monolingual WSD system available.
 
-Finally, in Chapter \ref{chap:integration}, we have demonstrated prototypes for
-integrating these CL-WSD classifiers into existing machine translation
-software, demonstrating a phrase-based SMT system for
+Finally, in Chapter \ref{chap:integration}, we demonstrated prototypes for
+integrating our CL-WSD classifiers into existing machine translation systems of
+two completely different architectures, requiring only small changes to
+existing code.  We demonstrated a phrase-based SMT system for
 Spanish-Guarani\footnote{Ignoring, for the moment, the admittedly substantial
-problem of morphological generation.} 
-
-%% XXX working here
+problem of morphological generation.} that uses Chipa classifiers in a feature
+function that guides its decoding process. For Spanish-Quechua, we augmented a
+primarily rule-based hybrid machine translation system, using our classifiers
+to supplement the existing hand-written lexical selection rules.
 
 \section{Applying techniques like this to neural machine translation}
-Since the start of this work, the field of machine translation has undergone a
-dramatic shift, in which MT research, and in many cases, practice\cite{gnmt},
-has moved from phrase-based and tree-based SMT systems to models based on
-neural networks.
+During the course of this work, the field of machine translation has undergone
+a dramatic shift, in which statistical MT research, and in many cases,
+practice\cite{gnmt}, has moved from phrase-based and tree-based SMT systems to
+models based on neural networks.
 
-It would be reasonable to consider NMT systems to be performing CL-WSD, in the
-sense that they have a representation of the whole input sentence available
-while they are making output decisions. This vector representation has is
-similar to the the doc2vec representations discussed in Chapter
-\ref{chap:monolingual}, but learned specifically for the translation task. This
-sentence-encoding process automates much of the feature engineering work that
-would go into building a CL-WSD system. Thus it may not be useful to add
-explicit CL-WSD classifiers to a neural MT system, although this is an
-empirical question.
+It may not be immediately useful to add explicit CL-WSD classifiers to a neural
+MT architecture, although this is an empirical question.  In a sense, though,
+we can say that NMT systems are already performing CL-WSD; they have a
+representation of the whole input sentence available while making output
+decisions. This vector representation is similar to the the doc2vec
+representations discussed in Chapter \ref{chap:monolingual}, but is learned
+specifically for the translation task, and much deeper recurrent networks are
+used for NMT. The sentence-encoding process in neural machine translation
+automates much of the feature engineering work that would go into building a
+CL-WSD system.
 
 However, many of the difficulties addressed in this work still apply in the
-Neural Machine Translation (NMT) setting. We are left with the issue of how to
-learn from the available corpora and tools that we have on hand when
-translating out of a resource-rich language, when we have little available
-bitext. Can source-language parsers be integrated with NMT? Will this help when
-translating into under-resourced languages?
-How about other existing NLP tools, such as monolingual WSD?
+neural machine translation setting. We still must address the issue of how to
+leverage the available corpora and tools for resource-rich source languages,
+when we have little available bitext. Can source-language parsers be integrated
+with NMT? Will this help when translating into under-resourced languages? How
+can other existing NLP tools be applied, such as monolingual WSD?
 
-In this work, we did not find it overwhelmingly helpful to use neural
-embeddings based on relatively large corpora, at least not in a CL-WSD setting.
-But can these monolingual source-language resources be used for NMT?
-%% XXX find some references about this probably
+In our CL-WSD setting, we did not find immediate advantages when using neural
+embeddings based on comparatively large source-language corpora. But can these
+monolingual source-language resources be used for NMT?
 
 There are a number of open questions in neural machine translation; there do
 not seem to be widely-accepted approaches for leveraging existing resources to
@@ -65,9 +74,7 @@ improve translation into under-resourced languages. ... %% XXX working here
 
 %% Maybe mention the multilingual NLP paper here?
 There has already been significant work on multilingual neural machine
-translation; ...
-\cite{TACL1081}
-
+translation \cite{TACL1081}
 
 
 \section{Building resources for Guarani and other under-represented languages}
