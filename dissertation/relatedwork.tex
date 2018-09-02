@@ -340,11 +340,12 @@ representing the task faced by an agent assisting a writer trying to compose
 sentences in a second language but facing gaps in their vocabulary.
 
 \section{Translation into Morphologically Rich Languages}
-In Section \ref{sec:terere}, we describe a complete, if elementary, MT system
-for the Spanish-Guarani language pair. Guarani has a very rich morphology,
-which we will need to predict and synthesize. As such, here we will quickly
-mention some of the work on morphological prediction and generation for
-statistical and hybrid MT systems.
+Both Guarani and Quechua feature rich morphology, which means that the space of
+possible output tokens in these languages is quite large. In order to build a
+complete MT system targeting these languages, we need a means to predict the
+appropriate morphological features and synthesize correctly inflected words. As
+such, here we will quickly mention some of the work on morphological prediction
+and generation for statistical and hybrid MT systems.
 
 Koehn and Hoang describe \emph{factored} phrase-based SMT models for predicting
 target-language morphology \cite{koehn-hoang:2007:EMNLP-CoNLL2007}. In this
