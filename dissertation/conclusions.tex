@@ -44,86 +44,103 @@ to supplement the existing hand-written lexical selection rules.
 During the course of this work, the field of machine translation has undergone
 a dramatic shift, in which statistical MT research, and in many cases,
 practice\cite{gnmt}, has moved from phrase-based and tree-based SMT systems to
-models based on neural networks.
+models based on recurrent neural networks.
 
 It may not be immediately useful to add explicit CL-WSD classifiers to a neural
-MT architecture, although this is an empirical question.  In a sense, though,
+MT architecture, although this is an empirical question. In a sense, though,
 we can say that NMT systems are already performing CL-WSD; they have a
 representation of the whole input sentence available while making output
 decisions. This vector representation is similar to the the doc2vec
 representations discussed in Chapter \ref{chap:monolingual}, but is learned
-specifically for the translation task, and much deeper recurrent networks are
-used for NMT. The sentence-encoding process in neural machine translation
+specifically for the translation task, and uses deeper, and recurrent,
+networks. The sentence-encoding process in neural machine translation
 automates much of the feature engineering work that would go into building a
 CL-WSD system.
 
 However, many of the difficulties addressed in this work still apply in the
 neural machine translation setting. We still must address the issue of how to
 leverage the available corpora and tools for resource-rich source languages,
-when we have little available bitext. Can source-language parsers be integrated
-with NMT? Will this help when translating into under-resourced languages? How
-can other existing NLP tools be applied, such as monolingual WSD?
+when we have little available bitext. Can source-language taggers and parsers
+be integrated with NMT? Will this help when translating into under-resourced
+languages? How can other existing NLP tools be applied, such as monolingual
+WSD?
 
-In our CL-WSD setting, we did not find immediate advantages when using neural
-embeddings based on comparatively large source-language corpora. But can these
-monolingual source-language resources be used for NMT?
+In our CL-WSD setting, we did not find immediate benefits when using neural
+embeddings based on comparatively large source-language corpora. How can
+monolingual source-language resources be used for NMT, when only very small
+bitext corpora are available?  There has been some recent work, including by
+Johnson \emph{et al.} \cite{TACL1081}, on training multilingual neural machine
+translation systems that learn to share representations among different
+translation tasks; these systems can even perform ``zero shot" translation, in
+which a single network trained to translate from, \emph{e.g.}, Portuguese to
+English and English to Spanish can also translate reasonably well from
+Portuguese to Spanish.
+Additionally, there has been work, such as that of Artetxe \emph{et al.}
+\cite{artetxe2018unsupervised} and Lample \emph{et al.}
+\cite{lample2018unsupervised}, that creatively uses back-translation and
+adversarial networks to make up for the lack of bitext for some language pairs,
+but to my knowledge this has not yet been practically applied to translating
+into under-resourced languages.  Broadly, there do not yet seem to be
+widely-accepted approaches for leveraging existing resources to improve neural
+translation into under-resourced languages, but neural machine translation is
+still in its early stages and the field is developing rapidly.
 
-There are a number of open questions in neural machine translation; there do
-not seem to be widely-accepted approaches for leveraging existing resources to
-improve translation into under-resourced languages. ... %% XXX working here
-
-%% Maybe mention the multilingual NLP paper here?
-There has already been significant work on multilingual neural machine
-translation \cite{TACL1081}
-
+Hopefully we will see effective strategies for making use of what we do have
+for building NMT systems targeting under-represented and under-resourced
+languages in the near future.
 
 \section{Building resources for Guarani and other under-represented languages}
 \label{sec:crowdsourcing}
 
 While we have explored techniques in this work that allow us to lean
-somewhat on the resources that we have available for resource-rich source
+somewhat on the resources available for resource-rich source
 languages, a clear way to improve translation for currently under-resourced
 languages is to make them less under-resourced. Languages like Guarani and
-Quechua have a comparable number of speakers as some relatively resource-rich
-European languages, as well as engaged activist communities. For example,
-Icelandic has fewer than a million speakers... XXX maybe pick a different
-example
-What about Danish? How many Danish speakers?
+Quechua have a number of speakers comparable with that of some relatively
+resource-rich European languages, as well as their own engaged activist
+communities. Ethnologue, for example,
+reports\footnote{\url{https://www.ethnologue.com/language/grn}} that there are
+about 6 million Guarani speakers in the world, which is more than the number of
+Danish or Norwegian speakers.
+
 While this work has focused on languages spoken in South America, there are
-languages around the world with similar situations: millions or possibly many
-millions of speakers, but relatively little text on the web (thus far), and no
-easily available MT or other good NLP tools.
+under-represented languages around the world with millions or possibly many
+millions of speakers, but relatively little text on the web thus far, and no
+easily available MT or other NLP tools. Many languages in India and Southeast
+Asia are quite large by number of speakers, but nonetheless dramatically
+under-resourced. However, Internet usage is spreading quickly throughout the
+world, and the speakers of these languages are coming online; we are presented
+with great opportunities to build great linguistic resources and NLP tools for
+these languages, to serve these communities.
 
-%% XXX working here
-These languages are not yet broadly used in publications on the web,
-Internet usage is spreading quickly throughout the world, and
-the speakers of these languages are coming online, and . There are many languages in
-the world with similar 
-
-There have been fairly successful campaigns by technologists to work with
-speakers of these languages to build resources for them.
-%% XXX sentence needs work
-For example, Mozilla Paraguay managed to localize the Firefox web browser for
-Guarani, with the help of Guarani-speaking volunteers. Localizing an
-application as complex as a web browser is an enormous task, requiring the
-translation of XXX sentence-length messages; also notably, this task requires
-choosing appropriate Guarani-language terms for technical concepts.
-%% XXX needs citation, also when did this happen?
+There have already been fairly successful campaigns by technologists to work
+with speakers of these languages on resource-gathering projects for them. For
+example, in 2016, Mozilla Paraguay managed to localize the Firefox web browser
+for Guarani, with the help of Guarani-speaking volunteers, a local university,
+and Guarani-language activists\footnote{See a description of the process, and
+the launch announcement, at
+\url{http://mozillanativo.org/2016/lanzamiento-oficial-de-firefox-en-guarani.html}
+(in Spanish). Firefox in Guarani can be downloaded at
+\url{https://www.mozilla.org/gn/firefox/}}. Localizing an application as
+complex as a web browser is an enormous task, requiring the translation of
+thousands of sentence-length messages, along with the in-browswer
+documentation. Also notably, this task requires choosing appropriate
+Guarani-language terms for technical concepts.
 
 As a success story directly pertinent to machine translation, in 2013, Google
 ran a crowdsourcing campaign in New Zealand that managed to collect
 enough training data to build a phrase-based SMT system for the Māori
 language\footnote{Post on the Google New Zealand blog:
-\url{https://newzealand.googleblog.com/2013/12/kua-puta-google-whakamaori-ki-te-reo.html}}
+\url{https://newzealand.googleblog.com/2013/12/kua-puta-google-whakamaori-ki-te-reo.html}};
+since then, Google Translate has operated a crowdsourcing platform called
+Google Translate Community\footnote{https://translate.google.com/community},
+whereby volunteers can rate translations and  ...
 
-%% XXX this needs to be reworked for sure
-
-
-We started some efforts along these lines, but a more sustained effort is
-needed. We (the author, working together with Alberto Samaniego and Taylor
-Skidmore, directed by Michael Gasser) prototyped two websites for collecting
-Guarani and Spanish-Guarani language resources, but these have not been used
-beyond the prototype stage.
+Our research group has started some efforts along these lines, but a more
+sustained effort is needed. We (the author, working together with Alberto
+Samaniego and Taylor Skidmore, directed by Michael Gasser) prototyped two
+websites for collecting Guarani and Spanish-Guarani language resources, but
+these have not been used beyond the prototype stage.
 The first website was called ``Tahekami", which means \emph{let's search
 together} in Guarani. Tahekami\footnote{Prototype code at
 \url{http://github.com/hltdi/gn-documents}} is a repository of Guarani and
