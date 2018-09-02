@@ -58,7 +58,7 @@ automates much of the feature engineering work that would go into building a
 CL-WSD system.
 
 However, many of the difficulties addressed in this work still apply in the
-neural machine translation setting. We still must address the issue of how to
+neural machine translation setting. We still must come up with good ways to
 leverage the available corpora and tools for resource-rich source languages,
 when we have little available bitext. Can source-language taggers and parsers
 be integrated with NMT? Will this help when translating into under-resourced
@@ -100,8 +100,10 @@ Quechua have a number of speakers comparable with that of some relatively
 resource-rich European languages, as well as their own engaged activist
 communities. Ethnologue, for example,
 reports\footnote{\url{https://www.ethnologue.com/language/grn}} that there are
-about 6 million Guarani speakers in the world, which is more than the number of
-Danish or Norwegian speakers.
+about six million Guarani speakers in the world, which is more than the number
+of Danish or Norwegian speakers. To support these languages and better serve
+these communities, we can as technologists find better ways to work with the
+speakers of these languages.
 
 While this work has focused on languages spoken in South America, there are
 under-represented languages around the world with millions or possibly many
@@ -111,7 +113,7 @@ Asia are quite large by number of speakers, but nonetheless dramatically
 under-resourced. However, Internet usage is spreading quickly throughout the
 world, and the speakers of these languages are coming online; we are presented
 with great opportunities to build great linguistic resources and NLP tools for
-these languages, to serve these communities.
+these languages.
 
 There have already been fairly successful campaigns by technologists to work
 with speakers of these languages on resource-gathering projects for them. For
@@ -123,7 +125,7 @@ the launch announcement, at
 (in Spanish). Firefox in Guarani can be downloaded at
 \url{https://www.mozilla.org/gn/firefox/}}. Localizing an application as
 complex as a web browser is an enormous task, requiring the translation of
-thousands of sentence-length messages, along with the in-browswer
+thousands of sentence-length messages, along with the in-browser
 documentation. Also notably, this task requires choosing appropriate
 Guarani-language terms for technical concepts.
 
@@ -134,16 +136,19 @@ language\footnote{Post on the Google New Zealand blog:
 \url{https://newzealand.googleblog.com/2013/12/kua-puta-google-whakamaori-ki-te-reo.html}};
 since then, Google Translate has operated a crowdsourcing platform called
 Google Translate Community\footnote{https://translate.google.com/community},
-whereby volunteers can rate translations and  ...
+on which volunteers can rate and submit translations, including for languages
+that are not currently supported by the main Google Translate product. For
+languages that have been launched, the submissions and ratings are used improve
+MT output.
 
 Our research group has started some efforts along these lines, but a more
-sustained effort is needed. We (the author, working together with Alberto
-Samaniego and Taylor Skidmore, directed by Michael Gasser) prototyped two
-websites for collecting Guarani and Spanish-Guarani language resources, but
-these have not been used beyond the prototype stage.
-The first website was called ``Tahekami", which means \emph{let's search
-together} in Guarani. Tahekami\footnote{Prototype code at
-\url{http://github.com/hltdi/gn-documents}} is a repository of Guarani and
+sustained effort will be needed to provide benefits for language communities in
+practice. We (the author, working together with Alberto Samaniego and Taylor
+Skidmore, directed by Michael Gasser) prototyped two websites for collecting
+Guarani and Spanish-Guarani language resources, but these have not been used
+beyond the prototype stage.  The first website is called ``Tahekami", which
+means \emph{let's search together} in Guarani. Tahekami\footnote{Prototype code
+at \url{http://github.com/hltdi/gn-documents}} is a repository of Guarani and
 bilingual documents that allows full-text search and browsing documents by tag.
 Our initial version of the site contained a collection of masters theses from
 the \emph{Ateneo de Lengua y Cultura Guaraní}.
@@ -151,23 +156,25 @@ We developed a second website, called ``Guampa" \footnote{A ``guampa", in
 Paraguay, is the cup from which one drinks yerba mate or tereré. The term
 ``guampa" is also local to Paraguay; in other parts of South America, the
 container itself is called a ``mate". The Guampa software is available at
-\url{https://github.com/hltdi/guampa}}, is a bilingual wiki, which was designed
+\url{https://github.com/hltdi/guampa}}, which is a bilingual wiki, designed
 to be used by Guarani speakers and learners to collaboratively translate
 documents from Spanish to Guarani or vice-versa. We presented an initial version
-of this software at LREC 2014\cite{RUDNICK14.151}. This is meant to serve at
-least three purposes: helping Guarani-language learners practice and get
-feedback on their translations, creating more Guarani-language documents for the
-web (we started initially with translating Spanish Wikipedia), and building
+of this software at LREC 2014\cite{RUDNICK14.151}. This site is meant to serve
+at least three purposes: helping Guarani-language learners practice and get
+feedback on their translations, creating more Guarani-language documents for
+the web (we started initially with translating Spanish Wikipedia), and building
 bitext corpora for training MT systems.
 
-Michael Gasser is developing successors to these websites, in the form of
-\emph{mitmita} and \emph{mainumby}, online computer-aided translation systems
+Michael Gasser is currently, as of 2018, developing successors to these
+websites, in the form of \emph{mitmita} and \emph{mainumby}, online
+computer-aided translation systems for Amharic and Guarani
+respectively\footnote{Code for these sites is being developed at
+\url{https://github.com/hltdi/mitmita} and
+\url{https://github.com/hltdi/mainumby}}. The goals for these tools is to help
+users translate documents by providing searches over translation memories and
+automatic suggestions from an integrated machine translation system.
 
-In the medium-term, this website will get an integrated ability to search
-a translation memory and automatic suggestions from a machine translation
-system\footnote{Features described in a presentation in Spanish here:
-\url{http://www.cs.indiana.edu/~gasser/Taller2013/} ; English-language similar
-presentation: \url{http://tinyurl.com/alexr-clingding-guarani} }
-. While these features will be both useful and present a number of
-interesting research questions, they are outside the scope of this
-dissertation.
+In any case, while there remains much work to be done for supporting the
+under-represented languages of the world, both technical and social, it is
+outside the scope of this dissertation, and will be addressed in the future,
+hopefully in part by the author.
