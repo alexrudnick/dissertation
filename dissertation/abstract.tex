@@ -1,16 +1,16 @@
 This thesis argues that cross-lingual word sense disambiguation (CL-WSD) can be
 used to improve lexical selection for machine translation when translating from
 a resource-rich language into an under-resourced one, especially when relatively
-little bitext is available.  In CL-WSD, we perform word-sense disambiguation,
+little bitext is available.  In CL-WSD, we perform word sense disambiguation,
 considering the senses of a word to be its possible translations into some
 target language, rather than using a sense inventory developed manually by
 lexicographers.
 
-Using explicitly trained classifiers that make use of source-language context,
-and our resources for the source language, can help machine translation systems
-make better decisions when selecting target-language words; this is especially
-the case when the alternative is hand-written lexical selection rules written by
-researchers with linguistic knowledge of the source and target languages, but
+Using explicitly trained classifiers that make use of source-language context
+and of resources for the source language can help machine translation systems
+make better decisions when selecting target-language words. This is especially
+the case when the alternative is hand-written lexical selection rules developed
+by researchers with linguistic knowledge of the source and target languages, but
 also true when lexical selection would be performed by a statistical machine
 translation system, when there is a relatively small amount of available
 target-language text for training language models.
@@ -20,7 +20,7 @@ translating from Spanish to Guarani and Quechua, two indigenous languages of
 South America. We demonstrate several extensions to the basic Chipa system,
 including techniques that allow us to benefit from the wealth of available
 unannotated Spanish text and existing text analysis tools for Spanish, as well
-as approaches for learning for bitext resources that pair Spanish with languages
-unrelated to our intended target languages. Finally, we provide proof-of-concept
-integrations of Chipa with existing machine translation systems, of two
-completely different architectures.
+as approaches for learning from bitext resources that pair Spanish with
+languages unrelated to our intended target languages. Finally, we provide
+proof-of-concept integrations of Chipa with existing machine translation
+systems, of two completely different architectures.
