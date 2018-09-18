@@ -1,0 +1,49 @@
+This is the list of all notes that Sandra put on the pdf we sent out in early
+September.
+
+Page numbers are in the pdf, not the pages assigned by the typesetting.
+
+[[ Page 6 ]]
+
+"You will probably have to shorten the abstract for the defense announcement, so
+start thinking about what you should kick out for that :)"
+
+"You have 'I' in the intro, why 'we' here? It's your thesis, so if there is one
+type of publication where you can say 'I', it's this :) "
+
+[[ Page 138 ]]
+
+"I was wondering if it was possible to find out in how many cases chipa was used
+/ made a difference in the moses setup? Please ignore this if it is too much
+work :) "
+
+
+[[ Page 140 ]]
+"Chipa" --> fixed
+
+[[ Page 143 ]]
+"Can you add a few sentences per chapter that describe what you have learned?
+Imagine that someone reads the conclusion to see if it makes sense for the them
+to read the whole thesis (to see if your findings are useful in their setting).
+Right now, they would be fairly frustrated :) "
+
+"Change to Outlook? Theses are not really supposed to have a future work
+section, they should be completed work, and what you have written is not really
+future work, but more of a big picture analysis, which is exacty what I was
+hoping for :) "
+
+"change to 'I'?"
+
+"developed?"
+
+
+[[ Page 144 ]]
+"the the" --> fixed
+
+"OK, here is where I may not know enough about NMT, but normally one of the
+downsides of embeddings is that they do NOT disambiguate senses (and Mike Jones
+has some interesting results showing catastrophic forgetting for word2vec), so
+could you speculate about integrating WSD into the embeddings? That would
+necessitate some modifications to your approach and the NMT architecture, but
+you don't need solutions here, speculations would be enough :) And you can
+completely ignore this comment if it does not make any sense ;)  "
