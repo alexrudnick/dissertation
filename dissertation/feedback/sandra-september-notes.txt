@@ -5,11 +5,14 @@ Page numbers are in the pdf, not the pages assigned by the typesetting.
 
 [[ Page 6 ]]
 
-"You will probably have to shorten the abstract for the defense announcement, so
-start thinking about what you should kick out for that :)"
+"You will probably have to shorten the abstract for the defense announcement,
+so start thinking about what you should kick out for that :)"
+-> noted!
+
 
 "You have 'I' in the intro, why 'we' here? It's your thesis, so if there is one
 type of publication where you can say 'I', it's this :) "
+-> done
 
 [[ Page 138 ]]
 
@@ -27,14 +30,17 @@ Imagine that someone reads the conclusion to see if it makes sense for the them
 to read the whole thesis (to see if your findings are useful in their setting).
 Right now, they would be fairly frustrated :) "
 
+
 "Change to Outlook? Theses are not really supposed to have a future work
 section, they should be completed work, and what you have written is not really
 future work, but more of a big picture analysis, which is exacty what I was
 hoping for :) "
+--> done, thanks!
 
-"change to 'I'?"
 
-"developed?"
+"change to 'I'?" --> done
+
+"developed?" --> done
 
 
 [[ Page 144 ]]
@@ -47,3 +53,10 @@ could you speculate about integrating WSD into the embeddings? That would
 necessitate some modifications to your approach and the NMT architecture, but
 you don't need solutions here, speculations would be enough :) And you can
 completely ignore this comment if it does not make any sense ;)  "
+
+I understand the concern, but it's important to not conflate word embeddings
+with the representation of an entire sentence that NMT learns to build;
+word2vec embeddings are indeed fixed for a given word type, but that's not
+what's happening in NMT. Reworded that section a little bit to make it more
+clear that the representations of sentences are vectors that contain the whole
+representation of a sentence.

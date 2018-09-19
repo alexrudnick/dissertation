@@ -48,15 +48,14 @@ practice\cite{gnmt}, has moved from phrase-based and tree-based SMT systems to
 models based on recurrent neural networks.
 
 It may not be immediately useful to add explicit CL-WSD classifiers to a neural
-MT architecture, although this is an empirical question. In a sense, though,
-we can say that NMT systems are already performing CL-WSD; they have a
+MT architecture, although this is an empirical question. In a sense, though, we
+can say that NMT systems are already performing CL-WSD; they have a vector
 representation of the whole input sentence available while making output
-decisions. This vector representation is similar to the doc2vec
-representations discussed in Chapter \ref{chap:monolingual}, but is learned
-specifically for the translation task, and uses deeper, and recurrent,
-networks. The sentence-encoding process in neural machine translation
-automates much of the feature engineering work that would go into building a
-CL-WSD system.
+decisions, tuned specifically for the translation task. This vector
+representation is similar to the doc2vec representations discussed in Chapter
+\ref{chap:monolingual}, but uses deeper, and recurrent, networks. The
+sentence-encoding process in neural machine translation thus automates much of
+the feature engineering work that would go into building a CL-WSD system.
 
 However, many of the difficulties addressed in this work still apply in the
 neural machine translation setting. We still must come up with good ways to
