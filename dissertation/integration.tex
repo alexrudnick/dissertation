@@ -348,14 +348,17 @@ Guarani output, compared with the lemmatized target side of the test set.
 See Figure \ref{fig:bleu-es-gn} for a table of the BLEU scores.
 Here we see that the system learned to rely on the output of Chipa for useful
 guidance; when running with the same MERT-tuned weights, but the CL-WSD
-classifiers disabled, we get a BLEU score drop of roughly six points. For
-comparison, we additionally tried tuning the same Moses system with the Chipa
-feature function disabled, but found that the variance among BLEU scores for
-runs of this experiment was quite high\footnote{This is due to the MERT search
-procedure starting at different, randomly-chosen points in the space of weight
-assignments; the phenomenon is sometimes called ``MERT noise" informally.}, so
-comparison with our results for the tuned system with Chipa enabled do not seem
-particularly illuminating.
+classifiers disabled, we get a BLEU score drop of roughly six points.
+The presence or absence of guidance from Chipa changes our translation output
+significantly here -- we produce different output in 97 of the 100 test verses,
+across these two settings.
+For comparison, we additionally tried tuning the same Moses system with the
+Chipa feature function disabled, but found that the variance among BLEU scores
+for runs of this experiment was quite high\footnote{This is due to the MERT
+search procedure starting at different, randomly-chosen points in the space of
+weight assignments; the phenomenon is sometimes called ``MERT noise"
+informally.}, so comparison with our results for the tuned system with Chipa
+enabled do not seem particularly illuminating.
 
 \begin{figure*}
   \begin{centering}

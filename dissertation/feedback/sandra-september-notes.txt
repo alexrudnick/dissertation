@@ -21,7 +21,7 @@ type of publication where you can say 'I', it's this :) "
 work :) "
 
 It is possible! Almost all outputs were different. Only 3 were the same in
-fact.
+fact. Added a note about this.
 
 
 [[ Page 140 ]]
