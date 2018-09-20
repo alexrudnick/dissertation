@@ -20,6 +20,9 @@ type of publication where you can say 'I', it's this :) "
 / made a difference in the moses setup? Please ignore this if it is too much
 work :) "
 
+It is possible! Almost all outputs were different. Only 3 were the same in
+fact.
+
 
 [[ Page 140 ]]
 "Chipa" --> fixed
