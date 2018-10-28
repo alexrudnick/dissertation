@@ -3,19 +3,42 @@
 
 In this work, I have developed approaches for cross-lingual word sense
 disambiguation in the setting where we are translating from a resource-rich
-language into an under-resourced one, and implemented those approaches in
+language into an under-resourced one, and implemented these approaches in
 running software.
-We have shown how cross-lingual word sense disambiguation can be applied to
+I have shown how cross-lingual word sense disambiguation can be applied to
 lexical selection in hybrid machine translation for language pairs with
 relatively modest resources, particularly when translating from Spanish to two
 different indigenous languages of South America, Guarani and Quechua.
+
+In the initial three chapters, we describe CL-WSD and situate it among efforts
+to integrate word-sense disambiguation over the history of work on machine
+translation. In Chapter \ref{chap:introduction}, we explain how word-sense
+disambiguation is relevant to translation and lay out the structure of the rest
+of the work.
+In Chapter \ref{chap:background}, we provide a broad overview of
+the word-sense disambiguation problem, discussing some framings for WSD that
+have been applied in the past, and the difficulties that these framings cause
+when our goal is to build a system that can process arbitrary running text.
+We explain how the CL-WSD framing overcomes two major problems that have made
+it difficult to apply WSD to machine translation in practice. Firstly, CL-WSD
+provides a concrete sense inventory for lexical items in the source language,
+since we consider the senses of a word to be its possible translations, and
+secondly, it provides a source of labeled training data, allowing us to apply
+supervised machine learning techniques. Also in this chapter, we briefly
+describe the Guarani and Quechua languages and explain our motivation in
+wanting to translate into them.
+
+%% XXX working here.
 
 We described, in Chapter \ref{chap:baseline}, an initial version of the Chipa
 software based on common text classification features, and showed how it
 outperforms the relatively strong most-frequent sense baseline. We also
 compared Chipa to other systems submitted to recent SemEval events for
 cross-lingual word sense disambiguation on the task of translating from English
-to other European languages.
+to other European languages. By applying Chipa to both of these tasks, we have
+shown that this initial approach is a fairly strong starting point, comparable
+with CL-WSD systems developed by other research groups, and that it can be
+used in multiple settings reasonably successfullly.
 
 In Chapter \ref{chap:monolingual}, we extended our initial approach with
 strategies that make use of the available resources for Spanish, including NLP
