@@ -342,10 +342,14 @@ sentences in a second language but facing gaps in their vocabulary.
 \section{Translation into Morphologically Rich Languages}
 Both Guarani and Quechua feature rich morphology, which means that the space of
 possible output tokens in these languages is quite large. In order to build a
-complete MT system targeting these languages, we need a means to predict the
-appropriate morphological features and synthesize correctly inflected words. As
-such, here we will quickly mention some of the work on morphological prediction
-and generation for statistical and hybrid MT systems.
+complete MT system targeting these languages, one needs a means to predict the
+appropriate morphological features and synthesize correctly inflected words,
+either starting from lemmas and modeling the inflection process, or simply by
+concatenating pieces of words during decoding. This problem is large,
+difficult, and related to the problem of CL-WSD, but we consider it out of
+scope in this work. For completeness, here we will quickly mention some of the
+work on morphological prediction and generation for statistical and hybrid MT
+systems.
 
 Koehn and Hoang describe \emph{factored} phrase-based SMT models for predicting
 target-language morphology \cite{koehn-hoang:2007:EMNLP-CoNLL2007}. In this
