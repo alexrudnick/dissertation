@@ -74,15 +74,16 @@ translation API for its feature extraction, but still learns from several
 mutually parallel bitexts that share a source language.
 
 \section{WSD with Sequence Models}
-To my knowledge, there has not been other work that explicitly frames all-words
-CL-WSD as a sequence labeling problem. Machine translation systems, and
-especially statistical machine translation systems, address this problem
-implicitly -- jointly along with other problems -- when they use language
-models to encourage coherent word choices in the generated text. The
-decomposition of SMT systems into a translation model and a language model
-allows LMs to be trained on very large target-language corpora.  In contrast,
-in our earlier work on CL-WSD with sequence models, we only trained on
-sentence-aligned bitext.
+To my knowledge, there has not been work that explicitly frames all-words
+CL-WSD as a sequence labeling problem, other than our earlier application of
+MEMMs to Spanish-Guarani \cite{rudnick-gasser:2013:HyTra}.  However, machine
+translation systems, and especially statistical machine translation systems,
+address this problem implicitly -- jointly along with other problems -- when
+they use language models to encourage coherent word choices in the generated
+text. The decomposition of SMT systems into a translation model and a language
+model allows LMs to be trained on very large target-language corpora.  In
+contrast, in our earlier work on CL-WSD with sequence models, we only trained
+on sentence-aligned bitext.
 
 There have, however, been some uses of sequence models for monolingual WSD; in
 this setting, systems can find an assignment disambiguating the entire input
@@ -95,7 +96,7 @@ Senseval-3, where it posted results towards the middle of the pack.
 Ciaramita and Altun \cite{ciaramita-altun:2006:EMNLP} frame both coarse-grained
 WSD and information extraction as a tagging problem, using a discriminative
 variation of HMMs trained with perceptrons \cite{collins:2002:EMNLP02}
-to maps nouns and verbs in the input text onto one of 41 ``supersenses", a
+to map nouns and verbs in the input text onto one of 41 ``supersenses", a
 small ontology developed by Ciaramita and Johnson.
 
 While it is not explicitly about sequence models, there is a related research
