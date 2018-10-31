@@ -72,25 +72,77 @@ In Chapter \ref{chap:monolingual}, we extended our initial approach with
 strategies that make use of the available resources for Spanish, including NLP
 tools for analyzing Spanish text and unsupervised learning techniques that
 allow us to learn representations for our classifiers from the wealth of
-available unannotated Spanish text, including Brown clusters and neural
-embeddings that represent both individual word types and sequences of text.
+available unannotated Spanish text. We showed how to extract features based on
+syntactic analyses of the input text, done with a POS tagger and a dependency
+parser, and how adding these features provided modest, but very consistent,
+accuracy improvements. We also showed some gains, especially when using random
+forest classifiers, by adding features based on Brown clusters trained on
+larger samples of monolingual Spanish text. The best results in the chapter
+came from adding these syntactic and Brown clustering features to the baseline
+sparse feature set.
+
+We also showed that we could use dense vector representations, built with
+word2vec and doc2vec trained on available monolingual Spanish text, with
+moderate success. However, these did not outperform the baseline sparse
+features for our task, at least not with the data sets and machine learning
+techniques used in this work; particularly, our random forest classifiers saw
+accuracy drops when using these features. We learned that when using these
+dense representations, it is better to focus on the text immediately
+surrounding the focus word, either by limiting the context window or by giving
+more weight to words close to the focus word. Trying to build a doc2vec
+representation of the entire input text, or summing the word embeddings
+uniformly across the text was less effective. Also, we found that it was
+possible to combine the dense representations based on word embedding vectors
+with the sparse features from syntactic analysis and Brown clustering, and that
+this gave us performance boosts over using the dense features alone.
 
 In Chapter \ref{chap:multilingual}, we showed how to use Chipa for classifier
 stacking, which allows us to learn from bitext corpora that pair our source
 language with languages other than our intended target language; this technique
 is broadly applicable when we want to translate out of a language with many
 available bitext resources, and could also be applied when we have a good
-monolingual WSD system available.
+monolingual WSD system available. Here we trained CL-WSD classifiers on both
+Bible translations, which are available for many languages and directly match
+the domain of our Spanish-Guarani and Spanish-Quechua corpora, and also
+Europarl bitext corpora, which are much larger, at roughly 1.8 million sentence
+pairs. We showed that we are able to get some gains by adding features based on
+the output of the Europarl-trained CL-WSD classifiers, but larger gains when
+adding the output of the in-domain classifiers. Furthermore, the gains are
+larger when adding classifier output for five different language pairs, rather
+than relying on just Spanish-English CL-WSD, and these classifier stacking
+features work alongside the syntactic features discussed in Chapter
+\ref{chap:monolingual}; our best results came from using them in tandem.
 
 Finally, in Chapter \ref{chap:integration}, we demonstrated prototypes for
 integrating our CL-WSD classifiers into existing machine translation systems of
 two completely different architectures, requiring only small changes to
-existing code.  We demonstrated a phrase-based SMT system for
+existing code.  We presented a phrase-based SMT system for
 Spanish-Guarani\footnote{Ignoring, for the moment, the admittedly substantial
 problem of morphological generation.} that uses Chipa classifiers in a feature
 function that guides its decoding process. For Spanish-Quechua, we augmented a
 primarily rule-based hybrid machine translation system, using our classifiers
-to supplement the existing hand-written lexical selection rules.
+to supplement the existing hand-written lexical selection rules. This first
+integration shows how CL-WSD techniques can reasonably be applied to
+phrase-based SMT even in relatively low-data scenarios\footnote{There is prior
+work on using CL-WSD for SMT; see Section \ref{sec:clwsd-smt}.}, when
+translating between two unrelated languages, and the second is a
+proof-of-concept for how to add a CL-WSD into an existing rule-based MT system,
+allowing it to learn from any available bitext, with increasing benefits as
+more bitext is collected in the future
+
+One interesting difficulty that came up, and is particularly relevant for MT
+systems that deal with morphologically rich languages, is the potential for
+mismatches between the different inventories of lemmas known to the interacting
+NLP systems; this is to say, the recommendations made by the CL-WSD system must
+be, for the most part, lexical selections that the MT system can make.
+Thankfully, for the most part the Chipa CL-WSD system and SQUOIA have a large
+overlap in their inventories of Quechua citation forms, but this need not be
+the case, and some care must be taken. For our integration of Chipa into the
+Spanish-Guarani phrase-based SMT system, this difficulty was largely avoided,
+because the lexical entries were all based on the output of the same
+morphological analyzers. In both cases, we showed some modest improvements to
+MT output on a small test set, using automatic metrics for Spanish-Guarani and
+manual evaluation for Spanish-Quechua.
 
 \section{Applying techniques like this to neural machine translation}
 During the course of this work, the field of machine translation has undergone
