@@ -33,6 +33,9 @@ Imagine that someone reads the conclusion to see if it makes sense for the them
 to read the whole thesis (to see if your findings are useful in their setting).
 Right now, they would be fairly frustrated :) "
 
+--> Added a bunch more summarization and some of the important takeaways to
+Chapter 9.
+
 
 "Change to Outlook? Theses are not really supposed to have a future work
 section, they should be completed work, and what you have written is not really
