@@ -19,5 +19,8 @@ gn-qu-mrf.pdf: gn-qu-mrf.dot
 is-abbrv.bst:
 	wget http://ftp.math.utah.edu/pub/tex/bibtex/is-abbrv.bst
 
+abstractpage.pdf: abstractpage.tex abstract.tex
+	xelatex abstractpage.tex
+
 clean:
 	rm -f *.toc *.idx *.blg *.bbl *.aux *.log $(NAME).pdf
