@@ -22,12 +22,12 @@ I describe new CL-WSD approaches, including the use of unsupervised clustering
 on source-language text and multilingual corpora for the source language as a
 source of classification features. I also evaluate their effectiveness in
 practice. All of these techniques have been implemented in a new CL-WSD
-software system called Chipa
-\footnote{Chipa the software is named for chipa the snack food, popular in many
-  parts of South America. It is a cheesy bread made from cassava flour, often
-  served in a bagel-like shape in Paraguay.  Also \emph{chipa} means 'rivet,
-  bolt, screw' in Quechua; something for holding things together.  The software
-is available at \\ \url{http://github.com/alexrudnick/chipa} under the GPL.}.
+software system called Chipa\footnote{Chipa the software is named for chipa the
+snack food, popular in many parts of South America. It is a cheesy bread made
+from cassava flour, often served in a bagel-like shape in Paraguay.  Also
+\emph{chipa} means `rivet, bolt, screw' in Quechua; something for holding
+things together.  The software is available at \\
+\url{http://github.com/alexrudnick/chipa} under the GPL.}.
 We also integrate Chipa into two machine translation systems of different
 architectures to show its practical applicability.
 
@@ -63,7 +63,8 @@ have" is quite different. It would be surprising for our target language,
 especially if it is not closely related, to use a single light verb in
 all of these distinct contexts. Even in a language as closely related as
 Spanish, we see these English expressions rendered with some different
-verbs: \emph{tomar un bocadillo} but \emph{tener un argumento}, for example.
+verbs: \emph{tomar un bocadillo} (`have a sandwich') but \emph{tener un
+argumento} (`have an argument'), for example.
 By cross-lingual word sense disambiguation (CL-WSD), I mean exactly this
 problem: we consider \emph{tomar} and \emph{tener} to be two different
 senses of \emph{have} -- there are certainly more, for a verb like \emph{have}
@@ -135,9 +136,9 @@ translations for each source-language word, and by applying supervised
 learning, we can learn how to discriminate between them.
 
 We do not have very large sentence-aligned bitext corpora for most language
-pairs, however, and will have to make do with the Bible (though other bitext is
-absolutely welcome and valuable!), which is an acceptable
-starting point containing many commonly used words.\footnote{The
+pairs. Conveniently, however, we can get started by using the Bible as training
+data; it contains many commonly used words and contains enough text for us to
+meaningfully train our systems. \footnote{The
 Bible has been translated into a substantial fraction of the world's languages
 and contains more than thirty thousand verses (roughly, sentences) in
 a variety of text genres. For an overview of using the Bible for multilingual
