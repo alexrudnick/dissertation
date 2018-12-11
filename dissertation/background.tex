@@ -32,13 +32,13 @@ lexicographers, such as a
 dictionary or a wordnet\footnote{Such as WordNet\textregistered, 
 the original wordnet for English \cite{DBLP:journals/cacm/Miller95}}, or it
 might have been discovered in some automatic
-way. Word-sense disambiguation tasks have typically been divided into two
+way. Word-sense disambiguation tasks have historically been divided into two
 varieties, where \emph{lexical sample} tasks require labeling occurrences of
 some small number of words types, and \emph{all-words} tasks, in which every
-word in the input text must be labeled. In NLP applications that must handle
-arbitrary text, this distinction breaks down somewhat, as the application will
-encounter previously unseen words for which there are no known senses in the
-ontology.
+word in the input text must be labeled\cite{agirre2006word}. In NLP
+applications that must handle arbitrary text, this distinction breaks down
+somewhat, as the application will encounter previously unseen words for which
+there are no known senses in the ontology.
 
 When making use of WSD for some other purpose -- say in information retrieval,
 information extraction, or machine translation -- choosing an appropriate sense
@@ -105,13 +105,15 @@ and is available at \url{http://web.eecs.umich.edu/~mihalcea/downloads.html}}.
 
 In order to ameliorate this WSD data acquisition bottleneck and allow WSD
 research to move forward in the absence of annotated training data, researchers
-have also created corpora with artificially-ambiguous ``pseudo-words".  The
-original uses are then considered two senses of the new pseudo-word, and
-researchers can check whether their WSD algorithms can recover the original
-token.
+have also created corpora with artificially-ambiguous ``pseudo-words", in which
+two distinct word types are merged into a synthetic new word, but the original
+word that was used is noted; for example, all occurrences of `shoe' and ``book"
+could be replaced with a synthetic token ``bookshoe".  The original uses are
+then considered two senses of the new pseudo-word, and researchers can check
+whether their WSD algorithms can recover the original token.
 
-Supervised learning approaches by no means the only strand of research in WSD;
-there are also unsupervised word-sense induction approaches that try to
+Supervised learning approaches are by no means the only strand of research in
+WSD; there are also unsupervised word-sense induction approaches that try to
 discover senses automatically from corpora, knowledge-based algorithms that
 make use of hand-crafted resources such as dictionaries and wordnets to label
 tokens -- such as, classically, the Lesk Algorithm \cite{lesk}, and more
@@ -159,7 +161,8 @@ enclosure, like for an animal) or as \emph{pluma} (the instrument for writing).
 
 As of this writing, for this particular example, Google Translate picks the
 correct rendering, although in September 2013, it chose the less-sensible 
-``in the writing implement" translation (see Figure \ref{fig:box-in-pen}).
+``in the writing implement" translation for Bar-Hillel's example sentence
+(see Figure \ref{fig:box-in-pen}).
 
 One wonders how this could have come about -- we would hope that the n-gram
 language model for Spanish would prefer sentences about things in enclosures to
@@ -321,8 +324,9 @@ primarily rule-based machine translation systems.
 We would like for RBMT or hybrid systems, once developed, to be able to make
 use of any bitext resources that are available, or that become available later.
 Like SMT systems, they should be able to produce better translations as larger
-corpora are developed, without additional code changes: this is the main
-engineering goal for the Chipa software.
+corpora are developed, without additional code changes: giving RBMT systems the
+ability to learn from available bitext resources is the main engineering goal
+for the Chipa software.
 
 \urldef{\leydelenguas}\url{http://www.cultura.gov.py/lang/es-es/2011/05/ley-de-lenguas-n%C2%BA-4251/}
 
@@ -369,9 +373,9 @@ development with feedback from professors from the \emph{Ateneo} and
 policymakers at the Secretariat.
 
 \subsection{Online Language Tools for Guarani}
-There are currently very few online language tools for Guarani; some of the
-best available ones are iGuarani \footnote{\url{http://iguarani.com/}}, a
-searchable online dictionary and gisting translation system developed by young
+There are currently very few online language tools for Guarani; one of the
+largest available ones are iGuarani \footnote{\url{http://iguarani.com/}}, a
+searchable online dictionary and gisting translation system developed by
 Paraguayan programmer Diego Alejandro Gavilán.
 
 There is also a small searchable online dictionary developed by Wolf Lustig
