@@ -30,10 +30,49 @@ In the CL-WSD setting, where we consider target-language lexical items to be
 the salient senses of source-language words, we could also ask annotators to
 hand-label each word of our test sentences with their translations.
 For many language pairs, however, this annotation task has nearly been
-performed by translators. We do not strictly have the labels for each token in
-the source document, but with automatic word alignment techniques, we can infer
-these labels -- their translations into the target language -- with high
-confidence.
+performed by translators: the available bitext allows us to find the
+translations of source words within the corresponding target-language sentence.
+
+\section{Measuring CL-WSD Classification Accuracy}
+One straightforward \emph{in vitro} approach for evaluating a CL-WSD system is
+to measure classification accuracy over pre-labeled data. Here by
+classification accuracy, we mean measuring how often the system is able to
+correctly choose an appropriate translation for the focus word in a given
+context.
+Strictly speaking, for this application, we
+do not have pre-labeled data: our bitext does not come with sub-sentential
+alignments. But automatic word alignments provide a good approximation, as long
+as our sentence alignments (or verse alignments, for Bible text) are accurate.
+For the purposes of this work, we will assume that the automatic word-level
+alignments are correct, putting in our best effort at preprocessing the
+available text so that the aligner can produce useful output. This allows us to
+infer the labels for source tokens -- their translations into the target
+language -- with high confidence.
+
+Using our automatically-aligned bitext as labeled data allows us to closely
+mirror the lexical selection task faced by an MT system while translating
+running text. We can train classifiers for many different word types, but we
+will generally not have training examples available for all words in the input
+at test time. This is a problem faced by data-driven NLP systems broadly.
+
+For comparison with other work, in Section \ref{sec:baseline-semeval} we run
+our systems on the SemEval CL-WSD shared task test sets, which are publicly
+available. Our larger task here is framed in the same way as the CL-WSD shared
+tasks from 2010 and 2013, so measuring performance on these test sets allows a
+straightforward comparison between the variations explored in this work and
+several other CL-WSD systems from recent years. These test sets are limited in
+scope, however, and will only demonstrate Chipa's performance for translating
+individual English nouns. These comparisons are interesting in part because
+they show the strength of the ``most frequent sense" baseline -- simply
+returning the most common translation in the training data for a given focus
+word. Many of the posted results in the 2010 and 2013 SemEval competitions did
+not pass this bar; due to Zipfian distributions of words, the most common
+lexical items in the target language are quite common.
+In that section we can see how Chipa is situated among other recent CL-WSD
+systems on a that particular task, translating English nouns, but this cannot
+be the whole of our evaluation for Chipa; our more general goal for Chipa is to
+support MT from Spanish into lower-resourced languages. 
+
 
 \section{Measuring MT Improvements}
 We will additionally want to conduct \emph{in vivo} evaluations of our CL-WSD
@@ -66,44 +105,6 @@ cascading errors, perhaps by surprising the language model.
 These experiments are described in more detail in
 Chapter~\ref{chap:integration}, where I also discuss how to integrate Chipa
 into the different machine translation packages.
-
-\section{Measuring CL-WSD Classification Accuracy}
-One straightforward \emph{in vitro} approach for evaluating a CL-WSD system is
-to measure classification accuracy over pre-labeled data. Here by
-classification accuracy, we mean measuring how often the system is able to
-correctly choose an appropriate translation for the focus word in a given
-context.
-Strictly speaking, for this application, we
-do not have pre-labeled data: our bitext does not come with sub-sentential
-alignments. But automatic word alignments provide a good approximation, as long
-as our sentence alignments (or verse alignments, for Bible text) are accurate.
-For the purposes of this work, we will assume that the automatic word-level
-alignments are correct, putting in our best effort at preprocessing the
-available text so that the aligner can produce useful output.
-
-Using our automatically-aligned bitext as labeled data allows us to closely
-mirror the lexical selection task faced by an MT system while translating
-running text. We can train classifiers for many different word types, but we
-will generally not have training examples available for all words in the input
-at test time. This is a problem faced by data-driven NLP systems broadly.
-
-For comparison with other work, in Section \ref{sec:baseline-semeval} we run
-our systems on the SemEval CL-WSD shared task test sets, which are publicly
-available. Our larger task here is framed in the same way as the CL-WSD shared
-tasks from 2010 and 2013, so measuring performance on these test sets allows a
-straightforward comparison between the variations explored in this work and
-several other CL-WSD systems from recent years. These test sets are limited in
-scope, however, and will only demonstrate Chipa's performance for translating
-individual English nouns. These comparisons are interesting in part because
-they show the strength of the ``most frequent sense" baseline -- simply
-returning the most common translation in the training data for a given focus
-word. Many of the posted results in the 2010 and 2013 SemEval competitions did
-not pass this bar; due to Zipfian distributions of words, the most common
-lexical items in the target language are quite common.
-In that section we can see how Chipa is situated among other recent CL-WSD
-systems on a that particular task, translating English nouns, but this cannot
-be the whole of our evaluation for Chipa; our more general goal for Chipa is to
-support MT from Spanish into lower-resourced languages. 
 
 \section{Data Sets and Preprocessing}
 \label{sec:datasetsandpreprocessing}
@@ -420,7 +421,8 @@ part-of-speech tagging. Concretely, the token \emph{fue} is given the tag
 ``semiauxiliary". See
 \url{http://nlp.lsi.upc.edu/freeling/doc/tagsets/tagset-es.html} (page
 in Spanish) for more on the tagset used by FreeLing for Spanish.}, and in this
-work we assume that the Freeling output is correct, or at least correct enough.
+work we assume that the Freeling output is correct, or at least correct enough
+to be useful for our purposes.
 In effect, we here assume that this kind of ambiguity -- ambiguities about the
 appropriate lemma for a given token -- are satisfactorily resolved before the
 CL-WSD system itself comes into play.
@@ -525,7 +527,7 @@ alignment algorithm, which is a variant of IBM Models 1 and 2, and was shown to
 provide both relatively fast training times and good results for downstream MT
 systems \cite{dyer-chahuneau-smith:2013:NAACL-HLT}. It improves on Model 1 by
 encouraging diagonal alignments, rather than Model 1's simplistic view that any
-token in the source might be just as well be aligned to any token in the
+token in the source might just as well be aligned to any token in the
 target,
 and on Model 2 in having fewer parameters to fit. In any case, it is the
 default aligner for use with cdec. \texttt{fast\_align} produces the single most
@@ -570,10 +572,11 @@ source code
 \footnote{\url{https://github.com/alexrudnick/terere/tree/master/bibletools}}.
 
 We consider the ``raw materials" for this process to be the scraped Spanish and
-Guarani bibles; see Figure \ref{fig:es-html-sample} for an example.  In order
-to replicate this work, or to extend it to more languages, one will have to
-acquire bitext covering one's preferred language. There are translations in
-many different languages available on various Bible websites, however.
+Guarani bibles; see Figures \ref{fig:es-html-sample} and
+\ref{fig:gn-html-sample} for examples. In order to replicate this work, or to
+extend it to more languages, one will have to acquire bitext covering one's
+preferred language. There are translations in many different languages
+available on various Bible websites, however.
 
 The result of the scraping process is a directory full of HTML files, the raw
 HTML that was served by the Bible websites. For the sites that we scraped, each
@@ -682,10 +685,11 @@ Even using only the Bible as bitext, we find a substantial number of
 training examples for many of the most common word types, which, due to the
 Zipfian distribution of word types in most texts, constitute a significant
 fraction of the tokens exhibited.
-The most common lemmas and surface forms found in the text are shown in Figures
-\ref{fig:mostcommon-lemmas} and \ref{fig:mostcommon-surface}, but here we see
-that the most common few dozen types cover the majority of the text, though
-they are likely, as we will discuss later, to exhibit substantial ambiguity.
+The most common lemmas and surface forms found in the source text are shown in
+Figures \ref{fig:mostcommon-lemmas} and \ref{fig:mostcommon-surface}, but here
+we see that the most common few dozen types cover the majority of the text,
+though they are likely, as we will discuss later, to exhibit substantial
+ambiguity.
 
 Once we skip past stop words, we also see that some of the most common word
 types in the text are proper names (place names, personal names, names
@@ -854,15 +858,15 @@ For translating from Spanish to Guarani, we see the verb \emph{volver}
 'turn'.
 
 Figures \ref{fig:mostcommon-en-es} and \ref{fig:mostcommon-gn-qu} give the most
-common lemmas used in our corpus for the four languages, along with their
-counts.
+common lemmas, after stopword removal, used in our corpus for the four
+languages, along with their counts.
 In Figure~\ref{fig:mostcommon-es-translations}, we see common lemmas from
 Spanish along with their most likely translations into English, Guarani and
 Quechua (as extracted from the bitext). For the purposes of this work, we will
-consider words to be in-vocabulary if they appear at least fifty times in the
-training corpus; we also do not include punctuation marks and stopwords (as
-defined by the default NLTK stopword lists for English and Spanish) other than
-common verbs.
+consider words to be in-vocabulary for disambiguation if they appear at least
+fifty times in the training corpus; we also do not include punctuation marks
+and stopwords (as defined by the default NLTK stopword lists for English and
+Spanish) other than common verbs.
 
 As an approximation of the difficulty of the classification task we face when
 addressing these ambiguities, we can take a look at the entropy of the possible

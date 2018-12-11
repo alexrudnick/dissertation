@@ -13,7 +13,7 @@ highlighted as we get to them.
 \section{CL-WSD \emph{in vitro}}
 Some of the related work on CL-WSD has studied the CL-WSD task in isolation, 
 without being embedded into a machine translation system or other NLP
-application.\footnote{Such as cross-language information retrieval (CLIR);
+application, such as cross-language information retrieval (CLIR).\footnote{
 CL-WSD has broader applications aside from its clear use in lexical selection
 for MT. When retrieving documents in some target language based on a
 source-language query, we might want to first disambiguate the user's query
@@ -235,7 +235,7 @@ classifiers consider input sentences as sets of words. They argue that
 phrase-based SMT models are already good at predicting sequences, and many of
 the signals that might trigger a different word choice, especially in their
 source language, Chinese, can be placed freely in the input text. They also
-include a ``trigger-based" probability model similar to IBM Model 1
+include a probability model similar to IBM Model 1
 \cite{DBLP:journals/coling/BrownPPM94}, but conditioned on two source-language
 words rather than one. Like IBM Model 1, this model is trained with
 Expectation-Maximization.
@@ -325,7 +325,7 @@ corpora, and the direction of translation was from English to Chinese.
 In the 2010 and 2013 SemEval CL-WSD tasks
 \cite{lefever-hoste:2010:SemEval,task10}, both organized by Lefever and Hoste,
 participants were asked to translate twenty different polysemous English nouns
-into five different European languages (Dutch French, German Italian, and
+into five different European languages (Dutch, French, German, Italian and
 Spanish), given their containing source-language sentence as context. There
 were no explicit bilingual dictionaries provided as sense inventories; the
 possible target-language labels were those found in Europarl \cite{europarl}
