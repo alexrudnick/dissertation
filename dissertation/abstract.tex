@@ -1,3 +1,19 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Do not edit these lines unless you wish to customize
+% the template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newgeometry{left=1in}
+
+\begin{center}
+
+\yourName\\
+\MakeUppercase{\thesisTitle}
+
+\end{center}
+
+\vspace{1.5\baselineskip}
+
+%Insert your abstract here
 This thesis argues that cross-lingual word sense disambiguation (CL-WSD) can be
 used to improve lexical selection for machine translation when translating from
 a resource-rich language into an under-resourced one, especially when relatively
@@ -24,3 +40,21 @@ as approaches for learning from bitext resources that pair Spanish with
 languages unrelated to our intended target languages. Finally, I provide
 proof-of-concept integrations of Chipa with existing machine translation
 systems, of two completely different architectures.
+
+\ifdefined\committeeMemberFourTypedName
+
+\null\hfill \myRule\\
+\null\hfill \committeeChairpersonTypedName, \committeeChairpersonPostNominalInitials\\
+\null\hfill \myRule\\
+\null\hfill \committeeMemberTwoTypedName, \committeeMemberTwoPostNominalInitials\\
+\null\hfill \myRule\\
+\null\hfill \committeeMemberThreeTypedName, \committeeMemberThreePostNominalInitials\\
+\null\hfill \myRule\\
+\null\hfill \committeeMemberFourTypedName, \committeeMemberFourPostNominalInitials\\
+\ifdefined\committeeMemberFiveTypedName
+\null\hfill \myRule\\
+\null\hfill \committeeMemberFiveTypedName, \committeeMemberFivePostNominalInitials\\
+\fi
+
+\fi
+\restoregeometry

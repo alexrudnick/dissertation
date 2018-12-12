@@ -1,0 +1,60 @@
+%% Define your committee members. If you have less than 6, simple delete/comment the unused lines
+
+\newcommand{\committeeChairpersonTypedName}{Michael E. Gasser}
+\newcommand{\committeeChairpersonPostNominalInitials}{Ph.D.}
+
+\newcommand{\committeeMemberTwoTypedName}{Sandra C. Kübler}
+\newcommand{\committeeMemberTwoPostNominalInitials}{Ph.D.}
+
+\newcommand{\committeeMemberThreeTypedName}{Markus Dickinson}
+\newcommand{\committeeMemberThreePostNominalInitials}{Ph.D.}
+
+\newcommand{\committeeMemberFourTypedName}{David J. Crandall}
+\newcommand{\committeeMemberFourPostNominalInitials}{Ph.D.}
+
+% Uncomment to add another committee member
+\newcommand{\committeeMemberFiveTypedName}{John S. DeNero}
+\newcommand{\committeeMemberFivePostNominalInitials}{Ph.D.}
+
+\newcommand{\myRule}{\rule{0.5\textwidth}{0.4pt}}
+
+\newcommand{\approvalDay}{06}
+\newcommand{\approvalMonth}{11}
+\newcommand{\approvalYear}{2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Do not edit these lines unless you wish to customize
+% the template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newgeometry{left=1in}
+
+\begin{center}
+ 
+Accepted by the Graduate Faculty, Indiana University, in partial fulfillment of the requirements for the degree of Doctor of Philosophy.
+
+\end{center}
+
+\vspace{2\baselineskip}
+
+\ifdefined\committeeMemberFourTypedName
+Doctoral Committee\\
+
+\null\hfill \myRule\\
+\null\hfill \committeeChairpersonTypedName, \committeeChairpersonPostNominalInitials\\
+\null\hfill \myRule\\
+\null\hfill \committeeMemberTwoTypedName, \committeeMemberTwoPostNominalInitials\\
+\null\hfill \myRule\\
+\null\hfill \committeeMemberThreeTypedName, \committeeMemberThreePostNominalInitials\\
+\null\hfill \myRule\\
+\null\hfill \committeeMemberFourTypedName, \committeeMemberFourPostNominalInitials\\
+\ifdefined\committeeMemberFiveTypedName
+\null\hfill \myRule\\
+\null\hfill \committeeMemberFiveTypedName, \committeeMemberFivePostNominalInitials\\
+\fi
+
+\fi
+\vfill
+Date of Defense: \approvalMonth/\approvalDay/\approvalYear
+\restoregeometry
