@@ -1,10 +1,260 @@
 \chapter*{Vita}
 \addtocontents{toc}{
- \unexpanded{\unexpanded{\renewcommand{\cftchapdotsep}{\cftnodots}}}%  
+ \unexpanded{\unexpanded{\renewcommand{\cftchapdotsep}{\cftnodots}}}%
 }
 \addcontentsline{toc}{chapter}{Curriculum Vitae}
 
-\doublespacing
-Vita may be provided by doctoral students only. The length of the vita is preferably one page. It may include the place of birth and should be written in third person. This vita is similar to the author biography found on book jackets.
-
 \pagenumbering{gobble}
+
+% Name.
+\def\name{Alex Rudnick}
+
+% Don't indent paragraphs.
+\setlength\parindent{0em}
+
+% Suppress page numbers.
+\pagestyle{empty}
+
+% One way to get a small square bullet.
+\newcommand{\localtextbulletone}{\textcolor{gray}{\raisebox{.45ex}{\rule{.6ex}{.6ex}}}}
+\renewcommand{\labelitemii}{\localtextbulletone}
+\renewcommand{\labelitemi}{\localtextbulletone}
+
+\newenvironment{itemize*}
+  {\begin{itemize}
+      % An opportunity to tweak spacing.
+      \setlength{\itemsep}{1pt}
+      \setlength{\parskip}{3pt}
+  }
+  {\end{itemize}}
+
+\centerline{\Huge \textbf{\name}}
+
+\bigskip
+\bigskip
+
+\section*{Education}
+\begin{itemize*}
+\item
+\textbf{Indiana University}, School of Informatics and Computing and
+Engineering, 2009--2018
+\begin{itemize*}
+\item Ph.D. Computer Science, December 2018. \\
+      Research committee: Michael E. Gasser (co-chair), Sandra K\"{u}bler
+      (co-chair), Markus Dickinson, David J. Crandall, John S. DeNero. \\
+      Dissertation: \emph{\thesisTitle}.
+\end{itemize*}
+
+\item
+\textbf{Georgia Institute of Technology}, College of Computing, 2001--2007
+\begin{itemize*}
+\item M.S. Computer Science, May 2007.
+\item B.A. Computer Science (with high honors), May 2005.
+\end{itemize*}
+\end{itemize*}
+
+\section*{Employment history}
+
+\begin{itemize*}
+\item{\textbf{Google}}
+  \begin{itemize*}
+  \item \textit{Software Engineer}, Google Translate team, Mountain View,
+  California. September 2014--present.
+  \item \textit{Software Engineering Intern}, Google Translate team, Mountain
+  View, California. Summer 2012.
+  \item \textit{Software Engineering Intern}, Google Translate team, Mountain
+  View, California. Summer 2011.
+  \item \textit{Software Engineering Intern}, Google Research, New York City.
+  Summer 2010.
+  \item \textit{Software Engineer}, Google Web Toolkit team, Atlanta, Georgia.
+  August 2007--July 2009.
+  \end{itemize*}
+\end{itemize*}
+
+\section*{Publications, tech reports, and workshop presentations}
+\begin{itemize*}
+
+\item
+Clayton A. Davis, Giovanni Luca Ciampaglia, Luca Maria Aiello, Keychul Chung,
+Michael D. Conover, Emilio Ferrara, Alessandro Flammini, Geoffrey C. Fox,
+Xiaoming Gao, Bruno Gonçalves, Przemyslaw A.  Grabowicz, Kibeom Hong, Pik-Mai
+Hui, Scott McCaulay, Karissa McKelvey, Mark R. Meiss, Snehal Patil, Chathuri
+Peli Kankanamalage, Valentin Pentchev, Judy Qiu, Jacob Ratkiewicz, \textbf{Alex
+Rudnick}, Benjamin Serrette, Prashant Shiralkar, Onur Varol, Lilian Weng,
+Tak-Lon Wu, Andrew J. Younge, Filippo Menczer. \\
+\href{https://peerj.com/articles/cs-87/}
+{OSoMe: the IUNI observatory on social media}.
+In \emph{PeerJ Computer Science}, October 2016.
+
+\item
+Yonghui Wu, Mike Schuster, Zhifeng Chen, Quoc V. Le, Mohammad Norouzi,
+Wolfgang Macherey, Maxim Krikun, Yuan Cao, Qin Gao, Klaus Macherey, Jeff
+Klingner, Apurva Shah, Melvin Johnson, Xiaobing Liu, Łukasz Kaiser, Stephan
+Gouws, Yoshikiyo Kato, Taku Kudo, Hideto Kazawa, Keith Stevens, George Kurian,
+Nishant Patil, Wei Wang, Cliff Young, Jason Smith, Jason Riesa, \textbf{Alex
+Rudnick}, Oriol Vinyals, Greg Corrado, Macduff Hughes, Jeffrey Dean. \\
+\href{https://arxiv.org/abs/1609.08144}
+{Google's Neural Machine Translation System: Bridging the Gap between
+Human and Machine Translation}.
+Google tech report released on arXiv, September 2016.
+
+\item
+\textbf{Alex Rudnick}, Levi King, Can Liu, Markus Dickinson and Sandra Kübler
+\\
+\href{http://alt.qcri.org/semeval2014/cdrom/pdf/SemEval2014060.pdf}
+{IUCL: Combining Information Sources for SemEval Task 5}.
+Proceedings of the 8th International Workshop on Semantic Evaluation
+(SemEval 2014).
+
+\item
+\textbf{Alex Rudnick}, Taylor Skidmore, Alberto Samaniego and Michael Gasser.\\
+\href{http://www.lrec-conf.org/proceedings/lrec2014/summaries/151.html}
+{Guampa: a Toolkit for Collaborative Translation}.
+Ninth International Conference on Language Resources and Evaluation (LREC
+2014).
+
+\item
+\textbf{Alex Rudnick}, Annette Rios and Michael Gasser.
+\href{http://www.lrec-conf.org/proceedings/lrec2014/workshops/LREC2014Workshop-SALTMIL\%20Proceedings.pdf}
+{Enhancing a Rule-Based MT System with Cross-Lingual WSD}.
+The 9th International Workshop of the Special Interest Group on Speech and
+Language Technology for Minority Languages (SaLTMiL 2014).
+
+\item
+\textbf{Alex Rudnick} and Michael Gasser.
+\href{http://www.aclweb.org/anthology/W/W13/W13-2815.pdf}
+{Lexical Selection for Hybrid MT with Sequence Labeling}.
+Second Workshop on Hybrid Approaches to Translation (HyTra 2013).
+
+\item
+\textbf{Alex Rudnick}, Can Liu and Michael Gasser.
+\href{http://www.aclweb.org/anthology/S/S13/S13-2031.pdf}
+{HLTDI: CL-WSD Using Markov Random Fields for SemEval-2013 Task 10}.
+Proceedings of the 7th International Workshop on Semantic Evaluation
+(SemEval 2013).
+
+\item
+Pavel Golik, Boulos Harb, Ananya Misra, Michael Riley, \textbf{Alex Rudnick}
+and Eugene Weinstein.
+\href{http://research.google.com/pubs/pub37754.html}
+{Mobile Music Modeling, Analysis and Recognition}.
+International Conference on Acoustics, Speech, and Signal Processing (ICASSP)
+2012.
+
+\item
+Karissa McKelvey, \textbf{Alex Rudnick}, Michael Conover and Filippo Menczer.
+Visualizations of Communication on Social Media: Making Big Data Accessible.
+Computer Supported Cooperative Work 2012 - Collective
+Intelligence as Community Discourse and Action.
+
+\item \textbf{Alex Rudnick}.
+\href{http://aclweb.org/anthology-new/R/R11/R11-2021.pdf}
+{Towards Cross-Language Word Sense Disambiguation for Quechua}.
+RANLP 2011 Student Research Workshop.
+
+\item
+\textbf{Alex Rudnick}.
+\href{http://www.mt-archive.info/MTMRL-2011-Rudnick.pdf}
+{A resource-light approach to learning verb valencies}.
+Machine Translation and Morphologically-rich Languages 2011.
+
+\item
+James Clawson, Kent Lyons, \textbf{Alex Rudnick}, Robert A. Iannucci Jr. and
+Thad Starner.
+\href{https://alexrudnick.github.io/pubs/automatic-whiteout++_CHI08.pdf}
+{Automatic whiteout++: correcting mini-QWERTY typing errors using keypress
+timing}.
+In CHI'08: Proceeding of the twenty-sixth annual
+SIGCHI conference on Human factors in computing systems, pages 573-582.
+
+\item
+James Clawson, \textbf{Alex Rudnick}, Kent Lyons and Thad Starner.
+\href{https://alexrudnick.github.io/pubs/automatic-whiteout_mobileHCI07.pdf}
+{Automatic Whiteout: Discovery and Correction of Typographical Errors in
+Mobile Text Input}.
+In MobileHCI'07: Proceedings of the 9th conference on
+Human-computer interaction with mobile devices and services.
+\end{itemize*}
+
+\section*{Teaching}
+\begin{itemize*}
+
+\item{\textbf{Course Instructor}}
+\begin{itemize*}
+\item CSCI B490: Natural Language Processing, Indiana University. Fall 2012.
+Taught a special topics course on Natural Language Processing for about thirty
+undergraduates at Indiana University. Covered basic ideas from linguistics and
+machine learning, sequence models and tagging, context-free grammars and
+parsing. Gave overviews of speech recognition and machine translation.
+\end{itemize*}
+
+\item{\textbf{Teaching Assistant}}
+\begin{itemize*}
+\item Google Tech Exchange: Machine Learning. Fall 2018.
+Helped run a machine learning class for students from Historically Black
+Colleges and Universities (HBCUs) and Hispanic-Serving Institutions at Google.
+
+\item CSCI B553: Probabilistic Graphical Models, Indiana University. Fall 2013.
+David Crandall's class on probabilistic graphical models, covering Bayes
+Networks, Markov Networks, exact and approximate inference on them, and some
+applications from computer vision and NLP.
+
+\item CSCI B651: Natural Language Processing, Indiana University. Fall 2010.
+Michael Gasser's introductory NLP course; wrote some new homework assignments,
+introduced the ideas behind automatic speech recognition and grammar
+extraction.
+
+\item C211: Introduction to Computer Science, Indiana University.
+Fall 2009, Spring 2010, Spring 2011.
+Helped run Indiana's introductory CS class in Scheme. Wrote
+class-infrastructure software, including a web application to assign lab
+partners and a system to manage student programming contests.
+
+\item CS2130: Languages and Translation, Georgia Institute of Technology.
+Spring 2003, Fall 2003, Spring 2004.  Georgia Tech's course covering C
+programming and basic ideas behind compilers.  Wrote new assignments and
+automatic grading programs.  Taught weekly recitations and review sessions.
+\end{itemize*}
+
+\item{\textbf{Other Teaching}}
+\begin{itemize*}
+\item \href{https://www.recurse.com/residents#Alex-Rudnick}{Recurse Center,
+Hacker in Residence}. December 2013. Met with Recurse Center students, had
+discussions and pair programming sessions on their projects, and gave talks and
+workshops about NLP.
+
+\item Institute for Computing Education, Georgia Institute of Technology.
+Summers 2005, 2006, 2007.
+Helped teach a Media Computation summer camp for high school and middle school
+students, as well as high school computer science teachers. Taught media
+concepts and basic programming with Python, Alice, and Scratch.
+\end{itemize*}
+\end{itemize*}
+
+
+\section*{Service and Open Source contributions}
+\begin{itemize*}
+\item Conference and workshop reviewer for: LREC 2018, COLING 2016, LREC 2014,
+SemEval 2013, ACL 2012, CICLing 2011, COLING 2010, CIKM 2009.
+
+\item Project member and committer for \href{http://nltk.org}{NLTK}, the
+Natural Language Toolkit for Python.
+
+\item \href{http://cldr.unicode.org/index/acknowledgments}{Contributor to
+CLDR}, the Unicode Common Locale Data Repository.
+\end{itemize*}
+
+\section*{Other activities}
+
+\begin{itemize*}
+
+\item Distance running (12 marathons so far), juggling, recreational cycling.
+Playing the drums.
+
+\item Competed (with Martin Robinson) as {\em Team ``They Are On A Team"} in
+the \href{http://www.icfpcontest.org}{ICFP Programming Contest}, 2014.
+
+\item Competed (with Lindsey Kuper) as {\em Team K\&R} in the
+  \href{http://www.icfpcontest.org}{ICFP Programming Contest}, 2016, 2011,
+  2009, 2008.
+\end{itemize*}
