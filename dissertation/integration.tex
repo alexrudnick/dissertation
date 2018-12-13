@@ -153,8 +153,10 @@ decoder requests a score for each candidate phrase used to translate a
 source-language phrase. The new Moses feature function then makes a call (over
 the FIFO communication channel) to the Chipa server, which takes a string of
 tokenized surface-form Spanish as its input. The Chipa server runs our standard
-text preprocessing pipeline for Spanish on demand, and then either trains or
-loads from memory a CL-WSD classifier for the lemma of the current focus token.
+text preprocessing pipeline for Spanish on demand, and then trains
+a CL-WSD classifier for the lemma of the current focus token, unless a
+classifier has already been trained for that lemma, in which case it is
+retrieved from memory.
 It then extracts features and uses the CL-WSD classifier to estimate a
 probability distribution over the possible translations for that focus word,
 given the current context. The Chipa server passes back the log probability for
