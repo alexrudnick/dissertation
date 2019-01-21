@@ -1,27 +1,22 @@
-# things left undone
+it is all burned down now.
 
-## general
-
-## monolingual
-
-## multilingual
+# fairly done things
 
 ## integration
   * deep issue here: does squoia use the same representation of lemmas as our
   training data? how did we deal with this before? is there a canonical
   representation for Quechua lemmas?
       * YES WE KNOW input to SQUOIA is surface level Spanish, no joined MWEs 
-  * write up how we hacked up squoia
+  * DONE write up how we hacked up squoia
 
 ## outro
-  * Look, it's some experiments!
-  * Some of them worked!
-  * Probably better to crowdsource and get some respectable amount of data
+  * DONE Look, it's some experiments!
+  * DONE Some of them worked!
+  * DONE Probably better to crowdsource and get some respectable amount of data
   rather than just using the Bible, unless your language is actually extinct.
-  * Hey-o, now I'm a doctor!
+  * DONE Hey-o, now I'm a doctor!
 
 
-# fairly done things
 
 ## general done things
   * DONE set up new laptop and latex build environment there

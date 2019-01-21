@@ -1,7 +1,7 @@
 dissertation
 ============
 
-TODO(alexr): finish dissertation, become dr. alexr
+~~TODO(alexr):~~ DONE finish dissertation, become dr. alexr
 
 Just the document itself!
 
